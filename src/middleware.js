@@ -5,7 +5,7 @@ export function middleware(request) {
 
   const hostname = request.headers.get("host");
 
-  console.log("host =>",host);
+  console.log("host =>",hostname);
   
 
   const layoutFolder =
