@@ -5,6 +5,9 @@ export function middleware(request) {
 
   const hostname = request.headers.get("host");
 
+  console.log("host =>",host);
+  
+
   const layoutFolder =
     DOMAIN_LAYOUT_MAP[hostname] || DEFAULT_LAYOUT;
 
