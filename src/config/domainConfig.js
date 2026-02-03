@@ -1,7 +1,7 @@
 export const DOMAIN_LAYOUT_MAP = {
-//   "faridabad.example.com": "faridabad",
+  "www.propertydeler-gold-frontend-9wvp.vercel.app": "faridabad",
   "www.propertydeler-gold-frontend.vercel.app": "gurgaon",
-  // "localhost:3000": "hisar",
+  "www.propertydeler-gold-frontend-lp3d.vercel.app": "hisar",
   // "localhost:3000": "faridabad"
 };
 export const DEFAULT_LAYOUT = "faridabad";
