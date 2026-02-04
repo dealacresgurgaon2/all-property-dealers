@@ -130,15 +130,21 @@ export function DealerProvider({ children }) {
         // 🔥 AUTO DOMAIN DETECT
         let domain = window.location.hostname.replace("www.", "");
 
-// Local / Vercel preview handling
-if (
-  domain.includes("vercel.app") ||
-  domain === "localhost"
-) {
-  domain = "propertydealeringurgaon.com";   // default testing domain
-}
+        // Local / Vercel preview handling
+        if (
+          domain.includes("vercel.app") ||
+          domain === "localhost"
+        ) {
+          domain = "propertydealeringurgaon.com";   // default testing domain
+        }
 
-console.log("Final Domain Used:", domain);
+        console.log("Final Domain Used:", domain);
+
+        // 🔥 MISSING PART – API CALL
+        const res = await axios.get(
+          `${API_BASE}/${domain}?page=${page}&limit=${ITEMS_PER_PAGE}`
+        );
+
         setDealers(res.data.data || []);
         setTotalPages(res.data.totalPages || 1);
 
