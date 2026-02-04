@@ -6,16 +6,14 @@ import { useDealers } from "@/context/propertydealercontext/DealerContext";
 
 import DealerCard from "./DealerCard";
 import DealerSearchBar from "./DealerSearchBar";
+import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 
-export default function DealersSection({domain}) {
-console.log("domain",domain)
+export default function DealersSection() {
+
   // context se paginated data le rahe hain
-  const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
- useEffect(()=>{
-    if(domain)
-      setDomain(domain)
-  }),[domain]
+  const { dealers, loading, page, setPage, totalPages } = useDealers();
+
   const [filtered, setFiltered] = useState([]);
 
   const listTopRef = useRef(null);
