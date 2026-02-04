@@ -11,9 +11,16 @@ import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 // --------------------------
 
-export default function DealersSection() {
+export default function DealersSection({domain}) {
+  console.log("domain",domain)
+  
 
-  const { dealers, loading, page, setPage, totalPages } = useDealers();
+  const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
+
+  useEffect(()=>{
+    if(domain)
+      setDomain(domain)
+  }),[domain]
 
   const [filtered, setFiltered] = useState([]);
 

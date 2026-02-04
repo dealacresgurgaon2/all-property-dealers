@@ -8,11 +8,14 @@ import DealerCard from "./DealerCard";
 import DealerSearchBar from "./DealerSearchBar";
 import Pagination from "./Pagination";
 
-export default function DealersSection() {
-
+export default function DealersSection({domain}) {
+console.log("domain",domain)
   // context se paginated data le rahe hain
-  const { dealers, loading, page, setPage, totalPages } = useDealers();
-
+  const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
+ useEffect(()=>{
+    if(domain)
+      setDomain(domain)
+  }),[domain]
   const [filtered, setFiltered] = useState([]);
 
   const listTopRef = useRef(null);

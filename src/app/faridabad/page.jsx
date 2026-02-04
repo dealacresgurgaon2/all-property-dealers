@@ -1,5 +1,12 @@
-import Home2 from "@/templates/design2/pages/home/page";
+"use client";
 
-export default function FaridabadHome() {
-  return <Home2 />;
+import Home1 from "@/templates/design1/pages/home/page";
+
+export default function Gurgaon() {
+  const domain = typeof window !== "undefined" 
+    ? window.location.hostname 
+    : "";
+
+  return <Home1 domain={domain} />;
 }
+

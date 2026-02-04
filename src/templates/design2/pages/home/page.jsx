@@ -3,12 +3,12 @@ import Hero from "../../components/Hero";
 import DealersSection from "../../components/DealersSection";
 import Footer from "../../components/Footer";
 
-export default function HomePage() {
+export default function HomePage({domain}) {
   return (
     <>
       {/* <Navbar /> */}
       <Hero />
-      <DealersSection />
+      <DealersSection domain={domain} />
       {/* <Footer /> */}
     </>
   );
