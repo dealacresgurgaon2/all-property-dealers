@@ -139,7 +139,7 @@ export function DealerProvider({ children }) {
         }
 
         console.log("Final Domain Used:", domain);
-
+console.log("API URL:", `${API_BASE}/${domain}?page=${page}&limit=${ITEMS_PER_PAGE}`);
         // 🔥 MISSING PART – API CALL
         const res = await axios.get(
           `${API_BASE}/${domain}?page=${page}&limit=${ITEMS_PER_PAGE}`
