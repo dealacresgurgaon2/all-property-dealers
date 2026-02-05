@@ -15,7 +15,7 @@ export default function DealersSection({domain}) {
   // backend-paginated data context se
   const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
   useEffect(()=>{
-    if(domain && domain== "propertydeler-gold-frontend-lp3d.vercel.app")
+    if(domain && (domain== "propertydeler-gold-frontend-lp3d.vercel.app" || domain=="localhost"))
       setDomain("propertydealerinhisar.com")
     
   }),[domain]

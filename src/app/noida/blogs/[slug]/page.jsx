@@ -1,5 +1,5 @@
 
-import BlogDetail from "@/templates/design4/pages/blogs/[slug]/page";
+import BlogDetail from "@/templates/design6/pages/blogs/[slug]/page";
 
 export default function Page() {
   return <BlogDetail />;

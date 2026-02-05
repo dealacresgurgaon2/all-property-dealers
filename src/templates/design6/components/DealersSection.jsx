@@ -11,9 +11,14 @@ import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 // --------------------------
 
-export default function DealersSection() {
+export default function DealersSection({domain}) {
 
-  const { dealers, loading, page, setPage, totalPages } = useDealers();
+  const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
+  useEffect(()=>{
+    if(domain && (domain== "propertydeler-gold-frontend-xkw9.vercel.app" || domain=="localhost"))
+      setDomain("propertydealerinnoida.com")
+    
+  }),[domain]
 
   const [filtered, setFiltered] = useState([]);
 

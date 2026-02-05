@@ -7,7 +7,7 @@ export default function Gurgaon() {
     ? window.location.hostname 
     : "";
 
-    console.log("gurgaon",domain);
+    
     
 
   return <Home1 domain={domain} />;

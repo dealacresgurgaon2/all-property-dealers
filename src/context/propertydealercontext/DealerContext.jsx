@@ -83,7 +83,7 @@ export function DealerProvider({ children }) {
     }
     useEffect(() => {
       
-        console.log("dskjdf",domain);
+        
      if(domain)   
     fetchDealers();
   }, [page,domain]);

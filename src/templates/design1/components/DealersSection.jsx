@@ -12,13 +12,13 @@ import Pagination from "./Pagination";
 // --------------------------
 
 export default function DealersSection({domain}) {
-  console.log("domain",domain)
+ 
   
 
   const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
 
   useEffect(()=>{
-    if(domain && domain== "propertydeler-gold-frontend.vercel.app")
+    if(domain && (domain== "propertydeler-gold-frontend.vercel.app"|| domain=="localhost"))
       setDomain("propertydealeringurgaon.com")
     
   }),[domain]

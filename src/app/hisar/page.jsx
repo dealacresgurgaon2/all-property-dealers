@@ -6,7 +6,7 @@ export default function Hisar() {
     ? window.location.hostname 
     : "";
 
-    console.log("reccc domain",domain);
+    
     
   return <Home3 domain={domain} />;
 }

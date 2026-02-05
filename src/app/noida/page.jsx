@@ -1,5 +1,9 @@
-import Home4 from "@/templates/design4/pages/home/page";
+ "use client";
+ import Home6 from "@/templates/design6/pages/home/page";
 
-export default function Noida() {
-  return <Home4 />;
+export default function Gurgaon() {
+   const domain = typeof window !== "undefined" 
+    ? window.location.hostname 
+    : ""; 
+  return <Home6  domain={domain}/>;
 }
