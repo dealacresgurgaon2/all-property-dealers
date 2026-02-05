@@ -3,50 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
-const blogs = [
-  {
-    _id: "1",
-    Slug: "property-investment-tips",
-    Title: "Top Property Investment Tips for 2026",
-    Category: "Real Estate",
-    Date: "2026-01-10",
-    HeroImg: { url: "/images/download.jpeg" },
-    Content: `
-Property investment in 2026 requires careful planning and market research.
-
-Always evaluate location growth, infrastructure, and builder reputation.
-
-Long-term investment gives better returns than short-term speculation.
-    `,
-  },
-  {
-    _id: "2",
-    Slug: "buy-vs-rent-property",
-    Title: "Buy vs Rent: What Is Better in Today’s Market?",
-    Category: "Guides",
-    Date: "2026-01-08",
-    HeroImg: { url: "/images/ghj.png" },
-    Content: `
-Property investment has always been considered one of the most secure ways to build wealth.
-
-Location, infrastructure, legal verification, and budget planning are key factors.
-
-A long-term vision helps generate stable returns and financial security.
-    `,
-  },
-  {
-    _id: "3",
-    Slug: "home-loan-eligibility",
-    Title: "Home Loan Eligibility: Everything You Must Know",
-    Category: "Finance",
-    Date: "2026-01-05",
-    HeroImg: { url: "/images/download.jpeg" },
-    Content: `
-Your income, credit score, and existing liabilities decide loan eligibility.
-    `,
-  },
-];
+import { useBlogs } from "@/context/blogcontext/BlogContext";
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -57,118 +16,178 @@ const formatDate = (date) => {
 
 export default function SingleBlogPage() {
   const { slug } = useParams();
-  const blog = blogs.find((b) => b.Slug === slug);
 
-  if (!blog) {
+  const { singleBlog, fetchSingleBlog, recentBlogs, loading } = useBlogs();
+
+  useEffect(() => {
+    if (slug) {
+      fetchSingleBlog(slug);
+    }
+  }, [slug]);
+
+  if (loading) {
     return (
-      <div className="py-24 text-center text-[#422c18]">
+      <div className="py-32 text-center text-xl text-[#422c18] font-semibold">
+        Loading Blog...
+      </div>
+    );
+  }
+
+  if (!singleBlog) {
+    return (
+      <div className="py-32 text-center text-xl text-red-700">
         Blog not found
       </div>
     );
   }
 
   return (
-    <section className="bg-[#f2e8e1] py-16">
+    <section className="bg-gradient-to-b from-[#f2e8e1] to-white py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
 
-        {/* ================= LEFT BLOG ================= */}
+        {/* ===== MAIN BLOG ===== */}
         <div className="lg:col-span-2">
-          <div className="px-2 md:px-10">
 
-            {/* IMAGE */}
-            <div className="relative w-full h-[420px] mb-8">
-              <Image
-                src={blog.HeroImg.url}
-                alt={blog.Title}
-                fill
-                priority
-                className="object-cover rounded-2xl"
-              />
-              <div className="absolute inset-0 bg-[#422c18]/30 rounded-2xl"></div>
+          {/* HERO IMAGE */}
+          <div className="relative w-full h-[460px] rounded-2xl overflow-hidden mb-8">
+            <Image
+              src={singleBlog.heroImg}
+              alt={singleBlog.title?.rendered}
+              fill
+              priority
+              className="object-cover"
+            />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+            <div className="absolute bottom-6 left-6 right-6">
+              <h1 className="text-2xl md:text-4xl font-bold text-white drop-shadow-lg">
+                {singleBlog.title?.rendered}
+              </h1>
+
+              <p className="text-white/90 mt-2">
+                Published on {formatDate(singleBlog.date)}
+              </p>
             </div>
-
-            {/* META */}
-            <div className="flex items-center gap-3 mb-4">
-              <span
-                className="
-                  bg-[#422c18]
-                  text-[#f2e8e1]
-                  text-xs
-                  px-3 py-1
-                  rounded-full
-                "
-              >
-                {blog.Category}
-              </span>
-
-              <span className="text-sm text-[#7a5c42]">
-                {formatDate(blog.Date)}
-              </span>
-            </div>
-
-            {/* TITLE */}
-            <h1 className="text-3xl md:text-4xl font-bold text-[#422c18] leading-tight mb-8">
-              {blog.Title}
-            </h1>
-
-            {/* CONTENT */}
-            <div className="space-y-6 text-[#5a3c26] leading-8 text-[17px]">
-              {blog.Content.split("\n").map(
-                (para, i) =>
-                  para.trim() && <p key={i}>{para}</p>
-              )}
-            </div>
-
           </div>
+
+          {/* BLOG CONTENT */}
+          <div
+            className="
+              text-[#5a3c26]
+              leading-relaxed
+              space-y-6
+              text-[17px]
+
+              [&_img]:block
+              [&_img]:mx-auto
+              [&_img]:my-6
+              [&_img]:rounded-xl
+              [&_img]:max-w-full
+
+              [&_figure]:text-center
+              [&_figure]:my-6
+
+              [&_h2]:font-bold
+              [&_h2]:text-xl
+              [&_h2]:mt-6
+              [&_h2]:mb-3
+
+              [&_h3]:font-bold
+              [&_h3]:mt-5
+              [&_h3]:mb-2
+
+              [&_p]:mb-4
+            "
+            dangerouslySetInnerHTML={{
+              __html: singleBlog.content?.rendered,
+            }}
+          />
         </div>
 
-        {/* ================= RIGHT SIDEBAR ================= */}
+        {/* ===== SIDEBAR ===== */}
         <div className="hidden lg:block">
-          <div className="sticky top-24 space-y-4">
+          <div className="sticky top-24 space-y-6">
 
-            <h3 className="text-xl font-semibold text-[#422c18]">
-              Recent Blogs
-            </h3>
+            {/* ABOUT BOX */}
+            <div className="bg-white rounded-2xl shadow p-6">
+              <h3 className="text-lg font-bold text-[#422c18] mb-3">
+                About This Blog
+              </h3>
+              <p className="text-sm text-[#7a5c42] leading-relaxed">
+                Stay updated with the latest real estate insights, investment tips, and property trends.
+              </p>
+            </div>
 
-            {blogs.map((b) => (
+            {/* RECENT BLOGS */}
+            <div className="bg-white rounded-2xl shadow p-5">
+              <h3 className="text-xl font-bold text-[#422c18] mb-4 border-b pb-2">
+                Recent Blogs
+              </h3>
+
+              <div className="space-y-4">
+                {recentBlogs.map((b) => (
+                  <Link
+                    key={b._id}
+                    href={`/blogs/${b.slug}`}
+                    className="
+                      flex gap-3
+                      p-3
+                      rounded-xl
+                      hover:bg-[#f2e8e1]
+                      transition-all
+                      duration-200
+                      group
+                    "
+                  >
+                    <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                      <Image
+                        src={b.heroImg}
+                        alt={b.title?.rendered}
+                        fill
+                        className="object-cover group-hover:scale-105 transition"
+                      />
+                    </div>
+
+                    <div>
+                      <p className="text-xs text-[#7a5c42]">
+                        {formatDate(b.date)}
+                      </p>
+
+                      <h4 className="text-sm font-semibold text-[#422c18] line-clamp-2">
+                        {b.title?.rendered}
+                      </h4>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA BOX */}
+            <div className="bg-[#422c18] text-white rounded-2xl p-6 text-center">
+              <h4 className="text-lg font-semibold mb-2">
+                Need Property Help?
+              </h4>
+              <p className="text-sm mb-4">
+                Get expert guidance for buying, selling or investing.
+              </p>
+
               <Link
-                key={b._id}
-                href={`/blogs/${b.Slug}`}
-                className={`
-                  flex gap-3
-                  bg-[#ffffff]
-                  rounded-lg
-                  shadow
-                  p-3
-                  hover:shadow-md
+                href="/"
+                className="
+                  inline-block
+                  bg-white
+                  text-[#422c18]
+                  px-5 py-2
+                  rounded-full
+                  font-semibold
+                  hover:bg-[#f2e8e1]
                   transition
-                  ${
-                    b.Slug === blog.Slug
-                      ? "ring-2 ring-[#422c18]"
-                      : ""
-                  }
-                `}
+                "
               >
-                <div className="relative w-20 h-20 rounded overflow-hidden">
-                  <Image
-                    src={b.HeroImg.url}
-                    alt={b.Title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-
-                <div>
-                  <p className="text-xs text-[#7a5c42]">
-                    {formatDate(b.Date)}
-                  </p>
-
-                  <h4 className="text-sm font-semibold text-[#422c18] line-clamp-2">
-                    {b.Title}
-                  </h4>
-                </div>
+                Contact Us
               </Link>
-            ))}
+            </div>
 
           </div>
         </div>

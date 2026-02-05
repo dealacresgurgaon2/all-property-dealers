@@ -10,7 +10,7 @@ export default function Pagination({ page, setPage, totalPages }) {
   for (let i = start; i <= end; i++) pages.push(i);
 
   return (
-    <div className="flex justify-center items-center gap-[4px] mt-8">
+    <div className="flex justify-center items-center gap-[4px]  bg-[#f2e8e1]">
       {/* Prev */}
       <button
         onClick={() => setPage(Math.max(1, page - 1))}

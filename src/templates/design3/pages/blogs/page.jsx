@@ -1,23 +1,18 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef } from "react";
 import Pagination from "../../components/Pagination";
 
-import BlogList, { TOTAL_BLOGS } from "./Bloglist";
+import BlogList from "./Bloglist";
+import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
-const ITEMS_PER_PAGE = 6;
 
 export default function BlogPage() {
-  const [page, setPage] = useState(1);
+
   const listRef = useRef(null);
 
-  const totalPages = Math.ceil(TOTAL_BLOGS / ITEMS_PER_PAGE);
-
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages || 1);
-    }
-  }, [page, totalPages]);
+  // CONTEXT se data lo
+  const { page, setPage, totalPages } = useBlogs();
 
   const scrollToList = () => {
     listRef.current?.scrollIntoView({
@@ -33,15 +28,19 @@ export default function BlogPage() {
 
   return (
     <main>
-      <div ref={listRef}>
-        <BlogList page={page} itemsPerPage={ITEMS_PER_PAGE} />
-      </div>
+      <div ref={listRef} className="bg-[#f2e8e1] py-10">
+  <BlogList />
 
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        setPage={handlePageChange}
-      />
+  <div className="">
+    <Pagination
+      page={page}
+      totalPages={totalPages}
+      setPage={handlePageChange}
+    />
+  </div>
+</div>
+
+
     </main>
   );
 }

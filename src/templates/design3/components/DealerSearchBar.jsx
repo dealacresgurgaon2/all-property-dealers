@@ -13,14 +13,14 @@ export default function DealerSearchBar({ onSearch }) {
   };
 
   return (
-    <div className="mb-8 max-w-[830px]">
+    <div className="mb-6 sm:mb-8 max-w-full sm:max-w-[830px] px-3 sm:px-0">
       <div
         className="
           flex items-center
           bg-[#f2e8e1]
           border-2 border-[#422c18]
           rounded-lg
-          px-6
+          px-3 sm:px-6
           py-2
           shadow-md
           focus-within:border-[#422c18]
@@ -31,9 +31,9 @@ export default function DealerSearchBar({ onSearch }) {
         {/* 📍 LEFT LOCATION ICON */}
         <svg
           className="
-            w-6 h-6
+            w-5 h-5 sm:w-6 sm:h-6
             text-[#422c18]
-            mr-4 shrink-0
+            mr-2 sm:mr-4 shrink-0
           "
           fill="none"
           stroke="currentColor"
@@ -57,7 +57,8 @@ export default function DealerSearchBar({ onSearch }) {
           placeholder="Search property dealers by name, city or area..."
           className="
             flex-1
-            text-lg
+            min-w-0
+            text-base sm:text-lg
             outline-none
             bg-transparent
             placeholder-[#7a5c42]
@@ -65,22 +66,24 @@ export default function DealerSearchBar({ onSearch }) {
           "
         />
 
-        {/* 🔍 SEARCH BUTTON */}
+        {/* 🔍 SEARCH BUTTON - FIXED */}
         <button
           onClick={() => onSearch(query)}
           className="
-            ml-4
-            p-3
+            ml-2 sm:ml-4
+            p-2 sm:p-3
             rounded-xl
             bg-[#422c18]
             hover:bg-[#5a3c26]
             transition
             text-[#f2e8e1]
             flex items-center justify-center
+            shrink-0
+            w-[40px] h-[40px] sm:w-[46px] sm:h-[46px]
           "
         >
           <svg
-            className="w-5 h-5"
+            className="w-4 h-4 sm:w-5 sm:h-5 shrink-0"
             fill="none"
             stroke="currentColor"
             strokeWidth="2"
