@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 export default function DealerCard({ dealer }) {
-  // 2-letter logo from name
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
@@ -19,15 +18,16 @@ export default function DealerCard({ dealer }) {
         shadow-sm hover:shadow-md
         transition
         overflow-hidden
-        flex
+        flex flex-col md:flex-row
       "
     >
-      {/* LEFT LOGO */}
+      {/* ===== LOGO - ONLY FOR DESKTOP ===== */}
       <div
         className="
+          hidden md:flex        // MOBILE PAR HIDE
           w-32
           bg-[#422c18]
-          flex items-center justify-center
+          items-center justify-center
           text-[#f2e8e1]
           font-bold text-3xl
         "
@@ -40,7 +40,7 @@ export default function DealerCard({ dealer }) {
         {/* Name */}
         <h3
           className="
-            text-xl font-bold mb-1
+            text-lg md:text-xl font-bold mb-1
             text-[#422c18]
           "
         >
@@ -79,14 +79,8 @@ export default function DealerCard({ dealer }) {
         </p>
 
         {/* City */}
-        <p
-          className="
-            text-xs
-            text-[#7a5c42]
-            mb-2
-          "
-        >
-          {dealer.city}
+        <p className="text-xs text-[#7a5c42] mb-2">
+          {dealer.city} {dealer.state && `, ${dealer.state}`}
         </p>
 
         {/* TAGS */}
@@ -99,8 +93,8 @@ export default function DealerCard({ dealer }) {
                   text-[10px]
                   px-2 py-0.5
                   rounded-full
-                  bg-[#422c18]
-                  text-[#f2e8e1]
+                  bg-[#e7d2c2]
+                  text-[#5b4835]
                   border border-[#5a3c26]
                 "
               >
@@ -110,10 +104,9 @@ export default function DealerCard({ dealer }) {
           </div>
         )}
 
-        {/* Spacer */}
         <div className="flex-1"></div>
 
-        {/* BUTTONS */}
+        {/* BUTTONS - LEFT & RIGHT */}
         <div
           className="
             flex items-center justify-between
@@ -121,11 +114,10 @@ export default function DealerCard({ dealer }) {
             border-t border-[#422c18]
           "
         >
-          {/* Contact */}
           <a
             href={`/contact?dealer=${dealer.slug}`}
             className="
-              px-3 py-1.5
+              px-4 py-1.5
               rounded-md
               bg-[#422c18]
               text-[#f2e8e1]
@@ -138,7 +130,6 @@ export default function DealerCard({ dealer }) {
             Contact Us
           </a>
 
-          {/* View Details */}
           <Link
             href={{
               pathname: `/adv-dse`,
@@ -148,7 +139,7 @@ export default function DealerCard({ dealer }) {
               },
             }}
             className="
-              px-3 py-1.5
+              px-4 py-1.5
               rounded-md
               border border-[#422c18]
               text-[#422c18]

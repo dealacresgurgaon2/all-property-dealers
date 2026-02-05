@@ -25,7 +25,7 @@ export const BlogProvider = ({ children }) => {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:5000/api/blogs?page=${pageNumber}`
+        `https://propertydealerbackend.onrender.com/api/blogs?page=${pageNumber}`
       );
 
       const data = await res.json();
@@ -50,7 +50,7 @@ export const BlogProvider = ({ children }) => {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:5000/api/blogs/slug/${slug}`
+        `https://propertydealerbackend.onrender.com/api/blogs/slug/${slug}`
       );
 
       const data = await res.json();
