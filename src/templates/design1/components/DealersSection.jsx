@@ -18,8 +18,9 @@ export default function DealersSection({domain}) {
   const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
 
   useEffect(()=>{
-    if(domain)
-      setDomain(domain)
+    if(domain && domain== "propertydeler-gold-frontend.vercel.app")
+      setDomain("propertydealeringurgaon.com")
+    
   }),[domain]
 
   const [filtered, setFiltered] = useState([]);

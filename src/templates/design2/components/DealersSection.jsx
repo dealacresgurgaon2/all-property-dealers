@@ -9,10 +9,15 @@ import DealerSearchBar from "./DealerSearchBar";
 import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 
-export default function DealersSection() {
+export default function DealersSection({domain}) {
 
   // context se paginated data le rahe hain
-  const { dealers, loading, page, setPage, totalPages } = useDealers();
+  const { dealers, loading, page, setPage, totalPages ,setDomain} = useDealers();
+  useEffect(()=>{
+    if(domain && domain== "propertydeler-gold-frontend-9wvp.vercel.app")
+      setDomain("propertydealerinfaridabad.com")
+    
+  }),[domain]
 
   const [filtered, setFiltered] = useState([]);
 

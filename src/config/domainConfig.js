@@ -9,14 +9,14 @@ export const DOMAIN_LAYOUT_MAP = {
 
   // "propertydeler-gold-frontend-yg8l.vercel.app": "delhi",
 
-  // "localhost:3000": "noida",
+  "localhost:3000": "hisar",
 
 };
-export const CITY_DOMAIN_MAP = {
-  gurgaon: "propertydealeringurgaon.com",
-  faridabad: "propertydealerinfaridabad.com",
-  hisar: "propertydealerinhisar.com",
-  noida: "propertydealerinnoida.com",
-};
+// export const CITY_DOMAIN_MAP = {
+//   gurgaon: "propertydealeringurgaon.com",
+//   faridabad: "propertydealerinfaridabad.com",
+//   hisar: "propertydealerinhisar.com",
+//   noida: "propertydealerinnoida.com",
+// };
 
 export const DEFAULT_LAYOUT = "sonipate";

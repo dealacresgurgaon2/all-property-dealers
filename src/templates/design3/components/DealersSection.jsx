@@ -10,10 +10,15 @@ import DealerSearchBar from "./DealerSearchBar";
 import Pagination from "./Pagination";
 import QueryForm from "./QueryForm";
 
-export default function DealersSection() {
+export default function DealersSection({domain}) {
 
   // backend-paginated data context se
-  const { dealers, loading, page, setPage, totalPages } = useDealers();
+  const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
+  useEffect(()=>{
+    if(domain && domain== "propertydeler-gold-frontend-lp3d.vercel.app")
+      setDomain("propertydealerinhisar.com")
+    
+  }),[domain]
 
   const [filtered, setFiltered] = useState([]);
 
