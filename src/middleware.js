@@ -11,7 +11,9 @@ export function middleware(request) {
   const layoutFolder =
     DOMAIN_LAYOUT_MAP[hostname] || DEFAULT_LAYOUT;
 
+
   const url = request.nextUrl.clone();
+
 
   // Ignore static files
   if (

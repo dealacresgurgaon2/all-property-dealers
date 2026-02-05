@@ -82,8 +82,7 @@ export function DealerProvider({ children }) {
       }
     }
     useEffect(() => {
-      // if(domain==="localhost")
-      //   setDomain("propertydealerinfaridabad.com")
+      
         console.log("dskjdf",domain);
      if(domain)   
     fetchDealers();
