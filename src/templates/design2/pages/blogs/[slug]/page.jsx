@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
-import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
-// 📅 date formatter
+import { useBlogs } from "@/context/blogcontext/BlogContext";
+
 const formatDate = (date) => {
   const d = new Date(date);
   return `${d.getDate().toString().padStart(2, "0")}-${(d.getMonth() + 1)
@@ -15,27 +15,20 @@ const formatDate = (date) => {
 };
 
 export default function SingleBlogPage() {
-
   const { slug } = useParams();
 
-  const {
-    singleBlog,
-    fetchSingleBlog,
-    recentBlogs,
-    loading
-  } = useBlogs();
+  const { singleBlog, fetchSingleBlog, recentBlogs, loading } = useBlogs();
 
-  // Fetch blog when slug changes
   useEffect(() => {
     if (slug) {
       fetchSingleBlog(slug);
     }
   }, [slug]);
 
-  // ===== Loading UI =====
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
+
         <div className="flex flex-col items-center gap-4">
 
           <div className="w-14 h-14 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
@@ -49,14 +42,14 @@ export default function SingleBlogPage() {
           </p>
 
         </div>
+
       </div>
     );
   }
 
-  // ===== Blog Not Found =====
   if (!singleBlog) {
     return (
-      <div className="py-24 text-center text-black/70">
+      <div className="py-32 text-center text-xl text-red-700">
         Blog not found
       </div>
     );
@@ -66,14 +59,14 @@ export default function SingleBlogPage() {
     <section className="bg-[#fafafa] py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 px-4">
 
-        {/* ================= LEFT BLOG ================= */}
+        {/* ===== MAIN BLOG ===== */}
         <div className="lg:col-span-2">
 
           {/* HERO IMAGE */}
           <div className="relative w-full h-[440px] mb-10 rounded-3xl overflow-hidden shadow-2xl">
             <Image
               src={singleBlog.heroImg}
-              alt={singleBlog.title}
+              alt={singleBlog.title?.rendered}
               fill
               priority
               className="object-cover"
@@ -94,23 +87,19 @@ export default function SingleBlogPage() {
 
           {/* TITLE */}
           <h1 className="text-3xl md:text-4xl font-bold text-black leading-tight mb-8">
-            {singleBlog.title}
+            {singleBlog.title?.rendered}
           </h1>
 
           {/* CONTENT */}
-          <div className="space-y-6 text-black/80 leading-8 text-[17px]">
-
-            {singleBlog.content?.rendered
-              ? singleBlog.content.rendered
-                  .split("\n")
-                  .map((para, i) => para.trim() && <p key={i}>{para}</p>)
-              : "No content available"}
-
-          </div>
-
+          <div
+            className="space-y-6 text-black/80 leading-8 text-[17px]"
+            dangerouslySetInnerHTML={{
+              __html: singleBlog.content?.rendered,
+            }}
+          />
         </div>
 
-        {/* ================= RIGHT SIDEBAR ================= */}
+        {/* ===== SIDEBAR ===== */}
         <aside className="hidden lg:block">
           <div className="sticky top-28">
 
@@ -138,7 +127,7 @@ export default function SingleBlogPage() {
                   <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
                     <Image
                       src={b.heroImg}
-                      alt={b.title}
+                      alt={b.title?.rendered}
                       fill
                       className="object-cover"
                     />
@@ -150,7 +139,7 @@ export default function SingleBlogPage() {
                     </p>
 
                     <h4 className="text-sm font-semibold text-black line-clamp-2">
-                      {b.title}
+                      {b.title?.rendered}
                     </h4>
                   </div>
 

@@ -7,25 +7,41 @@ const BlogContext = createContext();
 // ===== DOMAIN DETECT FUNCTION (LOCALHOST + VERCEL + PRODUCTION) =====
 const getDomain = () => {
   if (typeof window !== "undefined") {
-    let domain = window.location.hostname;
 
-    // LOCALHOST TEST FIX
+    let domain = window.location.hostname;
+    let path = window.location.pathname;
+
+    console.log("Raw Path:", path);
+
+    // LOCALHOST TEST FIX - PATH BASED
     if (domain === "localhost") {
-      return "www.propertydealerinhisar.com";
+
+      // Stronger check
+      if (path.startsWith("/faridabad") || path.includes("/faridabad/")) {
+        return "www.propertydealerinfaridabad.com";
+      }
+
+      if (path.startsWith("/hisar") || path.includes("/hisar/")) {
+        return "www.propertydealerinhisar.com";
+      }
+
+      // Default fallback
+      return "www.propertydealerinfaridabad.com";
     }
 
     // VERCEL TEST DOMAIN FIX
     if (domain === "propertydeler-gold-frontend-lp3d.vercel.app") {
       return "www.propertydealerinhisar.com";
     }
-    // if (domain === "localhost") {
-    //   return "www.propertydealerinfaridabad.com";
-    // }
 
     return domain;
   }
+
   return "";
 };
+
+
+
 
 export const BlogProvider = ({ children }) => {
 
@@ -52,7 +68,7 @@ export const BlogProvider = ({ children }) => {
       console.log("Current Domain:", domain);
 
       const res = await fetch(
-        `https://propertydealerbackend.onrender.com/api/blogs?domain=${domain}&page=${pageNumber}`
+        `http://localhost:5000/api/blogs?domain=${domain}&page=${pageNumber}`
       );
 
       const data = await res.json();
@@ -87,7 +103,7 @@ export const BlogProvider = ({ children }) => {
       console.log("Fetching Single Blog for Domain:", domain);
 
       const res = await fetch(
-        `https://propertydealerbackend.onrender.com/api/blogs/slug/${slug}?domain=${domain}`
+        `http://localhost:5000/api/blogs/slug/${slug}?domain=${domain}`
       );
 
       const data = await res.json();
