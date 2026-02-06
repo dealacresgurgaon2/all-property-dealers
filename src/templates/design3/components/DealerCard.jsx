@@ -79,7 +79,7 @@ export default function DealerCard({ dealer }) {
         </p>
 
         {/* City */}
-        <p className="text-xs text-[#7a5c42] mb-2">
+        <p className="text-xs text-bold text-[#402d1d] mb-2">
           {dealer.city} {dealer.state && `, ${dealer.state}`}
         </p>
 
@@ -90,12 +90,12 @@ export default function DealerCard({ dealer }) {
               <span
                 key={index}
                 className="
-                  text-[10px]
+                  text-[12px]
                   px-2 py-0.5
                   rounded-full
-                  bg-[#e7d2c2]
+                  bg-[#ebdbce]
                   text-[#5b4835]
-                  border border-[#5a3c26]
+                  border border-[#5a3c26] bold
                 "
               >
                 {tag}
@@ -132,7 +132,7 @@ export default function DealerCard({ dealer }) {
 
           <Link
             href={{
-              pathname: `/adv-dse`,
+              pathname: `dealer/adv-dse`,
               query: {
                 name: dealer.name,
                 city: dealer.city,

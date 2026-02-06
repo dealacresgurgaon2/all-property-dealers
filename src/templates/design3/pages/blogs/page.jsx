@@ -28,10 +28,10 @@ export default function BlogPage() {
 
   return (
     <main>
-      <div ref={listRef} className="bg-[#f2e8e1] py-10">
+      <div ref={listRef} className="bg-[#f2e8e1]">
   <BlogList />
 
-  <div className="">
+  <div className="py-5">
     <Pagination
       page={page}
       totalPages={totalPages}

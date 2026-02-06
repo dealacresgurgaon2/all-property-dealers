@@ -25,13 +25,29 @@ export default function SingleBlogPage() {
     }
   }, [slug]);
 
-  if (loading) {
-    return (
-      <div className="py-32 text-center text-xl text-[#422c18] font-semibold">
-        Loading Blog...
+ if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
+
+      <div className="flex flex-col items-center gap-4">
+
+        {/* Animated Loader */}
+        <div className="w-14 h-14 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+
+        <h2 className="text-lg text-[#422c18] font-semibold">
+          Loading Blog...
+        </h2>
+
+        <p className="text-sm text-[#7a5c42]">
+          Please wait while we fetch the content
+        </p>
+
       </div>
-    );
-  }
+
+    </div>
+  );
+}
+
 
   if (!singleBlog) {
     return (

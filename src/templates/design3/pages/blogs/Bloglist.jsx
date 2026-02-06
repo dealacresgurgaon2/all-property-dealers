@@ -16,10 +16,32 @@ export default function BlogList() {
 
   const { blogs, page, setPage, totalPages, loading } = useBlogs();
 
-  if (loading) return <h2>Loading...</h2>;
+ if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
+
+      <div className="flex flex-col items-center gap-4">
+
+        {/* Animated Loader */}
+        <div className="w-14 h-14 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+
+        <h2 className="text-lg text-[#422c18] font-semibold">
+          Loading Blog...
+        </h2>
+
+        <p className="text-sm text-[#7a5c42]">
+          Please wait while we fetch the content
+        </p>
+
+      </div>
+
+    </div>
+  );
+}
+
 
   return (
-    <section className="px-4 lg:px-0 py-8 bg-[#f2e8e1]">
+    <section className="px-4 lg:px-0  bg-[#f2e8e1] py-5">
 
       <section className="max-w-7xl mx-auto px-4 py-6">
         <h1 className="text-3xl font-bold text-[#422c18] mb-2">
