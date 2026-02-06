@@ -4,20 +4,20 @@ export default function Hero() {
   return (
     <section
       className="relative w-full min-h-[70vh] flex items-center"
-      style={{
-        backgroundImage: "url('/images/ghj.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      // style={{
+      //   backgroundImage: "url('/images/ghj.png')",
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      // }}
     >
-      {/* SOFT GRADIENT OVERLAY */}
+      {/* PURPLE GRADIENT OVERLAY */}
       <div
         className="
           absolute inset-0
           bg-gradient-to-b
-          from-[#422c18]/80
-          via-[#422c18]/60
-          to-[#422c18]/40
+          from-[#5E23DC]/90
+          via-[#5E23DC]/75
+          to-[#5E23DC]/60
         "
       ></div>
 
@@ -26,15 +26,15 @@ export default function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
           {/* LEFT CONTENT */}
-          <div className="text-[#f2e8e1]">
+          <div className="text-white">
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
               Find Your Dream Property <br />
-              <span className="text-[#e6d6c7]">
+              <span className="text-white/90">
                 At Best Price
               </span>
             </h1>
 
-            <p className="text-lg text-[#e6d6c7] mb-8 max-w-xl">
+            <p className="text-lg text-white/80 mb-8 max-w-xl">
               We help you buy, sell and rent properties in prime locations.
               100% verified listings and trusted property dealers.
             </p>
@@ -43,11 +43,11 @@ export default function Hero() {
               <button
                 className="
                   px-6 py-3
-                  bg-[#f2e8e1]
-                  text-[#422c18]
+                  bg-white
+                  text-[#5E23DC]
                   rounded-md
                   font-semibold
-                  hover:opacity-90
+                  hover:bg-white/60
                   transition
                 "
               >
@@ -57,12 +57,12 @@ export default function Hero() {
               <button
                 className="
                   px-6 py-3
-                  border border-[#f2e8e1]
-                  text-[#f2e8e1]
+                  border border-white
+                  text-white
                   rounded-md
                   font-semibold
-                  hover:bg-[#f2e8e1]
-                  hover:text-[#422c18]
+                  hover:bg-white
+                  hover:text-[#5E23DC]
                   transition
                 "
               >
@@ -74,9 +74,9 @@ export default function Hero() {
           {/* RIGHT GLASS FORM */}
           <div
             className="
-              bg-[#f2e8e1]/20
+              bg-white/20
               backdrop-blur-xl
-              border border-[#f2e8e1]/30
+              border border-white/30
               rounded-2xl
               shadow-2xl
               p-5 md:p-6
@@ -88,7 +88,7 @@ export default function Hero() {
             <h3
               className="
                 text-lg font-bold mb-4
-                text-[#f2e8e1]
+                text-white
                 text-center
               "
             >
@@ -101,12 +101,12 @@ export default function Hero() {
                 placeholder="Your Name"
                 className="
                   w-full
-                  border border-[#f2e8e1]/40
-                  bg-[#422c18]/30
+                  border border-white/40
+                  bg-white
                   rounded-md
                   px-4 py-2
-                  text-[#f2e8e1]
-                  placeholder-[#e6d6c7]
+                  text-[#5E23DC]
+                  placeholder-[#5E23DC]
                   outline-none
                 "
               />
@@ -116,12 +116,12 @@ export default function Hero() {
                 placeholder="Phone Number"
                 className="
                   w-full
-                  border border-[#f2e8e1]/40
-                  bg-[#422c18]/30
+                  border border-white/40
+                  bg-white
                   rounded-md
                   px-4 py-2
-                  text-[#f2e8e1]
-                  placeholder-[#e6d6c7]
+                  text-[#5E23DC]
+                  placeholder-[#5E23DC]
                   outline-none
                 "
               />
@@ -129,11 +129,11 @@ export default function Hero() {
               <select
                 className="
                   w-full
-                  border border-[#f2e8e1]/40
-                  bg-[#422c18]/30
+                  border border-white/40
+                  bg-white
                   rounded-md
                   px-4 py-2
-                  text-[#f2e8e1]
+                  text-[#5E23DC]
                   outline-none
                 "
               >
@@ -148,12 +148,12 @@ export default function Hero() {
                 placeholder="Your Message"
                 className="
                   w-full
-                  border border-[#f2e8e1]/40
-                  bg-[#422c18]/30
+                  border border-white/40
+                  bg-white
                   rounded-md
                   px-4 py-2
-                  text-[#f2e8e1]
-                  placeholder-[#e6d6c7]
+                  text-[#5E23DC]
+                  placeholder-[#5E23DC]
                   outline-none
                 "
               />
@@ -162,12 +162,12 @@ export default function Hero() {
                 type="submit"
                 className="
                   w-full
-                  bg-[#f2e8e1]
-                  text-[#422c18]
+                  bg-white
+                  text-[#5E23DC]
                   py-2.5
                   rounded-md
                   font-semibold
-                  hover:opacity-90
+                  hover:bg-white/90
                   transition
                 "
               >

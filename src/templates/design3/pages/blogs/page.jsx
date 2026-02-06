@@ -6,7 +6,6 @@ import Pagination from "../../components/Pagination";
 import BlogList from "./Bloglist";
 import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
-
 export default function BlogPage() {
 
   const listRef = useRef(null);
@@ -28,19 +27,19 @@ export default function BlogPage() {
 
   return (
     <main>
-      <div ref={listRef} className="bg-[#f2e8e1]">
-  <BlogList />
+      <div ref={listRef} className="bg-white">
 
-  <div className="py-5">
-    <Pagination
-      page={page}
-      totalPages={totalPages}
-      setPage={handlePageChange}
-    />
-  </div>
-</div>
+        <BlogList />
 
+        <div className="py-5 border-t border-[#5E23DC]/20">
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            setPage={handlePageChange}
+          />
+        </div>
 
+      </div>
     </main>
   );
 }

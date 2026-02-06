@@ -72,17 +72,17 @@ export default function LocationDealersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f2e8e1] py-12">
+    <div className="min-h-screen bg-white py-12">
 
       <div className="max-w-7xl mx-auto px-5">
 
         {/* HEADER */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-[#422c18]">
+          <h1 className="text-3xl font-bold text-[#5E23DC]">
             Dealers in {formattedLocation}
           </h1>
 
-          <p className="text-sm text-[#7a5c42] mt-2">
+          <p className="text-sm text-gray-600 mt-2">
             Showing trusted property dealers from Hisar region
           </p>
         </div>
@@ -96,16 +96,16 @@ export default function LocationDealersPage() {
             {loading ? (
 
               // LOADER ONLY FOR DEALERS AREA
-              <div className="flex items-center justify-center py-24 bg-[#faf6f3] rounded-xl">
+              <div className="flex items-center justify-center py-24 bg-[#5E23DC]/5 rounded-xl border border-[#5E23DC]/20">
                 <div className="flex flex-col items-center gap-4">
 
-                  <div className="w-12 h-12 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+                  <div className="w-12 h-12 border-4 border-[#5E23DC]/30 border-t-[#5E23DC] rounded-full animate-spin"></div>
 
-                  <h2 className="text-base text-[#422c18] font-semibold">
+                  <h2 className="text-base text-[#5E23DC] font-semibold">
                     Loading Dealers...
                   </h2>
 
-                  <p className="text-sm text-[#7a5c42]">
+                  <p className="text-sm text-gray-600">
                     Please wait while we fetch the data
                   </p>
 

@@ -16,38 +16,22 @@ export default function DealerDetailPage() {
   };
 
   return (
-    <section className="bg-[#f2e8e1] md:py-10 py-6">
+    <section className="bg-white md:py-10 py-6">
       <div className="max-w-4xl mx-auto px-4">
 
         {/* HEADER */}
-        <div className="mb-10 border-b border-[#422c18]/20 pb-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="mb-10 border-b border-[#5E23DC]/20 pb-6">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-black leading-tight">
+            {dealerName} – Real Estate Partner in {dealerCity} - 125001
+          </h1>
 
-            <div>
-              <span className="inline-block bg-[#422c18]/10 text-[#422c18] text-xs px-3 py-1 rounded-full mb-2">
-                Verified Property Dealer
-              </span>
-
-              <h1 className="text-2xl md:text-3xl font-extrabold text-[#422c18] leading-tight">
-                {dealerName} – Real Estate Partner in {dealerCity} - 125001
-              </h1>
-
-              <p className="text-base text-[#422c18]/70 mt-1">
-                {dealerCity}, Haryana
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <span className="px-4 py-2 bg-[#422c18]/10 text-[#422c18] text-sm rounded-md border border-[#422c18]/20">
-                ✔ Trusted & Verified
-              </span>
-            </div>
-
-          </div>
+          <p className="text-base text-gray-600 mt-2">
+            {dealerCity}, Haryana
+          </p>
         </div>
 
-        {/* INTRO PARAGRAPH */}
-        <p className="text-[#422c18]/80 leading-7 mb-6">
+        {/* INTRO */}
+        <p className="text-gray-700 leading-7 mb-6">
           Sometimes, property decisions don’t start with a plan. They start with a feeling.  
           A thought like, <b>“Maybe it’s time to buy something of our own.”</b>  
           Or <b>“We need a better place for business.”</b>  
@@ -55,52 +39,52 @@ export default function DealerDetailPage() {
           It can feel noisy. Confusing. A little overwhelming.
         </p>
 
-        <p className="text-[#422c18]/80 leading-7 mb-6">
+        <p className="text-gray-700 leading-7 mb-6">
           That’s where <b>{dealerName}</b> quietly fits in as a reliable  
           <b> real estate agent in {dealerCity}</b>, guiding buyers, sellers, and investors  
           through the property world with clarity and care.  
           No rushed talks. No forced deals. Just honest guidance, shaped around real needs.
         </p>
 
-        <p className="text-[#422c18]/80 leading-7 mb-8">
+        <p className="text-gray-700 leading-7 mb-8">
           If you’re searching for the <b>best property dealer in {dealerCity}</b>,  
           someone who understands the city, the market, and the people, you're in the right place.
         </p>
 
         {/* ABOUT */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-3">
+        <h2 className="text-xl font-semibold text-black mb-3">
           About {dealerName}
         </h2>
 
-        <p className="text-[#422c18]/80 leading-7 mb-8">
+        <p className="text-gray-700 leading-7 mb-6">
           Every property journey is personal. Some clients are buying their first home.  
           Some are expanding a business. Some are investing for the future.  
           We understand that no two requirements are the same.
         </p>
 
-        <p className="text-[#422c18]/80 leading-7 mb-8">
-          As a professional <b>real estate agent in {dealerCity}</b>, the focus remains simple –  
+        <p className="text-gray-700 leading-7 mb-6">
+          As a professional real estate agent in {dealerCity}, the focus remains simple –  
           to make property dealing easy to understand, easy to trust, and easy to complete.  
           From small residential plots to large commercial spaces, every deal is handled with  
           patience, transparency, and market awareness.
         </p>
 
-        <p className="text-[#422c18]/80 leading-7 mb-8">
+        <p className="text-gray-700 leading-7 mb-8">
           This isn’t just about property. It’s about <b>peace of mind.</b>
         </p>
 
         {/* MISSION */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-3">
+        <h2 className="text-xl font-semibold text-black mb-3">
           Mission and Working Style
         </h2>
 
-        <p className="text-[#422c18]/80 leading-7 mb-8">
+        <p className="text-gray-700 leading-7 mb-6">
           The mission is to help clients make informed real estate decisions  
           without stress or confusion. All aspects of property paperwork,  
           price negotiations, and legal checks are explained in plain language, step by step.
         </p>
 
-        <p className="text-[#422c18]/80 leading-7 mb-8">
+        <p className="text-gray-700 leading-7 mb-8">
           Trust isn’t built in one meeting. It grows slowly through honest advice,  
           clear communication, and reliable service.  
           That’s what makes <b>{dealerName}</b> stand out as the  
@@ -108,27 +92,36 @@ export default function DealerDetailPage() {
         </p>
 
         {/* MARKET UNDERSTANDING */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-3">
+        <h2 className="text-xl font-semibold text-black mb-3">
           Understanding the {dealerCity} Property Market
         </h2>
 
-        <p className="text-[#422c18]/80 leading-7 mb-6">
+        <p className="text-gray-700 leading-7 mb-6">
           {dealerCity} is changing. New sectors are developing. Roads are expanding.  
           Property values are rising steadily. Opportunities exist, but only if you know where to look.
         </p>
 
-        <ul className="list-disc pl-6 text-[#422c18]/80 leading-7 mb-8 space-y-2">
-          <li><b>Residential plots in {dealerCity}</b> for home building or investment</li>
-          <li><b>Commercial property for sale in {dealerCity}</b> for shops, offices, and showrooms</li>
-          <li><b>Rental property in {dealerCity}</b> for families and professionals</li>
+        <p className="text-gray-700 leading-7 mb-6">
+          <b>{dealerName}</b> keeps a close eye on local trends, pricing patterns, and upcoming developments.  
+          This market understanding helps clients choose the right:
+        </p>
+
+        <ul className="list-disc pl-6 text-gray-700 leading-7 mb-8 space-y-2">
+          <li>Residential plots in {dealerCity} for home building or investment</li>
+          <li>Commercial property for sale in {dealerCity} for shops, offices, and showrooms</li>
+          <li>Rental property in {dealerCity} for families, students, and working professionals</li>
         </ul>
 
         {/* SERVICES */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-3">
+        <h2 className="text-xl font-semibold text-black mb-3">
           Services Offered
         </h2>
 
-        <ul className="list-disc pl-6 text-[#422c18]/80 leading-7 mb-8 space-y-2">
+        <p className="text-gray-700 mb-4">
+          Property needs don’t end at buying or selling. That’s why <b>{dealerName}</b> offers complete real estate support under one roof:
+        </p>
+
+        <ul className="list-disc pl-6 text-gray-700 leading-7 mb-8 space-y-2">
           <li>Buying and selling of residential plots in {dealerCity}</li>
           <li>Assistance in commercial property for sale in {dealerCity}</li>
           <li>Support for rental property in {dealerCity}</li>
@@ -139,43 +132,43 @@ export default function DealerDetailPage() {
         </ul>
 
         {/* WHY CHOOSE US */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-3">
+        <h2 className="text-xl font-semibold text-black mb-3">
           Why Choose Us?
         </h2>
 
-        <ul className="list-disc pl-6 text-[#422c18]/80 leading-7 mb-8 space-y-2">
-          <li><b>Local Market Expertise</b> – Deep understanding of {dealerCity} real estate</li>
-          <li><b>Personalized Guidance</b> – Solutions based on real needs</li>
-          <li><b>Transparent Process</b> – No hidden costs</li>
-          <li><b>Complete Support</b> – From inquiry to registration</li>
-          <li><b>Client Satisfaction Focus</b></li>
+        <ul className="list-disc pl-6 text-gray-700 leading-7 mb-8 space-y-2">
+          <li><b>Local Market Expertise</b> – Deep understanding of {dealerCity} real estate zones</li>
+          <li><b>Personalized Guidance</b> – Every client receives solutions based on real needs</li>
+          <li><b>Transparent Process</b> – No hidden costs. No unclear terms.</li>
+          <li><b>Complete Support</b> – From first inquiry to final registration</li>
+          <li><b>Client Satisfaction Focus</b> – Because long-term trust matters more than quick deals</li>
         </ul>
 
         {/* HELP SECTION */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-3">
+        <h2 className="text-xl font-semibold text-black mb-3">
           Helping You Make Confident Property Decisions
         </h2>
 
-        <p className="text-[#422c18]/80 leading-7 mb-8">
+        <p className="text-gray-700 leading-7 mb-8">
           Many people delay property decisions simply because they feel unsure.  
           Is the price right? Is the location good? Are documents clear?  
           We help remove that uncertainty and guide you in the right direction.
         </p>
 
         {/* CONCLUSION */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-3">
+        <h2 className="text-xl font-semibold text-black mb-3">
           Conclusion
         </h2>
 
-        <p className="text-[#422c18]/80 leading-7 mb-10">
+        <p className="text-gray-700 leading-7 mb-10">
           Property decisions are big. Emotional. Financial. Personal.  
           Having the <b>best property dealer in {dealerCity}</b> beside you  
           turns uncertainty into clarity.  
-          Your property journey deserves support that feels human, not mechanical.
+          <b> {dealerName}</b> stands for honest guidance, market understanding, and smooth real estate experiences.
         </p>
 
         {/* FAQ SECTION */}
-        <h2 className="text-xl font-semibold text-[#422c18] mb-4">
+        <h2 className="text-xl font-semibold text-black mb-4">
           Frequently Asked Questions
         </h2>
 
@@ -187,7 +180,7 @@ export default function DealerDetailPage() {
             },
             {
               q: `Does ${dealerName} assist with rental properties?`,
-              a: "Yes. Complete support is provided for residential and commercial rental needs.",
+              a: "Yes. Complete support is provided to provide services for residential and commercial needs.",
             },
             {
               q: `Can I find residential plots through ${dealerName}?`,
@@ -199,22 +192,22 @@ export default function DealerDetailPage() {
             },
             {
               q: "How do I start my property search?",
-              a: "Simply contact us and share your requirements to receive guided property options.",
+              a: "Simply contact us and share your requirements, and receive guided property options.",
             },
           ].map((item, index) => (
-            <div key={index} className="border-b border-[#422c18]/20 pb-2">
+            <div key={index} className="border-b border-[#5E23DC]/20 pb-2">
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full text-left font-medium text-[#422c18] flex justify-between"
+                className="w-full text-left font-medium text-black flex justify-between"
               >
                 {item.q}
-                <span className="text-[#d4a373]">
+                <span className="text-[#5E23DC]">
                   {openFaq === index ? "−" : "+"}
                 </span>
               </button>
 
               {openFaq === index && (
-                <div className="mt-2 text-[#422c18]/80">
+                <div className="mt-2 text-gray-700">
                   {item.a}
                 </div>
               )}

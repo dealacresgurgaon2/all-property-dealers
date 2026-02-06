@@ -5,14 +5,14 @@ import QueryForm from "../../components/QueryForm";
 
 export default function BlogPage() {
   return (
-    <main className="bg-[#f2e8e1] py-10">
+    <main className="bg-white py-10">
       <div className="max-w-7xl mx-auto px-4">
 
         {/* TWO COLUMN LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
           {/* LEFT SIDE – DEALER DETAILS */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 border border-[#5E23DC]/20 rounded-xl p-4 bg-white shadow-sm">
             <DealerDetailPage />
           </div>
 

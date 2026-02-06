@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function AboutSection() {
   return (
-    <section className="bg-[#f2e8e1] py-10">
+    <section className="bg-white py-10">
       <div className="max-w-7xl mx-auto px-4">
 
         {/* ================= HEADER ================= */}
@@ -12,8 +12,8 @@ export default function AboutSection() {
           <span
             className="
               inline-block
-              bg-[#422c18]
-              text-[#f2e8e1]
+              bg-[#5E23DC]
+              text-white
               text-sm font-semibold
               px-4 py-1
               rounded-full
@@ -23,11 +23,11 @@ export default function AboutSection() {
             About Us
           </span>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-[#422c18] leading-tight mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#5E23DC] leading-tight mb-4">
             Your Trusted Partner in Real Estate Solutions
           </h2>
 
-          <p className="text-[#7a5c42] text-lg">
+          <p className="text-gray-600 text-lg">
             We help people make confident property decisions through local
             expertise, verified listings, and transparent processes.
           </p>
@@ -38,18 +38,18 @@ export default function AboutSection() {
 
           {/* LEFT CONTENT */}
           <div>
-            <h3 className="text-2xl font-semibold text-[#422c18] mb-4">
+            <h3 className="text-2xl font-semibold text-[#5E23DC] mb-4">
               Who We Are
             </h3>
 
-            <p className="text-[#5a3c26] leading-8 mb-6">
+            <p className="text-gray-700 leading-8 mb-6">
               We are a professional real estate platform focused on connecting
               buyers, sellers, and investors with the right opportunities.
               Our strength lies in local market knowledge, verified data,
               and a client-first mindset.
             </p>
 
-            <p className="text-[#5a3c26] leading-8 mb-8">
+            <p className="text-gray-700 leading-8 mb-8">
               Whether it’s residential or commercial property, we ensure every
               transaction is secure, transparent, and value-driven — from first
               consultation to final closure.
@@ -65,16 +65,17 @@ export default function AboutSection() {
                 <div
                   key={i}
                   className="
-                    bg-[#ffffff]
+                    bg-white
+                    border border-[#5E23DC]/20
                     rounded-xl
-                    shadow
+                    shadow-sm
                     p-5
                   "
                 >
-                  <h4 className="text-2xl font-bold text-[#422c18]">
+                  <h4 className="text-2xl font-bold text-[#5E23DC]">
                     {item.value}
                   </h4>
-                  <p className="text-sm text-[#7a5c42]">
+                  <p className="text-sm text-gray-600">
                     {item.label}
                   </p>
                 </div>
@@ -94,7 +95,7 @@ export default function AboutSection() {
               />
 
               {/* overlay */}
-              <div className="absolute inset-0 bg-[#422c18]/30"></div>
+              <div className="absolute inset-0 bg-[#5E23DC]/30"></div>
             </div>
 
             {/* FLOATING CARD */}
@@ -103,7 +104,7 @@ export default function AboutSection() {
                 absolute
                 bottom-4
                 left-4
-                bg-[#ffffff]/90
+                bg-white/90
                 backdrop-blur-md
                 rounded-xl
                 shadow-xl
@@ -111,11 +112,11 @@ export default function AboutSection() {
                 max-w-xs
               "
             >
-              <h4 className="font-semibold text-[#422c18] mb-2">
+              <h4 className="font-semibold text-[#5E23DC] mb-2">
                 Why Choose Us?
               </h4>
 
-              <ul className="text-sm text-[#7a5c42] space-y-2">
+              <ul className="text-sm text-gray-600 space-y-2">
                 <li>✔ Verified & genuine listings</li>
                 <li>✔ Local property experts</li>
                 <li>✔ Transparent pricing</li>
@@ -128,7 +129,7 @@ export default function AboutSection() {
 
         {/* ================= HOW WE WORK ================= */}
         <div className="mt-20">
-          <h3 className="text-2xl font-semibold text-[#422c18] text-center mb-12">
+          <h3 className="text-2xl font-semibold text-[#5E23DC] text-center mb-12">
             How We Work
           </h3>
 
@@ -142,17 +143,18 @@ export default function AboutSection() {
               <div
                 key={i}
                 className="
-                  bg-[#ffffff]
+                  bg-white
+                  border border-[#5E23DC]/20
                   rounded-xl
-                  shadow
+                  shadow-sm
                   p-6
                   text-center
                 "
               >
-                <div className="text-3xl font-bold text-[#422c18] mb-3">
+                <div className="text-3xl font-bold text-[#5E23DC] mb-3">
                   {item.step}
                 </div>
-                <h4 className="font-semibold text-[#422c18]">
+                <h4 className="font-semibold text-[#5E23DC]">
                   {item.title}
                 </h4>
               </div>
@@ -164,11 +166,11 @@ export default function AboutSection() {
         <div
           className="
             mt-20
-            bg-[#422c18]
+            bg-[#5E23DC]
             rounded-2xl
             p-10
             text-center
-            text-[#f2e8e1]
+            text-white
           "
         >
           <h3 className="text-2xl md:text-3xl font-bold mb-4">

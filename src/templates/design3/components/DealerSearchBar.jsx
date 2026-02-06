@@ -17,13 +17,13 @@ export default function DealerSearchBar({ onSearch }) {
       <div
         className="
           flex items-center
-          bg-[#f2e8e1]
-          border-2 border-[#422c18]
+          bg-white
+          border-2 border-[#5E23DC]
           rounded-lg
           px-3 sm:px-6
           py-2
           shadow-md
-          focus-within:border-[#422c18]
+          focus-within:border-[#5E23DC]
           focus-within:shadow-lg
           transition
         "
@@ -32,7 +32,7 @@ export default function DealerSearchBar({ onSearch }) {
         <svg
           className="
             w-5 h-5 sm:w-6 sm:h-6
-            text-[#422c18]
+            text-[#5E23DC]
             mr-2 sm:mr-4 shrink-0
           "
           fill="none"
@@ -61,22 +61,22 @@ export default function DealerSearchBar({ onSearch }) {
             text-base sm:text-lg
             outline-none
             bg-transparent
-            placeholder-[#7a5c42]
-            text-[#422c18]
+            placeholder-gray-500
+            text-[#5E23DC]
           "
         />
 
-        {/* 🔍 SEARCH BUTTON - FIXED */}
+        {/* 🔍 SEARCH BUTTON */}
         <button
           onClick={() => onSearch(query)}
           className="
             ml-2 sm:ml-4
             p-2 sm:p-3
             rounded-xl
-            bg-[#422c18]
-            hover:bg-[#5a3c26]
+            bg-[#5E23DC]
+            hover:bg-[#5E23DC]/90
             transition
-            text-[#f2e8e1]
+            text-white
             flex items-center justify-center
             shrink-0
             w-[40px] h-[40px] sm:w-[46px] sm:h-[46px]

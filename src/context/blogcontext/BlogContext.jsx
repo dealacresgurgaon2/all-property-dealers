@@ -18,6 +18,9 @@ const getDomain = () => {
     if (domain === "propertydeler-gold-frontend-lp3d.vercel.app") {
       return "www.propertydealerinhisar.com";
     }
+    // if (domain === "localhost") {
+    //   return "www.propertydealerinfaridabad.com";
+    // }
 
     return domain;
   }

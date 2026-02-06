@@ -12,8 +12,8 @@ export default function DealerCard({ dealer }) {
   return (
     <div
       className="
-        bg-[#f2e8e1]
-        border border-[#422c18]
+        bg-white
+        border border-[#5E23DC]
         rounded-xl
         shadow-sm hover:shadow-md
         transition
@@ -24,11 +24,11 @@ export default function DealerCard({ dealer }) {
       {/* ===== LOGO - ONLY FOR DESKTOP ===== */}
       <div
         className="
-          hidden md:flex        // MOBILE PAR HIDE
+          hidden md:flex
           w-32
-          bg-[#422c18]
+          bg-[#5E23DC]
           items-center justify-center
-          text-[#f2e8e1]
+          text-white
           font-bold text-3xl
         "
       >
@@ -41,7 +41,7 @@ export default function DealerCard({ dealer }) {
         <h3
           className="
             text-lg md:text-xl font-bold mb-1
-            text-[#422c18]
+            text-[#5E23DC]
           "
         >
           {dealer.name}
@@ -51,13 +51,13 @@ export default function DealerCard({ dealer }) {
         <p
           className="
             text-xs
-            text-[#5a3c26]
+            text-gray-700
             mb-1
             flex items-start gap-2
             leading-snug
           "
         >
-          <span className="mt-0.5 shrink-0 text-[#422c18]">
+          <span className="mt-0.5 shrink-0 text-[#5E23DC]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
@@ -79,7 +79,7 @@ export default function DealerCard({ dealer }) {
         </p>
 
         {/* City */}
-        <p className="text-xs text-bold text-[#402d1d] mb-2">
+        <p className="text-xs font-semibold text-gray-800 mb-2">
           {dealer.city} {dealer.state && `, ${dealer.state}`}
         </p>
 
@@ -93,9 +93,10 @@ export default function DealerCard({ dealer }) {
                   text-[12px]
                   px-2 py-0.5
                   rounded-full
-                  bg-[#ebdbce]
-                  text-[#5b4835]
-                  border border-[#5a3c26] bold
+                  bg-[#5E23DC]/10
+                  text-[#5E23DC]
+                  border border-[#5E23DC]/40
+                  font-semibold
                 "
               >
                 {tag}
@@ -111,7 +112,7 @@ export default function DealerCard({ dealer }) {
           className="
             flex items-center justify-between
             pt-2 mt-2
-            border-t border-[#422c18]
+            border-t border-[#5E23DC]/30
           "
         >
           <a
@@ -119,11 +120,11 @@ export default function DealerCard({ dealer }) {
             className="
               px-4 py-1.5
               rounded-md
-              bg-[#422c18]
-              text-[#f2e8e1]
+              bg-[#5E23DC]
+              text-white
               text-sm
               font-semibold
-              hover:opacity-90
+              hover:bg-[#5E23DC]/90
               transition
             "
           >
@@ -141,12 +142,12 @@ export default function DealerCard({ dealer }) {
             className="
               px-4 py-1.5
               rounded-md
-              border border-[#422c18]
-              text-[#422c18]
+              border border-[#5E23DC]
+              text-[#5E23DC]
               text-sm
               font-semibold
-              hover:bg-[#422c18]
-              hover:text-[#f2e8e1]
+              hover:bg-[#5E23DC]
+              hover:text-white
               transition
             "
           >

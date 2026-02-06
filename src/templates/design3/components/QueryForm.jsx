@@ -21,22 +21,22 @@ export default function QueryForm() {
 
   const inputClass = `
     w-full
-    border border-[#422c18]
+    border border-[#5E23DC]
     rounded-md
     px-3 py-2
     outline-none
-    bg-[#f2e8e1]
-    text-[#422c18]
-    placeholder-[#7a5c42]
-    focus:border-[#422c18]
-    focus:ring-1 focus:ring-[#422c18]
+    bg-white
+    text-[#5E23DC]
+    placeholder-gray-500
+    focus:border-[#5E23DC]
+    focus:ring-1 focus:ring-[#5E23DC]
   `;
 
   return (
     <div
       className="
-        bg-[#f2e8e1]
-        border border-[#422c18]
+        bg-white
+        border border-[#5E23DC]
         rounded-xl
         shadow-md
         p-6
@@ -45,7 +45,7 @@ export default function QueryForm() {
       <h3
         className="
           text-xl font-bold
-          text-[#422c18]
+          text-[#5E23DC]
           mb-2
         "
       >
@@ -55,7 +55,7 @@ export default function QueryForm() {
       <p
         className="
           text-sm
-          text-[#7a5c42]
+          text-gray-600
           mb-4
         "
       >
@@ -69,7 +69,7 @@ export default function QueryForm() {
           <label
             className="
               block text-sm font-medium mb-1
-              text-[#422c18]
+              text-[#5E23DC]
             "
           >
             Your Name
@@ -90,7 +90,7 @@ export default function QueryForm() {
           <label
             className="
               block text-sm font-medium mb-1
-              text-[#422c18]
+              text-[#5E23DC]
             "
           >
             Phone Number
@@ -110,11 +110,11 @@ export default function QueryForm() {
         <select
           className="
             w-full
-            border border-[#422c18]
-            bg-[#f2e8e1]
+            border border-[#5E23DC]
+            bg-white
             rounded-md
             px-4 py-2
-            text-[#422c18]
+            text-[#5E23DC]
             outline-none
           "
         >
@@ -129,7 +129,7 @@ export default function QueryForm() {
           <label
             className="
               block text-sm font-medium mb-1
-              text-[#422c18]
+              text-[#5E23DC]
             "
           >
             Requirement
@@ -149,12 +149,12 @@ export default function QueryForm() {
           type="submit"
           className="
             w-full
-            bg-[#422c18]
-            text-[#f2e8e1]
+            bg-[#5E23DC]
+            text-white
             py-3
             rounded-lg
             font-semibold
-            hover:opacity-90
+            hover:bg-[#5E23DC]/90
             transition
             shadow-md
           "
@@ -168,7 +168,7 @@ export default function QueryForm() {
       <p
         className="
           text-xs
-          text-[#7a5c42]
+          text-gray-500
           mt-3
           text-center
         "

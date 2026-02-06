@@ -63,8 +63,8 @@ export default function ScrollToTop() {
 
         ${
           nearFooter
-            ? "bg-[#f2e8e1] text-[#422c18] border border-[#422c18]"
-            : "bg-[#422c18] text-[#f2e8e1]"
+            ? "bg-white text-[#5E23DC] border border-[#5E23DC]"
+            : "bg-[#5E23DC] text-white"
         }
       `}
       title="Back to top"

@@ -2,74 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
-// 🔒 STATIC BLOG DATA
-const blogs = [
-  {
-    _id: "1",
-    Slug: "property-investment-tips",
-    Title: "Top Property Investment Tips for 2026",
-    Category: "Real Estate",
-    Date: "2026-01-10",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "2",
-    Slug: "buy-vs-rent-property",
-    Title: "Buy vs Rent: What Is Better in Today’s Market?",
-    Category: "Guides",
-    Date: "2026-01-08",
-    HeroImg: { url: "/images/ghj.png" },
-  },
-  {
-    _id: "3",
-    Slug: "home-loan-eligibility",
-    Title: "Home Loan Eligibility: Everything You Must Know",
-    Category: "Finance",
-    Date: "2026-01-05",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "4",
-    Slug: "best-areas-to-invest",
-    Title: "Best Areas to Invest in Property This Year",
-    Category: "Locations",
-    Date: "2026-01-02",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "5",
-    Slug: "property-documents-checklist",
-    Title: "Property Documents Checklist Before Buying",
-    Category: "Legal",
-    Date: "2025-12-28",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "6",
-    Slug: "real-estate-market-trends",
-    Title: "Real Estate Market Trends You Should Watch",
-    Category: "Trends",
-    Date: "2025-12-25",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "7",
-    Slug: "property-documents-checklist-2",
-    Title: "Property Documents Checklist Before Buying",
-    Category: "Legal",
-    Date: "2025-12-28",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "8",
-    Slug: "real-estate-market-trends-2",
-    Title: "Real Estate Market Trends You Should Watch",
-    Category: "Trends",
-    Date: "2025-12-25",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-];
+import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
 // 📅 Date formatter
 const formatDate = (date) => {
@@ -79,45 +12,75 @@ const formatDate = (date) => {
     .padStart(2, "0")}-${d.getFullYear()}`;
 };
 
-export default function BlogList({ page = 1, itemsPerPage = 6 }) {
- 
-  const startIndex = (page - 1) * itemsPerPage;
-  const paginatedBlogs = blogs.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+export default function BlogList() {
 
-  return (
-    <section className="bg-[#fafafa] py-12">
-      <div className="max-w-7xl mx-auto px-4">
+  const { blogs, loading } = useBlogs();
 
-        {/* HEADER */}
-        <div className="mb-12 text-center max-w-3xl mx-auto">
-          <span className="inline-block bg-[#d4af37]/15 text-[#b8964a] text-sm font-semibold px-5 py-1.5 rounded-full mb-4">
-            Blogs & Insights
-          </span>
-          <h1 className="text-3xl md:text-4xl font-bold text-black mb-3">
-            Latest <span className="text-[#d4af37]">Real Estate Blogs</span>
-          </h1>
-          <p className="text-black/70 text-lg">
-            Expert insights, guides and trends to help you make smarter
-            property decisions.
+  // ===== Loading UI =====
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
+
+        <div className="flex flex-col items-center gap-4">
+
+          {/* Animated Loader */}
+          <div className="w-14 h-14 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+
+          <h2 className="text-lg text-[#422c18] font-semibold">
+            Loading Blog...
+          </h2>
+
+          <p className="text-sm text-[#7a5c42]">
+            Please wait while we fetch the content
           </p>
+
         </div>
 
-        {/* BLOG GRID */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {paginatedBlogs.map((post) => (
+      </div>
+    );
+  }
+
+  // ===== Empty Blogs Case =====
+  if (!blogs || blogs.length === 0) {
+    return (
+      <div className="min-h-[300px] flex items-center justify-center text-[#422c18] text-lg">
+        No blogs available
+      </div>
+    );
+  }
+
+  return (
+    <section className="px-4 lg:px-0 bg-white py-5">
+
+      <section className="max-w-7xl mx-auto px-4 py-6">
+        <h1 className="text-3xl font-bold text-[#422c18] mb-2">
+          Latest Blogs
+        </h1>
+      </section>
+
+      {/* BLOG GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto gap-8">
+
+        {blogs.map((post) => {
+
+          // Handle title whether it's object or string
+          const titleText =
+            typeof post.title === "object"
+              ? post.title?.rendered
+              : post.title;
+
+          return (
             <Link
               key={post._id}
-              href={`/blogs/${post.Slug}`}
+              href={`/blogs/${post.slug}`}
               className="group bg-white rounded-2xl overflow-hidden shadow-lg border border-[#d4af37]/20 hover:shadow-2xl transition"
             >
+
               {/* IMAGE */}
               <div className="relative w-full h-56 overflow-hidden">
                 <Image
-                  src={post.HeroImg.url}
-                  alt={post.Title}
+                  src={post.heroImg}
+                  alt={titleText}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
@@ -126,32 +89,29 @@ export default function BlogList({ page = 1, itemsPerPage = 6 }) {
 
               {/* CONTENT */}
               <div className="p-5">
-                {/* CATEGORY */}
-                <span className="inline-block text-xs font-semibold text-[#d4af37] uppercase tracking-wide mb-2">
-                  {post.Category}
-                </span>
 
                 {/* TITLE */}
                 <h3 className="text-lg font-semibold text-black leading-snug mb-3 line-clamp-2">
-                  {post.Title}
+                  {titleText}
                 </h3>
 
                 {/* FOOTER */}
                 <div className="flex items-center justify-between text-sm text-black/60">
-                  <span>{formatDate(post.Date)}</span>
+                  <span>{formatDate(post.date)}</span>
+
                   <span className="text-[#d4af37] font-medium group-hover:underline">
                     Read More →
                   </span>
                 </div>
+
               </div>
+
             </Link>
-          ))}
-        </div>
+          );
+        })}
 
       </div>
+
     </section>
   );
 }
-
-// 👇 pagination ke liye export (BlogPage mein use hoga)
-export const TOTAL_BLOGS = blogs.length;

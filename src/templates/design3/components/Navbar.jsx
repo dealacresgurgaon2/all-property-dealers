@@ -11,8 +11,8 @@ export default function Navbar() {
       <header
         className="
           w-full sticky top-0 z-40
-          bg-[#f2e8e1]
-          border-b border-[#422c18]
+          bg-white
+          border-b border-[#5E23DC]
         "
       >
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -20,7 +20,7 @@ export default function Navbar() {
           {/* LEFT: LOGO */}
           <Link
             href="/"
-            className="text-2xl font-bold text-[#422c18]"
+            className="text-2xl font-bold text-[#5E23DC]"
           >
             PropertyDealer
           </Link>
@@ -29,14 +29,14 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-6">
             <Link
               href="/about"
-              className="text-[#422c18] font-medium hover:underline underline-offset-4 transition"
+              className="text-[#5E23DC] font-medium hover:underline underline-offset-4 transition"
             >
               About
             </Link>
 
             <Link
               href="/blogs"
-              className="text-[#422c18] font-medium hover:underline underline-offset-4 transition"
+              className="text-[#5E23DC] font-medium hover:underline underline-offset-4 transition"
             >
               Blog
             </Link>
@@ -45,7 +45,7 @@ export default function Navbar() {
           {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setOpen(true)}
-            className="md:hidden text-[#422c18]"
+            className="md:hidden text-[#5E23DC]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export default function Navbar() {
       <div
         className={`
           fixed top-0 right-0 h-full w-[270px]
-          bg-[#f2e8e1]
+          bg-white
           shadow-2xl
           z-50
           transform
@@ -91,15 +91,15 @@ export default function Navbar() {
       >
 
         {/* Drawer Header */}
-        <div className="flex items-center justify-between p-4 border-b border-[#422c18]">
+        <div className="flex items-center justify-between p-4 border-b border-[#5E23DC]">
 
-          <h3 className="text-lg font-bold text-[#422c18]">
+          <h3 className="text-lg font-bold text-[#5E23DC]">
             Menu
           </h3>
 
           <button
             onClick={() => setOpen(false)}
-            className="text-[#422c18]"
+            className="text-[#5E23DC]"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -124,7 +124,7 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={() => setOpen(false)}
-            className="text-[#422c18] font-medium border-b pb-3 pt-2"
+            className="text-[#5E23DC] font-medium border-b border-[#5E23DC]/30 pb-3 pt-2"
           >
             Home
           </Link>
@@ -132,7 +132,7 @@ export default function Navbar() {
           <Link
             href="/about"
             onClick={() => setOpen(false)}
-            className="text-[#422c18] font-medium border-b pb-3 pt-2"
+            className="text-[#5E23DC] font-medium border-b border-[#5E23DC]/30 pb-3 pt-2"
           >
             About
           </Link>
@@ -140,7 +140,7 @@ export default function Navbar() {
           <Link
             href="/blogs"
             onClick={() => setOpen(false)}
-            className="text-[#422c18] font-medium border-b pb-3 pt-2"
+            className="text-[#5E23DC] font-medium border-b border-[#5E23DC]/30 pb-3 pt-2"
           >
             Blog
           </Link>

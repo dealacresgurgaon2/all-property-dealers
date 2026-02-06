@@ -3,50 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-
-const blogs = [
-  {
-    _id: "1",
-    Slug: "property-investment-tips",
-    Title: "Top Property Investment Tips for 2026",
-    Category: "Real Estate",
-    Date: "2026-01-10",
-    HeroImg: { url: "/images/download.jpeg" },
-    Content: `
-Property investment in 2026 requires careful planning and market research.
-
-Always evaluate location growth, infrastructure, and builder reputation.
-
-Long-term investment gives better returns than short-term speculation.
-    `,
-  },
-  {
-    _id: "2",
-    Slug: "buy-vs-rent-property",
-    Title: "Buy vs Rent: What Is Better in Today’s Market?",
-    Category: "Guides",
-    Date: "2026-01-08",
-    HeroImg: { url: "/images/ghj.png" },
-    Content: `
-Property investment has always been considered one of the most secure ways to build wealth.
-
-Location, infrastructure, legal verification, and budget planning are key factors.
-
-A long-term vision helps generate stable returns and financial security.
-    `,
-  },
-  {
-    _id: "3",
-    Slug: "home-loan-eligibility",
-    Title: "Home Loan Eligibility: Everything You Must Know",
-    Category: "Finance",
-    Date: "2026-01-05",
-    HeroImg: { url: "/images/download.jpeg" },
-    Content: `
-Your income, credit score, and existing liabilities decide loan eligibility.
-    `,
-  },
-];
+import { useEffect } from "react";
+import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
 // 📅 date formatter
 const formatDate = (date) => {
@@ -57,10 +15,46 @@ const formatDate = (date) => {
 };
 
 export default function SingleBlogPage() {
-  const { slug } = useParams();
-  const blog = blogs.find((b) => b.Slug === slug);
 
-  if (!blog) {
+  const { slug } = useParams();
+
+  const {
+    singleBlog,
+    fetchSingleBlog,
+    recentBlogs,
+    loading
+  } = useBlogs();
+
+  // Fetch blog when slug changes
+  useEffect(() => {
+    if (slug) {
+      fetchSingleBlog(slug);
+    }
+  }, [slug]);
+
+  // ===== Loading UI =====
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
+        <div className="flex flex-col items-center gap-4">
+
+          <div className="w-14 h-14 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+
+          <h2 className="text-lg text-[#422c18] font-semibold">
+            Loading Blog...
+          </h2>
+
+          <p className="text-sm text-[#7a5c42]">
+            Please wait while we fetch the content
+          </p>
+
+        </div>
+      </div>
+    );
+  }
+
+  // ===== Blog Not Found =====
+  if (!singleBlog) {
     return (
       <div className="py-24 text-center text-black/70">
         Blog not found
@@ -78,8 +72,8 @@ export default function SingleBlogPage() {
           {/* HERO IMAGE */}
           <div className="relative w-full h-[440px] mb-10 rounded-3xl overflow-hidden shadow-2xl">
             <Image
-              src={blog.HeroImg.url}
-              alt={blog.Title}
+              src={singleBlog.heroImg}
+              alt={singleBlog.title}
               fill
               priority
               className="object-cover"
@@ -90,25 +84,30 @@ export default function SingleBlogPage() {
           {/* META */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="bg-[#d4af37]/20 text-[#b8964a] text-xs font-semibold px-4 py-1 rounded-full">
-              {blog.Category}
+              Blog
             </span>
+
             <span className="text-sm text-black/50">
-              {formatDate(blog.Date)}
+              {formatDate(singleBlog.date)}
             </span>
           </div>
 
           {/* TITLE */}
           <h1 className="text-3xl md:text-4xl font-bold text-black leading-tight mb-8">
-            {blog.Title}
+            {singleBlog.title}
           </h1>
 
           {/* CONTENT */}
           <div className="space-y-6 text-black/80 leading-8 text-[17px]">
-            {blog.Content.split("\n").map(
-              (para, i) =>
-                para.trim() && <p key={i}>{para}</p>
-            )}
+
+            {singleBlog.content?.rendered
+              ? singleBlog.content.rendered
+                  .split("\n")
+                  .map((para, i) => para.trim() && <p key={i}>{para}</p>)
+              : "No content available"}
+
           </div>
+
         </div>
 
         {/* ================= RIGHT SIDEBAR ================= */}
@@ -120,16 +119,17 @@ export default function SingleBlogPage() {
             </h3>
 
             <div className="space-y-4">
-              {blogs.map((b) => (
+
+              {recentBlogs.map((b) => (
                 <Link
                   key={b._id}
-                  href={`/blogs/${b.Slug}`}
+                  href={`/blogs/${b.slug}`}
                   className={`
                     flex gap-4 p-3 rounded-xl
                     bg-white border border-[#d4af37]/20
                     shadow hover:shadow-lg transition
                     ${
-                      b.Slug === blog.Slug
+                      b.slug === singleBlog.slug
                         ? "ring-2 ring-[#d4af37]"
                         : ""
                     }
@@ -137,8 +137,8 @@ export default function SingleBlogPage() {
                 >
                   <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
                     <Image
-                      src={b.HeroImg.url}
-                      alt={b.Title}
+                      src={b.heroImg}
+                      alt={b.title}
                       fill
                       className="object-cover"
                     />
@@ -146,14 +146,17 @@ export default function SingleBlogPage() {
 
                   <div>
                     <p className="text-xs text-black/50 mb-1">
-                      {formatDate(b.Date)}
+                      {formatDate(b.date)}
                     </p>
+
                     <h4 className="text-sm font-semibold text-black line-clamp-2">
-                      {b.Title}
+                      {b.title}
                     </h4>
                   </div>
+
                 </Link>
               ))}
+
             </div>
 
           </div>

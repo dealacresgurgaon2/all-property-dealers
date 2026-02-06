@@ -10,18 +10,21 @@ export default function Pagination({ page, setPage, totalPages }) {
   for (let i = start; i <= end; i++) pages.push(i);
 
   return (
-    <div className="flex justify-center items-center gap-[4px]  bg-[#f2e8e1]">
+    <div className="flex justify-center items-center gap-[4px] bg-white py-3 rounded-lg">
       {/* Prev */}
       <button
         onClick={() => setPage(Math.max(1, page - 1))}
         disabled={page === 1}
         className="
           px-3 py-1
-          border border-[#422c18]
+          border border-[#5E23DC]
           rounded-md
-          text-[#422c18]
+          text-[#5E23DC]
           disabled:opacity-40
           mr-4
+          hover:bg-[#5E23DC]
+          hover:text-white
+          transition
         "
       >
         Prev
@@ -34,13 +37,13 @@ export default function Pagination({ page, setPage, totalPages }) {
           onClick={() => setPage(p)}
           className={`
             px-3 py-1
-            border border-[#422c18]
+            border border-[#5E23DC]
             rounded-md
             transition
             ${
               p === page
-                ? "bg-[#422c18] text-[#f2e8e1]"
-                : "text-[#422c18] hover:bg-[#422c18] hover:text-[#f2e8e1]"
+                ? "bg-[#5E23DC] text-white"
+                : "text-[#5E23DC] hover:bg-[#5E23DC] hover:text-white"
             }
           `}
         >
@@ -54,11 +57,14 @@ export default function Pagination({ page, setPage, totalPages }) {
         disabled={page === totalPages}
         className="
           px-3 py-1
-          border border-[#422c18]
+          border border-[#5E23DC]
           rounded-md
-          text-[#422c18]
+          text-[#5E23DC]
           disabled:opacity-40
           ml-4
+          hover:bg-[#5E23DC]
+          hover:text-white
+          transition
         "
       >
         Next

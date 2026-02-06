@@ -25,29 +25,28 @@ export default function SingleBlogPage() {
     }
   }, [slug]);
 
- if (loading) {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
 
-      <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-4">
 
-        {/* Animated Loader */}
-        <div className="w-14 h-14 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+          {/* Simple Loader – without extra animation */}
+          <div className="w-14 h-14 border-4 border-[#5E23DC]/30 border-t-[#5E23DC] rounded-full"></div>
 
-        <h2 className="text-lg text-[#422c18] font-semibold">
-          Loading Blog...
-        </h2>
+          <h2 className="text-lg text-[#5E23DC] font-semibold">
+            Loading Blog...
+          </h2>
 
-        <p className="text-sm text-[#7a5c42]">
-          Please wait while we fetch the content
-        </p>
+          <p className="text-sm text-gray-600">
+            Please wait while we fetch the content
+          </p>
+
+        </div>
 
       </div>
-
-    </div>
-  );
-}
-
+    );
+  }
 
   if (!singleBlog) {
     return (
@@ -58,7 +57,7 @@ export default function SingleBlogPage() {
   }
 
   return (
-    <section className="bg-gradient-to-b from-[#f2e8e1] to-white py-16">
+    <section className="bg-white py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
 
         {/* ===== MAIN BLOG ===== */}
@@ -74,10 +73,10 @@ export default function SingleBlogPage() {
               className="object-cover"
             />
 
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#5E23DC]/90 via-black/20 to-transparent"></div>
 
             <div className="absolute bottom-6 left-6 right-6">
-              <h1 className="text-2xl md:text-4xl font-bold text-white drop-shadow-lg">
+              <h1 className="text-2xl md:text-4xl font-bold text-white">
                 {singleBlog.title?.rendered}
               </h1>
 
@@ -90,30 +89,10 @@ export default function SingleBlogPage() {
           {/* BLOG CONTENT */}
           <div
             className="
-              text-[#5a3c26]
+              text-gray-700
               leading-relaxed
               space-y-6
               text-[17px]
-
-              [&_img]:block
-              [&_img]:mx-auto
-              [&_img]:my-6
-              [&_img]:rounded-xl
-              [&_img]:max-w-full
-
-              [&_figure]:text-center
-              [&_figure]:my-6
-
-              [&_h2]:font-bold
-              [&_h2]:text-xl
-              [&_h2]:mt-6
-              [&_h2]:mb-3
-
-              [&_h3]:font-bold
-              [&_h3]:mt-5
-              [&_h3]:mb-2
-
-              [&_p]:mb-4
             "
             dangerouslySetInnerHTML={{
               __html: singleBlog.content?.rendered,
@@ -126,18 +105,18 @@ export default function SingleBlogPage() {
           <div className="sticky top-24 space-y-6">
 
             {/* ABOUT BOX */}
-            <div className="bg-white rounded-2xl shadow p-6">
-              <h3 className="text-lg font-bold text-[#422c18] mb-3">
+            <div className="bg-white border border-[#5E23DC]/20 rounded-2xl p-6">
+              <h3 className="text-lg font-bold text-[#5E23DC] mb-3">
                 About This Blog
               </h3>
-              <p className="text-sm text-[#7a5c42] leading-relaxed">
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Stay updated with the latest real estate insights, investment tips, and property trends.
               </p>
             </div>
 
             {/* RECENT BLOGS */}
-            <div className="bg-white rounded-2xl shadow p-5">
-              <h3 className="text-xl font-bold text-[#422c18] mb-4 border-b pb-2">
+            <div className="bg-white border border-[#5E23DC]/20 rounded-2xl p-5">
+              <h3 className="text-xl font-bold text-[#5E23DC] mb-4 border-b border-[#5E23DC]/20 pb-2">
                 Recent Blogs
               </h3>
 
@@ -150,10 +129,7 @@ export default function SingleBlogPage() {
                       flex gap-3
                       p-3
                       rounded-xl
-                      hover:bg-[#f2e8e1]
-                      transition-all
-                      duration-200
-                      group
+                      hover:bg-[#5E23DC]/5
                     "
                   >
                     <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
@@ -161,16 +137,16 @@ export default function SingleBlogPage() {
                         src={b.heroImg}
                         alt={b.title?.rendered}
                         fill
-                        className="object-cover group-hover:scale-105 transition"
+                        className="object-cover"
                       />
                     </div>
 
                     <div>
-                      <p className="text-xs text-[#7a5c42]">
+                      <p className="text-xs text-gray-500">
                         {formatDate(b.date)}
                       </p>
 
-                      <h4 className="text-sm font-semibold text-[#422c18] line-clamp-2">
+                      <h4 className="text-sm font-semibold text-[#5E23DC] line-clamp-2">
                         {b.title?.rendered}
                       </h4>
                     </div>
@@ -180,7 +156,7 @@ export default function SingleBlogPage() {
             </div>
 
             {/* CTA BOX */}
-            <div className="bg-[#422c18] text-white rounded-2xl p-6 text-center">
+            <div className="bg-[#5E23DC] text-white rounded-2xl p-6 text-center">
               <h4 className="text-lg font-semibold mb-2">
                 Need Property Help?
               </h4>
@@ -193,12 +169,10 @@ export default function SingleBlogPage() {
                 className="
                   inline-block
                   bg-white
-                  text-[#422c18]
+                  text-[#5E23DC]
                   px-5 py-2
                   rounded-full
                   font-semibold
-                  hover:bg-[#f2e8e1]
-                  transition
                 "
               >
                 Contact Us

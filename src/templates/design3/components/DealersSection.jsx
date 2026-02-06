@@ -15,9 +15,12 @@ export default function DealersSection({ domain }) {
   const { dealers, loading, page, setPage, totalPages, setDomain } = useDealers();
 
   useEffect(() => {
-    if (domain && (domain == "propertydeler-gold-frontend-lp3d.vercel.app" || domain == "localhost"))
-      setDomain("propertydealerinhisar.com")
-
+    if (
+      domain &&
+      (domain == "propertydeler-gold-frontend-lp3d.vercel.app" ||
+        domain == "localhost")
+    )
+      setDomain("propertydealerinhisar.com");
   }), [domain];
 
   const [filtered, setFiltered] = useState([]);
@@ -65,10 +68,10 @@ export default function DealersSection({ domain }) {
   };
 
   return (
-    <section className="bg-[#f2e8e1] py-8">
+    <section className="bg-white py-8">
       <div className="max-w-7xl mx-auto px-4">
 
-        <h2 className="text-3xl font-bold text-[#422c18] mb-8">
+        <h2 className="text-3xl font-bold text-[#5E23DC] mb-8">
           Top Property Dealers
         </h2>
 
@@ -87,16 +90,16 @@ export default function DealersSection({ domain }) {
             {/* 🔥 LOADING ONLY IN DEALERS AREA */}
             {loading ? (
 
-              <div className="flex items-center justify-center py-24 bg-[#faf6f3] rounded-xl">
+              <div className="flex items-center justify-center py-24 bg-[#5E23DC]/5 rounded-xl border border-[#5E23DC]/20">
                 <div className="flex flex-col items-center gap-4">
 
-                  <div className="w-12 h-12 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+                  <div className="w-12 h-12 border-4 border-[#5E23DC]/30 border-t-[#5E23DC] rounded-full animate-spin"></div>
 
-                  <h2 className="text-base text-[#422c18] font-semibold">
+                  <h2 className="text-base text-[#5E23DC] font-semibold">
                     Loading Dealers...
                   </h2>
 
-                  <p className="text-sm text-[#7a5c42]">
+                  <p className="text-sm text-gray-600">
                     Please wait while we fetch the content
                   </p>
 
@@ -105,7 +108,7 @@ export default function DealersSection({ domain }) {
 
             ) : filtered.length === 0 ? (
 
-              <div className="py-16 text-center text-[#7a5c42]">
+              <div className="py-16 text-center text-gray-600">
                 No dealers found for your search
               </div>
 
