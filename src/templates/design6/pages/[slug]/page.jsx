@@ -2,7 +2,7 @@
 
 import DealerDetailPage from "./DealerDetailPage";
 import QueryForm from "../../components/QueryForm";
-
+import FourBlogs from "../../components/FourBlogs";
 export default function BlogPage() {
   return (
     <main className="bg-gray-50 py-12">
@@ -10,7 +10,7 @@ export default function BlogPage() {
 
         {/* PAGE HEADER */}
         <div className="mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-green-700">
+          <h2 className="text-2xl md:text-3xl font-bold text-green-600">
             Dealer Profile & Details
           </h2>
 
@@ -64,6 +64,9 @@ export default function BlogPage() {
           </div>
 
         </div>
+         <div className="mt-8">
+        <FourBlogs />
+      </div>
 
       </div>
     </main>

@@ -1,15 +1,18 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import ContactPopup from "./ContactPopup";   // 👈 ONLY NEW IMPORT
 
 export default function DealerCard({ dealer }) {
+
+  const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
+
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
     return (words[0][0] + words[1][0]).toUpperCase();
   };
-
-  const city = "faridabad";
 
   return (
     <div
@@ -70,13 +73,41 @@ export default function DealerCard({ dealer }) {
           <h3 className="text-lg font-bold text-black leading-tight">
             {dealer.name}
           </h3>
-          <p className="text-xs text-black/60">{dealer.city}</p>
+          <p className="text-xs text-black/60">
+            {dealer.city}{dealer.state && `, ${dealer.state}`}
+          </p>
         </div>
       </div>
 
       {/* ADDRESS */}
-      <p className="text-sm text-black/70 leading-snug line-clamp-2 mb-3">
-        {dealer.address}
+      <p
+        className="
+          text-xs
+          text-gray-700
+          mb-1
+          flex items-start gap-2
+          leading-snug
+        "
+      >
+        <span className="mt-0.5 shrink-0 text-red-600">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z"
+            />
+            <circle cx="12" cy="11" r="2.5" />
+          </svg>
+        </span>
+        <span className="line-clamp-2">{dealer.address}</span>
       </p>
 
       {/* TAGS */}
@@ -106,8 +137,10 @@ export default function DealerCard({ dealer }) {
         <div className="h-px w-full bg-gradient-to-r from-transparent via-red-500/40 to-transparent mb-4" />
 
         <div className="flex gap-3">
-          <a
-            href={`/contact?dealer=${dealer.slug}`}
+
+          {/* 👇 ONLY THIS PART CHANGED */}
+          <button
+            onClick={() => setOpenPopup(true)}
             className="
               flex-1 text-center py-2 rounded-md
               bg-red-600 text-white text-sm font-semibold
@@ -115,15 +148,15 @@ export default function DealerCard({ dealer }) {
             "
           >
             Contact
-          </a>
+          </button>
 
           <Link
             href={{
               pathname: `/adv-dse`,
               query: {
-                  name: dealer.name,
-                  city: dealer.city,
-                },
+                name: dealer.name,
+                city: dealer.city,
+              },
             }}
             className="
               flex-1 text-center py-2 rounded-md
@@ -135,6 +168,14 @@ export default function DealerCard({ dealer }) {
           </Link>
         </div>
       </div>
+
+      {/* 👇 ONLY NEW ADDITION AT BOTTOM */}
+      <ContactPopup
+        isOpen={openPopup}
+        onClose={() => setOpenPopup(false)}
+        dealerName={dealer.name}
+      />
+
     </div>
   );
 }

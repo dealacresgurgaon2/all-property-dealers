@@ -2,58 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
-// 🔒 STATIC BLOG DATA
-const blogs = [
-  {
-    _id: "1",
-    Slug: "property-investment-tips",
-    Title: "Top Property Investment Tips for 2026",
-    Category: "Real Estate",
-    Date: "2026-01-10",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "2",
-    Slug: "buy-vs-rent-property",
-    Title: "Buy vs Rent: What Is Better in Today’s Market?",
-    Category: "Guides",
-    Date: "2026-01-08",
-    HeroImg: { url: "/images/ghj.png" },
-  },
-  {
-    _id: "3",
-    Slug: "home-loan-eligibility",
-    Title: "Home Loan Eligibility: Everything You Must Know",
-    Category: "Finance",
-    Date: "2026-01-05",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "4",
-    Slug: "best-areas-to-invest",
-    Title: "Best Areas to Invest in Property This Year",
-    Category: "Locations",
-    Date: "2026-01-02",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "5",
-    Slug: "property-documents-checklist",
-    Title: "Property Documents Checklist Before Buying",
-    Category: "Legal",
-    Date: "2025-12-28",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "6",
-    Slug: "real-estate-market-trends",
-    Title: "Real Estate Market Trends You Should Watch",
-    Category: "Trends",
-    Date: "2025-12-25",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-];
+import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
 // 📅 Date formatter
 const formatDate = (date) => {
@@ -63,13 +12,32 @@ const formatDate = (date) => {
     .padStart(2, "0")}-${d.getFullYear()}`;
 };
 
-export default function BlogList({ page = 1, itemsPerPage = 6 }) {
-  const startIndex = (page - 1) * itemsPerPage;
+export default function BlogList() {
+  const { blogs, loading } = useBlogs();
 
-  const paginatedBlogs = blogs.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  // 🔁 LOADING STATE
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+
+        <div className="flex flex-col items-center gap-4">
+
+          {/* Animated Loader */}
+          <div className="w-14 h-14 border-4 border-red-600/30 border-t-red-600 rounded-full animate-spin"></div>
+
+          <h2 className="text-lg text-red-600 font-semibold">
+            Loading Blog...
+          </h2>
+
+          <p className="text-sm text-gray-600">
+            Please wait while we fetch the content
+          </p>
+
+        </div>
+
+      </div>
+    );
+  }
 
   return (
     <section className="bg-gray-50 py-16">
@@ -77,6 +45,7 @@ export default function BlogList({ page = 1, itemsPerPage = 6 }) {
 
         {/* HEADER */}
         <div className="text-center mb-12">
+
           <span className="inline-block bg-red-100 text-red-600 text-sm font-semibold px-5 py-2 rounded-full mb-4">
             Knowledge Hub
           </span>
@@ -88,84 +57,110 @@ export default function BlogList({ page = 1, itemsPerPage = 6 }) {
           <p className="text-black/70 max-w-2xl mx-auto">
             Tips, guides and expert articles to help you make smarter real estate decisions.
           </p>
+
         </div>
 
         {/* BLOG GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          {paginatedBlogs.map((post) => (
+          {blogs.map((post) => (
+
             <Link
               key={post._id}
-              href={`/blogs/${post.Slug}`}
+              href={`/blogs/${post.slug}`}
               className="
                 group
                 bg-white
+                border border-red-600/20
                 rounded-2xl
+                shadow-sm
                 overflow-hidden
-                border border-red-200
-                hover:shadow-2xl
-                transition
+                hover:shadow-xl
+                transition-all
+                duration-300
                 flex flex-col
               "
             >
+
               {/* IMAGE SECTION */}
-              <div className="relative w-full h-52 overflow-hidden">
+              <div className="relative w-full h-56 overflow-hidden">
+
                 <Image
-                  src={post.HeroImg.url}
-                  alt={post.Title}
+                  src={post.heroImg}
+                  alt={post.title?.rendered}
                   fill
-                  className="object-cover transition duration-500 group-hover:scale-110"
+                  className="
+                    object-cover
+                    transition-transform
+                    duration-500
+                    group-hover:scale-110
+                  "
                 />
 
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition" />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
 
                 <span className="
-                  absolute top-3 left-3
+                  absolute bottom-3 left-3
                   bg-red-600 text-white
                   text-xs font-semibold
                   px-3 py-1 rounded-full
                 ">
-                  {post.Category}
+                  Real Estate
                 </span>
+
               </div>
 
-              {/* CONTENT */}
-              <div className="p-6 flex flex-col flex-grow">
+              {/* CONTENT SECTION */}
+              <div className="p-5 flex flex-col flex-grow">
 
-                <h3 className="text-lg font-semibold text-black leading-snug mb-3 line-clamp-2 group-hover:text-red-600 transition">
-                  {post.Title}
+                <h3 className="
+                  text-lg font-semibold
+                  text-black
+                  mb-2
+                  group-hover:text-red-600
+                  transition
+                ">
+                  {post.title?.rendered}
                 </h3>
 
-                <p className="text-sm text-black/60 mb-5">
-                  Published on {formatDate(post.Date)}
+                <p className="text-sm text-gray-500 mb-4">
+                  Published on {formatDate(post.date)}
                 </p>
 
-                <div className="mt-auto flex items-center justify-between">
-                  <span className="text-red-600 font-medium text-sm">
-                    Read Full Article
-                  </span>
-
+                <div className="mt-auto">
                   <span className="
-                    w-8 h-8 rounded-full
-                    bg-red-100 text-red-600
-                    flex items-center justify-center
-                    group-hover:bg-red-600 group-hover:text-white
-                    transition
+                    inline-block
+                    text-red-600
+                    text-sm
+                    font-medium
+                    group-hover:underline
                   ">
-                    →
+                    Read Full Article →
                   </span>
                 </div>
 
               </div>
+
             </Link>
+
           ))}
 
         </div>
+
+        {/* EMPTY STATE */}
+        {blogs.length === 0 && (
+          <div className="text-center py-20">
+            <h3 className="text-xl font-semibold text-gray-700">
+              No Blogs Found
+            </h3>
+            <p className="text-gray-500 mt-2">
+              Please check back later for new updates.
+            </p>
+          </div>
+        )}
 
       </div>
     </section>
   );
 }
-
-// 👇 pagination ke liye export
-export const TOTAL_BLOGS = blogs.length;

@@ -1,8 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import PurpleContactPopup from "./PurpleContactPopup";   // 👈 ONLY NEW IMPORT
 
 export default function DealerCard({ dealer }) {
+
+  const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
+
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
@@ -115,8 +120,9 @@ export default function DealerCard({ dealer }) {
             border-t border-[#5E23DC]/30
           "
         >
-          <a
-            href={`/contact?dealer=${dealer.slug}`}
+          {/* 👇 ONLY THIS PART CHANGED */}
+          <button
+            onClick={() => setOpenPopup(true)}
             className="
               px-4 py-1.5
               rounded-md
@@ -129,7 +135,7 @@ export default function DealerCard({ dealer }) {
             "
           >
             Contact Us
-          </a>
+          </button>
 
           <Link
             href={{
@@ -155,6 +161,13 @@ export default function DealerCard({ dealer }) {
           </Link>
         </div>
       </div>
+
+      {/* 👇 ONLY NEW ADDITION AT BOTTOM */}
+      <PurpleContactPopup
+        isOpen={openPopup}
+        onClose={() => setOpenPopup(false)}
+      />
+
     </div>
   );
 }

@@ -1,6 +1,9 @@
 "use client";
+import { useState } from "react";
+import PurpleContactPopup from "./PurpleContactPopup";
 
 export default function Hero() {
+  const [popupOpen, setPopupOpen] = useState(false);
   return (
     <section
       className="relative w-full min-h-[70vh] flex items-center"
@@ -40,7 +43,7 @@ export default function Hero() {
             </p>
 
             <div className="flex gap-4">
-              <button
+              {/* <button
                 className="
                   px-6 py-3
                   bg-white
@@ -52,9 +55,10 @@ export default function Hero() {
                 "
               >
                 Explore Properties
-              </button>
+              </button> */}
 
               <button
+              onClick={() => setPopupOpen(true)}
                 className="
                   px-6 py-3
                   border border-white
@@ -178,6 +182,10 @@ export default function Hero() {
 
         </div>
       </div>
+       <PurpleContactPopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+      />
     </section>
   );
 }

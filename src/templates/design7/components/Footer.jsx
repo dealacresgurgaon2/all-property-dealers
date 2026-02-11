@@ -2,16 +2,16 @@
 
 import Link from "next/link";
 import { useCity } from "@/context/design7api/CityContext";
-import { usePathname } from "next/navigation";
-
+import { usePathname, useRouter } from "next/navigation";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 export default function Footer() {
 
-  const { setCity } = useCity();
+  const { setCity, setDealers } = useCity();   // 👈 ADD setDealers
 
   const pathname = usePathname();
+  const router = useRouter();
 
-  // Current base path detect karega (jaise delhi, gurgaon etc)
-  const baseCity = pathname.split("/")[1] || "delhi";
+  
 
   const haryanaDistricts = [
     "Ambala",
@@ -27,7 +27,6 @@ export default function Footer() {
     "Karnal",
     "Kurukshetra",
     "Mahendragarh",
-    "Nuh",
     "Palwal",
     "Panchkula",
     "Panipat",
@@ -38,13 +37,36 @@ export default function Footer() {
     "Yamunanagar",
   ];
 
+  // 🔥 UPDATED FUNCTION
+  const handleCityClick = async (district) => {
+
+    const citySlug = district.toLowerCase();
+
+    try {
+      const res = await fetch(`${API_BASE}/api/get/city/${district}`);
+
+      const data = await res.json();
+
+      if (data.success) {
+        // 🔥 MAIN IMPORTANT PART
+        setDealers(data.data);     // context me dealers store
+        setCity(citySlug);         // selected city store
+      }
+
+      router.push(`/${citySlug}`);
+
+    } catch (err) {
+      console.log("City API Error:", err);
+    }
+  };
+
   return (
     <footer className="relative bg-black text-white overflow-hidden">
 
       <div className="absolute -top-32 left-1/3 w-[600px] h-[600px] bg-indigo-600/10 blur-3xl rounded-full" />
       <div className="absolute -bottom-32 right-1/3 w-[600px] h-[600px] bg-purple-600/10 blur-3xl rounded-full" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-16">
+      <div className="relative z-10  w-full px-6 py-16">
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
 
@@ -89,10 +111,9 @@ export default function Footer() {
                   <Link
                     key={index}
 
-                    // 🔥 MAIN CHANGE HERE
                     href={`/${citySlug}`}
 
-                    onClick={() => setCity(citySlug)}
+                    onClick={() => handleCityClick(district)}
 
                     className="
                       flex items-center gap-2
@@ -104,7 +125,10 @@ export default function Footer() {
                     "
                   >
                     <span className="text-indigo-400">•</span>
-                    {district}
+
+                    {/* 🔥 MAIN TEXT CHANGE HERE */}
+                    Property Dealer in {district}
+
                   </Link>
                 );
               })}

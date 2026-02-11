@@ -68,104 +68,156 @@ export default function Footer() {
     "Urban Estate II, Hisar"
   ];
 
+  // Bottom footer: only 21 locations
+  const footerLocations = hisarLocations.slice(0, 21);
+
+  // Upper section: remaining locations
+  const topLocations = hisarLocations.slice(21);
+
   return (
-    <footer className="relative bg-[#5E23DC] text-white overflow-hidden">
+    <>
+      {/* UPPER LOCATIONS SECTION – WHITE BG */}
+      <section className="bg-white py-10">
+        <div className="max-w-7xl mx-auto px-4">
 
-      {/* Background Glow Effect */}
-      <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-white/10 blur-3xl rounded-full" />
+          <h3 className="text-xl font-bold text-[#5E23DC] mb-6">
+            Property Dealers Across Hisar
+          </h3>
 
-      <div className="relative z-10 w-full px-5 md:px-12 py-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            {topLocations.map((loc, index) => {
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+              const slug = loc
+                .toLowerCase()
+                .replace(/,/g, "")
+                .replace(/\s+/g, "-");
 
-          {/* BRAND SECTION */}
-          <div className="md:col-span-3">
-            <h3 className="text-xl font-bold mb-2 tracking-wide">
-              Property<span className="text-white/80">Dealer</span>
-            </h3>
-
-            <p className="text-white/80 leading-6 text-sm mb-5">
-              Your trusted real estate partner for buying, selling and
-              investing in premium properties across top cities.
-            </p>
+              return (
+                <Link
+                  key={index}
+                  href={`/hisar/${slug}`}
+                  title={`Property Dealer in ${loc}`}
+                  className="
+                    text-black
+                    hover:text-[#5E23DC]
+                    transition
+                    text-sm
+                    whitespace-nowrap
+                    truncate
+                  "
+                >
+                  Property Dealer in {loc}
+                </Link>
+              );
+            })}
           </div>
 
-          {/* HISAR LOCATIONS */}
-          <div className="md:col-span-9 w-full">
+        </div>
+      </section>
 
-            <h4 className="font-semibold text-base mb-4">
-              Hisar Real Estate Locations By Search
-            </h4>
+      {/* MAIN FOOTER SECTION */}
+      <footer className="relative bg-[#5E23DC] text-white overflow-hidden">
 
-            <div
-              className="
-                grid
-                grid-cols-2
-                sm:grid-cols-3
-                md:grid-cols-5
-                lg:grid-cols-5
-                gap-x-6
-                gap-y-3
-                text-[13px]
-                w-full
-              "
-            >
-              {hisarLocations.map((location, index) => {
+        {/* Background Glow Effect */}
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[420px] h-[420px] bg-white/10 blur-3xl rounded-full" />
 
-                const slug = location
-                  .toLowerCase()
-                  .replace(/,/g, "")
-                  .replace(/\s+/g, "-");
+        <div className="relative z-10 w-full px-5 md:px-12 py-10">
 
-                return (
-                  <Link
-                    key={index}
-                    href={`/hisar/${slug}`}
-                    title={location}
-                    className="
-                      text-white/80
-                      hover:text-white
-                      transition-colors
-                      duration-200
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
 
-                      whitespace-nowrap
-                      overflow-hidden
-                      text-ellipsis
-                      truncate
-                    "
-                  >
-                    {location}
-                  </Link>
-                );
-              })}
+            {/* BRAND SECTION */}
+            <div className="md:col-span-3">
+              <h3 className="text-xl font-bold mb-2 tracking-wide">
+                Property<span className="text-white/80">Dealer</span>
+              </h3>
+
+              <p className="text-white/80 leading-6 text-sm mb-5">
+                Your trusted real estate partner for buying, selling and
+                investing in premium properties across top cities.
+              </p>
             </div>
+
+            {/* HISAR LOCATIONS – ONLY 21 LOCATIONS */}
+            <div className="md:col-span-9 w-full">
+
+              <h4 className="font-semibold text-base mb-4">
+                Popular Locations in Hisar
+              </h4>
+
+              {/* 3 COLUMN FOOTER */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3 text-[13px] w-full">
+
+                {(() => {
+                  const columns = [];
+                  const perColumn = 7; // 3 × 7 = 21
+
+                  for (let i = 0; i < footerLocations.length; i += perColumn) {
+                    columns.push(footerLocations.slice(i, i + perColumn));
+                  }
+
+                  return columns.map((column, colIndex) => (
+                    <div key={colIndex} className="flex flex-col gap-2">
+
+                      {column.map((loc, index) => {
+
+                        const slug = loc
+                          .toLowerCase()
+                          .replace(/,/g, "")
+                          .replace(/\s+/g, "-");
+
+                        return (
+                          <Link
+                            key={index}
+                            href={`/hisar/${slug}`}
+                            title={`Property Dealer in ${loc}`}
+                            className="
+                              text-white/80
+                              hover:text-white
+                              transition-colors
+                              duration-200
+                              whitespace-nowrap
+                              truncate
+                            "
+                          >
+                            Property Dealer in {loc}
+                          </Link>
+                        );
+                      })}
+
+                    </div>
+                  ));
+                })()}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* DIVIDER */}
+          <div className="my-7 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+          {/* BOTTOM BAR */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/70">
+
+            <p>
+              © {new Date().getFullYear()} PropertyDealer. All rights reserved.
+            </p>
+
+            <div className="flex gap-5">
+              <Link href="/privacy" className="hover:text-white transition">
+                Privacy Policy
+              </Link>
+
+              <Link href="/terms" className="hover:text-white transition">
+                Terms of Service
+              </Link>
+            </div>
+
           </div>
 
         </div>
-
-        {/* DIVIDER */}
-        <div className="my-7 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-        {/* BOTTOM BAR */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/70">
-
-          <p>
-            © {new Date().getFullYear()} PropertyDealer. All rights reserved.
-          </p>
-
-          <div className="flex gap-5">
-            <Link href="/privacy" className="hover:text-white transition">
-              Privacy Policy
-            </Link>
-
-            <Link href="/terms" className="hover:text-white transition">
-              Terms of Service
-            </Link>
-          </div>
-
-        </div>
-
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }

@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useParams ,useSearchParams  } from "next/navigation";
-
+import { useParams, useSearchParams } from "next/navigation";
 export default function DealerDetailPage() {
   const { slug } = useParams();
 
   const [openFaq, setOpenFaq] = useState(null);
-const searchParams = useSearchParams();
-const dealerName = searchParams.get("name");
-const dealerCity = searchParams.get("city");
+  const searchParams = useSearchParams();
+
+  const dealerName = searchParams.get("name") || "Property Dealer";
+  const dealerCity = searchParams.get("city") || "Gurgaon";
+
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
   };
@@ -18,162 +19,204 @@ const dealerCity = searchParams.get("city");
     <section className="bg-white py-12">
       <div className="max-w-4xl mx-auto px-4">
 
-        {/* ================= PROFESSIONAL HEADER ================= */}
+        {/* HEADER */}
         <div className="mb-10 border-b border-gray-200 pb-6">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#0b1f33] leading-tight">
+            {dealerName} – Professional Property Dealer in {dealerCity}
+          </h1>
 
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-
-            {/* LEFT SIDE */}
-            <div>
-              <span className="inline-block bg-[#1e40af]/10 text-[#1e40af] text-xs px-3 py-1 rounded-full mb-2">
-                Verified Property Dealer
-              </span>
-
-              <h1 className="text-3xl md:text-4xl font-extrabold text-[#0b1f33] leading-tight">
-                 {dealerName}
-              </h1>
-
-              <p className="text-base text-gray-500 mt-1">
-                 {dealerCity} Haryana
-              </p>
-            </div>
-
-            {/* RIGHT SIDE TAG */}
-            <div className="flex items-center gap-3">
-              <span className="px-4 py-2 bg-green-50 text-green-700 text-sm rounded-md border border-green-200">
-                ✔ Trusted & Verified
-              </span>
-            </div>
-
-          </div>
-
-          {/* QUICK INFO BAR */}
-          
-
+          <p className="text-base text-gray-500 mt-2">
+             {dealerCity}, Haryana
+          </p>
         </div>
 
         {/* INTRODUCTION */}
+        <p className="text-gray-700 leading-7 mb-6">
+          {dealerCity} is one of India’s fastest-growing real estate markets, offering a wide range of residential, commercial, and investment opportunities.  
+          With rapid infrastructure development, expanding business hubs, and growing residential demand, navigating the property market requires accurate information and local expertise.
+        </p>
+
+        <p className="text-gray-700 leading-7 mb-8">
+          <strong>{dealerName}</strong> is a professional property dealer in {dealerCity}, providing structured real estate services to buyers, sellers, landlords, tenants, and investors.  
+          The focus is on delivering reliable market insights, transparent processes, and end-to-end property assistance.
+        </p>
+
+        <p className="text-gray-700 leading-7 mb-8">
+          If you are searching for a dependable real estate agent in {dealerCity} who understands market trends, pricing, and legal requirements,  
+          {dealerName} offers informed guidance at every stage of the transaction.
+        </p>
+
+        {/* ABOUT */}
         <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Introduction
+          About {dealerName}
         </h2>
 
         <p className="text-gray-700 leading-7 mb-8">
-          Finding the right property can be a complex and time-consuming process. 
-          Whether you're buying, selling, or renting, having a professional by your side 
-          can make all the difference. {dealerName} , we specialize in guiding 
-          clients through every step of their real estate journey in {dealerCity} . Our goal is to simplify 
-          the process, ensure transparency, and help you make informed decisions.
+          {dealerName} operates as a full-service real estate consultancy in {dealerCity}, catering to diverse property requirements.  
+          Services are designed for individuals purchasing homes, businesses seeking commercial spaces, and investors looking for long-term returns.
         </p>
 
-        {/* FEATURES */}
+        <p className="text-gray-700 leading-7 mb-8">
+          As an experienced property dealer in {dealerCity}, the approach is based on:
+        </p>
+
+        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+          <li>Market research</li>
+          <li>Clear communication</li>
+          <li>Legal and documentation accuracy</li>
+          <li>Client-specific property solutions</li>
+        </ul>
+
+        {/* OBJECTIVE */}
         <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Features of a Real Estate Agent and Their Benefits
+          Objective and Work Approach
         </h2>
 
         <p className="text-gray-700 leading-7 mb-8">
-          A real estate agent serves as a bridge between property buyers and sellers. 
-          Their in-depth knowledge of the local market, legal procedures, and negotiation strategies 
-          provides significant advantages. Key features of a good agent include market expertise, 
-          access to exclusive listings, strong communication skills, and legal knowledge. 
-          Working with a trusted agent can save time, reduce stress, and often result in better 
-          financial outcomes, whether you're buying or selling.
+          The primary objective is to help clients make informed real estate decisions using verified data and practical market understanding.  
+          All property-related aspects—pricing, location advantages, documentation, and future potential—are explained clearly.
         </p>
 
-        {/* THINGS TO CONSIDER */}
+        <p className="text-gray-700 leading-7 mb-8">
+          As a trusted real estate agent in {dealerCity}, the work approach includes:
+        </p>
+
+        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+          <li>Requirement analysis</li>
+          <li>Shortlisting suitable properties</li>
+          <li>Assisting with negotiations</li>
+          <li>Coordinating documentation and registration</li>
+        </ul>
+
+        {/* MARKET UNDERSTANDING */}
         <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Things to Consider Before Hiring an Estate Agent in {dealerCity}
+          Understanding the {dealerCity} Real Estate Market
         </h2>
 
         <p className="text-gray-700 leading-7 mb-8">
-          Before choosing an estate agent in {dealerCity} , it’s important to evaluate a few key aspects. 
-          Check their licensing and professional certifications, ask about their experience in the local market, 
-          and look at recent client reviews or testimonials. It's also useful to compare commission rates and 
-          understand the scope of services they offer. Ensure the agent has a strong grasp of neighborhood trends 
-          and can provide a realistic valuation of the property.
+          {dealerCity}’s real estate market is driven by infrastructure projects, corporate expansion, and residential demand.  
+          Property values vary significantly by sector, connectivity, and development status.
         </p>
 
-        {/* DOS AND DONTS */}
+        <p className="text-gray-700 leading-7 mb-8">
+          {dealerName} closely monitors:
+        </p>
+
+        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+          <li>Sector-wise price movements</li>
+          <li>Infrastructure developments</li>
+          <li>Rental demand trends</li>
+          <li>Commercial growth corridors</li>
+          <li>Builder credibility and approvals</li>
+        </ul>
+
+        {/* SERVICES */}
         <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Dos and Don’ts While Hiring a Real Estate Agent in {dealerCity}
+          Services Offered
+        </h2>
+
+        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+          <li>Buying and selling of residential property in {dealerCity}</li>
+          <li>Assistance with commercial property for sale in {dealerCity}</li>
+          <li>Support for rental property in {dealerCity}</li>
+          <li>Property shortlisting and site visits</li>
+          <li>Title verification and document checks</li>
+          <li>Negotiation support</li>
+          <li>Registration and legal coordination</li>
+        </ul>
+
+        {/* WHY CHOOSE */}
+        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
+          Why Choose {dealerName}?
+        </h2>
+
+        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+          <li>Local Market Expertise – In-depth knowledge of {dealerCity} real estate zones</li>
+          <li>Transparent Process – Clear pricing and documentation guidance</li>
+          <li>Client-Oriented Solutions – Property options based on individual needs</li>
+          <li>Complete Transaction Support – Assistance from inquiry to registration</li>
+          <li>Professional Conduct – Ethical practices and reliable communication</li>
+        </ul>
+
+        {/* SUPPORT */}
+        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
+          Support for Confident Property Decisions
         </h2>
 
         <p className="text-gray-700 leading-7 mb-8">
-          Do ask for references and speak directly with past clients to understand their experiences. 
-          Do ensure the agent has a strong local network and up-to-date knowledge of current listings 
-          and market trends. Don’t rely solely on advertisements or promotional content. Don’t rush the decision—interview 
-          multiple agents before making your final choice. Avoid agents who are overly pushy or promise unrealistic returns.
+          Real estate transactions involve significant financial and legal considerations.  
+          {dealerName} provides structured guidance to help clients understand:
         </p>
 
-        {/* TIPS */}
-        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Tips and Tricks Before Hiring a Property Agent in {dealerCity}
-        </h2>
+        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+          <li>Market value</li>
+          <li>Location suitability</li>
+          <li>Legal documentation</li>
+          <li>Long-term investment potential</li>
+        </ul>
 
-        <p className="text-gray-700 leading-7 mb-8">
-          Always verify the agent’s credentials and cross-check their track record. 
-          Look for agents who specialize in the type of property you are interested in—residential, commercial, rental, etc. 
-          Be clear about your needs and budget from the beginning, and choose someone who listens carefully and provides honest guidance. 
-          Ask about the marketing strategies they use for listings and how they handle negotiations. Lastly, ensure all agreements are documented properly.
-        </p>
-
-        {/* WHY CHOOSE US */}
+        {/* CONTACT */}
         <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Why Choose {dealerName}:
+          Contact {dealerName}
         </h2>
 
         <p className="text-gray-700 leading-7 mb-10">
-          At {dealerName} , we combine local expertise with personalized service to offer unmatched 
-          real estate solutions in Ambala . We believe in building long-term relationships based on trust, integrity, 
-          and results. Our team is committed to helping you find the right property or buyer with minimal hassle and maximum satisfaction. 
-          With a client-first approach and a deep understanding of the market, we aim to be your go-to property partner in {dealerCity} .
+          For buying, selling, renting, or investing in {dealerCity} real estate, professional consultation is recommended.  
+          {dealerName} offers reliable property assistance tailored to residential and commercial requirements.
         </p>
 
         {/* FAQ SECTION */}
         <h2 className="text-xl font-semibold text-[#0b1f33] mb-4">
-          Frequently Asked Questions
-        </h2>
+  Frequently Asked Questions
+</h2>
 
-        <div className="space-y-4">
+<div className="space-y-4">
   {[
     {
-      q: "How do I know if a real estate agent is licensed?",
-      a: "You can request the agent to provide their license or registration certificate, typically issued by a government-approved real estate authority. In many regions, agents must be registered with a regulatory body. You can also verify their credentials online if the licensing organization maintains a public directory.",
+      q: "Can a property dealer help sell commercial property in Gurgaon?",
+      a: "Yes. A professional property dealer in Gurgaon assists with valuation, marketing, and transaction execution."
     },
     {
-      q: `What are the typical commission charges in ${dealerCity}?`,
-      a: "Commission rates vary based on the type of transaction and local market norms. In most cases, residential property sales incur a commission of 1% to 2% of the sale value. Commercial deals may have slightly higher rates. It's important to clarify the commission structure in advance, including whether it covers taxes and additional charges.",
+      q: "Does the dealer handle rental properties?",
+      a: "Yes. Services are available for both residential and commercial rental property in Gurgaon."
     },
     {
-      q: "Can I work with more than one agent at the same time?",
-      a: "Yes, unless you've signed an exclusive agreement with one agent, you're free to work with multiple agents. However, doing so may lead to confusion or duplicate listings. If you choose this route, ensure all agents are aware of your preferences and there’s no legal or communication overlap.",
+      q: "Are residential properties available through this dealer?",
+      a: "Yes. Residential property in Gurgaon is a core service offering."
     },
     {
-      q: `How long does it usually take to sell a property in ${dealerCity}?`,
-      a: `The selling timeline depends on several factors such as location, pricing, demand, and property condition. In ${dealerCity}, it typically takes anywhere from a few weeks to several months to sell a property. Proper valuation, staging, marketing, and working with an experienced agent can help accelerate the process.`,
+      q: "Is legal and documentation support provided?",
+      a: "Yes. Title verification, documentation checks, and registration assistance are included."
     },
     {
-      q: "Do agents help with legal documentation and registration?",
-      a: "Yes, many professional real estate agents offer assistance with legal formalities such as drafting sale agreements, verifying documents, coordinating with legal advisors, and supporting the property registration process. It's best to confirm the scope of services in advance, as not all agents include legal support in their offerings.",
-    },
-    {
-      q: "What should I do if I’m not satisfied with my current agent?",
-      a: "If you're dissatisfied, first try discussing your concerns openly—misunderstandings can often be resolved with communication. If the issue continues and you're not bound by an exclusive agreement, you're free to end the relationship. Always review the terms of any agreement beforehand to understand your rights and the termination process.",
-    },
+      q: "How can I start my property search?",
+      a: "Clients can contact us and share their requirements for guided property options."
+    }
   ].map((item, index) => (
-    <div key={index} className="border-b border-gray-200 pb-2">
+    <div
+      key={index}
+      className={`transition-all duration-300 rounded-lg ${
+        openFaq === index
+          ? "border border-[#1e40af]/40 bg-[#f0f5ff]"
+          : "border-b border-gray-200"
+      }`}
+    >
       <button
         onClick={() => toggleFaq(index)}
-        className="w-full text-left font-medium text-[#0b1f33] flex justify-between"
+        className="w-full text-left font-medium text-[#0b1f33] flex justify-between items-center p-3"
       >
-        {item.q}
-        <span className="text-[#1e40af]">
+        <span>{item.q}</span>
+
+        <span className="text-[#1e40af] font-bold text-lg">
           {openFaq === index ? "−" : "+"}
         </span>
       </button>
 
       {openFaq === index && (
-        <div className="mt-2 text-gray-700">
-          {item.a}
+        <div className="px-4 pb-4">
+          <div className="bg-white border border-[#1e40af]/30 rounded-md p-4 text-gray-700 shadow-sm">
+            {item.a}
+          </div>
         </div>
       )}
     </div>
@@ -182,6 +225,7 @@ const dealerCity = searchParams.get("city");
 
 
       </div>
+      
     </section>
   );
 }

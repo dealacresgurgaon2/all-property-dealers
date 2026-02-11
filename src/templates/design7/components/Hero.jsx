@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import DealerThemePopup from "./DealerThemePopup";
 
 export default function Hero() {
   const [counts, setCounts] = useState({
@@ -28,7 +29,7 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
-
+const [popupOpen, setPopupOpen] = useState(false);
   return (
     <section className="relative min-h-[70vh] w-full overflow-hidden bg-black text-white">
 
@@ -61,12 +62,14 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <button className="px-7 py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 font-semibold hover:scale-105 transition">
+              {/* <button className="px-7 py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 font-semibold hover:scale-105 transition">
                 Start Exploring
-              </button>
+              </button> */}
 
-              <button className="px-7 py-3 rounded-lg border border-white/30 hover:bg-white hover:text-black transition">
-                Become Partner
+              <button 
+              onClick={() => setPopupOpen(true)}
+              className="px-7 py-3 rounded-lg border border-white/30 hover:bg-white hover:text-black transition">
+                Contact Agent
               </button>
             </div>
 
@@ -133,6 +136,10 @@ export default function Hero() {
 
         </div>
       </div>
+       <DealerThemePopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+      />
     </section>
   );
 }

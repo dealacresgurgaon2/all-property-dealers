@@ -2,7 +2,7 @@
 
 import DealerDetailPage from "./DealerDetailPage";
 import QueryForm from "../../components/QueryForm";
-
+import FourBlogs from "../../components/FourBlogs";
 export default function BlogPage() {
   return (
     <main className="bg-slate-50 py-12">
@@ -11,12 +11,12 @@ export default function BlogPage() {
         {/* PAGE HEADER - NEW STYLE */}
         <div className="mb-10 bg-white rounded-3xl border border-indigo-200 p-6 shadow-sm">
 
-          <span className="inline-block text-xs px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 mb-3">
+          {/* <span className="inline-block text-xs px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 mb-3">
             Verified Dealer Profile
-          </span>
+          </span> */}
 
           <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">
-            Dealer Profile & Details
+            Dealer Details
           </h2>
 
           <p className="text-sm text-gray-500 mt-2">
@@ -48,7 +48,7 @@ export default function BlogPage() {
                 <QueryForm />
               </div>
 
-              {/* SUPPORT CARD - NEW STYLE */}
+              {/* SUPPORT CARD - NEW STYLE
               <div className="bg-white rounded-3xl p-5 border border-purple-200">
 
                 <h4 className="font-semibold text-purple-700 mb-2">
@@ -81,7 +81,7 @@ export default function BlogPage() {
                   Request Callback
                 </button>
 
-              </div>
+              </div> */}
 
               {/* SMALL TRUST BADGES */}
               <div className="grid grid-cols-2 gap-3">
@@ -102,6 +102,9 @@ export default function BlogPage() {
           </div>
 
         </div>
+         <div className="mt-8">
+        <FourBlogs />
+      </div>
 
       </div>
     </main>

@@ -2,7 +2,7 @@
 
 import DealerDetailPage from "./DealerDetailPage";
 import QueryForm from "../../components/QueryForm";
-
+import FourBlogs from "../../components/FourBlogs";
 export default function BlogPage() {
   return (
     <main className="bg-white py-10">
@@ -24,6 +24,9 @@ export default function BlogPage() {
           </div>
 
         </div>
+         <div className="mt-8">
+                <FourBlogs />
+              </div>
 
       </div>
     </main>

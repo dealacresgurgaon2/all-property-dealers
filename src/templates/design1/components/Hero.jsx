@@ -1,6 +1,13 @@
 "use client";
 
+import { useState } from "react";
+import ContactPopup from "./ContactPopup";
+
+
 export default function Hero() {
+
+  const [popupOpen, setPopupOpen] = useState(false);
+
   return (
     <section
       className="relative w-full min-h-[70vh] flex items-center"
@@ -32,13 +39,15 @@ export default function Hero() {
             </p>
 
             <div className="flex gap-4 flex-wrap">
-              <button className="px-7 py-3 bg-[#1e40af] text-white rounded-md font-semibold hover:bg-[#1d4ed8] transition">
-                Explore Properties
-              </button>
 
-              <button className="px-7 py-3 border border-[#38bdf8]/60 text-[#38bdf8] rounded-md font-semibold hover:bg-[#38bdf8] hover:text-[#0b1f33] transition">
+              {/* TALK TO EXPERT BUTTON – POPUP TRIGGER */}
+              <button
+                onClick={() => setPopupOpen(true)}
+                className="px-7 py-3 border border-[#38bdf8]/60 text-[#38bdf8] rounded-md font-semibold hover:bg-[#38bdf8] hover:text-[#0b1f33] transition"
+              >
                 Talk to Expert
               </button>
+
             </div>
           </div>
 
@@ -90,6 +99,13 @@ export default function Hero() {
 
         </div>
       </div>
+
+      {/* CONTACT POPUP CALL */}
+      <ContactPopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+      />
+
     </section>
   );
 }

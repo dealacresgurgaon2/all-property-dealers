@@ -1,24 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Pagination from "../../components/Pagination";
-import BlogList, { TOTAL_BLOGS } from "./Bloglist";
+import BlogList from "./Bloglist";
 
-const ITEMS_PER_PAGE = 6;
+// 🔥 30 BLOGS PER PAGE
+const ITEMS_PER_PAGE = 30;
 
 export default function BlogPage() {
   const [page, setPage] = useState(1);
+  const [totalBlogs, setTotalBlogs] = useState(0);
+
   const listRef = useRef(null);
 
-  const totalPages = Math.ceil(TOTAL_BLOGS / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(totalBlogs / ITEMS_PER_PAGE);
 
-  // 🔒 SAFETY: agar page last se aage ho gaya
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages || 1);
-    }
-  }, [page, totalPages]);
-
+  // Smooth Scroll Function
   const scrollToList = () => {
     listRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -28,23 +25,30 @@ export default function BlogPage() {
 
   return (
     <main className="bg-slate-50 pb-10">
-      {/* Blog List */}
+
+      {/* Blog List Section */}
       <div ref={listRef}>
         <BlogList
           page={page}
           itemsPerPage={ITEMS_PER_PAGE}
+          setTotalBlogs={setTotalBlogs}
         />
       </div>
 
-      {/* Pagination */}
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        setPage={(p) => {
-          setPage(p);
-          scrollToList();
-        }}
-      />
+      {/* Pagination - Sirf tab dikhe jab pages > 1 ho */}
+      {totalPages > 1 && (
+        <div className="mt-10">
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            setPage={(p) => {
+              setPage(p);
+              scrollToList();
+            }}
+          />
+        </div>
+      )}
+
     </main>
   );
 }

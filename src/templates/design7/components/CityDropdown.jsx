@@ -1,16 +1,14 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function CityDropdown() {
-  const router = useRouter();
+export default function CityDropdown({ onCitySelect }) {
 
   const [selectedCity, setSelectedCity] = useState("");
 
   const cities = [
-    "Delhi",
-    "Noida",
+    "Hisar",
+    "Gurgaon",
     "Faridabad",
     "Sonipat"
   ];
@@ -20,10 +18,8 @@ export default function CityDropdown() {
 
     setSelectedCity(city);
 
-    if (city) {
-      // 🔥 IMPORTANT – EXACT PAGE PUSH
-      router.push(`/${city}`);
-    }
+    // parent ko city bhej do
+    onCitySelect(city);
   };
 
   return (
@@ -57,7 +53,7 @@ export default function CityDropdown() {
       </select>
 
       <p className="text-xs text-gray-500 mt-2">
-        Select a city to view available property dealers
+        Select a city to filter available property dealers
       </p>
 
     </div>

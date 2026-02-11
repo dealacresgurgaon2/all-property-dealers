@@ -2,15 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import ContactPopup from "./ContactPopup";      // 👈 ONLY NEW IMPORT
 
 export default function DealerCard({ dealer }) {
   const [liked, setLiked] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
 
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
     return (words[0][0] + words[1][0]).toUpperCase();
   };
+
   return (
     <div
       className="
@@ -25,10 +28,9 @@ export default function DealerCard({ dealer }) {
         hover:border-[#1e40af]/40
       "
     >
-      {/* PREMIUM GLOW */}
+
       <div className="pointer-events-none absolute inset-0 rounded opacity-0 group-hover:opacity-100 transition duration-300 ring-2 ring-[#1e40af]/20" />
 
-      {/* ❤️ HEART (ALWAYS VISIBLE + CLICKABLE) */}
       <button
         onClick={() => setLiked(!liked)}
         aria-label="Add to favourites"
@@ -56,9 +58,8 @@ export default function DealerCard({ dealer }) {
         </svg>
       </button>
 
-      {/* CONTENT */}
       <div className="flex gap-4 p-4 relative z-10">
-        {/* LOGO */}
+
         <div className="flex-shrink-0">
           <div
             className="
@@ -78,13 +79,11 @@ export default function DealerCard({ dealer }) {
           </div>
         </div>
 
-        {/* RIGHT CONTENT */}
         <div className="flex-1 flex flex-col">
           <h3 className="text-base font-bold text-[#0b1f33]">
             {dealer.name}
           </h3>
 
-          {/* 📍 LOCATION (SVG RESTORED) */}
           <p className="text-xs text-gray-600 mt-0.5 flex items-start gap-2 leading-snug">
             <span className="mt-0.5 text-[#1e40af] shrink-0">
               <svg
@@ -108,7 +107,7 @@ export default function DealerCard({ dealer }) {
           </p>
 
           <p className="text-xs text-gray-500 mt-1">
-            {dealer.city}
+            {dealer.city}{dealer.state && `, ${dealer.state}`}
           </p>
 
           {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (
@@ -132,10 +131,11 @@ export default function DealerCard({ dealer }) {
             </div>
           )}
 
-          {/* BUTTONS */}
           <div className="flex gap-3 mt-auto pt-3 border-t border-gray-200">
-            <a
-              href={`/contact?dealer=${dealer.slug}`}
+
+            {/* 👇 ONLY THIS PART CHANGED */}
+            <button
+              onClick={() => setOpenPopup(true)}
               className="
                 px-3 py-1.5
                 bg-[#1e40af]
@@ -147,17 +147,17 @@ export default function DealerCard({ dealer }) {
                 transition
               "
             >
-              Contact
-            </a>
+              Contact us
+            </button>
 
             <Link
-               href={{
-     pathname: `/adv-dse`,
-    query: {
-      name: dealer.name,
-      city: dealer.city,
-    },
-  }}
+              href={{
+                pathname: `dealer/adv-dse`,
+                query: {
+                  name: dealer.name,
+                  city: dealer.city,
+                },
+              }}
               className="
                 px-3 py-1.5
                 border border-[#1e40af]
@@ -170,11 +170,19 @@ export default function DealerCard({ dealer }) {
                 transition
               "
             >
-              View
+              View Details
             </Link>
           </div>
         </div>
       </div>
+
+      {/* 👇 ONLY NEW ADDITION */}
+      <ContactPopup
+        isOpen={openPopup}
+        onClose={() => setOpenPopup(false)}
+        dealerName={dealer.name}
+      />
+
     </div>
   );
 }

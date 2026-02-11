@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useBlogs } from "@/context/blogcontext/BlogContext";
 
@@ -17,22 +17,49 @@ const formatDate = (date) => {
 export default function SingleBlogPage() {
   const { slug } = useParams();
 
-  const { singleBlog, fetchSingleBlog, recentBlogs, loading } = useBlogs();
+  const {
+    singleBlog,
+    fetchSingleBlog,
+    recentBlogs,
+    loading,
+    singleError,
+    listError,
+    setPage,
+  } = useBlogs();
+
+  // ===== LOCAL LOADING STATE FOR REFRESH =====
+  const [pageLoading, setPageLoading] = useState(true);
 
   useEffect(() => {
     if (slug) {
+      setPageLoading(true);
+
       fetchSingleBlog(slug);
+
+      // Recent blogs load karne ke liye
+      setPage(1);
+
+      // Artificial small delay for smooth UX
+      setTimeout(() => {
+        setPageLoading(false);
+      }, 800);
     }
   }, [slug]);
 
-  if (loading) {
+  // ===== EXTRA SAFETY FOR RECENT BLOGS =====
+  useEffect(() => {
+    if (!recentBlogs || recentBlogs.length === 0) {
+      setPage(1);
+    }
+  }, []);
+
+  // ===== MAIN LOADING STATE =====
+  if (pageLoading || loading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-
         <div className="flex flex-col items-center gap-4">
 
-          {/* Simple Loader – without extra animation */}
-          <div className="w-14 h-14 border-4 border-[#5E23DC]/30 border-t-[#5E23DC] rounded-full"></div>
+          <div className="w-14 h-14 border-4 border-[#5E23DC]/30 border-t-[#5E23DC] rounded-full animate-spin"></div>
 
           <h2 className="text-lg text-[#5E23DC] font-semibold">
             Loading Blog...
@@ -41,14 +68,22 @@ export default function SingleBlogPage() {
           <p className="text-sm text-gray-600">
             Please wait while we fetch the content
           </p>
-
         </div>
-
       </div>
     );
   }
 
-  if (!singleBlog) {
+  // ===== SINGLE BLOG ERROR =====
+  if (singleError) {
+    return (
+      <div className="py-32 text-center text-xl text-red-700">
+        {singleError}
+      </div>
+    );
+  }
+
+  // ===== DATA NOT AVAILABLE BUT NO ERROR =====
+  if (!pageLoading && !loading && !singleBlog) {
     return (
       <div className="py-32 text-center text-xl text-red-700">
         Blog not found
@@ -66,8 +101,8 @@ export default function SingleBlogPage() {
           {/* HERO IMAGE */}
           <div className="relative w-full h-[460px] rounded-2xl overflow-hidden mb-8">
             <Image
-              src={singleBlog.heroImg}
-              alt={singleBlog.title?.rendered}
+              src={singleBlog?.heroImg}
+              alt={singleBlog?.title?.rendered}
               fill
               priority
               className="object-cover"
@@ -77,25 +112,20 @@ export default function SingleBlogPage() {
 
             <div className="absolute bottom-6 left-6 right-6">
               <h1 className="text-2xl md:text-4xl font-bold text-white">
-                {singleBlog.title?.rendered}
+                {singleBlog?.title?.rendered}
               </h1>
 
               <p className="text-white/90 mt-2">
-                Published on {formatDate(singleBlog.date)}
+                Published on {formatDate(singleBlog?.date)}
               </p>
             </div>
           </div>
 
           {/* BLOG CONTENT */}
           <div
-            className="
-              text-gray-700
-              leading-relaxed
-              space-y-6
-              text-[17px]
-            "
+            className="text-gray-700 leading-relaxed space-y-6 text-[17px]"
             dangerouslySetInnerHTML={{
-              __html: singleBlog.content?.rendered,
+              __html: singleBlog?.content?.rendered,
             }}
           />
         </div>
@@ -114,44 +144,62 @@ export default function SingleBlogPage() {
               </p>
             </div>
 
-            {/* RECENT BLOGS */}
+            {/* ===== RECENT BLOGS SECTION ===== */}
             <div className="bg-white border border-[#5E23DC]/20 rounded-2xl p-5">
               <h3 className="text-xl font-bold text-[#5E23DC] mb-4 border-b border-[#5E23DC]/20 pb-2">
                 Recent Blogs
               </h3>
 
+              {listError && (
+                <p className="text-red-600 text-sm mb-3">
+                  {listError}
+                </p>
+              )}
+
               <div className="space-y-4">
-                {recentBlogs.map((b) => (
-                  <Link
-                    key={b._id}
-                    href={`/blogs/${b.slug}`}
-                    className="
-                      flex gap-3
-                      p-3
-                      rounded-xl
-                      hover:bg-[#5E23DC]/5
-                    "
-                  >
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-                      <Image
-                        src={b.heroImg}
-                        alt={b.title?.rendered}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
 
-                    <div>
-                      <p className="text-xs text-gray-500">
-                        {formatDate(b.date)}
-                      </p>
+                {/* ===== RECENT BLOGS LOADER ===== */}
+                {loading && (
+                  <p className="text-sm text-gray-500">
+                    Loading recent blogs...
+                  </p>
+                )}
 
-                      <h4 className="text-sm font-semibold text-[#5E23DC] line-clamp-2">
-                        {b.title?.rendered}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
+                {!loading && recentBlogs && recentBlogs.length > 0 ? (
+                  recentBlogs.map((b) => (
+                    <Link
+                      key={b._id}
+                      href={`/blogs/${b.slug}`}
+                      className="flex gap-3 p-3 rounded-xl hover:bg-[#5E23DC]/5"
+                    >
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                        <Image
+                          src={b.heroImg}
+                          alt={b.title?.rendered}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+
+                      <div>
+                        <p className="text-xs text-gray-500">
+                          {formatDate(b.date)}
+                        </p>
+
+                        <h4 className="text-sm font-semibold text-[#5E23DC] line-clamp-2">
+                          {b.title?.rendered}
+                        </h4>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  !loading && (
+                    <p className="text-sm text-gray-500">
+                      No recent blogs available
+                    </p>
+                  )
+                )}
+
               </div>
             </div>
 
@@ -166,14 +214,7 @@ export default function SingleBlogPage() {
 
               <Link
                 href="/"
-                className="
-                  inline-block
-                  bg-white
-                  text-[#5E23DC]
-                  px-5 py-2
-                  rounded-full
-                  font-semibold
-                "
+                className="inline-block bg-white text-[#5E23DC] px-5 py-2 rounded-full font-semibold"
               >
                 Contact Us
               </Link>

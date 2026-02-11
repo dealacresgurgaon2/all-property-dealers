@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import GreenContactPopup from "./GreenContactPopup";
 
 export default function Hero() {
   const [counts, setCounts] = useState({
@@ -37,7 +38,7 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
-
+const [popupOpen, setPopupOpen] = useState(false);
   return (
     <section className="relative w-full min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-black">
       
@@ -108,10 +109,12 @@ export default function Hero() {
             </p>
 
             <div className="flex gap-4 flex-wrap mb-8">
-              <button className="px-6 py-3 bg-green-600 text-white rounded-md font-semibold shadow-lg hover:-translate-y-1 transition">
+              {/* <button className="px-6 py-3 bg-green-600 text-white rounded-md font-semibold shadow-lg hover:-translate-y-1 transition">
                 Explore Properties
-              </button>
-              <button className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-green-700 transition">
+              </button> */}
+              <button className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-green-700 transition"
+              onClick={() => setPopupOpen(true)}
+              >
                 Contact Agent
               </button>
             </div>
@@ -125,6 +128,10 @@ export default function Hero() {
 
         </div>
       </div>
+       <GreenContactPopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+      />
     </section>
   );
 }

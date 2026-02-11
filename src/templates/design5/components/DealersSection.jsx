@@ -4,16 +4,25 @@ import { useEffect, useState, useRef } from "react";
 
 import { useDealers } from "@/context/propertydealercontext/DealerContext";
 
-// ---- PATHS FIXED HERE ----
 import DealerCard from "./DealerCard";
 import DealerSearchBar from "./DealerSearchBar";
 import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
-// --------------------------
 
-export default function DealersSection() {
+export default function DealersSection({ domain }) {
 
-  const { dealers, loading, page, setPage, totalPages } = useDealers();
+  const { dealers, loading, page, setPage, totalPages, setDomain } = useDealers();
+
+  useEffect(() => {
+    setDomain("propertydealerindelhi.com");
+    if (
+      domain &&
+      (domain == "propertydeler-gold-frontend-k2da.vercel.app" ||
+        domain == "localhost")
+    ) {
+      setDomain("propertydealerindelhi.com");
+    }
+  }, [domain]);
 
   const [filtered, setFiltered] = useState([]);
 
@@ -23,7 +32,10 @@ export default function DealersSection() {
     setFiltered(dealers);
   }, [dealers]);
 
+  // ============ 🔥 FINAL SEARCH LOGIC ============
+
   const handleSearch = (query) => {
+
     const q = query.toLowerCase().trim();
 
     if (!q) {
@@ -35,6 +47,7 @@ export default function DealersSection() {
 
     const words = q.split(/\s+/);
 
+    // MATCHED DEALERS
     const matched = dealers.filter((d) => {
       const text = `
         ${d.name || ""}
@@ -45,35 +58,59 @@ export default function DealersSection() {
       return words.every((w) => text.includes(w));
     });
 
-    setFiltered(matched);
+    // UNMATCHED DEALERS
+    const unmatched = dealers.filter((d) => {
+      const text = `
+        ${d.name || ""}
+        ${d.city || ""}
+        ${d.address || ""}
+      `.toLowerCase();
+
+      return !words.every((w) => text.includes(w));
+    });
+
+    // 🔥 Matched on TOP
+    let finalList = [...matched, ...unmatched];
+
+    // 🔥 Guarantee MINIMUM 100 CARDS
+    if (finalList.length < 100 && dealers.length > finalList.length) {
+
+      const extraNeeded = 100 - finalList.length;
+
+      const extra = dealers
+        .filter(d => !finalList.includes(d))
+        .slice(0, extraNeeded);
+
+      finalList = [...finalList, ...extra];
+    }
+
+    setFiltered(finalList);
+
     setPage(1);
     scrollToList();
   };
 
+  // ===============================================
+
   const scrollToList = () => {
     requestAnimationFrame(() => {
-      listTopRef.current?.scrollIntoView({
+      const element = listTopRef.current;
+      if (!element) return;
+
+      const yOffset = -100;   // Fix first card hiding
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({
+        top: y,
         behavior: "smooth",
-        block: "start",
       });
     });
   };
-
-  if (loading) {
-    return (
-      <div className="py-28 text-center">
-        <div className="inline-block px-6 py-3 rounded-lg bg-red-100 text-red-600 font-medium">
-          Loading property dealers…
-        </div>
-      </div>
-    );
-  }
 
   return (
     <section className="bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
 
-        {/* HEADER */}
         <div className="mb-10">
           <h2 className="text-3xl font-extrabold text-gray-800">
             Top Property Dealers
@@ -88,20 +125,23 @@ export default function DealersSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
-          {/* LEFT SECTION */}
           <div className="lg:col-span-2">
 
-            {/* SEARCH BAR */}
             <div className="sticky top-[72px] z-30 pb-4">
               <DealerSearchBar onSearch={handleSearch} />
             </div>
 
             <div className="h-4" />
 
-            <div ref={listTopRef} className="scroll-mt-[140px]" />
+            <div ref={listTopRef} className="h-2" />
 
-            {/* EMPTY STATE */}
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="py-20 text-center border border-dashed border-red-300 rounded-xl bg-white">
+                <div className="inline-block px-6 py-3 rounded-lg bg-red-100 text-red-600 font-medium">
+                  Loading property dealers…
+                </div>
+              </div>
+            ) : filtered.length === 0 ? (
               <div className="py-20 text-center border border-dashed border-red-300 rounded-xl bg-white">
                 <p className="text-red-600 font-medium">
                   No dealers found for your search
@@ -118,8 +158,7 @@ export default function DealersSection() {
               </div>
             )}
 
-            {/* PAGINATION */}
-            {totalPages > 1 && (
+            {!loading && totalPages > 1 && (
               <div className="mt-6">
                 <Pagination
                   page={page}
@@ -131,9 +170,9 @@ export default function DealersSection() {
                 />
               </div>
             )}
+
           </div>
 
-          {/* RIGHT SIDEBAR */}
           <div className="space-y-6">
             <div className="sticky top-[72px]">
               <QueryForm />

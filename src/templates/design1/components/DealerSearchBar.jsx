@@ -4,11 +4,26 @@ import { useState } from "react";
 
 export default function DealerSearchBar({ onSearch }) {
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async () => {
+    if (!query.trim()) return;
+
+    setLoading(true);
+
+    // Call parent search function
+    await onSearch(query);
+
+    // Small delay for smooth UX
+    setTimeout(() => {
+      setLoading(false);
+    }, 300);
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      onSearch(query);
+      handleSearch();
     }
   };
 
@@ -62,39 +77,48 @@ export default function DealerSearchBar({ onSearch }) {
             text-[#0b1f33]
             placeholder-gray-400
           "
+          disabled={loading}
         />
 
-        {/* 🔍 SEARCH BUTTON */}
+        {/* 🔍 SEARCH BUTTON WITH LOADER */}
         <button
-          onClick={() => onSearch(query)}
-          className="
+          onClick={handleSearch}
+          disabled={loading}
+          className={`
             ml-4
             px-4 py-2.5
             rounded-lg
-            bg-[#1e40af]
-            hover:bg-[#1d4ed8]
             transition
             text-white
             flex items-center justify-center
             shadow-sm
-          "
+            ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[#1e40af] hover:bg-[#1d4ed8]"
+            }
+          `}
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <line
-              x1="21"
-              y1="21"
-              x2="16.65"
-              y2="16.65"
-              strokeLinecap="round"
-            />
-          </svg>
+          {loading ? (
+            <div className="w-5 h-5 border-2 border-white/60 border-t-white rounded-full animate-spin"></div>
+          ) : (
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <line
+                x1="21"
+                y1="21"
+                x2="16.65"
+                y2="16.65"
+                strokeLinecap="round"
+              />
+            </svg>
+          )}
         </button>
       </div>
     </div>

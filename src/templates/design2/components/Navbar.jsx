@@ -1,8 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Navbar() {
+
+  const [open, setOpen] = useState(false);
+
   return (
     <header
       className="
@@ -30,49 +34,56 @@ export default function Navbar() {
           <span>Dealer</span>
         </Link>
 
-        {/* RIGHT: NAV LINKS */}
-        <nav className="flex items-center gap-8">
+        {/* DESKTOP NAV LINKS */}
+        <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/about"
-            className="
-              relative
-              text-black/80
-              font-medium
-              transition
-              after:absolute after:left-0 after:-bottom-1
-              after:h-[2px] after:w-0
-              after:bg-[#d4af37]
-              after:transition-all
-              hover:text-black
-              hover:after:w-full
-            "
+            className="relative text-black/80 font-medium hover:text-black"
           >
             About
           </Link>
 
           <Link
             href="/blogs"
-            className="
-              relative
-              text-black/80
-              font-medium
-              transition
-              after:absolute after:left-0 after:-bottom-1
-              after:h-[2px] after:w-0
-              after:bg-[#d4af37]
-              after:transition-all
-              hover:text-black
-              hover:after:w-full
-            "
+            className="relative text-black/80 font-medium hover:text-black"
           >
             Blog
           </Link>
-
-          {/* CTA BUTTON */}
-         
         </nav>
 
+        {/* ===== MOBILE TOGGLE BUTTON ===== */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-2xl font-bold text-black"
+        >
+          {open ? "✕" : "☰"}
+        </button>
       </div>
+
+      {/* ===== MOBILE MENU ===== */}
+      {open && (
+        <div className="md:hidden bg-white border-t border-[#d4af37]/30 shadow-md">
+          <nav className="flex flex-col p-4 gap-4">
+
+            <Link
+              href="/about"
+              onClick={() => setOpen(false)}
+              className="text-black/80 font-medium hover:text-black transition"
+            >
+              About
+            </Link>
+
+            <Link
+              href="/blogs"
+              onClick={() => setOpen(false)}
+              className="text-black/80 font-medium hover:text-black transition"
+            >
+              Blog
+            </Link>
+
+          </nav>
+        </div>
+      )}
     </header>
   );
 }

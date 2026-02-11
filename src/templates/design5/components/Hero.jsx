@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import ContactPopup from "./ContactPopup";
 
 export default function Hero() {
+  const [popupOpen, setPopupOpen] = useState(false);
   const [counts, setCounts] = useState({
     listings: 0,
     cities: 0,
@@ -81,10 +83,12 @@ export default function Hero() {
 
             {/* BUTTONS */}
             <div className="flex gap-4 flex-wrap mb-8">
-              <button className="px-6 py-3 bg-red-600 text-white rounded-md font-semibold shadow-lg hover:-translate-y-1 transition">
+              {/* <button className="px-6 py-3 bg-red-600 text-white rounded-md font-semibold shadow-lg hover:-translate-y-1 transition">
                 Explore Properties
-              </button>
-              <button className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-red-600 transition">
+              </button> */}
+              <button 
+              onClick={() => setPopupOpen(true)}
+              className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-red-600 transition">
                 Contact Agent
               </button>
             </div>
@@ -134,7 +138,12 @@ export default function Hero() {
           </div>
 
         </div>
+        
       </div>
+       <ContactPopup
+              isOpen={popupOpen}
+              onClose={() => setPopupOpen(false)}
+            />
     </section>
   );
 }

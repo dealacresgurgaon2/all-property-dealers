@@ -1,26 +1,22 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-
-// ---- CORRECT PATHS ----
+import {useEffect, useRef } from "react";
 import Pagination from "../../components/Pagination";
-import BlogList, { TOTAL_BLOGS } from "./Bloglist";
-// -----------------------
 
-const ITEMS_PER_PAGE = 6;
+import BlogList from "./Bloglist";
+import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
-export default function BlogPage() {
-  const [page, setPage] = useState(1);
+export default function BlogPage({domain}) {
+
   const listRef = useRef(null);
 
-  const totalPages = Math.ceil(TOTAL_BLOGS / ITEMS_PER_PAGE);
-
-  useEffect(() => {
-    if (page > totalPages) {
-      setPage(totalPages || 1);
-    }
-  }, [page, totalPages]);
-
+  // CONTEXT se data lo
+ const { page, setPage, totalPages, setDomain } = useBlogs();
+useEffect(()=>{
+    if (domain)
+      setDomain(domain);
+    
+  },[domain])
   const scrollToList = () => {
     listRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -28,20 +24,26 @@ export default function BlogPage() {
     });
   };
 
-  return (
-    <main className="bg-[#f8fafc] pb-9">
-      <div ref={listRef}>
-        <BlogList page={page} itemsPerPage={ITEMS_PER_PAGE} />
-      </div>
+  const handlePageChange = (p) => {
+    setPage(p);
+    scrollToList();
+  };
 
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        setPage={(p) => {
-          setPage(p);
-          scrollToList();
-        }}
-      />
+  return (
+    <main>
+      <div ref={listRef} className="bg-[#f8fafc] pb-9">
+
+        <BlogList domain="www.propertydealerinhisar.com" />
+
+        <div className="">
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            setPage={handlePageChange}
+          />
+        </div>
+
+      </div>
     </main>
   );
 }

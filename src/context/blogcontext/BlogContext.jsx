@@ -4,44 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const BlogContext = createContext();
 
-// ===== DOMAIN DETECT FUNCTION (LOCALHOST + VERCEL + PRODUCTION) =====
-const getDomain = () => {
-  if (typeof window !== "undefined") {
-
-    let domain = window.location.hostname;
-    let path = window.location.pathname;
-
-    console.log("Raw Path:", path);
-
-    // LOCALHOST TEST FIX - PATH BASED
-    if (domain === "localhost") {
-
-      // Stronger check
-      if (path.startsWith("/faridabad") || path.includes("/faridabad/")) {
-        return "www.propertydealerinfaridabad.com";
-      }
-
-      if (path.startsWith("/hisar") || path.includes("/hisar/")) {
-        return "www.propertydealerinhisar.com";
-      }
-
-      // Default fallback
-      return "www.propertydealerinfaridabad.com";
-    }
-
-    // VERCEL TEST DOMAIN FIX
-    if (domain === "propertydeler-gold-frontend-lp3d.vercel.app") {
-      return "www.propertydealerinhisar.com";
-    }
-
-    return domain;
-  }
-
-  return "";
-};
-
-
-
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export const BlogProvider = ({ children }) => {
 
@@ -52,72 +15,117 @@ export const BlogProvider = ({ children }) => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const [domain, setDomain] = useState(null);
+
   const [loading, setLoading] = useState(false);
 
-  // ===== Fetch blog list with pagination =====
+  const [listError, setListError] = useState(null);
+  const [singleError, setSingleError] = useState(null);
+
+  // ===== DOMAIN PERSIST FIX =====
   useEffect(() => {
+    const savedDomain = localStorage.getItem("domain");
+    if (savedDomain) {
+      setDomain(savedDomain);
+    }
+  }, []);
+
+  const handleDomain = (d) => {
+    setDomain(d);
+    localStorage.setItem("domain", d);
+  };
+
+  // ===== BLOG LIST FETCH =====
+  useEffect(() => {
+    if (!domain) return;
+
     fetchBlogs(page);
-  }, [page]);
+  }, [page, domain]);
 
   const fetchBlogs = async (pageNumber) => {
     try {
       setLoading(true);
+      setListError(null);
 
-      const domain = getDomain();
+      if (!domain) return;
 
-      console.log("Current Domain:", domain);
+      const API_URL = `${API_BASE}/api/blogs?domain=${domain}&page=${pageNumber}`;
 
-      const res = await fetch(
-        `http://localhost:5000/api/blogs?domain=${domain}&page=${pageNumber}`
-      );
+      const res = await fetch(API_URL);
+
+      if (!res.ok) {
+        throw new Error(`Server Error: ${res.status}`);
+      }
 
       const data = await res.json();
 
-      if (data.success) {
-        setBlogs(data.data || []);
-        setTotalPages(data.totalPages || 1);
-
-        // sidebar ke liye recent blogs
-        setRecentBlogs((data.data || []).slice(0, 5));
-      } else {
-        setBlogs([]);
-        setRecentBlogs([]);
-        setTotalPages(1);
+      if (!data.success) {
+        throw new Error(data.message || "Failed to load blogs");
       }
 
-      setLoading(false);
+      setBlogs(data.data);
+      setTotalPages(data.totalPages || 1);
+
+      // ===== IMPORTANT: RECENT BLOGS SET =====
+      setRecentBlogs(data.data.slice(0, 5));
 
     } catch (error) {
-      console.log("Blog Fetch Error:", error);
+      setListError(error.message);
+      setBlogs([]);
+      setRecentBlogs([]);
+    } finally {
       setLoading(false);
     }
   };
 
-  // ===== Fetch single blog =====
-  const fetchSingleBlog = async (slug) => {
+  // ===== RECENT BLOGS FUNCTION =====
+  const loadRecentBlogs = async () => {
     try {
-      setLoading(true);
-
-      const domain = getDomain();
-
-      console.log("Fetching Single Blog for Domain:", domain);
+      if (!domain) return;
 
       const res = await fetch(
-        `http://localhost:5000/api/blogs/slug/${slug}?domain=${domain}`
+        `${API_BASE}/api/blogs?domain=${domain}&page=1`
       );
 
       const data = await res.json();
 
       if (data.success) {
-        setSingleBlog(data.data);
-      } else {
-        setSingleBlog(null);
+        setRecentBlogs(data.data.slice(0, 5));
+      }
+    } catch (error) {
+      console.log("Recent Blogs Error:", error.message);
+    }
+  };
+
+  // ===== FETCH SINGLE BLOG =====
+  const fetchSingleBlog = async (slug) => {
+    try {
+      setLoading(true);
+      setSingleError(null);
+
+      const res = await fetch(
+        `${API_BASE}/api/blogs/slug/${slug}`
+      );
+
+      if (!res.ok) {
+        throw new Error(`Server Error: ${res.status}`);
       }
 
-      setLoading(false);
+      const data = await res.json();
+
+      if (!data.success) {
+        throw new Error("Blog not found");
+      }
+
+      setSingleBlog(data.data);
+
+      // ===== MOST IMPORTANT FIX =====
+      loadRecentBlogs();
 
     } catch (error) {
-      console.log("Single Blog Fetch Error:", error);
+      setSingleError(error.message);
+      setSingleBlog(null);
+    } finally {
       setLoading(false);
     }
   };
@@ -135,7 +143,14 @@ export const BlogProvider = ({ children }) => {
 
         recentBlogs,
 
-        loading
+        setDomain: handleDomain,
+
+        loading,
+
+        listError,
+        singleError,
+
+        loadRecentBlogs
       }}
     >
       {children}

@@ -168,52 +168,64 @@ export default function DealerDetailPage() {
         </p>
 
         {/* FAQ SECTION */}
-        <h2 className="text-xl font-semibold text-black mb-4">
-          Frequently Asked Questions
-        </h2>
+        {/* FAQ SECTION */}
+<h2 className="text-xl font-semibold text-black mb-4">
+  Frequently Asked Questions
+</h2>
 
-        <div className="space-y-4">
-          {[
-            {
-              q: "Can a real estate agent help sell commercial property in Hisar?",
-              a: "Yes. A professional real estate agent in Hisar can market and sell commercial spaces at the right value.",
-            },
-            {
-              q: `Does ${dealerName} assist with rental properties?`,
-              a: "Yes. Complete support is provided to provide services for residential and commercial needs.",
-            },
-            {
-              q: `Can I find residential plots through ${dealerName}?`,
-              a: "Absolutely. Residential plots in Hisar are a key specialization.",
-            },
-            {
-              q: "Will my legal paperwork requirements also be solved?",
-              a: "Yes. Property verification and documentation support are included.",
-            },
-            {
-              q: "How do I start my property search?",
-              a: "Simply contact us and share your requirements, and receive guided property options.",
-            },
-          ].map((item, index) => (
-            <div key={index} className="border-b border-[#5E23DC]/20 pb-2">
-              <button
-                onClick={() => toggleFaq(index)}
-                className="w-full text-left font-medium text-black flex justify-between"
-              >
-                {item.q}
-                <span className="text-[#5E23DC]">
-                  {openFaq === index ? "−" : "+"}
-                </span>
-              </button>
+<div className="space-y-4">
+  {[
+    {
+      q: "Can a real estate agent help sell commercial property in Hisar?",
+      a: "Yes. A professional real estate agent in Hisar can market and sell commercial spaces at the right value.",
+    },
+    {
+      q: `Does ${dealerName} assist with rental properties?`,
+      a: "Yes. Complete support is provided to provide services for residential and commercial needs.",
+    },
+    {
+      q: `Can I find residential plots through ${dealerName}?`,
+      a: "Absolutely. Residential plots in Hisar are a key specialization.",
+    },
+    {
+      q: "Will my legal paperwork requirements also be solved?",
+      a: "Yes. Property verification and documentation support are included.",
+    },
+    {
+      q: "How do I start my property search?",
+      a: "Simply contact us and share your requirements, and receive guided property options.",
+    },
+  ].map((item, index) => (
+    <div
+      key={index}
+      className={`rounded-lg transition-all duration-300 ${
+        openFaq === index
+          ? "border border-[#5E23DC]/40 bg-[#F3EFFF]"
+          : "border-b border-[#5E23DC]/20"
+      }`}
+    >
+      <button
+        onClick={() => toggleFaq(index)}
+        className="w-full text-left font-medium text-black flex justify-between items-center p-3"
+      >
+        <span>{item.q}</span>
 
-              {openFaq === index && (
-                <div className="mt-2 text-gray-700">
-                  {item.a}
-                </div>
-              )}
-            </div>
-          ))}
+        <span className="text-[#5E23DC] font-bold text-lg">
+          {openFaq === index ? "−" : "+"}
+        </span>
+      </button>
+
+      {openFaq === index && (
+        <div className="px-4 pb-4">
+          <div className="bg-white border border-[#5E23DC]/20 rounded-md p-4 text-gray-700 shadow-sm">
+            {item.a}
+          </div>
         </div>
+      )}
+    </div>
+  ))}
+</div>
+
 
       </div>
     </section>

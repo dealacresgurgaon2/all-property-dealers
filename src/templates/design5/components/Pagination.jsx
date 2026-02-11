@@ -22,10 +22,10 @@ export default function Pagination({ page, setPage, totalPages }) {
         className={`
           ${baseBtn}
           mr-3
-          border-[#d4af37]/50
+          border-red-500/50
           text-black
-          hover:bg-[#d4af37]
-          hover:text-black
+          hover:bg-red-600
+          hover:text-white
           disabled:opacity-40
           disabled:hover:bg-transparent
           disabled:hover:text-black
@@ -42,11 +42,11 @@ export default function Pagination({ page, setPage, totalPages }) {
           className={`
             ${baseBtn}
             min-w-[36px]
-            border-[#d4af37]/40
+            border-red-500/40
             ${
               p === page
-                ? "bg-[#d4af37] text-black"
-                : "text-black hover:bg-[#d4af37]/80"
+                ? "bg-red-600 text-white"
+                : "text-black hover:bg-red-500 hover:text-white"
             }
           `}
         >
@@ -61,10 +61,10 @@ export default function Pagination({ page, setPage, totalPages }) {
         className={`
           ${baseBtn}
           ml-3
-          border-[#d4af37]/50
+          border-red-500/50
           text-black
-          hover:bg-[#d4af37]
-          hover:text-black
+          hover:bg-red-600
+          hover:text-white
           disabled:opacity-40
           disabled:hover:bg-transparent
           disabled:hover:text-black

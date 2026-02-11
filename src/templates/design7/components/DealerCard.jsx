@@ -1,8 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import DealerThemePopup from "./DealerThemePopup";
 
 export default function DealerCard({ dealer }) {
+
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
@@ -48,9 +52,6 @@ export default function DealerCard({ dealer }) {
             </div>
           </div>
 
-          {/* <span className="text-xs bg-indigo-50 text-indigo-600 px-2 py-1 rounded-md border border-indigo-200">
-            ✔ Verified
-          </span> */}
         </div>
 
         {/* ADDRESS ROW */}
@@ -70,31 +71,6 @@ export default function DealerCard({ dealer }) {
           </p>
         </div>
 
-        {/* MIDDLE – FEATURE STRIP */}
-        {/* <div className="grid grid-cols-4 gap-2 mb-3">
-
-          <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-2 text-center">
-            <p className="text-indigo-700 text-xs font-semibold">Quick</p>
-            <p className="text-[10px] text-gray-500">Response</p>
-          </div>
-
-          <div className="bg-purple-50 border border-purple-200 rounded-lg p-2 text-center">
-            <p className="text-purple-700 text-xs font-semibold">Expert</p>
-            <p className="text-[10px] text-gray-500">Advice</p>
-          </div>
-
-          <div className="bg-pink-50 border border-pink-200 rounded-lg p-2 text-center">
-            <p className="text-pink-700 text-xs font-semibold">Trusted</p>
-            <p className="text-[10px] text-gray-500">Dealer</p>
-          </div>
-
-          <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-2 text-center">
-            <p className="text-indigo-700 text-xs font-semibold">24/7</p>
-            <p className="text-[10px] text-gray-500">Support</p>
-          </div>
-
-        </div> */}
-
         {/* TAGS AS PILLS */}
         {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (
           <div className="flex gap-2 overflow-x-auto pb-2 mb-3">
@@ -112,26 +88,33 @@ export default function DealerCard({ dealer }) {
         {/* BOTTOM ACTION BAR */}
         <div className="flex items-center gap-3">
 
-          <a
-            href={`/contact?dealer=${dealer.slug}`}
+          {/* CONTACT BUTTON – POPUP TRIGGER */}
+          <button
+            onClick={() => setPopupOpen(true)}
             className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:opacity-90 transition"
           >
             Contact
-          </a>
+          </button>
 
           <Link
             href={{
-              pathname: `/${dealer.city}/${dealer.slug }`,
-              
+              pathname: `/${dealer.city}/${dealer.slug}`,
             }}
             className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition"
           >
-            Profile
+            Know More
           </Link>
 
         </div>
 
       </div>
+
+      {/* POPUP COMPONENT CALL */}
+      <DealerThemePopup
+        isOpen={popupOpen}
+        onClose={() => setPopupOpen(false)}
+      />
+
     </div>
   );
 }

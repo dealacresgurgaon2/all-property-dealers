@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useBlogs } from "@/context/blogcontext/BlogContext";
 
@@ -19,13 +19,24 @@ export default function SingleBlogPage() {
 
   const { singleBlog, fetchSingleBlog, recentBlogs, loading } = useBlogs();
 
+  // ===== LOCAL LOADING FOR REFRESH =====
+  const [pageLoading, setPageLoading] = useState(true);
+
   useEffect(() => {
     if (slug) {
+      setPageLoading(true);
+
       fetchSingleBlog(slug);
+
+      // Smooth loader experience
+      setTimeout(() => {
+        setPageLoading(false);
+      }, 200);
     }
   }, [slug]);
 
-  if (loading) {
+  // ===== SHOW LOADER ON REFRESH OR API CALL =====
+  if (loading || pageLoading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
 
@@ -109,42 +120,55 @@ export default function SingleBlogPage() {
 
             <div className="space-y-4">
 
-              {recentBlogs.map((b) => (
-                <Link
-                  key={b._id}
-                  href={`/blogs/${b.slug}`}
-                  className={`
-                    flex gap-4 p-3 rounded-xl
+              {/* RECENT BLOGS LOADING */}
+              {loading && (
+                <p className="text-sm text-black/60">
+                  Loading recent blogs...
+                </p>
+              )}
+
+              {!loading &&
+                recentBlogs &&
+                recentBlogs.length > 0 &&
+                recentBlogs.map((b) => (
+                  <Link
+                    key={b._id}
+                    href={`/blogs/${b.slug}`}
+                    className={`flex gap-4 p-3 rounded-xl
                     bg-white border border-[#d4af37]/20
                     shadow hover:shadow-lg transition
                     ${
                       b.slug === singleBlog.slug
                         ? "ring-2 ring-[#d4af37]"
                         : ""
-                    }
-                  `}
-                >
-                  <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
-                    <Image
-                      src={b.heroImg}
-                      alt={b.title?.rendered}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+                    }`}
+                  >
+                    <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
+                      <Image
+                        src={b.heroImg}
+                        alt={b.title?.rendered}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
 
-                  <div>
-                    <p className="text-xs text-black/50 mb-1">
-                      {formatDate(b.date)}
-                    </p>
+                    <div>
+                      <p className="text-xs text-black/50 mb-1">
+                        {formatDate(b.date)}
+                      </p>
 
-                    <h4 className="text-sm font-semibold text-black line-clamp-2">
-                      {b.title?.rendered}
-                    </h4>
-                  </div>
+                      <h4 className="text-sm font-semibold text-black line-clamp-2">
+                        {b.title?.rendered}
+                      </h4>
+                    </div>
+                  </Link>
+                ))}
 
-                </Link>
-              ))}
+              {!loading && recentBlogs.length === 0 && (
+                <p className="text-sm text-black/60">
+                  No recent blogs available
+                </p>
+              )}
 
             </div>
 

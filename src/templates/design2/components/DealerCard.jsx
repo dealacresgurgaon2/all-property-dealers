@@ -1,14 +1,21 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import GoldContactPopup from "./GoldContactPopup";   // 👈 ONLY NEW IMPORT
 
 export default function DealerCard({ dealer }) {
+
+  const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
+
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
     return (words[0][0] + words[1][0]).toUpperCase();
   };
-const city = "faridabad";
+
+  const city = "faridabad";
+
   return (
     <div
       className="
@@ -68,7 +75,9 @@ const city = "faridabad";
           <h3 className="text-lg font-bold text-black leading-tight">
             {dealer.name}
           </h3>
-          <p className="text-xs text-black/60">{dealer.city}</p>
+          <p className="text-xs text-black/60">
+            {dealer.city}{dealer.state && `, ${dealer.state}`}
+          </p>
         </div>
       </div>
 
@@ -77,9 +86,9 @@ const city = "faridabad";
         {dealer.address}
       </p>
 
-      {/* TAGS – FIXED AREA */}
+      {/* TAGS */}
       {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (
-        <div className="mb-4 max-h-[44px] overflow-hidden flex flex-wrap gap-1.5">
+        <div className="mb-6 max-h-[46px] overflow-hidden flex flex-wrap gap-1.5">
           {dealer.tags.map((tag, index) => (
             <span
               key={index}
@@ -104,23 +113,36 @@ const city = "faridabad";
         <div className="h-px w-full bg-gradient-to-r from-transparent via-[#d4af37]/40 to-transparent mb-4" />
 
         <div className="flex gap-3">
-          <a
-            href={`/contact?dealer=${dealer.slug}`}
+
+          {/* 👇 ONLY THIS PART CHANGED */}
+          <button
+            onClick={() => setOpenPopup(true)}
             className="flex-1 text-center py-2 rounded-md bg-[#d4af37] text-black text-sm font-semibold hover:bg-[#c9a227] transition"
           >
             Contact
-          </a>
+          </button>
 
           <Link
-             href={{
-     pathname: `/adv-dse`
-  }}
+            href={{
+              pathname: `dealer/adv-dse`,
+              query: {
+                name: dealer.name,
+                city: dealer.city,
+              },
+            }}
             className="flex-1 text-center py-2 rounded-md border border-[#d4af37] text-black text-sm font-semibold hover:bg-[#d4af37] transition"
           >
             View Details
           </Link>
         </div>
       </div>
+
+      {/* 👇 ONLY NEW ADDITION AT BOTTOM */}
+      <GoldContactPopup
+        isOpen={openPopup}
+        onClose={() => setOpenPopup(false)}
+      />
+
     </div>
   );
 }

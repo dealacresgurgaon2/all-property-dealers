@@ -31,7 +31,10 @@ export default function DealersSection({ domain }) {
     setFiltered(dealers);
   }, [dealers]);
 
+  // ============== 🔥 FINAL SEARCH LOGIC ==============
+
   const handleSearch = (query) => {
+
     const q = query.toLowerCase().trim();
 
     if (!q) {
@@ -43,6 +46,7 @@ export default function DealersSection({ domain }) {
 
     const words = q.split(/\s+/);
 
+    // MATCHED DEALERS
     const matched = dealers.filter((d) => {
       const text = `
         ${d.name || ""}
@@ -53,16 +57,51 @@ export default function DealersSection({ domain }) {
       return words.every((w) => text.includes(w));
     });
 
-    setFiltered(matched);
+    // UNMATCHED DEALERS
+    const unmatched = dealers.filter((d) => {
+      const text = `
+        ${d.name || ""}
+        ${d.city || ""}
+        ${d.address || ""}
+      `.toLowerCase();
+
+      return !words.every((w) => text.includes(w));
+    });
+
+    // 🔥 Matched on TOP
+    let finalList = [...matched, ...unmatched];
+
+    // 🔥 Guarantee MINIMUM 100 CARDS
+    if (finalList.length < 100 && dealers.length > finalList.length) {
+
+      const extraNeeded = 100 - finalList.length;
+
+      const extra = dealers
+        .filter(d => !finalList.includes(d))
+        .slice(0, extraNeeded);
+
+      finalList = [...finalList, ...extra];
+    }
+
+    setFiltered(finalList);
+
     setPage(1);
     scrollToList();
   };
 
+  // ====================================================
+
   const scrollToList = () => {
     requestAnimationFrame(() => {
-      listTopRef.current?.scrollIntoView({
+      const element = listTopRef.current;
+      if (!element) return;
+
+      const yOffset = -100;   // prevent first card hiding
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({
+        top: y,
         behavior: "smooth",
-        block: "start",
       });
     });
   };
@@ -85,9 +124,9 @@ export default function DealersSection({ domain }) {
               <DealerSearchBar onSearch={handleSearch} />
             </StickyBox>
 
-            <div ref={listTopRef} className="scroll-mt-[250px]" />
+            {/* 🔥 Scroll Target */}
+            <div ref={listTopRef} className="h-2" />
 
-            {/* 🔥 LOADING ONLY IN DEALERS AREA */}
             {loading ? (
 
               <div className="flex items-center justify-center py-24 bg-[#5E23DC]/5 rounded-xl border border-[#5E23DC]/20">
@@ -115,7 +154,7 @@ export default function DealersSection({ domain }) {
             ) : (
 
               <>
-                {/* DEALER CARDS */}
+                {/* 🔥 DEALER CARDS */}
                 {filtered.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))}
@@ -136,7 +175,7 @@ export default function DealersSection({ domain }) {
 
           </div>
 
-          {/* RIGHT SECTION - ALWAYS VISIBLE */}
+          {/* RIGHT SECTION */}
           <div className="space-y-6">
             <div className="sticky top-[65px]">
               <QueryForm />

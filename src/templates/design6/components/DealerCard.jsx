@@ -1,8 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import GreenContactPopup from "./GreenContactPopup";   // 👈 ONLY NEW IMPORT
 
 export default function DealerCard({ dealer }) {
+
+  const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
+
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
@@ -61,11 +66,7 @@ export default function DealerCard({ dealer }) {
 
             <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
               <span className="flex items-center gap-1">
-                 {dealer.city}
-              </span>
-
-              <span className="text-green-600 font-semibold bg-green-50 px-2 py-0.5 rounded-md">
-                ✓ Verified
+                 {dealer.city}{dealer.state && `, ${dealer.state}`}
               </span>
             </div>
           </div>
@@ -103,31 +104,15 @@ export default function DealerCard({ dealer }) {
           </div>
         )}
 
-        {/* STATS ROW */}
-        <div className="grid grid-cols-3 gap-2 mb-4 text-center text-xs">
-          <div className="bg-gray-50 p-2 rounded-md border">
-            <p className="font-semibold text-green-700">24/7</p>
-            <p className="text-gray-500">Support</p>
-          </div>
-
-          <div className="bg-gray-50 p-2 rounded-md border">
-            <p className="font-semibold text-green-700">Top</p>
-            <p className="text-gray-500">Dealer</p>
-          </div>
-
-          <div className="bg-gray-50 p-2 rounded-md border">
-            <p className="font-semibold text-green-700">100%</p>
-            <p className="text-gray-500">Trusted</p>
-          </div>
-        </div>
-
         {/* BUTTONS */}
         <div className="mt-auto">
           <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent mb-4" />
 
           <div className="flex gap-3">
-            <a
-              href={`/contact?dealer=${dealer.slug}`}
+
+            {/* 👇 ONLY THIS PART CHANGED */}
+            <button
+              onClick={() => setOpenPopup(true)}
               className="
                 flex-1 text-center py-2.5 rounded-lg
                 bg-green-600 text-white text-sm font-semibold
@@ -136,11 +121,11 @@ export default function DealerCard({ dealer }) {
               "
             >
               Contact Now
-            </a>
+            </button>
 
             <Link
               href={{
-                pathname: `/adv-dse`,
+                pathname: `dealer/adv-dse`,
                 query: {
                   name: dealer.name,
                   city: dealer.city,
@@ -158,6 +143,13 @@ export default function DealerCard({ dealer }) {
         </div>
 
       </div>
+
+      {/* 👇 ONLY NEW ADDITION AT BOTTOM */}
+      <GreenContactPopup
+        isOpen={openPopup}
+        onClose={() => setOpenPopup(false)}
+      />
+
     </div>
   );
 }

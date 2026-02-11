@@ -2,57 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-
-const blogs = [
-  {
-    _id: "1",
-    Slug: "property-investment-tips",
-    Title: "Top Property Investment Tips for 2026",
-    Category: "Real Estate",
-    Date: "2026-01-10",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "2",
-    Slug: "buy-vs-rent-property",
-    Title: "Buy vs Rent: What Is Better in Today’s Market?",
-    Category: "Guides",
-    Date: "2026-01-08",
-    HeroImg: { url: "/images/ghj.png" },
-  },
-  {
-    _id: "3",
-    Slug: "home-loan-eligibility",
-    Title: "Home Loan Eligibility – Complete Guide",
-    Category: "Finance",
-    Date: "2026-01-05",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "4",
-    Slug: "property-documents",
-    Title: "Important Property Documents Checklist",
-    Category: "Legal",
-    Date: "2026-01-02",
-    HeroImg: { url: "/images/ghj.png" },
-  },
-  {
-    _id: "5",
-    Slug: "real-estate-trends",
-    Title: "Latest Real Estate Trends in 2026",
-    Category: "Trends",
-    Date: "2025-12-28",
-    HeroImg: { url: "/images/download.jpeg" },
-  },
-  {
-    _id: "6",
-    Slug: "best-investment-areas",
-    Title: "Best Areas to Invest in Gurgaon",
-    Category: "Investment",
-    Date: "2025-12-25",
-    HeroImg: { url: "/images/ghj.png" },
-  },
-];
+import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -61,16 +11,28 @@ const formatDate = (date) => {
     .padStart(2, "0")}-${d.getFullYear()}`;
 };
 
-export default function BlogList({ page = 1, itemsPerPage = 6 }) {
+export default function BlogList() {
+  const { blogs, page, setPage, totalPages, loading } = useBlogs();
 
-  // 🔥 Current city
-  
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
+        <div className="flex flex-col items-center gap-4">
 
-  const startIndex = (page - 1) * itemsPerPage;
-  const paginatedBlogs = blogs.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+          <div className="w-14 h-14 border-4 border-blue-700/30 border-t-blue-900 rounded-full animate-spin"></div>
+
+          <h2 className="text-lg text-blue-700 font-semibold">
+            Loading Blog...
+          </h2>
+
+          <p className="text-sm text-gray-600">
+            Please wait while we fetch the content
+          </p>
+
+        </div>
+      </div>
+    );
+  }
 
   return (
     <section className="px-4 py-8 bg-[#f8fafc]">
@@ -85,34 +47,44 @@ export default function BlogList({ page = 1, itemsPerPage = 6 }) {
       </section>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto gap-8">
-        {paginatedBlogs.map((post) => (
-          <Link
-            key={post._id}
-            href={`/blogs/${post.Slug}`}
-            className="group bg-white border rounded-xl p-3 shadow-sm hover:-translate-y-2 transition-all"
-          >
-            <div className="relative w-full h-56 rounded-lg overflow-hidden mb-4">
-              <Image
-                src={post.HeroImg.url}
-                alt={post.Title}
-                fill
-                className="object-cover group-hover:scale-110 transition"
-              />
-            </div>
 
-            <h3 className="text-lg font-semibold mb-2 text-blue-900 group-hover:text-blue-700 transition">
-              {post.Title}
-            </h3>
+        {blogs.map((post) => {
 
-            <p className="text-sm text-blue-600">
-              {formatDate(post.Date)}
-            </p>
+          // ===== FIXED TITLE LOGIC =====
+          const titleText =
+            typeof post.title === "object"
+              ? post.title?.rendered
+              : post.title;
 
-          </Link>
-        ))}
+          return (
+            <Link
+              key={post._id}
+              href={`/blogs/${post.slug}`}
+              className="group bg-white border rounded-xl p-3 shadow-sm hover:-translate-y-2 transition-all"
+            >
+              <div className="relative w-full h-56 rounded-lg overflow-hidden mb-4">
+                <Image
+                  src={post.heroImg}
+                  alt={titleText}
+                  fill
+                  className="object-cover group-hover:scale-110 transition"
+                />
+              </div>
+
+              <h3 className="text-lg font-semibold mb-2 text-blue-900 group-hover:text-blue-700 transition">
+                {titleText}
+              </h3>
+
+              <p className="text-sm text-blue-600">
+                {formatDate(post.date)}
+              </p>
+
+            </Link>
+          );
+        })}
+
       </div>
+
     </section>
   );
 }
-
-export const TOTAL_BLOGS = blogs.length;

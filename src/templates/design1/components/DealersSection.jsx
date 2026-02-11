@@ -4,34 +4,43 @@ import { useEffect, useState, useRef } from "react";
 
 import { useDealers } from "@/context/propertydealercontext/DealerContext";
 
-// ---- PATHS FIXED HERE ----
 import DealerCard from "./DealerCard";
 import DealerSearchBar from "./DealerSearchBar";
 import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
-// --------------------------
 
-export default function DealersSection({domain}) {
- 
-  
+export default function DealersSection({ domain }) {
 
-  const { dealers, loading, page, setPage, totalPages,setDomain } = useDealers();
-
-  useEffect(()=>{
-    if(domain && (domain== "propertydeler-gold-frontend.vercel.app"|| domain=="localhost"))
-      setDomain("propertydealeringurgaon.com")
-    
-  }),[domain]
+  const { dealers, loading, page, setPage, totalPages, setDomain } = useDealers();
 
   const [filtered, setFiltered] = useState([]);
 
   const listTopRef = useRef(null);
+  const isMounted = useRef(false);
+
+  // DOMAIN SET LOGIC (AS IT IS)
+  useEffect(() => {
+    if (
+      domain &&
+      (domain === "propertydeler-gold-frontend.vercel.app" ||
+        domain === "localhost")
+    ) {
+      setDomain("propertydealeringurgaon.com");
+    }
+  }, [domain]);
+
+  useEffect(() => {
+    isMounted.current = true;
+  }, []);
 
   useEffect(() => {
     setFiltered(dealers);
   }, [dealers]);
 
+  // =============== 🔥 FINAL SEARCH LOGIC ===============
+
   const handleSearch = (query) => {
+
     const q = query.toLowerCase().trim();
 
     if (!q) {
@@ -43,6 +52,7 @@ export default function DealersSection({domain}) {
 
     const words = q.split(/\s+/);
 
+    // MATCHED DEALERS
     const matched = dealers.filter((d) => {
       const text = `
         ${d.name || ""}
@@ -53,27 +63,58 @@ export default function DealersSection({domain}) {
       return words.every((w) => text.includes(w));
     });
 
-    setFiltered(matched);
+    // UNMATCHED DEALERS
+    const unmatched = dealers.filter((d) => {
+      const text = `
+        ${d.name || ""}
+        ${d.city || ""}
+        ${d.address || ""}
+      `.toLowerCase();
+
+      return !words.every((w) => text.includes(w));
+    });
+
+    // 🔥 Matched on TOP, others below
+    let finalList = [...matched, ...unmatched];
+
+    // 🔥 Guarantee minimum 100 cards
+    if (finalList.length < 100 && dealers.length > finalList.length) {
+
+      const extraNeeded = 100 - finalList.length;
+
+      const extra = dealers
+        .filter(d => !finalList.includes(d))
+        .slice(0, extraNeeded);
+
+      finalList = [...finalList, ...extra];
+    }
+
+    setFiltered(finalList);
+
     setPage(1);
     scrollToList();
   };
 
+  // =============== 🔥 SCROLL FIXED LOGIC ===============
+
   const scrollToList = () => {
+    if (!isMounted.current) return;
+
     requestAnimationFrame(() => {
-      listTopRef.current?.scrollIntoView({
+      const element = listTopRef.current;
+      if (!element) return;
+
+      const yOffset = -100;   // Offset for sticky search bar
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+      window.scrollTo({
+        top: y,
         behavior: "smooth",
-        block: "start",
       });
     });
   };
 
-  if (loading) {
-    return (
-      <div className="py-24 text-center text-[#1e40af] font-medium">
-        Loading property dealers…
-      </div>
-    );
-  }
+  // ======================================================
 
   return (
     <section className="bg-[#f8fafc] py-10">
@@ -98,21 +139,37 @@ export default function DealersSection({domain}) {
 
             <div className="h-4" />
 
-            <div ref={listTopRef} className="scroll-mt-[140px]" />
+            {/* 🔥 Scroll Target with Height Fix */}
+            <div ref={listTopRef} className="h-2" />
 
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="py-16 flex flex-col items-center gap-4">
+
+                <div className="w-12 h-12 border-4 border-red-500/30 border-t-red-600 rounded-full animate-spin"></div>
+
+                <p className="text-red-600 font-medium">
+                  Loading Dealers...
+                </p>
+
+              </div>
+
+            ) : filtered.length === 0 ? (
+
               <div className="py-16 text-center text-gray-500">
                 No dealers found for your search
               </div>
+
             ) : (
+
               <div className="space-y-4">
                 {filtered.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))}
               </div>
+
             )}
 
-            {totalPages > 1 && (
+            {!loading && totalPages > 1 && (
               <Pagination
                 page={page}
                 totalPages={totalPages}
@@ -122,6 +179,7 @@ export default function DealersSection({domain}) {
                 }}
               />
             )}
+
           </div>
 
           <div className="space-y-6">

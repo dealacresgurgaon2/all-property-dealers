@@ -16,7 +16,7 @@ export const CityProvider = ({ children }) => {
     setLoading(true);
 
     axios
-      .get(`${API_BASE}/${city}/fallback`)
+      .get(`${API_BASE}/api/get/${city}/fallback`)
       .then((res) => {
         setDealers(res.data.data);
         setLoading(false);

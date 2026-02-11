@@ -3,52 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-
-const blogs = [
-  {
-    _id: "1",
-    Slug: "property-investment-tips",
-    Title: "Top Property Investment Tips for 2026",
-    Category: "Real Estate",
-    Date: "2026-01-10",
-    HeroImg: { url: "/images/download.jpeg" },
-    Content: `
-Property investment in 2026 requires careful planning and market research.
-
-Always evaluate location growth, infrastructure, and builder reputation.
-
-Long-term investment gives better returns than short-term speculation.
-    `,
-  },
-  {
-    _id: "2",
-    Slug: "buy-vs-rent-property",
-    Title: "Buy vs Rent: What Is Better in Today’s Market?",
-    Category: "Guides",
-    Date: "2026-01-08",
-    HeroImg: { url: "/images/ghj.png" },
-    Content: `
-Property investment has always been considered one of the most secure ways to build wealth.
-
-Location, infrastructure, legal verification, and budget planning are key factors.
-
-A long-term vision helps generate stable returns and financial security.
-    `,
-  },
-  {
-    _id: "3",
-    Slug: "home-loan-eligibility",
-    Title: "Home Loan Eligibility: Everything You Must Know",
-    Category: "Finance",
-    Date: "2026-01-05",
-    HeroImg: { url: "/images/download.jpeg" },
-    Content: `
-Your income, credit score, and existing liabilities decide loan eligibility.
-    `,
-  },
-];
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 const formatDate = (date) => {
+  if (!date) return "";
+
   const d = new Date(date);
   return `${d.getDate().toString().padStart(2, "0")}-${(d.getMonth() + 1)
     .toString()
@@ -58,15 +18,66 @@ const formatDate = (date) => {
 export default function SingleBlogPage() {
   const { slug } = useParams();
 
-  const blog = blogs.find((b) => b.Slug === slug);
+  const [blogs, setBlogs] = useState([]);
+  const [blog, setBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!blog) {
-    return (
-      <div className="py-24 text-center text-gray-500">
-        Blog not found
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const res = await axios.get(
+          `${API_BASE}/api/blogs/getBlogsByFixedDomains/blogs`
+        );
+
+        const allBlogs = res.data.data;
+
+        setBlogs(allBlogs);
+
+        // 🔥 SLUG MATCH EXACTLY BLOG LIST KE HISAB SE
+        const single = allBlogs.find((b) => b.slug === slug);
+
+        setBlog(single);
+        setLoading(false);
+
+      } catch (error) {
+        console.log("Error fetching blog:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
+  }, [slug]);
+
+  if (loading) {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      
+      <div className="flex flex-col items-center gap-6 p-10 bg-white shadow-2xl rounded-3xl border border-indigo-100">
+
+        {/* Animated Spinner */}
+        <div className="relative">
+          <div className="w-20 h-20 border-4 border-indigo-200 rounded-full"></div>
+          <div className="absolute top-0 left-0 w-20 h-20 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+
+        <h2 className="text-xl font-semibold text-indigo-700">
+          Loading Blog...
+        </h2>
+
+        <p className="text-gray-500 text-sm text-center max-w-xs">
+          Please wait while we prepare the content for you
+        </p>
+
+        {/* Subtle Progress Bar Effect */}
+        <div className="w-40 h-1 bg-indigo-100 rounded-full overflow-hidden">
+          <div className="h-full bg-indigo-600 w-20 animate-pulse"></div>
+        </div>
+
       </div>
-    );
-  }
+    </div>
+  );
+}
+
 
   return (
     <section className="bg-slate-50 py-16">
@@ -74,14 +85,14 @@ export default function SingleBlogPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
-          {/* =========== MAIN BLOG CONTENT =========== */}
+          {/* MAIN BLOG CONTENT */}
           <div className="lg:col-span-2">
 
             {/* HERO IMAGE */}
             <div className="relative w-full h-[420px] mb-8 rounded-3xl overflow-hidden shadow-xl">
               <Image
-                src={blog.HeroImg.url}
-                alt={blog.Title}
+                src={blog.heroImg || "/images/download.jpeg"}
+                alt={blog.title?.rendered || "blog image"}
                 fill
                 priority
                 className="object-cover"
@@ -98,28 +109,27 @@ export default function SingleBlogPage() {
               </span>
 
               <span className="text-sm text-gray-500">
-                Published on {formatDate(blog.Date)}
+                Published on {formatDate(blog.date)}
               </span>
 
             </div>
 
             {/* TITLE */}
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-6">
-              {blog.Title}
+              {blog.title?.rendered}
             </h1>
 
-            {/* DIVIDER */}
             <div className="h-px w-full bg-gradient-to-r from-transparent via-indigo-400/40 to-transparent mb-8" />
 
             {/* BLOG CONTENT */}
-            <div className="space-y-6 text-gray-700 leading-8 text-lg">
-              {blog.Content.split("\n").map(
-                (para, i) =>
-                  para.trim() && <p key={i}>{para}</p>
-              )}
-            </div>
+            <div
+              className="space-y-6 text-gray-700 leading-8 text-lg"
+              dangerouslySetInnerHTML={{
+                __html: blog.content?.rendered || "",
+              }}
+            />
 
-            {/* BOTTOM CTA */}
+            {/* CTA */}
             <div className="mt-12 p-8 bg-white rounded-2xl border border-indigo-200 text-center">
 
               <h4 className="text-xl font-semibold mb-2 text-gray-800">
@@ -141,7 +151,7 @@ export default function SingleBlogPage() {
 
           </div>
 
-          {/* =========== SIDEBAR =========== */}
+          {/* SIDEBAR */}
           <aside className="hidden lg:block">
             <div className="sticky top-24">
 
@@ -151,26 +161,19 @@ export default function SingleBlogPage() {
 
               <div className="space-y-4">
 
-                {blogs.map((b) => (
+                {blogs.slice(0, 5).map((b) => (
                   <Link
                     key={b._id}
-                    href={`/blogs/${b.Slug}`}
-                    className={`
-                      flex gap-4 p-3 rounded-xl
-                      bg-white border border-indigo-200
-                      hover:shadow-lg transition
-                      ${
-                        b.Slug === blog.Slug
-                          ? "ring-2 ring-indigo-500"
-                          : ""
-                      }
-                    `}
+                    href={`/blogs/${b.slug}`}
+                    className={`flex gap-4 p-3 rounded-xl bg-white border border-indigo-200 hover:shadow-lg transition ${
+                      b.slug === blog.slug ? "ring-2 ring-indigo-500" : ""
+                    }`}
                   >
 
                     <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
                       <Image
-                        src={b.HeroImg.url}
-                        alt={b.Title}
+                        src={b.heroImg || "/images/download.jpeg"}
+                        alt={b.title?.rendered}
                         fill
                         className="object-cover"
                       />
@@ -178,36 +181,16 @@ export default function SingleBlogPage() {
 
                     <div>
                       <p className="text-xs text-gray-500 mb-1">
-                        {formatDate(b.Date)}
+                        {formatDate(b.date)}
                       </p>
 
                       <h4 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-indigo-700 transition">
-                        {b.Title}
+                        {b.title?.rendered}
                       </h4>
                     </div>
 
                   </Link>
                 ))}
-
-              </div>
-
-              {/* SIDEBAR HELP BOX */}
-              <div className="mt-8 p-6 bg-indigo-50 border border-indigo-200 rounded-2xl">
-
-                <h4 className="text-lg font-semibold text-gray-800 mb-2">
-                  Have Questions?
-                </h4>
-
-                <p className="text-sm text-gray-600 mb-4">
-                  Get free consultation from our real estate experts.
-                </p>
-
-                <Link
-                  href="/"
-                  className="block text-center px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg text-sm font-semibold hover:opacity-90 transition"
-                >
-                  Go to Home
-                </Link>
 
               </div>
 
