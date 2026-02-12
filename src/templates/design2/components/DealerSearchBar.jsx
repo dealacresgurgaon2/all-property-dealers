@@ -54,7 +54,7 @@ export default function DealerSearchBar({ onSearch }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Search dealers by name, city or location..."
+          placeholder="Search by area, property type, budget..."
           className="
             flex-1
             text-base md:text-lg

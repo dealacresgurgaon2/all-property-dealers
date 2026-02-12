@@ -75,7 +75,7 @@ export default function DealersSection({ domain }) {
     // 🔥 Guarantee MINIMUM 100 CARDS
     if (finalList.length < 100 && dealers.length > finalList.length) {
 
-      const extraNeeded = 100 - finalList.length;
+      const extraNeeded = 200 - finalList.length;
 
       const extra = dealers
         .filter(d => !finalList.includes(d))

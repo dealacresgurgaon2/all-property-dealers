@@ -3,14 +3,18 @@
 export default function CityButtonsFilter({ onCitySelect }) {
 
   const cities = [
-    "Hisar",
-    "Gurgaon",
     "Faridabad",
-    "Sonipat"
+    "Gurgaon",
+    "Sonipat",
+    "Hisar",
+    "Panipat",
+    "Rohtak",
+    "Karnal", 
+    "Ambala",
   ];
 
   return (
-    <div className="mt-6 bg-white p-4 rounded-xl border border-indigo-200 shadow-sm">
+    <div className="mt-6 ">
 
       <h4 className="text-sm font-semibold text-indigo-700 mb-3">
         Quick City Filters
@@ -39,9 +43,9 @@ export default function CityButtonsFilter({ onCitySelect }) {
 
       </div>
 
-      <p className="text-xs text-gray-500 mt-3">
+      {/* <p className="text-xs text-gray-500 mt-3">
         Click a button to instantly filter dealers
-      </p>
+      </p> */}
 
     </div>
   );

@@ -36,16 +36,16 @@ export default function AboutSection() {
             </span>
 
             <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-6">
-              Building Trust in <br />
-              <span className="text-[#d4af37]">Every Property Deal</span>
+              Every Property Dealer in <br />
+              <span className="text-[#d4af37]"> Faridabad - One Website</span>
             </h2>
 
             <p className="text-black/70 leading-8 mb-6 text-lg">
-              We are more than a property platform. We are a bridge between dreams and reality, connecting buyers, sellers and investors with confidence and clarity.
+             Tired of searching for property dealers everywhere? We've listed all Faridabad property dealers in one place.
             </p>
 
             <p className="text-black/70 leading-8 mb-8 text-lg">
-              Our mission is simple – to make real estate transparent, hassle-free and rewarding for everyone involved.
+              Now you can easily browse properties, compare options, and contact dealers directly. No running around. No confusion. Everything simple.
             </p>
 
           </div>
@@ -56,16 +56,16 @@ export default function AboutSection() {
 
           {[
             {
-              title: "Verified Listings",
-              desc: "Every property is carefully checked and validated before listing."
+              title: "All Dealers Listed",
+              desc: "Every property dealer in Faridabad - all in one directory"
             },
             {
-              title: "Local Experts",
-              desc: "Work with professionals who truly understand your city."
+              title: "Direct Contact",
+              desc: "Call or WhatsApp dealers directly. No middleman charges"
             },
             {
-              title: "End to End Support",
-              desc: "From inquiry to paperwork – we handle it all."
+              title: "Save Time",
+              desc: "Compare all properties at once instead of visiting multiple offices"
             }
           ].map((item, i) => (
             <div
@@ -93,21 +93,21 @@ export default function AboutSection() {
 
           <div className="text-center mb-16">
             <span className="inline-block bg-[#d4af37]/10 text-[#b8964a] px-4 py-1 rounded-full text-sm font-semibold mb-4">
-              Our Process
+              How We Help
             </span>
 
             <h3 className="text-3xl font-bold text-black">
-              Simple. Transparent. Effective.
+             Simple. Fast. Trusted.
             </h3>
           </div>
 
           <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6">
 
             {[
-              "Understand Needs",
-              "Find Best Matches",
-              "Property Visits",
-              "Smooth Closure"
+              "Find Dealers Easily",
+              "See All Properties",
+              "Compare & Choose",
+              "Contact Directly"
             ].map((step, i) => (
               <div
                 key={i}
@@ -130,10 +130,10 @@ export default function AboutSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
 
           {[
-            { v: "5000+", l: "Happy Clients" },
-            { v: "2000+", l: "Deals Closed" },
-            { v: "50+", l: "Expert Agents" },
-            { v: "25+", l: "Cities Served" }
+            { v: "5000+", l: "People Found Property" },
+            { v: "2000+", l: "Listed Properties" },
+            { v: "50+", l: "Registered Dealers" },
+            { v: "25+", l: "Faridabad Areas Covered" }
           ].map((s, i) => (
             <div
               key={i}
@@ -161,16 +161,16 @@ export default function AboutSection() {
 
             {[
               {
-                title: "Integrity",
-                desc: "We believe in honest advice and transparent dealings."
+                title: "Real Dealers Only",
+                desc: "We list only genuine, verified property dealers"
               },
               {
-                title: "Customer First",
-                desc: "Your satisfaction is our highest priority."
+                title: "Help Everyone",
+                desc: "Whether buying, selling, or renting - we help all"
               },
               {
-                title: "Expert Knowledge",
-                desc: "Deep market understanding for better decisions."
+                title: "Local Knowledge",
+                desc: "All dealers know Faridabad market deeply"
               }
             ].map((v, i) => (
               <div
@@ -194,11 +194,11 @@ export default function AboutSection() {
         <div className="bg-black rounded-[40px] p-12 text-center text-white shadow-2xl">
 
           <h3 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Find Your Perfect Property?
+            Ready to Find Your Property in Faridabad?
           </h3>
 
           <p className="text-white/80 mb-8 max-w-2xl mx-auto">
-            Let our experienced team guide you toward the best real estate opportunities tailored to your needs.
+           Browse all dealers and properties in one place. Start your search now!
           </p>
 
           

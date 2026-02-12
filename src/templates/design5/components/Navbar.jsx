@@ -72,6 +72,23 @@ export default function Navbar() {
             Blog
           </Link>
 
+          {/* CONTACT BUTTON */}
+          <Link
+            href="/contactus"
+            className="
+              ml-4
+              px-5 py-2
+              bg-red-600
+              text-white
+              rounded-lg
+              font-medium
+              hover:bg-red-700
+              transition
+            "
+          >
+            Contact Us
+          </Link>
+
         </nav>
 
         {/* MOBILE HAMBURGER BUTTON */}
@@ -147,6 +164,20 @@ export default function Navbar() {
               "
             >
               Blog
+            </Link>
+
+            <Link
+              href="/contactus"
+              onClick={() => setOpen(false)}
+              className="
+                px-4 py-3
+                text-black/80
+                hover:bg-red-50
+                hover:text-black
+                transition
+              "
+            >
+              Contact Us
             </Link>
 
           </div>

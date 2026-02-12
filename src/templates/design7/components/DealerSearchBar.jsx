@@ -102,9 +102,9 @@ export default function DealerSearchBar({ onSearch }) {
         </div>
 
         {/* BOTTOM HINT STRIP */}
-        <div className="mt-2 text-xs text-gray-400 pl-1">
+        {/* <div className="mt-2 text-xs text-gray-400 pl-1">
           Try: “Delhi”, “Gurgaon”, “Commercial Dealer”
-        </div>
+        </div> */}
 
       </div>
 

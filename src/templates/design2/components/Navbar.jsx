@@ -36,6 +36,7 @@ export default function Navbar() {
 
         {/* DESKTOP NAV LINKS */}
         <nav className="hidden md:flex items-center gap-8">
+
           <Link
             href="/about"
             className="relative text-black/80 font-medium hover:text-black"
@@ -49,6 +50,25 @@ export default function Navbar() {
           >
             Blog
           </Link>
+
+          {/* ===== CONTACT BUTTON ===== */}
+          <Link
+            href="/contactus"
+            className="
+              ml-4
+              px-5 py-2
+              rounded-lg
+              bg-[#d4af37]
+              text-black
+              font-semibold
+              hover:bg-[#c39b2f]
+              transition
+              shadow-md
+            "
+          >
+            Contact
+          </Link>
+
         </nav>
 
         {/* ===== MOBILE TOGGLE BUTTON ===== */}
@@ -79,6 +99,21 @@ export default function Navbar() {
               className="text-black/80 font-medium hover:text-black transition"
             >
               Blog
+            </Link>
+
+            <Link
+              href="/contactus"
+              onClick={() => setOpen(false)}
+              className="
+                px-4 py-2
+                bg-[#d4af37]
+                text-black
+                font-semibold
+                rounded-lg
+                text-center
+              "
+            >
+              Contact
             </Link>
 
           </nav>

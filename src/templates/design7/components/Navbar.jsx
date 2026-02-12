@@ -35,6 +35,7 @@ export default function Navbar() {
 
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-8">
+
           <Link
             href="/about"
             className="
@@ -70,6 +71,25 @@ export default function Navbar() {
           >
             Blog
           </Link>
+
+          {/* ===== CONTACT BUTTON ===== */}
+          <Link
+            href="/contactus"
+            className="
+              ml-4
+              px-5 py-2
+              bg-indigo-600
+              text-white
+              rounded-lg
+              font-semibold
+              hover:bg-indigo-700
+              transition
+              shadow-sm
+            "
+          >
+            Contact Us
+          </Link>
+
         </nav>
 
         {/* MOBILE MENU BUTTON */}
@@ -146,6 +166,24 @@ export default function Navbar() {
               "
             >
               Blog
+            </Link>
+
+            {/* ===== CONTACT MOBILE ===== */}
+            <Link
+              href="/contactus"
+              onClick={() => setOpen(false)}
+              className="
+                py-2 px-3
+                bg-indigo-600
+                text-white
+                font-semibold
+                rounded-lg
+                text-center
+                hover:bg-indigo-700
+                transition
+              "
+            >
+              Contact Us
             </Link>
 
           </nav>

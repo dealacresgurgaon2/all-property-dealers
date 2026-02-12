@@ -74,7 +74,8 @@ export default function DealerCard({ dealer }) {
             {dealer.name}
           </h3>
           <p className="text-xs text-black/60">
-            {dealer.city}{dealer.state && `, ${dealer.state}`}
+            {dealer.city}
+            {/* {dealer.state && `, ${dealer.state}`} */}
           </p>
         </div>
       </div>

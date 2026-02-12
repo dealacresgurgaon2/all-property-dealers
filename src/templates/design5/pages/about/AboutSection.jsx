@@ -18,19 +18,17 @@ export default function AboutSection() {
           </h2>
 
           <p className="text-black/70 max-w-3xl mx-auto text-lg">
-            We connect people with properties that match their dreams, budget and lifestyle.
-            Transparent deals, expert guidance and verified listings – all at one place.
+            We help people find the right property dealers in Delhi. All in one place. Fast and simple. Transparent and trusted.
           </p>
         </div>
 
         {/* ===== HIGHLIGHTS STRIP ===== */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
-
           {[
-            { v: "10+", l: "Years Experience" },
+            { v: "10+", l: "Years of Experience" },
             { v: "5000+", l: "Happy Clients" },
-            { v: "2000+", l: "Properties Sold" },
-            { v: "25+", l: "Cities Covered" }
+            { v: "2000+", l: "Properties on Site" },
+            { v: "25+", l: "Delhi Locations" }
           ].map((item, i) => (
             <div
               key={i}
@@ -42,7 +40,6 @@ export default function AboutSection() {
               <p className="text-black/70">{item.l}</p>
             </div>
           ))}
-
         </div>
 
         {/* ===== WHY CHOOSE US ===== */}
@@ -52,11 +49,10 @@ export default function AboutSection() {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
             {[
               {
                 title: "Verified Dealers",
-                desc: "Every dealer and listing is manually verified for authenticity."
+                desc: "Every dealer is self-verified, so no cheating. Verified data. No fake listings."
               },
               {
                 title: "Market Experts",
@@ -68,11 +64,11 @@ export default function AboutSection() {
               },
               {
                 title: "Wide Coverage",
-                desc: "Presence across major cities with thousands of listings."
+                desc: "Properties across Delhi from thousands of dealers in all locations."
               },
               {
                 title: "Customer Support",
-                desc: "Dedicated team to guide you at every step."
+                desc: "Expert team to guide you at every step. Help when you need it."
               },
               {
                 title: "Legal Assistance",
@@ -96,24 +92,33 @@ export default function AboutSection() {
                 </p>
               </div>
             ))}
-
           </div>
         </div>
 
-        {/* ===== HOW IT WORKS ===== */}
+        {/* ===== HOW WE WORK ===== */}
         <div className="mb-24 bg-gray-50 rounded-3xl p-10">
-
           <h3 className="text-3xl font-bold text-black text-center mb-12">
             How We Work
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-
             {[
-              "Share Requirements",
-              "Get Best Matches",
-              "Schedule Visits",
-              "Close the Deal"
+              {
+                title: "Share Requirement",
+                desc: "Tell us what you're looking for"
+              },
+              {
+                title: "Get Best Matches",
+                desc: "See all dealers who have what you need"
+              },
+              {
+                title: "Schedule Visits",
+                desc: "Visit properties you like"
+              },
+              {
+                title: "Close the Deal",
+                desc: "Finalise with the dealer directly"
+              }
             ].map((step, i) => (
               <div
                 key={i}
@@ -123,35 +128,37 @@ export default function AboutSection() {
                   0{i + 1}
                 </div>
 
-                <h4 className="font-semibold text-black">
-                  {step}
+                <h4 className="font-semibold text-black mb-2">
+                  {step.title}
                 </h4>
+
+                <p className="text-black/70 text-sm">
+                  {step.desc}
+                </p>
               </div>
             ))}
-
           </div>
         </div>
 
-        {/* ===== VALUES SECTION ===== */}
+        {/* ===== CORE VALUES ===== */}
         <div className="mb-24">
           <h3 className="text-3xl font-bold text-black text-center mb-10">
             Our Core Values
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
             {[
               {
                 title: "Trust",
-                desc: "We build relationships based on honesty and reliability."
+                desc: "We build relationships based on honesty and integrity."
               },
               {
                 title: "Quality",
-                desc: "Only the best and verified listings for our customers."
+                desc: "Only the best and verified listings for all customers."
               },
               {
                 title: "Commitment",
-                desc: "We stay with you until the deal is successfully closed."
+                desc: "We stay with you until the deal is successfully done."
               }
             ].map((item, i) => (
               <div
@@ -167,28 +174,25 @@ export default function AboutSection() {
                 </p>
               </div>
             ))}
-
           </div>
         </div>
 
         {/* ===== FINAL CTA ===== */}
         <div className="bg-red-600 rounded-3xl p-12 text-center text-white">
-
           <h3 className="text-3xl md:text-4xl font-bold mb-4">
-            Let’s Find Your Dream Property
+            Let's Find Your Dream Property
           </h3>
 
           <p className="text-white/90 mb-8 max-w-2xl mx-auto">
-            Whether you want to buy, sell or rent – our experts are here to help you make the right decision.
+            Whether you want to buy, sell or rent – we connect you directly with trusted Delhi property dealers.
           </p>
 
           <Link
-            href="/contact"
+            href="/dealers"
             className="inline-block px-8 py-3 bg-white text-red-600 font-semibold rounded-lg hover:scale-105 transition"
           >
-            Contact Us
+            Browse Now
           </Link>
-
         </div>
 
       </div>

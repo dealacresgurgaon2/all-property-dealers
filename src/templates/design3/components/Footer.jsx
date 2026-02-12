@@ -95,7 +95,7 @@ export default function Footer() {
               return (
                 <Link
                   key={index}
-                  href={`/hisar/${slug}`}
+                  href={`/hisar/${slug}?location=${encodeURIComponent(loc)} `}
                   title={`Property Dealer in ${loc}`}
                   className="
                     text-black
@@ -168,7 +168,7 @@ export default function Footer() {
                         return (
                           <Link
                             key={index}
-                            href={`/hisar/${slug}`}
+                             href={`/hisar/${slug}?location=${encodeURIComponent(loc)} `}
                             title={`Property Dealer in ${loc}`}
                             className="
                               text-white/80
@@ -198,20 +198,24 @@ export default function Footer() {
           <div className="my-7 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
           {/* BOTTOM BAR */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/70">
+          <div className="text-center justify-center text-sm  text-white/70">
 
             <p>
               © {new Date().getFullYear()} PropertyDealer. All rights reserved.
             </p>
 
-            <div className="flex gap-5">
-              <Link href="/privacy" className="hover:text-white transition">
-                Privacy Policy
-              </Link>
+            <div className="">
+              <Link 
+  href="https://www.parcharmanch.com" 
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-white transition"
+>
+  Designed by Parchar Manch
+</Link>
 
-              <Link href="/terms" className="hover:text-white transition">
-                Terms of Service
-              </Link>
+
+              
             </div>
 
           </div>
