@@ -8,7 +8,7 @@ export const DOMAIN_LAYOUT_MAP = {
 
   "propertydeler-gold-frontend-yg8l.vercel.app": "delhi",
 
-  "localhost:3000": "ambala",
+  "localhost:3000": "hisar",
 
 };
 
