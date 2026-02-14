@@ -4,7 +4,7 @@ import "./globals.css";
 import Script from "next/script"; // ✅ AdSense ke liye
 
 
-
+// --------------------------
 
 import { DealerProvider } from "@/context/propertydealercontext/DealerContext";
 
@@ -27,15 +27,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
 
-      {/* ✅ AdSense Script Added (Head) */}
-      <head>
+      {/* ✅ AdSense Script Added (Head Section) */}
+      {/* <head>
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
           crossOrigin="anonymous"
           strategy="afterInteractive"
         />
-      </head>
+      </head> */}
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
