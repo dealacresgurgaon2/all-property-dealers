@@ -21,14 +21,17 @@ export default function FourBlogs() {
 
     console.log("Current Domain:", currentDomain);
 
-    // 👇 LOCALHOST FIX
-    if (currentDomain === "localhost") {
-      currentDomain = "www.propertydealerinhisar.com";   // 👈 Yahan apna testing domain daal do
+    if (
+      currentDomain === "localhost" ||
+      currentDomain.includes("propertydeler-gold-frontend-lp3d.vercel.app")
+    ) {
+      currentDomain = "www.propertydealerinhisar.com";
     }
 
     setDomain(currentDomain);
   }
 }, []);
+
  // 👈 FIXED
 
   if (loading) {

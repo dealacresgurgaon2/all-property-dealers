@@ -19,9 +19,10 @@ export default function DealersSection({ domain }) {
       domain &&
       (domain == "propertydeler-gold-frontend-lp3d.vercel.app" ||
         domain == "localhost")
-    )
+    ) {
       setDomain("propertydealerinhisar.com");
-  }), [domain];
+    }
+  }, [domain]);
 
   const [filtered, setFiltered] = useState([]);
 
@@ -31,8 +32,7 @@ export default function DealersSection({ domain }) {
     setFiltered(dealers);
   }, [dealers]);
 
-  // ============== 🔥 FINAL SEARCH LOGIC ==============
-
+  // 🔥 SEARCH LOGIC (CURRENT PAGE DATA ONLY)
   const handleSearch = (query) => {
 
     const q = query.toLowerCase().trim();
@@ -46,7 +46,6 @@ export default function DealersSection({ domain }) {
 
     const words = q.split(/\s+/);
 
-    // MATCHED DEALERS
     const matched = dealers.filter((d) => {
       const text = `
         ${d.name || ""}
@@ -57,47 +56,22 @@ export default function DealersSection({ domain }) {
       return words.every((w) => text.includes(w));
     });
 
-    // UNMATCHED DEALERS
-    const unmatched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return !words.every((w) => text.includes(w));
-    });
-
-    // 🔥 Matched on TOP
-    let finalList = [...matched, ...unmatched];
-
-    // 🔥 Guarantee MINIMUM 100 CARDS
-    if (finalList.length < 100 && dealers.length > finalList.length) {
-
-      const extraNeeded = 100 - finalList.length;
-
-      const extra = dealers
-        .filter(d => !finalList.includes(d))
-        .slice(0, extraNeeded);
-
-      finalList = [...finalList, ...extra];
-    }
-
-    setFiltered(finalList);
+    setFiltered(matched); // ❗ Only matched from current page
 
     setPage(1);
     scrollToList();
   };
-
-  // ====================================================
 
   const scrollToList = () => {
     requestAnimationFrame(() => {
       const element = listTopRef.current;
       if (!element) return;
 
-      const yOffset = -100;   // prevent first card hiding
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const yOffset = -100;
+      const y =
+        element.getBoundingClientRect().top +
+        window.pageYOffset +
+        yOffset;
 
       window.scrollTo({
         top: y,
@@ -116,15 +90,12 @@ export default function DealersSection({ domain }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-          {/* LEFT SECTION */}
           <div className="lg:col-span-2 space-y-4">
 
-            {/* 🔍 Sticky Search */}
             <StickyBox offsetTop={65}>
               <DealerSearchBar onSearch={handleSearch} />
             </StickyBox>
 
-            {/* 🔥 Scroll Target */}
             <div ref={listTopRef} className="h-2" />
 
             {loading ? (
@@ -154,7 +125,7 @@ export default function DealersSection({ domain }) {
             ) : (
 
               <>
-                {/* 🔥 DEALER CARDS */}
+                {/* DEALER CARDS */}
                 {filtered.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))}
@@ -175,7 +146,6 @@ export default function DealersSection({ domain }) {
 
           </div>
 
-          {/* RIGHT SECTION */}
           <div className="space-y-6">
             <div className="sticky top-[65px]">
               <QueryForm />
