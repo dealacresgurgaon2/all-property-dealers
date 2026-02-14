@@ -10,6 +10,7 @@ export const BlogProvider = ({ children }) => {
 
   const [blogs, setBlogs] = useState([]);
   const [singleBlog, setSingleBlog] = useState(null);
+  
   const [recentBlogs, setRecentBlogs] = useState([]);
 
   const [page, setPage] = useState(1);
@@ -107,6 +108,7 @@ export const BlogProvider = ({ children }) => {
         `${API_BASE}/api/blogs/slug/${slug}`
       );
 
+
       if (!res.ok) {
         throw new Error(`Server Error: ${res.status}`);
       }
@@ -118,13 +120,14 @@ export const BlogProvider = ({ children }) => {
       }
 
       setSingleBlog(data.data);
-
+      
       // ===== MOST IMPORTANT FIX =====
       loadRecentBlogs();
 
     } catch (error) {
       setSingleError(error.message);
       setSingleBlog(null);
+      
     } finally {
       setLoading(false);
     }
@@ -139,6 +142,7 @@ export const BlogProvider = ({ children }) => {
         totalPages,
 
         singleBlog,
+        
         fetchSingleBlog,
 
         recentBlogs,
