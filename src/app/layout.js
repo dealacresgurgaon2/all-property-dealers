@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
 
-      {/* ✅ AdSense Script Added (Head Section) */}
+      {/* ✅ AdSense Script Added (Head) */}
       <head>
         <Script
           async
