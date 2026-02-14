@@ -1,9 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-// ---- FIXED PATHS HERE ----
-import Navbar from "@/templates/design1/components/Navbar";
-import Footer from "@/templates/design1/components/Footer";
+import Script from "next/script"; // ✅ AdSense ke liye
+
+
 // --------------------------
 
 import { DealerProvider } from "@/context/propertydealercontext/DealerContext";
@@ -26,16 +26,30 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+
+      {/* ✅ AdSense Script Added (Head Section) */}
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* 🔥 CONTEXT WRAP */}
         <DealerProvider>
-          
+
+          {/* OPTIONAL Navbar (agar layout me use karte ho) */}
+      
 
           {children}
 
           
+
         </DealerProvider>
       </body>
     </html>

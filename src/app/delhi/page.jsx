@@ -1,5 +1,9 @@
-import Home7 from "@/templates/design7/pages/home/page";
+import Home5 from "@/templates/design5/pages/home/page";
 
-export default function FaridabadHome() {
-  return <Home7 />;
+export default function Ambala() {
+   const domain = typeof window !== "undefined" 
+    ? window.location.hostname 
+    : "";
+
+  return <Home5 domain={domain} />;
 }

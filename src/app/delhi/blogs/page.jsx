@@ -1,5 +1,5 @@
-import Blogs from "@/templates/design7/pages/blogs/page";
+import Blogs from "@/templates/design5/pages/blogs/page";
 
 export default function Page() {
-  return <Blogs />;
+  return <Blogs domain="www.propertydealerindelhi.com" />;
 }

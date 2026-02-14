@@ -1,45 +1,77 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-
 import { useDealers } from "@/context/propertydealercontext/DealerContext";
 
 import DealerCard from "./DealerCard";
 import DealerSearchBar from "./DealerSearchBar";
 import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
+import CityButtonsFilter from "./CityButtonsFilter";
 
 export default function DealersSection({ domain }) {
 
   const { dealers, loading, page, setPage, totalPages, setDomain } = useDealers();
 
+  const [filtered, setFiltered] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(""); // ✅ ADDED
+
+  const listTopRef = useRef(null);
+
+  /* ================= DOMAIN SET ================= */
+
   useEffect(() => {
     setDomain("propertydealerindelhi.com");
+
     if (
       domain &&
-      (domain == "propertydeler-gold-frontend-k2da.vercel.app" ||
-        domain == "localhost")
+      (domain === "propertydeler-gold-frontend-k2da.vercel.app" ||
+        domain === "localhost")
     ) {
       setDomain("propertydealerindelhi.com");
     }
   }, [domain]);
 
-  const [filtered, setFiltered] = useState([]);
-
-  const listTopRef = useRef(null);
+  /* ================= INITIAL LOAD ================= */
 
   useEffect(() => {
     setFiltered(dealers);
   }, [dealers]);
 
-  // ============ 🔥 FINAL SEARCH LOGIC ============
+  /* ================= APPLY CITY FILTER ================= */
+
+  useEffect(() => {
+    applyFilters();
+  }, [selectedCity, dealers]);
+
+  const applyFilters = () => {
+    let result = [...dealers];
+
+    if (selectedCity) {
+      result = result.filter(
+        (d) => d.city?.toLowerCase() === selectedCity.toLowerCase()
+      );
+    }
+
+    setFiltered(result);
+  };
+
+  /* ================= CITY FILTER ================= */
+
+  const handleCityFilter = (city) => {
+    setSelectedCity(city);
+    setPage(1);
+    scrollToList();
+  };
+
+  /* ================= SEARCH ================= */
 
   const handleSearch = (query) => {
 
     const q = query.toLowerCase().trim();
 
     if (!q) {
-      setFiltered(dealers);
+      applyFilters();
       setPage(1);
       scrollToList();
       return;
@@ -47,8 +79,7 @@ export default function DealersSection({ domain }) {
 
     const words = q.split(/\s+/);
 
-    // MATCHED DEALERS
-    const matched = dealers.filter((d) => {
+    let result = dealers.filter((d) => {
       const text = `
         ${d.name || ""}
         ${d.city || ""}
@@ -58,47 +89,30 @@ export default function DealersSection({ domain }) {
       return words.every((w) => text.includes(w));
     });
 
-    // UNMATCHED DEALERS
-    const unmatched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return !words.every((w) => text.includes(w));
-    });
-
-    // 🔥 Matched on TOP
-    let finalList = [...matched, ...unmatched];
-
-    // 🔥 Guarantee MINIMUM 100 CARDS
-    if (finalList.length < 100 && dealers.length > finalList.length) {
-
-      const extraNeeded = 200 - finalList.length;
-
-      const extra = dealers
-        .filter(d => !finalList.includes(d))
-        .slice(0, extraNeeded);
-
-      finalList = [...finalList, ...extra];
+    // City filter combine
+    if (selectedCity) {
+      result = result.filter(
+        (d) => d.city?.toLowerCase() === selectedCity.toLowerCase()
+      );
     }
 
-    setFiltered(finalList);
-
+    setFiltered(result);
     setPage(1);
     scrollToList();
   };
 
-  // ===============================================
+  /* ================= SCROLL FIX ================= */
 
   const scrollToList = () => {
     requestAnimationFrame(() => {
       const element = listTopRef.current;
       if (!element) return;
 
-      const yOffset = -100;   // Fix first card hiding
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const yOffset = -100;
+      const y =
+        element.getBoundingClientRect().top +
+        window.pageYOffset +
+        yOffset;
 
       window.scrollTo({
         top: y,
@@ -108,7 +122,7 @@ export default function DealersSection({ domain }) {
   };
 
   return (
-    <section className="bg-gray-50 py-12">
+    <section className="bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4">
 
         <div className="mb-10">
@@ -121,6 +135,10 @@ export default function DealersSection({ domain }) {
           </p>
 
           <div className="w-16 h-1 bg-red-600 mt-3 rounded-full"></div>
+
+          <div className="mt-6">
+            <CityButtonsFilter onCitySelect={handleCityFilter} />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
@@ -132,7 +150,6 @@ export default function DealersSection({ domain }) {
             </div>
 
             <div className="h-4" />
-
             <div ref={listTopRef} className="h-2" />
 
             {loading ? (
@@ -141,17 +158,18 @@ export default function DealersSection({ domain }) {
                   Loading property dealers…
                 </div>
               </div>
+
             ) : filtered.length === 0 ? (
+
               <div className="py-20 text-center border border-dashed border-red-300 rounded-xl bg-white">
                 <p className="text-red-600 font-medium">
-                  No dealers found for your search
-                </p>
-                <p className="text-sm text-gray-500 mt-1">
-                  Try different keywords or city name
+                  No dealers found
                 </p>
               </div>
+
             ) : (
-              <div className="space-y-5">
+
+              <div className="space-y-5 -mt-10">
                 {filtered.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))}

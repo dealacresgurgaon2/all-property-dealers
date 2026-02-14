@@ -26,7 +26,7 @@ export default function DealerCard({ dealer }) {
         relative
         overflow-hidden
         flex flex-col
-        h-full
+        
       "
     >
       {/* ❤️ HEART ICON */}
@@ -153,7 +153,7 @@ export default function DealerCard({ dealer }) {
 
           <Link
             href={{
-              pathname: `/adv-dse`,
+              pathname: `dealer/adv-dse`,
               query: {
                 name: dealer.name,
                 city: dealer.city,

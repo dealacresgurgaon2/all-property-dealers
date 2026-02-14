@@ -1,87 +1,90 @@
 "use client";
 
 import Image from "next/image";
-import QueryForm from "@/templates/design7/components/QueryForm";
+import QueryForm from "@/templates/design5/components/QueryForm";
 
-export default function ContactHaryana() {
+export default function ContactUsPage() {
   return (
-    <>
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-gradient-to-br from-white via-gray-50 to-gray-100 py-8 overflow-hidden">
+    <section className="bg-white pt-10">
 
-        {/* Premium Decorative Blur */}
-        <div className="absolute -top-32 -right-32 w-[420px] h-[420px] bg-green-200 rounded-full blur-3xl opacity-30"></div>
+      <div className="max-w-7xl mx-auto px-4">
 
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+        {/* ===== PAGE HEADER ===== */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
+            Contact Us
+          </h1>
 
-          {/* ===== TOP CENTER CONTENT ===== */}
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-black mb-6 leading-tight">
-              Connect With <span className="text-indigo-600">Trusted</span> Property Dealers
-              <br />
-              in Haryana
-            </h2>
+          <p className="text-black/70 max-w-2xl mx-auto text-lg">
+            Whether you want to buy, sell or rent – we connect you directly with trusted Delhi property dealers.
+          </p>
+        </div>
 
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-              Buy, sell or rent with confidence. We connect you directly with verified
-              property dealers across Haryana – fast, transparent and secure.
-            </p>
+        {/* ===== FORM + IMAGE SECTION ===== */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center mb-24">
+
+          {/* LEFT SIDE – FORM */}
+          <div className="bg-gray-50 p-8 rounded-3xl shadow-lg border border-red-100">
+            <h3 className="text-2xl font-semibold mb-6 text-black">
+              Send Your Requirement
+            </h3>
+            <QueryForm />
           </div>
 
-          {/* ===== IMAGE + FORM SECTION ===== */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+          {/* RIGHT SIDE – IMAGE WITH OVERLAY */}
+          <div className="relative w-full h-[600px] rounded-3xl overflow-hidden shadow-2xl group">
 
-            {/* LEFT – IMAGE */}
-            <div className="relative group">
-              <div className="relative w-full h-[540px] rounded-3xl overflow-hidden shadow-2xl transition duration-500 group-hover:scale-[1.03]">
+            <Image
+              src="/images/ghj.png"
+              alt="Delhi Property Dealers"
+              fill
+              className="object-cover transition duration-700 group-hover:scale-110"
+            />
 
-                <Image
-                  src="/images/ghj.png"
-                  alt="Haryana Property Dealers"
-                  fill
-                  className="object-cover"
-                />
+            {/* Dark Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-
-                <div className="absolute bottom-10 left-10 text-white max-w-sm">
-                  <h4 className="text-2xl font-semibold mb-3">
-                    Premium Property Network – Haryana
-                  </h4>
-                  <p className="text-white/90 text-sm leading-6">
-                    Verified dealers across major cities of Haryana.
-                    Transparent deals. Direct communication. Zero confusion.
-                  </p>
-                </div>
-
-              </div>
-            </div>
-
-            {/* RIGHT – FORM */}
-            <div>
-              <QueryForm />
+            {/* Floating Content Box */}
+            <div className="absolute bottom-10 left-10 text-white max-w-sm">
+              <h4 className="text-2xl font-bold mb-3">
+                Trusted Delhi Property Network
+              </h4>
+              <p className="text-white/90 text-sm leading-6">
+                Connect with verified property dealers across Delhi.
+                Transparent process. No middlemen. No hidden charges.
+              </p>
             </div>
 
           </div>
 
         </div>
-      </section>
 
-      {/* ================= MAP SECTION (HARYANA) ================= */}
-      <section className="w-full">
-        <div className="w-full h-[620px] shadow-inner">
+      </div>
+
+      {/* ===== FULL WIDTH MAP SECTION ===== */}
+      <div className="w-full mt-10">
+
+        <div className="text-center mb-8">
+          <h3 className="text-3xl font-bold text-black">
+            Our Location
+          </h3>
+        </div>
+
+        <div className="w-full h-[500px]">
           <iframe
-            src="https://www.google.com/maps?q=Haryana,India&output=embed"
+            src="https://www.google.com/maps?q=New+Delhi,India&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0 }}
             allowFullScreen=""
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Haryana Location Map"
+            title="Delhi Location Map"
           ></iframe>
         </div>
-      </section>
-    </>
+
+      </div>
+
+    </section>
   );
 }
