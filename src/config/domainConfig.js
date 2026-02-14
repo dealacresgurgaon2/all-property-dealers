@@ -8,9 +8,12 @@ export const DOMAIN_LAYOUT_MAP = {
   "https://propertydealerinhisar.com":"hisar",
   "https://www.propertydealerinhisar.com":"hisar",
   "propertydeler-gold-frontend-yg8l.vercel.app": "delhi",
-
+    "projectwallah.live":"hisar",
+    "www.projectwallah.live":"hisar",
+    "https://www.projectwallah.live":"hisar",
+    "https://projectwallah.live":"hisar",
   "property-dealer-in-hisar-2.vercel.app": "hisar",
 "localhost:3000": "hisar",
 };
 
-export const DEFAULT_LAYOUT = "sonipate";
+export const DEFAULT_LAYOUT = "sonipate"
