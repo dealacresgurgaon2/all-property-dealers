@@ -13,6 +13,7 @@ export const DOMAIN_LAYOUT_MAP = {
     "https://www.projectwallah.live":"hisar",
     "https://projectwallah.live":"hisar",
     "https://www.projectwallah.live/":"hisar",
+    "https://projectwallah.live/":"hisar",
   "property-dealer-in-hisar-2.vercel.app": "hisar",
 "localhost:3000": "hisar",
 };
