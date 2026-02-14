@@ -104,7 +104,7 @@ export function DealerProvider({ children }) {
 
       if (!domain) return;
 
-      let url = `${API_BASE}/api/get/getAllData/${domain}?page=${page}&limit=${ITEMS_PER_PAGE}`;
+      let url = `${API_BASE}/api/get/getAllData/www.propertydealerinhisar?page=${page}&limit=${ITEMS_PER_PAGE}`;
 
       const res = await axios.get(url);
 
