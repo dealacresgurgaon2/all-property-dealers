@@ -15,20 +15,22 @@ const formatDate = (date) => {
 export default function FourBlogs() {
   const { blogs, loading, setDomain } = useBlogs();
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let currentDomain = window.location.hostname.replace("www.", "");
+ useEffect(() => {
+  if (typeof window !== "undefined") {
+    let currentDomain = window.location.hostname.replace("www.", "");
 
-      console.log("Current Domain:", currentDomain);
+    console.log("Current Domain:", currentDomain);
 
-      // LOCALHOST FIX
-      if (currentDomain === "localhost") {
-        currentDomain = "www.propertydealerinfaridabad.com";   // 👈 Yahan apna testing domain daal do
-      }
-
-      setDomain(currentDomain);
+    if (
+      currentDomain === "localhost" ||
+      currentDomain.includes("propertydeler-gold-frontend-9wvp.vercel.app")
+    ) {
+      currentDomain = "www.propertydealerinfaridabad.com";
     }
-  }, []);
+
+    setDomain(currentDomain);
+  }
+}, []);
 
   if (loading) {
     return (

@@ -56,15 +56,18 @@ export default function BlogList() {
             href={`/blogs/${post.slug}`}
             className="group bg-white border border-[#5E23DC]/20 rounded-xl shadow-sm p-4 hover:shadow-md transition"
           >
+<div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden">
+  <Image
+    src={post.heroImg}
+    alt={post.title?.rendered}
+    fill
+    className="object-cover"
+  />
+</div>
 
-            <div className="relative w-full h-56 rounded-md overflow-hidden mb-4">
-              <Image
-                src={post.heroImg}
-                alt={post.title?.rendered}
-                fill
-                className="object-cover"
-              />
-            </div>
+
+
+
 
             <h3 className="text-lg font-semibold text-[#5E23DC] mb-2">
               {post.title?.rendered}

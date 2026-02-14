@@ -139,7 +139,7 @@ export default function DealerCard({ dealer }) {
 
           <Link
             href={{
-              pathname: `dealer/adv-dse`,
+              pathname: `/dealer/${dealer.slug}`,
               query: {
                 name: dealer.name,
                 city: dealer.city,

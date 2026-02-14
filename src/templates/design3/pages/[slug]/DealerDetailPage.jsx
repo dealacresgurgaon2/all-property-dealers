@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 
 export default function DealerDetailPage() {
-  const { slug } = useParams();
+ 
 
   const [openFaq, setOpenFaq] = useState(null);
   const searchParams = useSearchParams();
