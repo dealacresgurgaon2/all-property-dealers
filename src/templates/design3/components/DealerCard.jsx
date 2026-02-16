@@ -40,7 +40,7 @@ export default function DealerCard({ dealer }) {
           </h3>
 
           {/* Badge Group */}
-          <div className="flex items-center gap-2">
+          <div className=" items-center gap-2 hidden">
 
             {/* Verified */}
             <span className="

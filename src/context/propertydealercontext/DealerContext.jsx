@@ -251,6 +251,7 @@ export function DealerProvider({ children }) {
   // ==================================================
   async function fetchHomeDealers() {
     if (!domain) return;
+    console.log("domasbhd =>",domain)
 
     try {
       setHomeLoading(true);
