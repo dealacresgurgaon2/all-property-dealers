@@ -253,7 +253,7 @@ export function DealerProvider({ children }) {
     try {
       setHomeLoading(true);
 
-      const url = `${API_BASE}/api/get/getAllData/www.propertydealerinhisar.com?page=${page}&limit=${ITEMS_PER_PAGE}`;
+      const url = `${API_BASE}/api/get/getAllData/${domain}?page=${page}&limit=${ITEMS_PER_PAGE}`;
 
       const res = await axios.get(url);
 
