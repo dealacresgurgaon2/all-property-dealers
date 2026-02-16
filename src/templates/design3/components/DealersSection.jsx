@@ -22,6 +22,10 @@ export default function DealersSection({ domain }) {
     ) {
       setDomain("propertydealerinhisar.com");
     }
+    else{
+            setDomain(domain);
+
+    }
   }, [domain]);
 
   const [filtered, setFiltered] = useState([]);

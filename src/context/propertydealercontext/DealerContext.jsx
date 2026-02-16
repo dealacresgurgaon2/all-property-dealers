@@ -346,6 +346,7 @@ export function DealerProvider({ children }) {
         applyLocationFilter,
         clearLocationFilter,
         selectedLocation,
+        
       }}
     >
       {children}
