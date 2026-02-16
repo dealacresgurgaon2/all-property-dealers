@@ -49,7 +49,7 @@ export default function QueryForm() {
           mb-2
         "
       >
-        Get Best Property Deals
+       For Best Property Deals Contact Us
       </h3>
 
       <p
@@ -59,7 +59,7 @@ export default function QueryForm() {
           mb-4
         "
       >
-        Fill the form and our expert will contact you shortly.
+         Our Real Estate experts will contact you shortly.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -132,14 +132,14 @@ export default function QueryForm() {
               text-[#5E23DC]
             "
           >
-            Requirement
+           Message
           </label>
           <textarea
             name="message"
             rows="3"
             value={form.message}
             onChange={handleChange}
-            placeholder="What kind of property are you looking for?"
+            placeholder="Write here your budget and location preference"
             className={`${inputClass} resize-none`}
           ></textarea>
         </div>

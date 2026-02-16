@@ -7,6 +7,7 @@ export const DOMAIN_LAYOUT_MAP = {
   "propertydeler-gold-frontend-w423.vercel.app": "sonipate",
   "https://propertydealerinhisar.com":"hisar",
   "https://www.propertydealerinhisar.com":"hisar",
+  "https://www.propertydealerinhisar.com/":"hisar",
   "propertydeler-gold-frontend-yg8l.vercel.app": "haryana",
     "projectwallah.live":"hisar",
     "www.projectwallah.live":"hisar",

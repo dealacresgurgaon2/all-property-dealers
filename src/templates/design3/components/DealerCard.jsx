@@ -2,15 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import PurpleContactPopup from "./PurpleContactPopup";   // 👈 ONLY NEW IMPORT
+import PurpleContactPopup from "./PurpleContactPopup";
 import { useDealers } from "@/context/propertydealercontext/DealerContext";
 
-
 export default function DealerCard({ dealer }) {
-
-  const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
-    const { setDealername,setCity } = useDealers();
-
+  const [openPopup, setOpenPopup] = useState(false);
+  const { setDealername, setCity } = useDealers();
 
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
@@ -18,59 +15,68 @@ export default function DealerCard({ dealer }) {
     return (words[0][0] + words[1][0]).toUpperCase();
   };
 
-  const addData=(name,city)=>{
-    setCity(city)
-    setDealername(name)
-  }
+  const addData = (name, city) => {
+    setCity(city);
+    setDealername(name);
+  };
 
   return (
-    <div
-      className="
-        bg-white
-        border border-[#5E23DC]
-        rounded-xl
-        shadow-sm hover:shadow-md
-        transition
-        overflow-hidden
-        flex flex-col md:flex-row
-      "
-    >
-      {/* ===== LOGO - ONLY FOR DESKTOP ===== */}
-      <div
-        className="
-          hidden md:flex
-          w-32
-          bg-[#5E23DC]
-          items-center justify-center
-          text-white
-          font-bold text-3xl
-        "
-      >
+    <div className="bg-white border border-[#5E23DC] rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col md:flex-row">
+
+      {/* LEFT LOGO */}
+      <div className="hidden md:flex w-32 bg-[#5E23DC] items-center justify-center text-white font-bold text-3xl">
         {getInitials(dealer.name)}
       </div>
 
       {/* RIGHT CONTENT */}
-      <div className="flex-1 px-4 py-3 flex flex-col">
-        {/* Name */}
-        <h3
-          className="
-            text-lg md:text-xl font-bold mb-1
-            text-[#5E23DC]
-          "
-        >
-          {dealer.name}
-        </h3>
+      <div className="flex-1 px-4 py-4 flex flex-col">
 
-        {/* Address */}
-        <p
-          className="
-            text-xs
-            text-gray-700
-            mb-1
-            flex items-start gap-2
-            leading-snug
-          "
-        >
+        {/* NAME + RIGHT BADGES */}
+        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+
+          {/* Dealer Name */}
+          <h3 className="text-lg md:text-xl font-bold text-[#5E23DC]">
+            {dealer.name}
+          </h3>
+
+          {/* Badge Group */}
+          <div className="flex items-center gap-2">
+
+            {/* Verified */}
+            <span className="
+              flex items-center gap-1
+              text-[12px]
+              px-3 py-1
+              rounded-full
+              bg-green-50
+              text-green-700
+              font-semibold
+              border border-green-300
+              shadow-sm
+            ">
+              ✔ Verified
+            </span>
+
+            {/* Trusted */}
+            <span className="
+              flex items-center gap-1
+              text-[12px]
+              px-3 py-1
+              rounded-full
+              bg-yellow-50
+              text-yellow-700
+              font-semibold
+              border border-yellow-300
+              shadow-sm
+            ">
+              ⭐ Trusted
+            </span>
+
+          </div>
+        </div>
+
+        {/* ADDRESS (SVG SAME) */}
+        <p className="text-xs text-gray-700 mb-1 flex items-start gap-2 leading-snug">
           <span className="mt-0.5 shrink-0 text-[#5E23DC]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -92,7 +98,7 @@ export default function DealerCard({ dealer }) {
           <span className="line-clamp-2">{dealer.address}</span>
         </p>
 
-        {/* City */}
+        {/* CITY */}
         <p className="text-xs font-semibold text-gray-800 mb-2">
           {dealer.city} {dealer.state && `, ${dealer.state}`}
         </p>
@@ -103,15 +109,7 @@ export default function DealerCard({ dealer }) {
             {dealer.tags.map((tag, index) => (
               <span
                 key={index}
-                className="
-                  text-[12px]
-                  px-2 py-0.5
-                  rounded-full
-                  bg-[#5E23DC]/10
-                  text-[#5E23DC]
-                  border border-[#5E23DC]/40
-                  font-semibold
-                "
+                className="text-[11px] px-2 py-0.5 rounded-full bg-[#5E23DC]/10 text-[#5E23DC] border border-[#5E23DC]/40 font-semibold"
               >
                 {tag}
               </span>
@@ -121,63 +119,32 @@ export default function DealerCard({ dealer }) {
 
         <div className="flex-1"></div>
 
-        {/* BUTTONS - LEFT & RIGHT */}
-        <div
-          className="
-            flex items-center justify-between
-            pt-2 mt-2
-            border-t border-[#5E23DC]/30
-          "
-        >
-          {/* 👇 ONLY THIS PART CHANGED */}
+        {/* BOTTOM BUTTONS */}
+        <div className="flex items-center justify-between pt-3 mt-3 border-t border-[#5E23DC]/20">
+
           <button
             onClick={() => setOpenPopup(true)}
-            className="
-              px-4 py-1.5
-              rounded-md
-              bg-[#5E23DC]
-              text-white
-              text-sm
-              font-semibold
-              hover:bg-[#5E23DC]/90
-              transition
-            "
+            className="px-4 py-1.5 rounded-md bg-[#5E23DC] text-white text-sm font-semibold hover:bg-[#4b1cb3] transition"
           >
             Contact Us
           </button>
 
           <Link
-            href={{
-              pathname: `/dealer/${dealer.slug}`,
-              // query: {
-              //   name: dealer.name,
-              //   city: dealer.city,
-              // },
-            }}
-            onClick={()=>addData(dealer.name,dealer.city)}
-            className="
-              px-4 py-1.5
-              rounded-md
-              border border-[#5E23DC]
-              text-[#5E23DC]
-              text-sm
-              font-semibold
-              hover:bg-[#5E23DC]
-              hover:text-white
-              transition
-            "
+            href={`/dealer/${dealer.slug}`}
+            onClick={() => addData(dealer.name, dealer.city)}
+            className="px-4 py-1.5 rounded-md border border-[#5E23DC] text-[#5E23DC] text-sm font-semibold hover:bg-[#5E23DC] hover:text-white transition"
           >
             View Details
           </Link>
+
         </div>
       </div>
 
-      {/* 👇 ONLY NEW ADDITION AT BOTTOM */}
+      {/* POPUP */}
       <PurpleContactPopup
         isOpen={openPopup}
         onClose={() => setOpenPopup(false)}
       />
-
     </div>
   );
 }
