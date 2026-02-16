@@ -8,11 +8,9 @@ import ScrollToTop from "@/templates/design3/components/ScrollToTop";
 import GlobalScrollFix from "@/templates/design3/components/GlobalScrollFix";
 export default function Layout({ children }) {
 
-  // const domain = typeof window !== "undefined"
-  //   ? window.location.hostname
-  //   : "";
-
-  const domain ="www.propertydealerinhisar.com"
+  const domain = typeof window !== "undefined"
+    ? window.location.hostname
+    : "";
 
   return (
       <DealerProvider>
