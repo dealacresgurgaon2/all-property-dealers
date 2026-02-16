@@ -26,7 +26,7 @@ export default function LocationDealersPage() {
     );
   }
 
-  const { dealers, loading, setDomain, fetchDealersByLocation } = dealerContext;
+  const { dealers, loading, setDomain, applyLocationFilter } = dealerContext;
 
   const [page, setPage] = useState(1);
 
@@ -49,7 +49,7 @@ export default function LocationDealersPage() {
   // 🔥 CALL LOCATION API
   useEffect(() => {
     if (location) {
-      fetchDealersByLocation(location);
+      applyLocationFilter(location);
     }
   }, [location]);
 

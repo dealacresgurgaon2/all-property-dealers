@@ -81,10 +81,34 @@ export default function DealerCard({ dealer }) {
         </div>
       </div>
 
-      {/* ADDRESS */}
-      <p className="text-sm text-black/70 leading-snug line-clamp-2 mb-3">
-        {dealer.address}
-      </p>
+      <div className="flex items-start gap-2 mb-3">
+  
+  {/* Location SVG Icon */}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth="2"
+    className="text-[#d4af37] mt-0.5 flex-shrink-0"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 21s-6-5.686-6-10a6 6 0 1112 0c0 4.314-6 10-6 10z"
+    />
+    <circle cx="12" cy="11" r="2.5" />
+  </svg>
+
+  {/* Address Text */}
+  <p className="text-sm text-black/70 leading-snug line-clamp-2">
+    {dealer.address}
+  </p>
+
+</div>
+
 
       {/* TAGS */}
       {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (

@@ -4,7 +4,7 @@ import axios from "axios";
 const CityContext = createContext();
 
 export const CityProvider = ({ children }) => {
-  const [city, setCity] = useState("gurgaon");     // default
+  const [city, setCity] = useState(null);     // default
   const [dealers, setDealers] = useState([]);
   const [loading, setLoading] = useState(false);
 

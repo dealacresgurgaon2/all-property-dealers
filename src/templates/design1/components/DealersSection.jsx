@@ -145,9 +145,9 @@ export default function DealersSection({ domain }) {
             {loading ? (
               <div className="py-16 flex flex-col items-center gap-4">
 
-                <div className="w-12 h-12 border-4 border-red-500/30 border-t-red-600 rounded-full animate-spin"></div>
+                <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-600 rounded-full animate-spin"></div>
 
-                <p className="text-red-600 font-medium">
+                <p className="text-blue-600 font-medium">
                   Loading Dealers...
                 </p>
 

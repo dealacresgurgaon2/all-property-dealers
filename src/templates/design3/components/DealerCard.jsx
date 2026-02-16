@@ -3,16 +3,25 @@
 import { useState } from "react";
 import Link from "next/link";
 import PurpleContactPopup from "./PurpleContactPopup";   // 👈 ONLY NEW IMPORT
+import { useDealers } from "@/context/propertydealercontext/DealerContext";
+
 
 export default function DealerCard({ dealer }) {
 
   const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
+    const { setDealername,setCity } = useDealers();
+
 
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
     if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
     return (words[0][0] + words[1][0]).toUpperCase();
   };
+
+  const addData=(name,city)=>{
+    setCity(city)
+    setDealername(name)
+  }
 
   return (
     <div
@@ -140,11 +149,12 @@ export default function DealerCard({ dealer }) {
           <Link
             href={{
               pathname: `/dealer/${dealer.slug}`,
-              query: {
-                name: dealer.name,
-                city: dealer.city,
-              },
+              // query: {
+              //   name: dealer.name,
+              //   city: dealer.city,
+              // },
             }}
+            onClick={()=>addData(dealer.name,dealer.city)}
             className="
               px-4 py-1.5
               rounded-md

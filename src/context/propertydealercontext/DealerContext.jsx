@@ -240,6 +240,8 @@ export function DealerProvider({ children }) {
   const [totalPages, setTotalPages] = useState(1);
 
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [dealerName,setDealername]=useState("Property Dealer");
+  const [city,setCity]=useState("Haryana");
 
   const pathname = usePathname();
   const ITEMS_PER_PAGE = 100;
@@ -340,6 +342,7 @@ export function DealerProvider({ children }) {
         dealers,
         loading,
         page,
+        dealerName,setDealername,city,setCity,
         setPage,
         totalPages,
         setDomain,

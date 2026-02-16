@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
+import { useDealers } from "@/context/propertydealercontext/DealerContext";
 
 export default function DealerDetailPage() {
  
+    const { dealerName,city} = useDealers();
 
   const [openFaq, setOpenFaq] = useState(null);
   const searchParams = useSearchParams();
-  const dealerName = searchParams.get("name") || "Business Name";
-  const dealerCity = searchParams.get("city") || "Hisar";
+  // const dealerName = searchParams.get("name") || "Business Name";
+  // const dealerCity = searchParams.get("city") || "Hisar";
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -22,11 +24,11 @@ export default function DealerDetailPage() {
         {/* HEADER */}
         <div className="mb-10 border-b border-[#5E23DC]/20 pb-6">
           <h1 className="text-2xl md:text-3xl font-extrabold text-black leading-tight">
-            {dealerName} – Real Estate Partner in {dealerCity} - 125001
+            {dealerName} – Real Estate Partner in {city} - 125001
           </h1>
 
           <p className="text-base text-gray-600 mt-2">
-            {dealerCity}, Haryana
+            {city}, Haryana
           </p>
         </div>
 
@@ -41,13 +43,13 @@ export default function DealerDetailPage() {
 
         <p className="text-gray-700 leading-7 mb-6">
           That’s where <b>{dealerName}</b> quietly fits in as a reliable  
-          <b> real estate agent in {dealerCity}</b>, guiding buyers, sellers, and investors  
+          <b> real estate agent in {city}</b>, guiding buyers, sellers, and investors  
           through the property world with clarity and care.  
           No rushed talks. No forced deals. Just honest guidance, shaped around real needs.
         </p>
 
         <p className="text-gray-700 leading-7 mb-8">
-          If you’re searching for the <b>best property dealer in {dealerCity}</b>,  
+          If you’re searching for the <b>best property dealer in {city}</b>,  
           someone who understands the city, the market, and the people, you're in the right place.
         </p>
 
@@ -63,7 +65,7 @@ export default function DealerDetailPage() {
         </p>
 
         <p className="text-gray-700 leading-7 mb-6">
-          As a professional real estate agent in {dealerCity}, the focus remains simple –  
+          As a professional real estate agent in {city}, the focus remains simple –  
           to make property dealing easy to understand, easy to trust, and easy to complete.  
           From small residential plots to large commercial spaces, every deal is handled with  
           patience, transparency, and market awareness.
@@ -88,16 +90,16 @@ export default function DealerDetailPage() {
           Trust isn’t built in one meeting. It grows slowly through honest advice,  
           clear communication, and reliable service.  
           That’s what makes <b>{dealerName}</b> stand out as the  
-          <b> best property dealer in {dealerCity}.</b>
+          <b> best property dealer in {city}.</b>
         </p>
 
         {/* MARKET UNDERSTANDING */}
         <h2 className="text-xl font-semibold text-black mb-3">
-          Understanding the {dealerCity} Property Market
+          Understanding the {city} Property Market
         </h2>
 
         <p className="text-gray-700 leading-7 mb-6">
-          {dealerCity} is changing. New sectors are developing. Roads are expanding.  
+          {city} is changing. New sectors are developing. Roads are expanding.  
           Property values are rising steadily. Opportunities exist, but only if you know where to look.
         </p>
 
@@ -107,9 +109,9 @@ export default function DealerDetailPage() {
         </p>
 
         <ul className="list-disc pl-6 text-gray-700 leading-7 mb-8 space-y-2">
-          <li>Residential plots in {dealerCity} for home building or investment</li>
-          <li>Commercial property for sale in {dealerCity} for shops, offices, and showrooms</li>
-          <li>Rental property in {dealerCity} for families, students, and working professionals</li>
+          <li>Residential plots in {city} for home building or investment</li>
+          <li>Commercial property for sale in {city} for shops, offices, and showrooms</li>
+          <li>Rental property in {city} for families, students, and working professionals</li>
         </ul>
 
         {/* SERVICES */}
@@ -122,9 +124,9 @@ export default function DealerDetailPage() {
         </p>
 
         <ul className="list-disc pl-6 text-gray-700 leading-7 mb-8 space-y-2">
-          <li>Buying and selling of residential plots in {dealerCity}</li>
-          <li>Assistance in commercial property for sale in {dealerCity}</li>
-          <li>Support for rental property in {dealerCity}</li>
+          <li>Buying and selling of residential plots in {city}</li>
+          <li>Assistance in commercial property for sale in {city}</li>
+          <li>Support for rental property in {city}</li>
           <li>Property site visits and verification</li>
           <li>Ownership and legal document checks</li>
           <li>Price negotiation guidance</li>
@@ -137,7 +139,7 @@ export default function DealerDetailPage() {
         </h2>
 
         <ul className="list-disc pl-6 text-gray-700 leading-7 mb-8 space-y-2">
-          <li><b>Local Market Expertise</b> – Deep understanding of {dealerCity} real estate zones</li>
+          <li><b>Local Market Expertise</b> – Deep understanding of {city} real estate zones</li>
           <li><b>Personalized Guidance</b> – Every client receives solutions based on real needs</li>
           <li><b>Transparent Process</b> – No hidden costs. No unclear terms.</li>
           <li><b>Complete Support</b> – From first inquiry to final registration</li>
@@ -162,7 +164,7 @@ export default function DealerDetailPage() {
 
         <p className="text-gray-700 leading-7 mb-10">
           Property decisions are big. Emotional. Financial. Personal.  
-          Having the <b>best property dealer in {dealerCity}</b> beside you  
+          Having the <b>best property dealer in {city}</b> beside you  
           turns uncertainty into clarity.  
           <b> {dealerName}</b> stands for honest guidance, market understanding, and smooth real estate experiences.
         </p>

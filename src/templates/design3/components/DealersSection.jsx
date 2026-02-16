@@ -18,7 +18,7 @@ export default function DealersSection({ domain }) {
     if (
       domain &&
       (domain == "propertydeler-gold-frontend-lp3d.vercel.app" ||
-        domain == "localhost") || domain==="www.projectwallah.live"
+        domain == "localhost")
     ) {
       setDomain("propertydealerinhisar.com");
     }
