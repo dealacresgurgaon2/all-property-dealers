@@ -8,7 +8,7 @@ export default function HomePage({domain}) {
     <>
       {/* <Navbar /> */}
       <Hero />
-      {/* <DealersSection domain={domain} /> */}
+      <DealersSection domain={domain} />
       {/* <Footer /> */}
     </>
   );
