@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 
 export default function ContactPopup({ isOpen, onClose, dealerName }) {
   const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -12,184 +13,169 @@ export default function ContactPopup({ isOpen, onClose, dealerName }) {
 
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
     email: "",
     option: "Buy Property",
     description: "",
   });
 
+  const website =
+    typeof window !== "undefined"
+      ? window.location.hostname.replace("www.", "")
+      : "";
+
   if (!isOpen || !mounted) return null;
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Message Sent Successfully!");
-    onClose();
+
+    if (formData.phone.length !== 10) {
+      alert("Phone number must be 10 digits");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          option: formData.option,
+          message: formData.description,
+          dealerName,
+          website,
+        }),
+      });
+
+      const result = await res.json();
+
+      if (result.success) {
+        alert("Your inquiry has been submitted successfully!");
+        setFormData({
+          name: "",
+          phone: "",
+          email: "",
+          option: "Buy Property",
+          description: "",
+        });
+        onClose();
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.log("Popup form error:", error);
+      alert("Server error. Please try later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center px-3">
 
       {/* BACKDROP */}
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
       />
 
-      {/* MODAL BOX */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-[92%] max-w-lg p-7 z-[10000]">
+      {/* MODAL */}
+      <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-md p-6 z-[10000]">
 
         {/* HEADER */}
-        <div className="flex justify-between items-center mb-5 border-b pb-3">
-          <h2 className="text-xl font-extrabold text-[#0b1f33] tracking-wide">
+        <div className="flex justify-between items-center mb-4 border-b pb-2">
+          <h2 className="text-lg font-bold text-[#0b1f33]">
             Contact {dealerName}
           </h2>
 
           <button
             onClick={onClose}
-            className="text-[#1e40af] text-2xl hover:scale-110 transition"
+            className="text-[#1e40af] text-xl hover:scale-110 transition"
           >
             ✕
           </button>
         </div>
 
         {/* FORM */}
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* NAME */}
-          <div>
-            <label className="text-sm font-semibold text-gray-800 mb-1 block">
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              placeholder="Enter your name"
-              className="
-                w-full 
-                border border-[#1e40af]/60
-                rounded-xl 
-                p-3 
-                placeholder-gray-600
-                text-gray-900
-                focus:outline-none 
-                focus:ring-2 
-                focus:ring-[#1e40af]
-                focus:border-[#1e40af]
-                transition
-              "
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+          />
 
-          {/* EMAIL */}
-          <div>
-            <label className="text-sm font-semibold text-gray-800 mb-1 block">
-              Email Address
-            </label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              className="
-                w-full 
-                border border-[#1e40af]/60
-                rounded-xl 
-                p-3 
-                placeholder-gray-600
-                text-gray-900
-                focus:outline-none 
-                focus:ring-2 
-                focus:ring-[#1e40af]
-                focus:border-[#1e40af]
-                transition
-              "
-              onChange={handleChange}
-              required
-            />
-          </div>
+          <input
+            type="text"
+            name="phone"
+            inputMode="numeric"
+            placeholder="Phone (10 digits)"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+          />
 
-          {/* OPTION */}
-          <div>
-            <label className="text-sm font-semibold text-gray-800 mb-1 block">
-              I Want To
-            </label>
-            <select
-              name="option"
-              className="
-                w-full 
-                border border-[#1e40af]/60
-                rounded-xl 
-                p-3 
-                text-gray-900
-                focus:outline-none 
-                focus:ring-2 
-                focus:ring-[#1e40af]
-                focus:border-[#1e40af]
-                transition
-              "
-              onChange={handleChange}
-            >
-              <option>Buy Property</option>
-              <option>Sell Property</option>
-              <option>Rent Property</option>
-             
-            </select>
-          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+          />
 
-          {/* MESSAGE */}
-          <div>
-            <label className="text-sm font-semibold text-gray-800 mb-1 block">
-              Message
-            </label>
-            <textarea
-              name="description"
-              placeholder="Describe your requirement..."
-              className="
-                w-full 
-                border border-[#1e40af]/60
-                rounded-xl 
-                p-3 
-                placeholder-gray-600
-                text-gray-900
-                focus:outline-none 
-                focus:ring-2 
-                focus:ring-[#1e40af]
-                focus:border-[#1e40af]
-                transition
-              "
-              rows="4"
-              onChange={handleChange}
-            />
-          </div>
+          <select
+            name="option"
+            value={formData.option}
+            onChange={handleChange}
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-[#1e40af]"
+          >
+            <option>Buy Property</option>
+            <option>Sell Property</option>
+            <option>Rent Property</option>
+          </select>
 
-          {/* SUBMIT */}
+          <textarea
+            name="description"
+            rows="3"
+            placeholder="Describe your requirement..."
+            value={formData.description}
+            onChange={handleChange}
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+          />
+
           <button
             type="submit"
-            className="
-              w-full 
-              bg-[#1e40af] 
-              text-white 
-              py-3 
-              rounded-xl 
-              font-semibold 
-              hover:bg-[#1d4ed8] 
-              transition-all 
-              shadow-md 
-              hover:shadow-lg
-            "
+            disabled={loading}
+            className="w-full bg-[#1e40af] text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-[#1d4ed8] transition"
           >
-            Send Message
+            {loading ? "Submitting..." : "Send Message"}
           </button>
 
         </form>
-
-        <p className="text-xs text-gray-600 text-center mt-4">
-          Your information is safe with us. We never share your details.
-        </p>
 
       </div>
     </div>,

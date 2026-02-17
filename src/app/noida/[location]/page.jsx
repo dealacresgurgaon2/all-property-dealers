@@ -26,7 +26,7 @@ export default function LocationDealersPage() {
     );
   }
 
-  const { dealers, loading, setDomain, fetchDealersByLocation } = dealerContext;
+  const { dealers, loading, setDomain2, applyLocationFilter } = dealerContext;
 
   const [page, setPage] = useState(1);
 
@@ -39,17 +39,17 @@ export default function LocationDealersPage() {
         currentDomain === "propertydeler-gold-frontend-xkw9.vercel.app" ||
         currentDomain === "localhost"
       ) {
-        setDomain("propertydealerinnoida.com");
+        setDomain2("propertydealerinnoida.com");
       } else {
-        setDomain(currentDomain);
+        setDomain2(currentDomain);
       }
     }
-  }, [setDomain]);
+  }, [setDomain2]);
 
   // 🔥 CALL LOCATION API
   useEffect(() => {
     if (location) {
-      fetchDealersByLocation(location);
+     applyLocationFilter(location);
     }
   }, [location]);
 

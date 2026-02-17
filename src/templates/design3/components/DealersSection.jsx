@@ -14,35 +14,40 @@ export default function DealersSection({ domain }) {
 
   const { dealers, loading, page, setPage, totalPages, setDomain } = useDealers();
 
+  const [filtered, setFiltered] = useState([]);
+  const listTopRef = useRef(null);
+
+  // ✅ DOMAIN SET
   useEffect(() => {
     if (
       domain &&
-      (domain == "propertydeler-gold-frontend-lp3d.vercel.app" ||
-        domain == "localhost")
+      (domain === "propertydeler-gold-frontend-lp3d.vercel.app" ||
+        domain === "localhost")
     ) {
       setDomain("propertydealerinhisar.com");
+    } else {
+      setDomain(domain);
     }
-    else{
-            setDomain(domain);
+  }, [domain, setDomain]);
 
-    }
-  }, [domain]);
-
-  const [filtered, setFiltered] = useState([]);
-
-  const listTopRef = useRef(null);
-
+  // ✅ SORT DEALERS WHEN DATA CHANGES (Premium on top)
   useEffect(() => {
-    setFiltered(dealers);
+    const sorted = [...dealers].sort(
+      (a, b) => Number(b.subscription) - Number(a.subscription)
+    );
+    setFiltered(sorted);
   }, [dealers]);
 
-  // 🔥 SEARCH LOGIC (CURRENT PAGE DATA ONLY)
+  // ✅ SEARCH FUNCTION (Premium always stays on top)
   const handleSearch = (query) => {
 
     const q = query.toLowerCase().trim();
 
     if (!q) {
-      setFiltered(dealers);
+      const sorted = [...dealers].sort(
+        (a, b) => Number(b.subscription) - Number(a.subscription)
+      );
+      setFiltered(sorted);
       setPage(1);
       scrollToList();
       return;
@@ -60,8 +65,11 @@ export default function DealersSection({ domain }) {
       return words.every((w) => text.includes(w));
     });
 
-    setFiltered(matched); // ❗ Only matched from current page
+    const sortedMatched = [...matched].sort(
+      (a, b) => Number(b.subscription) - Number(a.subscription)
+    );
 
+    setFiltered(sortedMatched);
     setPage(1);
     scrollToList();
   };
@@ -96,9 +104,9 @@ export default function DealersSection({ domain }) {
 
           <div className="lg:col-span-2 space-y-4">
 
-            <StickyBox offsetTop={65}>
-              <DealerSearchBar onSearch={handleSearch} />
-            </StickyBox>
+  <div className="sticky top-[65px] z-50  pb-3">
+  <DealerSearchBar onSearch={handleSearch} />
+</div>
 
             <div ref={listTopRef} className="h-2" />
 
@@ -150,6 +158,7 @@ export default function DealersSection({ domain }) {
 
           </div>
 
+          {/* RIGHT SIDE FORM */}
           <div className="space-y-6">
             <div className="sticky top-[65px]">
               <QueryForm />

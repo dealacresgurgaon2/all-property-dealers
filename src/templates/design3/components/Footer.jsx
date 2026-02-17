@@ -128,7 +128,7 @@ export default function Footer() {
             {/* BRAND SECTION */}
             <div className="md:col-span-3">
               <h3 className="text-xl font-bold mb-2 tracking-wide">
-                Property<span className="text-white/80">Dealer</span>
+                Property <span className="text-white/80">Dealer</span>
               </h3>
 
               <p className="text-white/80 leading-6 text-sm mb-5">

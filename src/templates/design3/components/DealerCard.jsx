@@ -3,11 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import PurpleContactPopup from "./PurpleContactPopup";
-import { useDealers } from "@/context/propertydealercontext/DealerContext";
 
 export default function DealerCard({ dealer }) {
   const [openPopup, setOpenPopup] = useState(false);
-  const { setDealername, setCity } = useDealers();
 
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
@@ -15,13 +13,16 @@ export default function DealerCard({ dealer }) {
     return (words[0][0] + words[1][0]).toUpperCase();
   };
 
-  const addData = (name, city) => {
-    setCity(city);
-    setDealername(name);
-  };
-
   return (
-    <div className="bg-white border border-[#5E23DC] rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col md:flex-row">
+    <div
+      className={`relative bg-white border rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden flex flex-col md:flex-row
+      ${
+        dealer.subscription
+          ? "border-[#5E23DC]"
+          : "border-[#5E23DC]"
+      }`}
+    >
+    
 
       {/* LEFT LOGO */}
       <div className="hidden md:flex w-32 bg-[#5E23DC] items-center justify-center text-white font-bold text-3xl">
@@ -31,51 +32,55 @@ export default function DealerCard({ dealer }) {
       {/* RIGHT CONTENT */}
       <div className="flex-1 px-4 py-4 flex flex-col">
 
-        {/* NAME + RIGHT BADGES */}
+        {/* NAME + BADGES */}
         <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
 
-          {/* Dealer Name */}
           <h3 className="text-lg md:text-xl font-bold text-[#5E23DC]">
             {dealer.name}
           </h3>
 
-          {/* Badge Group */}
-          <div className=" items-center gap-2 hidden">
+          {/* Show only if subscription true */}
+          {dealer.subscription && (
+            <div className="flex items-center gap-2">
 
-            {/* Verified */}
-            <span className="
-              flex items-center gap-1
-              text-[12px]
-              px-3 py-1
-              rounded-full
-              bg-green-50
-              text-green-700
-              font-semibold
-              border border-green-300
-              shadow-sm
-            ">
-              ✔ Verified
-            </span>
+              <span className="
+                flex items-center gap-1
+                text-[12px]
+                px-3 py-1
+                rounded-full
+                
+                text-green-700
+                font-semibold
+                border border-green-300
+                shadow-sm
+              ">
+                ✔ Verified
+              </span>
 
-            {/* Trusted */}
-            <span className="
-              flex items-center gap-1
-              text-[12px]
-              px-3 py-1
-              rounded-full
-              bg-yellow-50
-              text-yellow-700
-              font-semibold
-              border border-yellow-300
-              shadow-sm
-            ">
-              ⭐ Trusted
-            </span>
+             <span
+  className="
+    flex items-center gap-1
+    text-[12px]
+    px-3 py-1
+    rounded-full
+    text-yellow-700
+    font-semibold
+    border border-yellow-300
+    shadow-sm
+  "
+>
+  <span className="animate-pulse text-yellow-500 drop-shadow-[0_0_6px_rgba(234,179,8,0.8)]">
+    ⭐
+  </span>
+  Trusted
+</span>
 
-          </div>
+
+            </div>
+          )}
         </div>
 
-        {/* ADDRESS (SVG SAME) */}
+        {/* ADDRESS */}
         <p className="text-xs text-gray-700 mb-1 flex items-start gap-2 leading-snug">
           <span className="mt-0.5 shrink-0 text-[#5E23DC]">
             <svg
@@ -105,7 +110,7 @@ export default function DealerCard({ dealer }) {
 
         {/* TAGS */}
         {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 mb-2">
+          <div className="flex flex-wrap gap-1 mb-2 ">
             {dealer.tags.map((tag, index) => (
               <span
                 key={index}
@@ -119,7 +124,7 @@ export default function DealerCard({ dealer }) {
 
         <div className="flex-1"></div>
 
-        {/* BOTTOM BUTTONS */}
+        {/* BUTTONS */}
         <div className="flex items-center justify-between pt-3 mt-3 border-t border-[#5E23DC]/20">
 
           <button
@@ -130,8 +135,13 @@ export default function DealerCard({ dealer }) {
           </button>
 
           <Link
-            href={`/dealer/${dealer.slug}`}
-            onClick={() => addData(dealer.name, dealer.city)}
+            href={{
+              pathname: `/dealer/${dealer.slug}`,
+              query: {
+                name: dealer.name,
+                city: dealer.city,
+              },
+            }}
             className="px-4 py-1.5 rounded-md border border-[#5E23DC] text-[#5E23DC] text-sm font-semibold hover:bg-[#5E23DC] hover:text-white transition"
           >
             View Details
