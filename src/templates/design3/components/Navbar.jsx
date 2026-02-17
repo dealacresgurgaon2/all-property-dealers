@@ -22,7 +22,7 @@ export default function Navbar() {
             href="/"
             className="text-2xl font-bold text-[#5E23DC]"
           >
-            PropertyDealer
+            Property Dealer Hisar
           </Link>
 
           {/* DESKTOP NAV */}

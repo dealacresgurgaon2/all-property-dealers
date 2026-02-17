@@ -215,7 +215,6 @@
 //   return ctx;
 // };
 
-
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
@@ -229,6 +228,7 @@ export function DealerProvider({ children }) {
 
   // ================= STATES =================
   const [domain, setDomain] = useState(null);
+  const [domain2, setDomain2] = useState(null);
 
   const [homeDealers, setHomeDealers] = useState([]);
   const [locationDealers, setLocationDealers] = useState([]);
@@ -240,8 +240,6 @@ export function DealerProvider({ children }) {
   const [totalPages, setTotalPages] = useState(1);
 
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [dealerName,setDealername]=useState("Property Dealer");
-  const [city,setCity]=useState("Haryana");
 
   const pathname = usePathname();
   const ITEMS_PER_PAGE = 100;
@@ -251,7 +249,6 @@ export function DealerProvider({ children }) {
   // ==================================================
   async function fetchHomeDealers() {
     if (!domain) return;
-    console.log("domasbhd =>",domain)
 
     try {
       setHomeLoading(true);
@@ -260,7 +257,7 @@ export function DealerProvider({ children }) {
 
       const res = await axios.get(url);
 
-      setHomeDealers(res.data.data || []);
+      setHomeDealers([...(res.data.data || [])]); // force new reference
       setTotalPages(res.data.totalPages || 1);
 
     } catch (err) {
@@ -274,16 +271,17 @@ export function DealerProvider({ children }) {
   // LOCATION API
   // ==================================================
   async function fetchLocationDealers(location) {
-    if (!domain || !location) return;
+    if (!domain2 || !location) return;
 
     try {
       setLocationLoading(true);
 
-      const url = `${API_BASE}/api/get/locationDealers?domain=${domain}&location=${encodeURIComponent(location)}`;
+      const url = `${API_BASE}/api/get/locationDealers?domain=${domain2}&location=${encodeURIComponent(location)}`;
 
       const res = await axios.get(url);
 
-      setLocationDealers(res.data.data || []);
+      // Important: new reference every time
+      setLocationDealers([...(res.data.data || [])]);
       setTotalPages(1);
 
     } catch (err) {
@@ -292,6 +290,34 @@ export function DealerProvider({ children }) {
       setLocationLoading(false);
     }
   }
+
+  // ==================================================
+  // LOCATION EFFECT (Separated)
+  // ==================================================
+  useEffect(() => {
+    if (selectedLocation && domain2) {
+      fetchLocationDealers(selectedLocation);
+    }
+  }, [selectedLocation, domain2]);
+
+  // ==================================================
+  // HOME EFFECT (Separated)
+  // ==================================================
+  useEffect(() => {
+    if (!selectedLocation && domain) {
+      fetchHomeDealers();
+    }
+  }, [domain, page]);
+
+  // ==================================================
+  // AUTO RESET
+  // ==================================================
+  useEffect(() => {
+    const segments = pathname.split("/").filter(Boolean);
+    if (segments.length < 2) {
+      setSelectedLocation(null);
+    }
+  }, [pathname]);
 
   // ==================================================
   // FILTER FUNCTIONS
@@ -307,32 +333,7 @@ export function DealerProvider({ children }) {
   };
 
   // ==================================================
-  // AUTO RESET ON ROUTE CHANGE
-  // ==================================================
-  useEffect(() => {
-    const segments = pathname.split("/").filter(Boolean);
-
-    if (segments.length < 2) {
-      setSelectedLocation(null);
-    }
-  }, [pathname]);
-
-  // ==================================================
-  // MAIN EFFECT
-  // ==================================================
-  useEffect(() => {
-    if (!domain) return;
-
-    if (selectedLocation) {
-      fetchLocationDealers(selectedLocation);
-    } else {
-      fetchHomeDealers();
-    }
-
-  }, [domain, page, selectedLocation]);
-
-  // ==================================================
-  // ACTIVE DATA SELECTOR (Important)
+  // SELECT ACTIVE DATA
   // ==================================================
   const dealers = selectedLocation ? locationDealers : homeDealers;
   const loading = selectedLocation ? locationLoading : homeLoading;
@@ -343,14 +344,13 @@ export function DealerProvider({ children }) {
         dealers,
         loading,
         page,
-        dealerName,setDealername,city,setCity,
         setPage,
         totalPages,
         setDomain,
+        setDomain2,
         applyLocationFilter,
         clearLocationFilter,
         selectedLocation,
-        
       }}
     >
       {children}

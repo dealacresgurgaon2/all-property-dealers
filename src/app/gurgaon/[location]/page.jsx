@@ -29,7 +29,7 @@ export default function LocationDealersPage() {
   const {
     dealers,
     loading,
-    setDomain,
+    setDomain2,
    applyLocationFilter
   } = dealerContext;
 
@@ -43,12 +43,12 @@ export default function LocationDealersPage() {
         currentDomain === "propertydeler-gold-frontend.vercel.app" ||
         currentDomain === "localhost"
       ) {
-        setDomain("propertydealeringurgaon.com");
+        setDomain2("propertydealeringurgaon.com");
       } else {
-        setDomain(currentDomain);
+        setDomain2(currentDomain);
       }
     }
-  }, [setDomain]);
+  }, [setDomain2]);
 
   // 🔥 MOST IMPORTANT – LOCATION FILTER CALL
   useEffect(() => {

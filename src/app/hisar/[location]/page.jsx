@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useDealers } from "@/context/propertydealercontext/DealerContext";
 import DealerCard from "@/templates/design3/components/DealerCard";
 import Pagination from "@/templates/design3/components/Pagination";
@@ -12,25 +12,49 @@ export default function LocationDealersPage() {
   const searchParams = useSearchParams();
   const location = searchParams.get("location");
 
-  const { dealers, loading, applyLocationFilter } = useDealers();
+  const {
+    dealers,
+    loading,
+    applyLocationFilter,
+    setDomain2
+  } = useDealers();
 
   const [page, setPage] = useState(1);
 
-  // 🔥 APPLY LOCATION FILTER (Context Handles API)
+  // =====================================================
+  // ✅ SINGLE EFFECT (DOMAIN + LOCATION TOGETHER)
+  // =====================================================
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const hostname = window.location.hostname;
+
+    const finalDomain =
+      hostname === "localhost"
+        ? "www.propertydealerinhisar.com"
+        : hostname;
+
+    setDomain2(finalDomain);
+
     if (location) {
       applyLocationFilter(location);
+      setPage(1);
     }
-  }, [location, applyLocationFilter]);
 
-  // FORMAT LOCATION FOR HEADING
+  }, [location]);
+
+  // =====================================================
+  // FORMAT LOCATION
+  // =====================================================
   const formattedLocation = location
     ?.replace(/-/g, " ")
     ?.replace(/\b\w/g, (c) => c.toUpperCase());
 
   const allDealers = Array.isArray(dealers) ? dealers : [];
 
-  // PAGINATION
+  // =====================================================
+  // PAGINATION (OPTIONAL — backend already gives 30)
+  // =====================================================
   const ITEMS_PER_PAGE = 30;
   const totalPages = Math.ceil(allDealers.length / ITEMS_PER_PAGE);
 
@@ -41,10 +65,7 @@ export default function LocationDealersPage() {
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -56,13 +77,12 @@ export default function LocationDealersPage() {
           <h1 className="text-3xl font-bold text-[#5E23DC]">
             Dealers in {formattedLocation}
           </h1>
-
           <p className="text-sm text-gray-600 mt-2">
             Showing trusted property dealers from this location
           </p>
         </div>
 
-        {/* GRID LAYOUT */}
+        {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
           {/* LEFT SIDE */}
@@ -76,9 +96,6 @@ export default function LocationDealersPage() {
                   <h2 className="text-base text-[#5E23DC] font-semibold">
                     Loading Dealers...
                   </h2>
-                  <p className="text-sm text-gray-600">
-                    Please wait while we fetch the data
-                  </p>
                 </div>
               </div>
 
@@ -100,13 +117,15 @@ export default function LocationDealersPage() {
                   ))}
                 </div>
 
-                <div className="mt-10 flex justify-center">
-                  <Pagination
-                    page={page}
-                    setPage={handlePageChange}
-                    totalPages={totalPages}
-                  />
-                </div>
+                {totalPages > 1 && (
+                  <div className="mt-10 flex justify-center">
+                    <Pagination
+                      page={page}
+                      setPage={handlePageChange}
+                      totalPages={totalPages}
+                    />
+                  </div>
+                )}
               </>
             )}
 
