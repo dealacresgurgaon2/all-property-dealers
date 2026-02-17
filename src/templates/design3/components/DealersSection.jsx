@@ -104,7 +104,7 @@ export default function DealersSection({ domain }) {
 
           <div className="lg:col-span-2 space-y-4">
 
-  <div className="sticky top-[65px] z-50  pb-3">
+  <div className="sticky top-[65px] z-30  pb-3">
   <DealerSearchBar onSearch={handleSearch} />
 </div>
 
