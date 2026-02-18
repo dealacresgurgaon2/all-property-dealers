@@ -14,14 +14,12 @@ export default function DealersSection({ domain }) {
   const { dealers, loading, page, setPage, totalPages, setDomain } = useDealers();
 
   useEffect(() => {
-    if (
-      domain &&
-      (domain === "propertydeler-gold-frontend-9wvp.vercel.app" ||
-        domain === "localhost")
-    ) {
+    if (domain && domain === "localhost") {
       setDomain("propertydealerinfaridabad.com");
+    } else {
+      setDomain(domain);
     }
-  }, [domain]);
+  }, [domain, setDomain]);
 
   const [filtered, setFiltered] = useState([]);
 
