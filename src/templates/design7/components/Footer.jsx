@@ -16,7 +16,7 @@ export default function Footer() {
   const haryanaDistricts = [
     "Ambala",
     "Bhiwani",
-    "Charkhi Dadri",
+    "Charkhi-Dadri",
     "Faridabad",
     "Fatehabad",
     "Gurgaon",
@@ -26,7 +26,7 @@ export default function Footer() {
     "Kaithal",
     "Karnal",
     "Kurukshetra",
-    "Mahendragarh",
+    "Mahendergarh",
     "Palwal",
     "Panchkula",
     "Panipat",

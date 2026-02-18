@@ -3,6 +3,8 @@
 import { useState } from "react";
 
 export default function QueryForm() {
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -12,12 +14,57 @@ export default function QueryForm() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Phone validation (only digits, max 10)
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Query submitted! (API later connect kar denge)");
+
+    if (form.phone.length !== 10) {
+      alert("Phone number must be 10 digits");
+      return;
+    }
+
+    if (!form.lookingFor) {
+      alert("Please select what you're looking for");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 🔥 API Ready
+      // await fetch("/api/query", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(form),
+      // });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      alert("Query submitted successfully!");
+
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+        lookingFor: "",
+      });
+
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass =
@@ -65,8 +112,9 @@ export default function QueryForm() {
               📞 Phone Number
             </label>
             <input
-              type="tel"
+              type="text"
               name="phone"
+              inputMode="numeric"
               required
               value={form.phone}
               onChange={handleChange}
@@ -111,6 +159,7 @@ export default function QueryForm() {
           {/* SUBMIT */}
           <button
             type="submit"
+            disabled={loading}
             className="
               w-full
               py-3
@@ -122,9 +171,10 @@ export default function QueryForm() {
               transition-all
               shadow-lg
               hover:shadow-xl
+              disabled:opacity-60
             "
           >
-            Submit Enquiry
+            {loading ? "Submitting..." : "Submit Enquiry"}
           </button>
         </form>
 

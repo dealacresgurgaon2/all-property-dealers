@@ -3,6 +3,8 @@
 import { useState } from "react";
 
 export default function QueryForm() {
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -11,12 +13,58 @@ export default function QueryForm() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Phone validation (only digits, max 10)
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Query submitted! (API later connect kar denge)");
+
+    if (form.phone.length !== 10) {
+      alert("Phone number must be 10 digits");
+      return;
+    }
+
+    if (!form.requirement) {
+      alert("Please select what you're looking for");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 🔥 Future API Ready
+      // await fetch("/api/query", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(form),
+      // });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // demo delay
+
+      alert("Query submitted successfully!");
+
+      // Reset form
+      setForm({
+        name: "",
+        phone: "",
+        requirement: "",
+        message: "",
+      });
+
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass =
@@ -26,6 +74,7 @@ export default function QueryForm() {
 
   return (
     <div className="bg-white border border-gray-200 rounded shadow-lg p-6">
+
       {/* HEADER */}
       <h3 className="text-lg font-bold text-[#0b1f33]">
         Get Best Property Deals
@@ -58,8 +107,9 @@ export default function QueryForm() {
             Phone Number
           </label>
           <input
-            type="tel"
+            type="text"
             name="phone"
+            inputMode="numeric"
             required
             value={form.phone}
             onChange={handleChange}
@@ -68,7 +118,7 @@ export default function QueryForm() {
           />
         </div>
 
-        {/* REQUIREMENT TYPE */}
+        {/* REQUIREMENT */}
         <div>
           <label className="block text-xs font-semibold mb-1 text-gray-600">
             Looking For
@@ -104,6 +154,7 @@ export default function QueryForm() {
         {/* BUTTON */}
         <button
           type="submit"
+          disabled={loading}
           className="
             w-full
             bg-[#1e40af]
@@ -115,9 +166,10 @@ export default function QueryForm() {
             hover:bg-[#1d4ed8]
             transition
             shadow-md
+            disabled:opacity-60
           "
         >
-          Submit Enquiry
+          {loading ? "Submitting..." : "Submit Enquiry"}
         </button>
       </form>
 

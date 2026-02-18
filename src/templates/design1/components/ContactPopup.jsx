@@ -123,7 +123,7 @@ export default function ContactPopup({ isOpen, onClose, dealerName }) {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm text-black placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
           />
 
           <input
@@ -134,7 +134,7 @@ export default function ContactPopup({ isOpen, onClose, dealerName }) {
             value={formData.phone}
             onChange={handleChange}
             required
-            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm text-black placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
           />
 
           <input
@@ -144,14 +144,14 @@ export default function ContactPopup({ isOpen, onClose, dealerName }) {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm text-black placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
           />
 
           <select
             name="option"
             value={formData.option}
             onChange={handleChange}
-            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-[#1e40af]"
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm text-black focus:ring-2 focus:ring-[#1e40af]"
           >
             <option>Buy Property</option>
             <option>Sell Property</option>
@@ -164,7 +164,7 @@ export default function ContactPopup({ isOpen, onClose, dealerName }) {
             placeholder="Describe your requirement..."
             value={formData.description}
             onChange={handleChange}
-            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
+            className="w-full border border-[#1e40af]/60 rounded-lg p-2.5 text-sm text-black placeholder-gray-500 focus:ring-2 focus:ring-[#1e40af]"
           />
 
           <button

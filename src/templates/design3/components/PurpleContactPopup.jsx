@@ -149,7 +149,17 @@ export default function PurpleContactPopup({ isOpen, onClose, dealerName }) {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full border border-[#5E23DC]/40 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#5E23DC]/60"
+            className="  w-full
+    border border-[#5E23DC]/40
+    rounded-lg
+    p-2.5
+    text-sm
+    text-black
+    placeholder-gray-500
+    focus:outline-none
+    focus:border-[#5E23DC]
+    focus:ring-2
+    focus:ring-[#5E23DC]/50"
           />
 
           <input
@@ -160,7 +170,7 @@ export default function PurpleContactPopup({ isOpen, onClose, dealerName }) {
             value={formData.phone}
             onChange={handleChange}
             required
-            className="w-full border border-[#5E23DC]/40 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#5E23DC]/60"
+            className="w-full border border-[#5E23DC]/40 rounded-lg p-2.5 text-sm text-black placeholder-gray-500 focus:ring-2 focus:ring-[#5E23DC]/60"
           />
 
           <input
@@ -170,7 +180,7 @@ export default function PurpleContactPopup({ isOpen, onClose, dealerName }) {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full border border-[#5E23DC]/40 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#5E23DC]/60"
+            className="w-full border border-[#5E23DC]/40 rounded-lg p-2.5 text-sm text-black placeholder-gray-500 focus:ring-2 focus:ring-[#5E23DC]/60"
           />
 
           <select
@@ -197,7 +207,7 @@ export default function PurpleContactPopup({ isOpen, onClose, dealerName }) {
             placeholder="Describe your requirement..."
             value={formData.description}
             onChange={handleChange}
-            className="w-full border border-[#5E23DC]/40 rounded-lg p-2.5 text-sm placeholder-gray-500 focus:ring-2 focus:ring-[#5E23DC]/60"
+            className="w-full border border-[#5E23DC]/40 rounded-lg p-2.5 text-sm text-black placeholder-gray-500 focus:ring-2 focus:ring-[#5E23DC]/60"
           />
 
           <button

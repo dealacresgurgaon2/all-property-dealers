@@ -3,10 +3,70 @@
 import { useState } from "react";
 import ContactPopup from "./ContactPopup";
 
-
 export default function Hero() {
-
   const [popupOpen, setPopupOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    requirement: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // Phone validation (only digits, max 10)
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (form.phone.length !== 10) {
+      alert("Phone number must be 10 digits");
+      return;
+    }
+
+    if (!form.requirement) {
+      alert("Please select what you're looking for");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 🔥 Future API Ready
+      // await fetch("/api/query", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(form),
+      // });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      alert("Request submitted successfully!");
+
+      // Reset form
+      setForm({
+        name: "",
+        phone: "",
+        requirement: "",
+        message: "",
+      });
+
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section
@@ -39,19 +99,16 @@ export default function Hero() {
             </p>
 
             <div className="flex gap-4 flex-wrap">
-
-              {/* TALK TO EXPERT BUTTON – POPUP TRIGGER */}
               <button
                 onClick={() => setPopupOpen(true)}
                 className="px-7 py-3 border border-[#38bdf8]/60 text-[#38bdf8] rounded-md font-semibold hover:bg-[#38bdf8] hover:text-[#0b1f33] transition"
               >
                 Talk to Expert
               </button>
-
             </div>
           </div>
 
-          {/* RIGHT FORM – FINAL */}
+          {/* RIGHT FORM */}
           <div className="max-w-sm ml-auto w-full bg-white rounded shadow-xl p-5">
             <h3 className="text-lg font-semibold text-[#0b1f33] text-center">
               Get Expert Advice
@@ -60,20 +117,33 @@ export default function Hero() {
               We will contact you shortly
             </p>
 
-            <form className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
+
               <input
                 type="text"
+                name="name"
+                required
+                value={form.name}
+                onChange={handleChange}
                 placeholder="Full Name"
                 className="w-full border border-gray-400 rounded-md px-3 py-2 text-sm text-[#0b1f33] placeholder-gray-500 outline-none focus:ring-2 focus:ring-[#1e40af] focus:border-[#1e40af]"
               />
 
               <input
                 type="text"
+                name="phone"
+                inputMode="numeric"
+                required
+                value={form.phone}
+                onChange={handleChange}
                 placeholder="Phone Number"
                 className="w-full border border-gray-400 rounded-md px-3 py-2 text-sm text-[#0b1f33] placeholder-gray-500 outline-none focus:ring-2 focus:ring-[#1e40af] focus:border-[#1e40af]"
               />
 
               <select
+                name="requirement"
+                value={form.requirement}
+                onChange={handleChange}
                 className="w-full border border-gray-400 rounded-md px-3 py-2 text-sm text-[#0b1f33] outline-none focus:ring-2 focus:ring-[#1e40af] focus:border-[#1e40af]"
               >
                 <option value="">Looking For</option>
@@ -83,16 +153,20 @@ export default function Hero() {
               </select>
 
               <textarea
+                name="message"
                 rows={2}
+                value={form.message}
+                onChange={handleChange}
                 placeholder="Your Message"
                 className="w-full border border-gray-400 rounded-md px-3 py-2 text-sm text-[#0b1f33] placeholder-gray-500 outline-none focus:ring-2 focus:ring-[#1e40af] focus:border-[#1e40af]"
               />
 
               <button
                 type="submit"
-                className="w-full bg-[#1e40af] text-white py-2.5 rounded-md text-sm font-semibold hover:bg-[#1d4ed8] transition"
+                disabled={loading}
+                className="w-full bg-[#1e40af] text-white py-2.5 rounded-md text-sm font-semibold hover:bg-[#1d4ed8] transition disabled:opacity-60"
               >
-                Request Callback
+                {loading ? "Submitting..." : "Request Callback"}
               </button>
             </form>
           </div>
@@ -100,7 +174,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* CONTACT POPUP CALL */}
+      {/* POPUP */}
       <ContactPopup
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}

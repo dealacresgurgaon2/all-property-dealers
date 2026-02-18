@@ -10,6 +10,16 @@ export default function Hero() {
     years: 0,
   });
 
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    lookingFor: "",
+    message: "",
+  });
+
   useEffect(() => {
     const targets = { listings: 5000, cities: 25, years: 10 };
     const duration = 2000;
@@ -38,55 +48,131 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
-const [popupOpen, setPopupOpen] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (form.phone.length !== 10) {
+      alert("Phone number must be 10 digits");
+      return;
+    }
+
+    if (!form.lookingFor) {
+      alert("Please select what you're looking for");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 🔥 API Ready
+      // await fetch("/api/query", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(form),
+      // });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      alert("Query submitted successfully!");
+
+      setForm({
+        name: "",
+        phone: "",
+        lookingFor: "",
+        message: "",
+      });
+
+    } catch (error) {
+      alert("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="relative w-full min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-black">
       
       <div className="absolute inset-0 bg-gradient-to-b from-green-700/40 via-green-600/40 to-black/80" />
-
       <div className="absolute -top-24 -left-24 w-72 h-72 bg-green-500/20 blur-3xl rounded-full" />
       <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-white/10 blur-3xl rounded-full" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
 
-          {/* ===== LEFT SIDE - QUERY FORM ===== */}
+          {/* ===== LEFT SIDE - WORKING FORM (DESIGN SAME) ===== */}
           <div className="bg-white/15 backdrop-blur-xl border border-green-500/40 rounded-2xl shadow-2xl p-5 md:p-6 max-w-sm w-full">
             <h3 className="text-lg font-bold mb-4 text-white text-center">
               Get Free Consultation
             </h3>
 
-            <form className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
+
               <input
+                type="text"
+                name="name"
+                required
+                value={form.name}
+                onChange={handleChange}
                 className="w-full bg-white rounded-md px-4 py-2 text-black border border-green-300"
                 placeholder="Your Name"
               />
 
               <input
+                type="text"
+                name="phone"
+                inputMode="numeric"
+                required
+                value={form.phone}
+                onChange={handleChange}
                 className="w-full bg-white rounded-md px-4 py-2 text-black border border-green-300"
                 placeholder="Phone Number"
               />
 
-              <select className="w-full bg-white rounded-md px-4 py-2 text-black border border-green-300">
-                <option>Looking for</option>
+              <select
+                name="lookingFor"
+                value={form.lookingFor}
+                onChange={handleChange}
+                className="w-full bg-white rounded-md px-4 py-2 text-black border border-green-300"
+              >
+                <option value="">Looking for</option>
                 <option>Buy Property</option>
                 <option>Rent Property</option>
                 <option>Sell Property</option>
               </select>
 
               <textarea
+                name="message"
                 rows={3}
+                value={form.message}
+                onChange={handleChange}
                 className="w-full bg-white rounded-md px-4 py-2 text-black border border-green-300"
                 placeholder="Your Message"
               />
 
-              <button className="w-full bg-green-600 text-white py-2.5 rounded-md font-semibold hover:bg-green-700 transition">
-                Submit Query
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-green-600 text-white py-2.5 rounded-md font-semibold hover:bg-green-700 transition disabled:opacity-60"
+              >
+                {loading ? "Submitting..." : "Submit Query"}
               </button>
+
             </form>
           </div>
 
-          {/* ===== RIGHT SIDE - CONTENT ===== */}
+          {/* ===== RIGHT SIDE CONTENT ===== */}
           <div className="text-white">
             <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/20 text-sm">
               <span className="w-2 h-2 rounded-full bg-green-500" />
@@ -109,11 +195,9 @@ const [popupOpen, setPopupOpen] = useState(false);
             </p>
 
             <div className="flex gap-4 flex-wrap mb-8">
-              {/* <button className="px-6 py-3 bg-green-600 text-white rounded-md font-semibold shadow-lg hover:-translate-y-1 transition">
-                Explore Properties
-              </button> */}
-              <button className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-green-700 transition"
-              onClick={() => setPopupOpen(true)}
+              <button
+                className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-green-700 transition"
+                onClick={() => setPopupOpen(true)}
               >
                 Contact Agent
               </button>
@@ -128,7 +212,8 @@ const [popupOpen, setPopupOpen] = useState(false);
 
         </div>
       </div>
-       <GreenContactPopup
+
+      <GreenContactPopup
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />

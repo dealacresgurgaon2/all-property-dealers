@@ -3,6 +3,8 @@
 import { useState } from "react";
 
 export default function QueryForm() {
+  const [loading, setLoading] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -11,12 +13,56 @@ export default function QueryForm() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Phone validation (only digits, max 10)
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Query submitted! (API later connect kar denge)");
+
+    if (form.phone.length !== 10) {
+      alert("Phone number must be 10 digits");
+      return;
+    }
+
+    if (!form.lookingFor) {
+      alert("Please select what you're looking for");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 🔥 Future API Ready
+      // await fetch("/api/query", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(form),
+      // });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      alert("Query submitted successfully!");
+
+      setForm({
+        name: "",
+        phone: "",
+        message: "",
+        lookingFor: "",
+      });
+
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputWrapper =
@@ -25,7 +71,7 @@ export default function QueryForm() {
   return (
     <div className="rounded-2xl shadow-xl border border-indigo-200 overflow-hidden bg-white">
 
-      {/* TOP GRADIENT INFO BAR – SLIGHTLY BIGGER */}
+      {/* TOP GRADIENT INFO BAR */}
       <div className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 p-4 text-white">
         <h3 className="text-lg font-bold">
           Talk to Property Expert
@@ -41,7 +87,7 @@ export default function QueryForm() {
         </div>
       </div>
 
-      {/* FORM BODY – SLIGHTLY BIGGER */}
+      {/* FORM BODY */}
       <div className="p-5">
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -64,8 +110,9 @@ export default function QueryForm() {
           <div className={inputWrapper}>
             <span>📞</span>
             <input
-              type="tel"
+              type="text"
               name="phone"
+              inputMode="numeric"
               required
               value={form.phone}
               onChange={handleChange}
@@ -102,17 +149,19 @@ export default function QueryForm() {
             />
           </div>
 
-          {/* SUBMIT BUTTON – BIGGER */}
+          {/* SUBMIT BUTTON */}
           <button
             type="submit"
+            disabled={loading}
             className="
               w-full py-3 rounded-xl
               bg-gradient-to-r from-indigo-600 to-purple-600
               text-white font-semibold
               hover:opacity-90 transition
+              disabled:opacity-60
             "
           >
-            Get Free Consultation
+            {loading ? "Submitting..." : "Get Free Consultation"}
           </button>
 
         </form>

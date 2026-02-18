@@ -10,6 +10,17 @@ export default function Hero() {
     years: 0,
   });
 
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    requirement: "",
+    message: "",
+  });
+
   useEffect(() => {
     const targets = { listings: 5000, cities: 25, years: 10 };
     const duration = 2200;
@@ -29,22 +40,72 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
-const [popupOpen, setPopupOpen] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      if (!/^\d*$/.test(value)) return;
+      if (value.length > 10) return;
+    }
+
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (form.phone.length !== 10) {
+      alert("Mobile number must be 10 digits");
+      return;
+    }
+
+    if (!form.requirement) {
+      alert("Please select requirement");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      // 🔥 API Ready
+      // await fetch("/api/query", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify(form),
+      // });
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      alert("Request submitted successfully!");
+
+      setForm({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        requirement: "",
+        message: "",
+      });
+
+    } catch (err) {
+      alert("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="relative min-h-[70vh] w-full overflow-hidden bg-black text-white">
 
-      {/* ===== UNIQUE BACKGROUND EFFECTS ===== */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(79,70,229,0.25),transparent_50%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(236,72,153,0.25),transparent_50%)]" />
-
       <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#4f46e5_1px,transparent_1px),linear-gradient(to_bottom,#4f46e5_1px,transparent_1px)] bg-[size:80px_80px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-          {/* ===== LEFT CONTENT - TOTALLY NEW STYLE ===== */}
+          {/* LEFT CONTENT */}
           <div className="space-y-6">
-
             <div className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm">
               🚀 India’s Fastest Growing Property Portal
             </div>
@@ -62,18 +123,13 @@ const [popupOpen, setPopupOpen] = useState(false);
             </p>
 
             <div className="flex flex-wrap gap-4">
-              {/* <button className="px-7 py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-pink-600 font-semibold hover:scale-105 transition">
-                Start Exploring
-              </button> */}
-
               <button 
-              onClick={() => setPopupOpen(true)}
-              className="px-7 py-3 rounded-lg border border-white/30 hover:bg-white hover:text-black transition">
+                onClick={() => setPopupOpen(true)}
+                className="px-7 py-3 rounded-lg border border-white/30 hover:bg-white hover:text-black transition">
                 Contact Agent
               </button>
             </div>
 
-            {/* ===== STATS CARDS ===== */}
             <div className="grid grid-cols-3 gap-4 pt-6">
               <ModernStat value={`${counts.listings}+`} label="Listings" />
               <ModernStat value={`${counts.cities}+`} label="Cities" />
@@ -81,7 +137,7 @@ const [popupOpen, setPopupOpen] = useState(false);
             </div>
           </div>
 
-          {/* ===== RIGHT SIDE - FLOATING FORM DESIGN ===== */}
+          {/* RIGHT FORM - DESIGN SAME */}
           <div className="relative">
 
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-indigo-600/20 rounded-full blur-3xl" />
@@ -93,50 +149,72 @@ const [popupOpen, setPopupOpen] = useState(false);
                 Quick Property Help
               </h3>
 
-              <form className="space-y-4">
+              <form onSubmit={handleSubmit} className="space-y-4">
 
                 <div className="grid grid-cols-2 gap-3">
                   <input
+                    name="firstName"
+                    value={form.firstName}
+                    onChange={handleChange}
                     className="w-full bg-white/90 text-black px-4 py-2 rounded-lg outline-none"
                     placeholder="First Name"
                   />
 
                   <input
+                    name="lastName"
+                    value={form.lastName}
+                    onChange={handleChange}
                     className="w-full bg-white/90 text-black px-4 py-2 rounded-lg outline-none"
                     placeholder="Last Name"
                   />
                 </div>
 
                 <input
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  inputMode="numeric"
                   className="w-full bg-white/90 text-black px-4 py-2 rounded-lg outline-none"
                   placeholder="Mobile Number"
                 />
 
-                <select className="w-full bg-white/90 text-black px-4 py-2 rounded-lg outline-none">
-                  <option>Select Requirement</option>
+                <select
+                  name="requirement"
+                  value={form.requirement}
+                  onChange={handleChange}
+                  className="w-full bg-white/90 text-black px-4 py-2 rounded-lg outline-none"
+                >
+                  <option value="">Select Requirement</option>
                   <option>Buy Property</option>
                   <option>Rent Property</option>
                   <option>Sell Property</option>
                 </select>
 
                 <textarea
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
                   rows={3}
                   className="w-full bg-white/90 text-black px-4 py-2 rounded-lg outline-none"
                   placeholder="Describe your requirement..."
                 />
 
-                <button className="w-full py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 font-semibold hover:scale-[1.03] transition">
-                  Get Callback
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 font-semibold hover:scale-[1.03] transition disabled:opacity-60"
+                >
+                  {loading ? "Submitting..." : "Get Callback"}
                 </button>
 
               </form>
-
             </div>
           </div>
 
         </div>
       </div>
-       <DealerThemePopup
+
+      <DealerThemePopup
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />
