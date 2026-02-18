@@ -1,8 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Footer() {
+
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
+
   return (
     <footer className="bg-gradient-to-b from-[#111111] to-[#0a0a0a] text-white">
 
@@ -16,13 +20,6 @@ export default function Footer() {
             <h3 className="text-3xl font-extrabold text-red-500 mb-4 tracking-wide">
               Property <span className="text-white">Dealer</span>
             </h3>
-
-            <p className="text-white/60 leading-7 text-sm max-w-sm">
-              Trusted & verified property dealers across Delhi.
-              Buy, sell & invest with complete confidence.
-            </p>
-
-            
           </div>
 
           {/* QUICK LINKS */}
@@ -55,14 +52,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ZONES */}
+          {/* DELHI ZONES */}
           <div>
             <h4 className="text-lg font-semibold mb-6 border-b border-red-600/40 pb-2 inline-block">
               Delhi Zones
             </h4>
 
             <div className="grid grid-cols-2 gap-3 text-sm">
-
               {[
                 { name: "Central Delhi", slug: "central-delhi" },
                 { name: "North Delhi", slug: "north-delhi" },
@@ -78,10 +74,48 @@ export default function Footer() {
                   {zone.name}
                 </Link>
               ))}
-
             </div>
           </div>
 
+        </div>
+
+        {/* DISCLAIMER */}
+        <div className="mt-14 border-t border-red-600/20 pt-6">
+          <p className="font-semibold mb-2">
+            Disclaimer :
+          </p>
+
+          <p className="text-white/60 text-sm leading-6 max-w-4xl">
+            {!showDisclaimer ? (
+              <>
+                The property dealers listed on this platform are not employed,
+                endorsed, or directly affiliated with us...
+                <span
+                  onClick={() => setShowDisclaimer(true)}
+                  className="ml-2 text-red-500 cursor-pointer hover:underline"
+                >
+                  Read More
+                </span>
+              </>
+            ) : (
+              <>
+                The property dealers listed on this platform are not employed,
+                endorsed, or directly affiliated with us. Dealer information is
+                aggregated from publicly available sources across the web.
+                Users are advised to independently verify credentials,
+                documents, and transaction details before proceeding.
+                We act solely as a discovery and connection platform and shall
+                not be held responsible for any disputes, losses, or issues
+                arising from dealings with listed dealers.
+                <span
+                  onClick={() => setShowDisclaimer(false)}
+                  className="ml-2 text-red-500 cursor-pointer hover:underline"
+                >
+                  Show Less
+                </span>
+              </>
+            )}
+          </p>
         </div>
 
         {/* DIVIDER */}
