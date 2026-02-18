@@ -99,8 +99,8 @@ export default function DealerDetailPage() {
   ];
 
   return (
-    <section className="bg-gray-50 py-14">
-      <div className="max-w-5xl mx-auto px-4">
+    <section className="bg-gray-50 py-14 flex justify-start">
+      <div className="max-w-5xl px-4">
 
         {/* HEADER */}
         <div className="mb-10 bg-white rounded-3xl p-6 border border-blue-200 shadow-sm">
@@ -307,27 +307,35 @@ export default function DealerDetailPage() {
 
 
         {/* FAQ SECTION */}
-        <div className="bg-white rounded-3xl p-7 border border-gray-200">
+        <div className="bg-white rounded-3xl p-7 border border-gray-200 text-left">
           <h2 className="text-2xl font-bold text-indigo-700 mb-6">
             Frequently Asked Questions (FAQs)
           </h2>
 
-          {faqs.map((faq, index) => (
-            <div key={index} className="border border-blue-200 rounded-xl mb-3 overflow-hidden">
-              <button
-                onClick={() => toggleFaq(index)}
-                className="w-full text-left px-5 py-4 font-semibold bg-blue-50 text-blue-800 hover:bg-blue-100 transition"
-              >
-                {faq.q}
-              </button>
+         {faqs.map((faq, index) => (
+  <div
+    key={index}
+    className="border border-blue-200 rounded-xl mb-3 overflow-hidden"
+  >
+    <button
+      onClick={() => toggleFaq(index)}
+      className="w-full flex items-center justify-between px-5 py-4 font-semibold bg-blue-50 text-blue-800 hover:bg-blue-100 transition"
+    >
+      <span>{faq.q}</span>
 
-              {openFaq === index && (
-                <div className="px-5 py-4 text-gray-700 bg-white border-t border-blue-200">
-                  {faq.a}
-                </div>
-              )}
-            </div>
-          ))}
+      <span className="text-2xl font-bold transition-transform duration-300">
+        {openFaq === index ? "−" : "+"}
+      </span>
+    </button>
+
+    {openFaq === index && (
+      <div className="px-5 py-4 text-gray-700 bg-white border-t border-blue-200">
+        {faq.a}
+      </div>
+    )}
+  </div>
+))}
+
         </div>
 
       </div>

@@ -18,7 +18,7 @@ export default function DealerDetailPage() {
   };
 
   return (
-    <section className="bg-[#faf8f2] py-12">
+    <section className="bg-[#faf8f2] py-8">
       <div className="max-w-4xl mx-auto px-4">
 
         {/* ================= HEADER ================= */}
@@ -123,26 +123,155 @@ export default function DealerDetailPage() {
         <h2 className="text-xl font-semibold text-[#d4af37] mb-3">
           Why Choose {dealerName}?
         </h2>
+        <p className="  text-[#5f4e22]">
+          Some dealers talk big. Some deliver quietly. We believe in the second approach. Here is why we stand out:
+        </p>
 
-        <ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-8 space-y-2">
+        <ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-3 space-y-2">
           <li>Local Market Expertise – Deep understanding of {dealerCity} real estate zones.</li>
           <li>Personalized Guidance – Solutions designed around your actual needs.</li>
           <li>Transparent Process – No hidden costs, no unclear terms.</li>
           <li>Complete Support – From the first inquiry to final registration.</li>
           <li>Client Satisfaction Focus – Long-term trust over quick deals.</li>
-        </ul>
-
+        </ul><p className="  text-[#5f4e22] mb-3">
+        This is how a professional real estate agent in Faridabad should work: steady, honest, and reliable.
+        </p>
         {/* CONFIDENCE SECTION */}
         <h2 className="text-xl font-semibold text-[#d4af37] mb-3">
           Helping You Make Confident Property Decisions
         </h2>
 
-        <p className="text-[#5f4e22] leading-7 mb-8">
-          Many people delay property decisions simply because they feel unsure:  
-          Is the price right? Is the location ideal? Are the documents clear?  
-          We remove that uncertainty. Every property option is explained.  
-          Every risk is checked. Every opportunity is explored. Clients can move forward confidently.
-        </p>
+        <p className="text-[#5f4e22] leading-7 mb-4">
+  Many people delay property decisions simply because they feel unsure:
+</p>
+
+<ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-4 space-y-2">
+  <li>Is the price right?</li>
+  <li>Is the location ideal?</li>
+  <li>Are the documents clear?</li>
+</ul>
+
+<p className="text-[#5f4e22] leading-7 mb-8">
+  We remove that uncertainty. Every property option is explained.
+  Every risk is checked. Every opportunity is explored.
+  Clients can move forward confidently.
+</p>
+
+        {/* RESIDENTIAL PLOTS */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Residential Plots in {dealerCity}
+</h2>
+
+<p className="text-[#5f4e22] leading-7 mb-4">
+  Looking for a home to build? Or maybe a smart investment?
+  Residential plots in {dealerCity} are growing in demand,
+  and our team can guide you toward:
+</p>
+
+<ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-8 space-y-2">
+  <li>Emerging sectors with high growth potential</li>
+  <li>Secure and legal plots with verified documents</li>
+  <li>Options suited to your budget and lifestyle</li>
+</ul>
+
+{/* COMMERCIAL PROPERTY */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Commercial Properties for Sale in {dealerCity}
+</h2>
+
+<p className="text-[#5f4e22] leading-7 mb-4">
+  Whether you want a shop, office space, or showroom,
+  commercial property decisions need precision. We provide:
+</p>
+
+<ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-8 space-y-2">
+  <li>Insights on footfall and connectivity</li>
+  <li>Price trends and market value comparisons</li>
+  <li>Negotiation support for the best deal</li>
+</ul>
+
+{/* RENTAL PROPERTY */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Rental Properties in {dealerCity}
+</h2>
+
+<p className="text-[#5f4e22] leading-7 mb-4">
+  If you’re looking to rent a home or office,
+  we offer complete assistance:
+</p>
+
+<ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-8 space-y-2">
+  <li>Verified rental listings</li>
+  <li>Transparent pricing and agreements</li>
+  <li>Smooth handover process</li>
+</ul>
+
+{/* LEGAL SUPPORT */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Property Verification and Legal Support
+</h2>
+
+<p className="text-[#5f4e22] leading-7 mb-4">
+  Paperwork can be stressful. Our team handles:
+</p>
+
+<ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-6 space-y-2">
+  <li>Ownership verification</li>
+  <li>Legal document checks</li>
+  <li>Registration assistance</li>
+</ul>
+
+<p className="text-[#5f4e22] leading-7 mb-8">
+  We make sure every transaction is safe, secure, and worry-free.
+</p>
+
+{/* PERSONALIZED GUIDANCE */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Personalized Guidance for Every Client
+</h2>
+
+<p className="text-[#5f4e22] leading-7 mb-4">
+  No two property journeys are alike. That’s why we:
+</p>
+
+<ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-8 space-y-2">
+  <li>Listen carefully to your needs</li>
+  <li>Provide options suited to your budget and preference</li>
+  <li>Offer honest advice, even if it means walking away</li>
+</ul>
+
+{/* CLIENT SATISFACTION */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Client Satisfaction is Our Priority
+</h2>
+
+<p className="text-[#5f4e22] leading-7 mb-4">
+  At{" "}
+  <span className="font-semibold text-[#d4af37]">
+    {dealerName}
+  </span>
+  , we measure success by client satisfaction, not quick sales.
+  Long-term trust is built through:
+</p>
+
+<ul className="list-disc pl-6 text-[#5f4e22] leading-7 mb-8 space-y-2">
+  <li>Transparent dealings</li>
+  <li>Reliable service</li>
+  <li>Continued support even after the deal</li>
+</ul>
+
+{/* CONNECT SECTION */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Connect With {dealerName}
+</h2>
+
+<p className="text-[#5f4e22] leading-7 mb-10">
+  Planning to buy, sell, rent, or invest in {dealerCity}?
+  A simple conversation can make all the difference.
+  Whether it’s a home, business space, or investment plot,
+  the right guidance is now within reach.
+</p>
+
 
         {/* LEGAL SUPPORT */}
         <h2 className="text-xl font-semibold text-[#d4af37] mb-3">
@@ -156,15 +285,27 @@ export default function DealerDetailPage() {
         </p>
 
         {/* CONCLUSION */}
-        <h2 className="text-xl font-semibold text-[#d4af37] mb-3">
-          Conclusion
-        </h2>
+      {/* CONCLUSION */}
+<h2 className="text-2xl font-semibold text-[#d4af37] mb-4">
+  Conclusion
+</h2>
 
-        <p className="text-[#5f4e22] leading-7 mb-10">
-          Property decisions are big, emotional, financial, and personal.  
-          Having the best property dealer in {dealerCity} beside you turns uncertainty into clarity.  
-          {dealerName} represents honesty, market insight, and seamless real estate experiences.
-        </p>
+<p className="text-[#5f4e22] leading-7 mb-4">
+  Property decisions are big, emotional, financial, and personal.
+  Having the best property dealer in {dealerCity} beside you
+  turns uncertainty into clarity.
+</p>
+
+<p className="text-[#5f4e22] leading-7 mb-10">
+  <span className="font-semibold text-[#d4af37]">
+    {dealerName}
+  </span>{" "}
+  represents honesty, market insight, and seamless real estate experiences.
+  Whether buying a home, leasing a shop, or investing in land,
+  your property journey deserves guidance that feels human, not mechanical.
+  And it all starts with a simple first step: reaching out.
+</p>
+
 
         {/* FAQ */}
        <h2 className="text-xl font-semibold text-[#d4af37] mb-4">

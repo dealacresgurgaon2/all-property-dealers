@@ -25,8 +25,10 @@ function CityDealers({ urlCity }) {
   const [loadingLocations, setLoadingLocations] = useState(true);
 
   const [activeLocation, setActiveLocation] = useState(null);
+  const [showAllLocations, setShowAllLocations] = useState(false);
 
-  // 🔥 Dealers DB → gurgaon
+  // ================= Helpers =================
+
   const getCityForDealersAPI = (city) => {
     if (!city) return city;
     const lower = city.toLowerCase().trim();
@@ -34,7 +36,6 @@ function CityDealers({ urlCity }) {
     return lower;
   };
 
-  // 🔥 searchByCity DB → gurugram
   const getCityForSearchAPI = (city) => {
     if (!city) return city;
     const lower = city.toLowerCase().trim();
@@ -42,9 +43,6 @@ function CityDealers({ urlCity }) {
     return lower;
   };
 
-  // ===============================
-  // Scroll Helper
-  // ===============================
   const scrollToDealers = () => {
     const section = document.getElementById("dealers-section");
     if (section) {
@@ -55,22 +53,17 @@ function CityDealers({ urlCity }) {
     }
   };
 
-  // ===============================
-  // Fetch Dealers
-  // ===============================
+  // ================= Fetch Dealers =================
+
   useEffect(() => {
     if (!urlCity) return;
 
     const fetchDealers = async () => {
       try {
         setLoading(true);
-
         const mappedCity = getCityForDealersAPI(urlCity);
 
-        const res = await fetch(
-          `${API_BASE}/api/get/city/${mappedCity}`
-        );
-
+        const res = await fetch(`${API_BASE}/api/get/city/${mappedCity}`);
         const data = await res.json();
 
         const finalData = Array.isArray(data)
@@ -82,7 +75,6 @@ function CityDealers({ urlCity }) {
         setDealers(finalData);
         setAllDealers(finalData);
         setCity(urlCity);
-
       } catch (err) {
         console.log("City dealers error:", err);
         setDealers([]);
@@ -95,9 +87,8 @@ function CityDealers({ urlCity }) {
     fetchDealers();
   }, [urlCity, setCity]);
 
-  // ===============================
-  // Fetch Locations
-  // ===============================
+  // ================= Fetch Locations =================
+
   useEffect(() => {
     if (!urlCity) return;
 
@@ -120,7 +111,6 @@ function CityDealers({ urlCity }) {
           : [];
 
         setLocations(finalLocations);
-
       } catch (error) {
         console.log("Location fetch error:", error);
         setLocations([]);
@@ -132,9 +122,8 @@ function CityDealers({ urlCity }) {
     fetchLocations();
   }, [urlCity]);
 
-  // ===============================
-  // Location Filter + Random Fallback
-  // ===============================
+  // ================= Location Filter =================
+
   const handleLocationClick = async (locationName) => {
     try {
       setActiveLocation(locationName);
@@ -143,7 +132,7 @@ function CityDealers({ urlCity }) {
       const mappedCity = getCityForDealersAPI(urlCity);
 
       const res = await fetch(
-`${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
+        `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
       );
 
       const data = await res.json();
@@ -160,29 +149,31 @@ function CityDealers({ urlCity }) {
       } else {
         setDealers(filteredData);
       }
-
     } catch (error) {
       console.log("Location filter error:", error);
     } finally {
       setLoading(false);
-
-      // 🔥 smooth scroll
       setTimeout(() => {
         scrollToDealers();
       }, 150);
     }
   };
 
+  // ================= Mobile Only Limit =================
+
+  const visibleLocations =
+    showAllLocations || locations.length <= 20
+      ? locations
+      : locations.slice(0, 20);
+
   return (
-    <section className="bg-slate-50 min-h-screen py-16">
-      <div id="dealers-section"
-       className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section className="bg-slate-50 min-h-screen py-12">
+      <div id="dealers-section" className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* HEADER */}
-        <div 
-         className="mb-14">
+        <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 capitalize">
-            Top Real Estate Agent in {urlCity}
+            Top Real Estate Broker in {urlCity}
           </h1>
 
           {activeLocation && (
@@ -193,14 +184,9 @@ function CityDealers({ urlCity }) {
         </div>
 
         {/* DEALERS GRID */}
-        <div
-          
-          className="grid grid-cols-1 lg:grid-cols-3 gap-10"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
-          {/* LEFT SIDE */}
           <div className="lg:col-span-2 space-y-6">
-
             {loading ? (
               <div className="text-center py-20 text-indigo-600 font-semibold">
                 Loading dealers...
@@ -210,10 +196,8 @@ function CityDealers({ urlCity }) {
                 <DealerCard key={dealer._id} dealer={dealer} />
               ))
             )}
-
           </div>
 
-          {/* RIGHT SIDE */}
           <div>
             <div className="sticky top-[80px]">
               <QueryForm />
@@ -223,29 +207,43 @@ function CityDealers({ urlCity }) {
 
         {/* LOCATION SECTION */}
         <div className="mt-20 border-t pt-10">
-          <h2 className="text-xl font-semibold mb-8 text-black">
-            Locations in {urlCity}
+          <h2 className="text-xl font-semibold mb-8 text-black capitalize">
+            Search Real Agent in Local Area of {urlCity}
           </h2>
 
           {loadingLocations ? (
             <div className="text-gray-500">Loading locations...</div>
           ) : (
-            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 text-center">
-              {locations.map((loc) => (
-                <li key={loc.slug}>
-                  <button
-                    onClick={() => handleLocationClick(loc.location)}
-                    className={`text-base transition-colors duration-200 ${
-                      activeLocation === loc.location
-                        ? "text-indigo-600 font-semibold"
-                        : "text-gray-700 hover:text-indigo-600"
-                    }`}
+            <>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4">
+                {visibleLocations.map((loc) => (
+                  <li key={loc.slug}>
+                    <button
+                      onClick={() => handleLocationClick(loc.location)}
+                      className={`text-base transition-colors duration-200 ${
+                        activeLocation === loc.location
+                          ? "text-indigo-600 font-semibold"
+                          : "text-gray-700 hover:text-indigo-600"
+                      }`}
+                    >
+                      Property Dealer in {loc.location}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              {/* 🔥 Read More Text (Mobile Only) */}
+              {locations.length > 20 && !showAllLocations && (
+                <div className="mt-4 sm:hidden">
+                  <span
+                    onClick={() => setShowAllLocations(true)}
+                    className="text-indigo-600 cursor-pointer text-sm font-medium hover:underline"
                   >
-                    {loc.location}
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    Explore More
+                  </span>
+                </div>
+              )}
+            </>
           )}
         </div>
 

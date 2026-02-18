@@ -38,16 +38,16 @@ export default function DealerCard({ dealer }) {
               <p className="text-sm text-gray-500 flex items-center gap-1">
 
                 {/* LOCATION ICON */}
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4 text-indigo-600"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-                </svg>
+                </svg> */}
 
-                {dealer.city}{dealer.state && `, ${dealer.state}`}
+                 {dealer.address}
               </p>
             </div>
           </div>
@@ -67,7 +67,7 @@ export default function DealerCard({ dealer }) {
           </svg>
 
           <p className="line-clamp-2">
-            {dealer.address}
+            {dealer.city}{dealer.state && `, ${dealer.state}`}
           </p>
         </div>
 
@@ -102,7 +102,7 @@ export default function DealerCard({ dealer }) {
             }}
             className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition"
           >
-            Know More
+            View Details
           </Link>
 
         </div>

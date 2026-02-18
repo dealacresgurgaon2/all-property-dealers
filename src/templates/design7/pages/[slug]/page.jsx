@@ -9,11 +9,9 @@ export default function BlogPage() {
       <div className="max-w-7xl mx-auto px-4">
 
         {/* PAGE HEADER - NEW STYLE */}
-        <div className="mb-10 bg-white rounded-3xl border border-indigo-200 p-6 shadow-sm">
+        {/* <div className="mb-10 bg-white rounded-3xl border border-indigo-200 p-6 shadow-sm">
 
-          {/* <span className="inline-block text-xs px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 mb-3">
-            Verified Dealer Profile
-          </span> */}
+         
 
           <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">
             Dealer Details
@@ -24,7 +22,7 @@ export default function BlogPage() {
           </p>
 
           <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mt-4 rounded-full"></div>
-        </div>
+        </div> */}
 
         {/* TWO COLUMN LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -32,7 +30,7 @@ export default function BlogPage() {
           {/* LEFT SIDE – DEALER DETAILS */}
           <div className="lg:col-span-2">
 
-            <div className="bg-white rounded-3xl border border-indigo-200 shadow-sm p-3">
+            <div className=" rounded-3xl border border-indigo-200 shadow-sm p-3">
               <DealerDetailPage />
             </div>
 

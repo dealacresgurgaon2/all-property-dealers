@@ -1168,7 +1168,7 @@ export default function ZonePage() {
       {locations.map((location, index) => (
         <li key={index}>
           <Link
-            href={`/ambala/${createSlug(location)}`}
+            href={`/delhi/${createSlug(location)}`}
             className="transition font-medium hover:text-red-600 hover:font-bold hover:underline"
 
           >

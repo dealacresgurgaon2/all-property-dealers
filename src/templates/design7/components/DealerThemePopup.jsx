@@ -77,8 +77,8 @@ export default function DealerThemePopup({ isOpen, onClose }) {
 
         {/* HEADER */}
         <div className="flex justify-between items-center mb-4 border-b border-indigo-200 pb-2">
-          <h2 className="text-lg font-extrabold text-indigo-700 tracking-wide">
-            Contact Dealer
+          <h2 className="text-sm font-extrabold text-indigo-700 tracking-wide">
+            Contact Real Estate our Expert for Best Deal
           </h2>
 
           <button

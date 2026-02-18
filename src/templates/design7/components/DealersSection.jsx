@@ -8,36 +8,45 @@ import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 import CityDropdown from "./CityDropdown";
 import CityButtonsFilter from "./CityButtonsFilter";
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+
 export default function DealersSection() {
 
   const [dealers, setDealers] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const [selectedCity, setSelectedCity] = useState("");
+  // ✅ Default Faridabad
+  const [selectedCity, setSelectedCity] = useState("Faridabad");
 
   const listTopRef = useRef(null);
 
-  // ======== MAIN API CALL ========
+  // ================= API CALL =================
   useEffect(() => {
 
+
     const fetchDealers = async () => {
+      
       try {
         setLoading(true);
 
-        const res = await fetch(
-          `${API_BASE}/api/get/state/Haryana?page=${page}&limit=10`
-        );
+        let url = `${API_BASE}/api/get/state/Haryana?page=${page}&limit=100`;
 
+        // ✅ Send city to backend
+        if (selectedCity) {
+          url += `&city=${selectedCity}`;
+        }
+console.log("Selected City =>", selectedCity);
+console.log("API URL =>", url);
+
+        const res = await fetch(url);
         const data = await res.json();
 
         if (data.success) {
           setDealers(data.data);
-          setFiltered(data.data);
           setTotalPages(data.totalPages || 1);
         }
 
@@ -51,44 +60,9 @@ export default function DealersSection() {
 
     fetchDealers();
 
-  }, [page]);
-  // ==============================
+  }, [page, selectedCity]);
 
-
-  useEffect(() => {
-    applyFilters();
-  }, [dealers, selectedCity]);
-
-
-  // ============ 🔥 UPDATED FILTER LOGIC ============
-
-  const applyFilters = () => {
-
-    let result = [...dealers];
-
-    if (selectedCity) {
-      result = result.filter(
-        (d) => d.city?.toLowerCase() === selectedCity.toLowerCase()
-      );
-    }
-
-    // 🔥 Guarantee minimum 100 cards
-    if (result.length < 100 && dealers.length > result.length) {
-
-      const extraNeeded = 100 - result.length;
-
-      const extra = dealers
-        .filter(d => !result.includes(d))
-        .slice(0, extraNeeded);
-
-      result = [...result, ...extra];
-    }
-
-    setFiltered(result);
-  };
-
-  // ===============================================
-
+  // ===========================================
 
   const handleCityFilter = (city) => {
     setSelectedCity(city);
@@ -96,74 +70,10 @@ export default function DealersSection() {
     scrollToList();
   };
 
-
-  // ============ 🔥 UPDATED SEARCH LOGIC ============
-
   const handleSearch = (query) => {
-
-    const q = query.toLowerCase().trim();
-
-    if (!q) {
-      applyFilters();
-      setPage(1);
-      scrollToList();
-      return;
-    }
-
-    const words = q.split(/\s+/);
-
-    // MATCHED DEALERS
-    const matched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return words.every((w) => text.includes(w));
-    });
-
-    // UNMATCHED DEALERS
-    const unmatched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return !words.every((w) => text.includes(w));
-    });
-
-    // City filter ke sath combine
-    let finalResult = selectedCity
-      ? matched.filter(
-          (d) => d.city?.toLowerCase() === selectedCity.toLowerCase()
-        )
-      : matched;
-
-    // 🔥 Matched on TOP
-    finalResult = [...finalResult, ...unmatched];
-
-    // 🔥 Guarantee MINIMUM 100 CARDS
-    if (finalResult.length < 100 && dealers.length > finalResult.length) {
-
-      const extraNeeded = 100 - finalResult.length;
-
-      const extra = dealers
-        .filter(d => !finalResult.includes(d))
-        .slice(0, extraNeeded);
-
-      finalResult = [...finalResult, ...extra];
-    }
-
-    setFiltered(finalResult);
-
-    setPage(1);
-    scrollToList();
+    // Optional: backend search bana sakte ho
+    console.log(query);
   };
-
-  // ===============================================
-
 
   const scrollToList = () => {
     requestAnimationFrame(() => {
@@ -209,17 +119,17 @@ export default function DealersSection() {
             </div>
 
             <div className="h-4" />
-
             <div ref={listTopRef} className="h-2" />
 
             {loading ? (
+
               <div className="py-20 text-center border border-dashed border-indigo-300 rounded-xl bg-white">
                 <div className="inline-block px-6 py-3 rounded-lg bg-indigo-100 text-indigo-600 font-medium">
                   Loading property dealers…
                 </div>
               </div>
 
-            ) : filtered.length === 0 ? (
+            ) : dealers.length === 0 ? (
 
               <div className="py-20 text-center border border-dashed border-indigo-300 rounded-xl bg-white">
                 <p className="text-indigo-600 font-medium">
@@ -230,14 +140,16 @@ export default function DealersSection() {
             ) : (
 
               <div className="space-y-5">
-                {filtered.map((dealer) => (
+                {dealers.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))}
               </div>
+
             )}
 
+            {/* ✅ Pagination Working */}
             {!loading && totalPages > 1 && (
-              <div className="mt-6">
+              <div className="mt-8">
                 <Pagination
                   page={page}
                   totalPages={totalPages}

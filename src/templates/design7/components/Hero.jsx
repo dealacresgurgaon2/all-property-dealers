@@ -106,20 +106,32 @@ export default function Hero() {
 
           {/* LEFT CONTENT */}
           <div className="space-y-6">
-            <div className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm">
-              🚀 India’s Fastest Growing Property Portal
-            </div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm">
+
+  {/* 👤 Man SVG Icon */}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-4 h-4"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+  >
+    <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z" />
+  </svg>
+
+  India’s Fastest Growing Estate Agent Listing Portal
+</div>
+
 
             <h1 className="text-2xl md:text-4xl font-extrabold leading-tight">
-              Redefining  
+              Still Searching 
               <span className="block bg-gradient-to-r from-indigo-400 via-pink-400 to-purple-400 text-transparent bg-clip-text">
-                Real Estate Experience
+                 for the Perfect Property?
               </span>
             </h1>
 
             <p className="text-gray-300 max-w-lg">
-              Smart way to buy, sell and rent properties with 100% verified
-              dealers and transparent process across India.
+              Stop scrolling through endless listings.
+              Connect directly with trusted property dealers who know exactly what you need.
             </p>
 
             <div className="flex flex-wrap gap-4">

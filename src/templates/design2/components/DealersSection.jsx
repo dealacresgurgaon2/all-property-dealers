@@ -113,7 +113,7 @@ export default function DealersSection({ domain }) {
       <div className="max-w-7xl mx-auto px-4">
 
         <h2 className="text-3xl font-bold text-black mb-8">
-          Top <span className="text-[#d4af37]">Property Dealers</span>
+          Top <span className="text-[#d4af37]">Property Broker in Faridabad</span>
         </h2>
 
         <div ref={listTopRef} className="scroll-mt-[260px]" />

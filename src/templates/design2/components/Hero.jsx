@@ -42,7 +42,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative w-full min-h-[80vh] flex items-center overflow-hidden"
+      className="relative w-full min-h-[80vh] flex items-center overflow-hidden "
       style={{
         backgroundImage: "url('/images/you.jpeg')",
         backgroundSize: "cover",
@@ -50,7 +50,7 @@ export default function Hero() {
       }}
     >
       {/* OVERLAY */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-[#b8964a]/35 to-black/75" />
+<div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
 
       {/* BLOBS */}
       <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#d4af37]/15 blur-3xl rounded-full" />
@@ -63,17 +63,18 @@ export default function Hero() {
           <div className="text-white">
             <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/20 text-sm">
               <span className="w-2 h-2 rounded-full bg-[#d4af37]" />
-              Trusted • Verified • Premium
+              Trusted
             </span>
 
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
               Find Your{" "}
               <span className="relative text-[#d4af37]">
-                Dream Property
+                Dream Property 
                 <span className="absolute left-0 -bottom-1 h-[3px] w-full bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-80" />
               </span>
               <br />
-              At Best Price
+              At Best Price 
+              <span className="relative text-[#d4af37]" > With Us</span>
             </h1>
 
             <p className="text-lg text-white/85 mb-8 max-w-xl">

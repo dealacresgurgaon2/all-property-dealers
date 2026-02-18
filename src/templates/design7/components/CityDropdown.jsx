@@ -7,10 +7,10 @@ export default function CityDropdown({ onCitySelect }) {
   const [selectedCity, setSelectedCity] = useState("");
 
   const cities = [
-    "Hisar",
-    "Gurgaon",
-    "Faridabad",
-    "Sonipat"
+    "Ambala","Bhiwani","Charkhi-Dadri","Faridabad","Fatehabad",
+    "Gurgaon","Hisar","Jhajjar","Jind","Kaithal","Karnal",
+    "Kurukshetra","Mahendergarh","Palwal","Panchkula",
+    "Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamunanagar",
   ];
 
   const handleChange = (e) => {

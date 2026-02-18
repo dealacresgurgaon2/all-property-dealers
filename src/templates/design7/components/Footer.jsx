@@ -2,59 +2,36 @@
 
 import Link from "next/link";
 import { useCity } from "@/context/design7api/CityContext";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+
 export default function Footer() {
-
-  const { setCity, setDealers } = useCity();   // 👈 ADD setDealers
-
-  const pathname = usePathname();
+  const { setCity, setDealers } = useCity();
   const router = useRouter();
-
-  
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
 
   const haryanaDistricts = [
-    "Ambala",
-    "Bhiwani",
-    "Charkhi-Dadri",
-    "Faridabad",
-    "Fatehabad",
-    "Gurgaon",
-    "Hisar",
-    "Jhajjar",
-    "Jind",
-    "Kaithal",
-    "Karnal",
-    "Kurukshetra",
-    "Mahendergarh",
-    "Palwal",
-    "Panchkula",
-    "Panipat",
-    "Rewari",
-    "Rohtak",
-    "Sirsa",
-    "Sonipat",
-    "Yamunanagar",
+    "Ambala","Bhiwani","Charkhi-Dadri","Faridabad","Fatehabad",
+    "Gurgaon","Hisar","Jhajjar","Jind","Kaithal","Karnal",
+    "Kurukshetra","Mahendergarh","Palwal","Panchkula",
+    "Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamunanagar",
   ];
 
-  // 🔥 UPDATED FUNCTION
   const handleCityClick = async (district) => {
-
     const citySlug = district.toLowerCase();
 
     try {
       const res = await fetch(`${API_BASE}/api/get/city/${district}`);
-
       const data = await res.json();
 
       if (data.success) {
-        // 🔥 MAIN IMPORTANT PART
-        setDealers(data.data);     // context me dealers store
-        setCity(citySlug);         // selected city store
+        setDealers(data.data);
+        setCity(citySlug);
       }
 
       router.push(`/${citySlug}`);
-
     } catch (err) {
       console.log("City API Error:", err);
     }
@@ -63,13 +40,15 @@ export default function Footer() {
   return (
     <footer className="relative bg-black text-white overflow-hidden">
 
+      {/* Background Glow */}
       <div className="absolute -top-32 left-1/3 w-[600px] h-[600px] bg-indigo-600/10 blur-3xl rounded-full" />
       <div className="absolute -bottom-32 right-1/3 w-[600px] h-[600px] bg-purple-600/10 blur-3xl rounded-full" />
 
-      <div className="relative z-10  w-full px-6 py-16">
+      {/* 🔥 7XL CONTAINER */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
 
+        {/* TOP BRAND */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
-
           <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 text-transparent bg-clip-text">
             PropertyDealer
           </h2>
@@ -84,78 +63,90 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12">
+        {/* LOCATION SECTION */}
+        <div className="w-full mb-12">
+          <h4 className="text-lg font-semibold mb-6">
+            Explore Property Dealers of Haryana Cities
+          </h4>
 
-          <div>
-            <h4 className="text-lg font-semibold mb-4">About Platform</h4>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
 
-            <p className="text-white/70 text-sm leading-6">
-              Smart platform to connect buyers and sellers with verified
-              property dealers across India. Simplifying real estate search
-              with trust and transparency.
-            </p>
+            {haryanaDistricts.map((district, index) => (
+              <Link
+                key={index}
+                href={`/${district.toLowerCase()}`}
+                onClick={() => handleCityClick(district)}
+                className="
+                  flex items-center gap-2
+                  text-sm font-medium
+                  text-white/80
+                  hover:text-indigo-400
+                  transition
+                "
+              >
+                <span className="text-indigo-400">•</span>
+                Property Dealer in {district}
+              </Link>
+            ))}
+
           </div>
-
-          <div className="md:col-span-2 lg:col-span-3">
-            <h4 className="text-lg font-semibold mb-6">
-              Explore Dealers by Haryana Cities
-            </h4>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-
-              {haryanaDistricts.map((district, index) => {
-
-                const citySlug = district.toLowerCase();
-
-                return (
-                  <Link
-                    key={index}
-
-                    href={`/${citySlug}`}
-
-                    onClick={() => handleCityClick(district)}
-
-                    className="
-                      flex items-center gap-2
-                      text-base font-medium
-                      text-white/80
-                      hover:text-indigo-400
-                      transition
-                      py-1
-                    "
-                  >
-                    <span className="text-indigo-400">•</span>
-
-                    {/* 🔥 MAIN TEXT CHANGE HERE */}
-                    Property Dealer in {district}
-
-                  </Link>
-                );
-              })}
-
-            </div>
-          </div>
-
         </div>
 
+        {/* DISCLAIMER */}
+        <div className="">
+          <p className="font-semibold mb-2">Disclaimer :</p>
+
+          <p className="text-sm text-white/70 leading-6">
+            {!showDisclaimer ? (
+              <>
+                The property dealers listed on this platform are not employed...
+                <button
+                  onClick={() => setShowDisclaimer(true)}
+                  className="ml-2 text-indigo-400 hover:text-indigo-300 underline transition"
+                >
+                  Read More
+                </button>
+              </>
+            ) : (
+              <>
+                The property dealers listed on this platform are not employed,
+                endorsed, or directly affiliated with us. Dealer information is
+                aggregated from publicly available sources across the web.
+                Users are advised to independently verify credentials,
+                documents, and transaction details before proceeding. We act
+                solely as a discovery and connection platform and shall not be
+                held responsible for any disputes, losses, or issues arising
+                from dealings with listed dealers.
+                <button
+                  onClick={() => setShowDisclaimer(false)}
+                  className="ml-2 text-indigo-400 hover:text-indigo-300 underline transition"
+                >
+                  Show Less
+                </button>
+              </>
+            )}
+          </p>
+        </div>
+
+        {/* DIVIDER */}
         <div className="my-12 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent" />
 
-        <div className="text-center items-center justify-between gap-4 text-sm text-white/60">
-
+        {/* BOTTOM */}
+        <div className="text-center text-sm text-white/60">
           <p>© {new Date().getFullYear()} PropertyDealer. All rights reserved.</p>
 
-          <div className="">
-               <Link 
-  href="https://www.parcharmanch.com" 
-  target="_blank"
-  rel="noopener noreferrer"
-  className="hover:text-white transition"
->
-  Designed by Parchar Manch
-</Link>
+          <div className="mt-2">
+            <Link
+              href="https://www.parcharmanch.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition"
+            >
+              Designed by Parchar Manch
+            </Link>
           </div>
-
         </div>
+
       </div>
     </footer>
   );

@@ -37,7 +37,7 @@ export default function CityButtonsFilter({ onCitySelect }) {
               transition
             "
           >
-            Real Estate in {city}
+            Real Estate Agents {city}
           </button>
         ))}
 

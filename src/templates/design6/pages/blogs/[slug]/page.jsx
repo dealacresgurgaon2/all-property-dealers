@@ -3,8 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useBlogs } from "@/context/blogcontext/BlogContext";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+const MAX_BLOGS = 8;
 
 const formatDate = (date) => {
   if (!date) return "";
@@ -25,44 +28,98 @@ export default function SingleBlogPage() {
     setPage,
   } = useBlogs();
 
+  const [blogStack, setBlogStack] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+  const [nextLoading, setNextLoading] = useState(false);
 
+  const bottomRef = useRef(null);
+  const isFetchingRef = useRef(false);
+
+  // 🔹 First Load
   useEffect(() => {
-    if (slug) {
-      setPageLoading(true);
+    if (!slug) return;
 
-      fetchSingleBlog(slug);
+    setPageLoading(true);
+    fetchSingleBlog(slug);
+    setPage(1);
+    window.scrollTo(0, 0);
 
-      setPage(1);
+    const timer = setTimeout(() => {
+      setPageLoading(false);
+    }, 500);
 
-      setTimeout(() => {
-        setPageLoading(false);
-      }, 800);
-    }
+    return () => clearTimeout(timer);
   }, [slug]);
 
+  // 🔹 Reset stack when new blog loads
   useEffect(() => {
-    if (!recentBlogs || recentBlogs.length === 0) {
-      setPage(1);
+    if (singleBlog) {
+      setBlogStack([singleBlog]);
     }
-  }, []);
+  }, [singleBlog]);
 
-  const blogCount = recentBlogs ? recentBlogs.length : 0;
+  // 🔥 API BASED Infinite Scroll (Stable)
+ useEffect(() => {
+     if (!bottomRef.current) return;
+     if (blogStack.length === 0) return;
+     if (blogStack.length >= MAX_BLOGS) return;
+ 
+     const observer = new IntersectionObserver(
+       async (entries) => {
+         if (!entries[0].isIntersecting) return;
+         if (isFetchingRef.current) return;
+ 
+         isFetchingRef.current = true;
+         setNextLoading(true);
+ 
+         const lastBlog = blogStack[blogStack.length - 1];
+ 
+         try {
+           const res = await fetch(
+             `${API_BASE}/api/blogs/next/${lastBlog.slug}`
+           );
+           const result = await res.json();
+ 
+           if (result.success && result.data) {
+             setBlogStack((prev) => {
+               if (prev.length >= MAX_BLOGS) return prev;
+ 
+               const exists = prev.some(
+                 (b) => b._id === result.data._id
+               );
+               if (exists) return prev;
+ 
+               return [...prev, result.data];
+             });
+ 
+             window.history.replaceState(
+               null,
+               "",
+               `/blogs/${result.data.slug}`
+             );
+           }
+         } catch (err) {
+           console.error("Next fetch error:", err);
+         }
+ 
+         setNextLoading(false);
+         isFetchingRef.current = false;
+       },
+       {
+         rootMargin: "300px",
+         threshold: 0,
+       }
+     );
+ 
+     observer.observe(bottomRef.current);
+ 
+     return () => observer.disconnect();
+   }, [blogStack]);
 
   if (pageLoading || loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-14 h-14 border-4 border-green-700/30 border-t-green-700 rounded-full animate-spin"></div>
-
-          <h2 className="text-lg text-green-700 font-semibold">
-            Loading Blog...
-          </h2>
-
-          <p className="text-sm text-gray-600">
-            Please wait while we fetch the content
-          </p>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="w-14 h-14 border-4 border-green-700/30 border-t-green-700 rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -71,124 +128,108 @@ export default function SingleBlogPage() {
     <section className="bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          
-          {/* MAIN BLOG CONTENT */}
+
+          {/* ================= MAIN STACK ================= */}
           <div className="lg:col-span-2">
-            {/* HERO IMAGE */}
-            {singleBlog?.heroImg && (
-              <div className="relative w-full h-[420px] mb-8 rounded-3xl overflow-hidden shadow-xl">
-                <Image
-                  src={singleBlog.heroImg}
-                  alt={singleBlog?.title?.rendered || "blog image"}
-                  fill
-                  priority
-                  className="object-cover"
+
+            {blogStack.map((blog, index) => (
+              <div key={`${blog._id}-${index}`} className="mb-20">
+
+                {/* Title + Date */}
+                <div className="flex items-center gap-3 mb-4 flex-wrap">
+                  <h1 className="bg-green-100 text-green-700 text-2xl font-semibold px-4 py-1 rounded-full">
+                    {blog.title?.rendered}
+                  </h1>
+                  <span className="text-sm text-black/60">
+                    Published on {formatDate(blog.date)}
+                  </span>
+                </div>
+
+                {/* Image Safe */}
+                <div className="relative w-full h-[420px] mb-8 rounded-3xl overflow-hidden shadow-xl bg-gray-200">
+                  {blog.heroImg && blog.heroImg.trim() !== "" ? (
+                    <Image
+                      src={blog.heroImg}
+                      alt={blog.title?.rendered || "blog image"}
+                      fill
+                      priority={index === 0}
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-500">
+                      No Image Available
+                    </div>
+                  )}
+                </div>
+
+                <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent mb-8" />
+
+                <div
+                  className="space-y-6 text-black/80 leading-8 text-lg"
+                  dangerouslySetInnerHTML={{
+                    __html: blog.content?.rendered || "",
+                  }}
                 />
-                <div className="absolute inset-0 bg-black/10" />
+
+              </div>
+            ))}
+
+            {nextLoading && (
+              <div className="text-center py-10 text-green-700 font-semibold">
+                Loading next blog...
               </div>
             )}
 
-            {/* META INFO */}
-            <div className="flex items-center gap-3 mb-4 flex-wrap">
-              <span className="bg-green-100 text-green-700 text-xs font-semibold px-4 py-1 rounded-full">
-                {singleBlog?.title?.rendered}
-              </span>
+            {blogStack.length < MAX_BLOGS && (
+              <div ref={bottomRef} className="h-20"></div>
+            )}
 
-              <span className="text-sm text-black/60">
-                Published on {formatDate(singleBlog?.date)}
-              </span>
-            </div>
-
-            <div className="h-px w-full bg-gradient-to-r from-transparent via-green-500/40 to-transparent mb-8" />
-
-            {/* BLOG CONTENT */}
-            <div
-              className="space-y-6 text-black/80 leading-8 text-lg"
-              dangerouslySetInnerHTML={{
-                __html: singleBlog?.content?.rendered || "",
-              }}
-            />
-
-            {/* BOTTOM CTA */}
-            <div className="mt-12 p-8 bg-white rounded-2xl border border-green-200 text-center">
-              <h4 className="text-xl font-semibold mb-2 text-black">
-                Need Expert Property Advice?
-              </h4>
-
-              <p className="text-black/70 mb-4">
-                Talk to our verified property consultants and get the best deals.
-              </p>
-
-              <Link
-                href="/"
-                className="inline-block px-6 py-2.5 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
-              >
-                Go to Home Page
-              </Link>
-            </div>
           </div>
 
-          {/* SIDEBAR */}
+          {/* ================= SIDEBAR ================= */}
           <aside className="hidden lg:block">
             <div className="sticky top-24">
               <h3 className="text-xl font-semibold text-black mb-6">
-                Recent Blogs ({blogCount})
+                Recent Blogs ({recentBlogs?.length || 0})
               </h3>
 
               <div className="space-y-4">
-                {recentBlogs && recentBlogs.length > 0 ? (
-                  recentBlogs.map((b) => (
-                    <Link
-                      key={b._id}
-                      href={`/blogs/${b.slug}`}
-                      className="flex gap-3 p-3 rounded-xl hover:bg-[#5E23DC]/5"
-                    >
-                      <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+                {recentBlogs?.map((b) => (
+                  <Link
+                    key={b._id}
+                    href={`/blogs/${b.slug}`}
+                    className="flex gap-3 p-3 rounded-xl hover:bg-green-50"
+                  >
+                    <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200">
+                      {b.heroImg && b.heroImg.trim() !== "" ? (
                         <Image
                           src={b.heroImg}
                           alt={b.title?.rendered || "blog image"}
                           fill
                           className="object-cover"
                         />
-                      </div>
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-500">
+                          No Image
+                        </div>
+                      )}
+                    </div>
 
-                      <div>
-                        <p className="text-xs text-gray-500">
-                          {formatDate(b.date)}
-                        </p>
-
-                        <h4 className="text-sm font-semibold text-green-700 line-clamp-2">
-                          {b.title?.rendered}
-                        </h4>
-                      </div>
-                    </Link>
-                  ))
-                ) : (
-                  <p className="text-sm text-gray-500">
-                    No recent blogs available
-                  </p>
-                )}
+                    <div>
+                      <p className="text-xs text-gray-500">
+                        {formatDate(b.date)}
+                      </p>
+                      <h4 className="text-sm font-semibold text-green-700 line-clamp-2">
+                        {b.title?.rendered}
+                      </h4>
+                    </div>
+                  </Link>
+                ))}
               </div>
 
-              {/* SIDEBAR HELP BOX */}
-              <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-2xl">
-                <h4 className="text-lg font-semibold text-black mb-2">
-                  Have Questions?
-                </h4>
-
-                <p className="text-sm text-black/70 mb-4">
-                  Get free consultation from our real estate experts.
-                </p>
-
-                <Link
-                  href="/"
-                  className="block text-center px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-semibold hover:bg-green-700 transition"
-                >
-                  Go to Home
-                </Link>
-              </div>
             </div>
           </aside>
+
         </div>
       </div>
     </section>
