@@ -42,39 +42,36 @@ export default function Hero() {
 
   return (
     <section
-      className="relative w-full min-h-[80vh] flex items-center overflow-hidden "
+      className="relative w-full py-24 md:py-32 overflow-hidden"
       style={{
         backgroundImage: "url('/images/you.jpeg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      {/* OVERLAY */}
-<div className="absolute inset-0 bg-black/70 backdrop-blur-md" />
+      {/* DARK OVERLAY (ONLY HERO AREA) */}
+      <div className="absolute inset-0 bg-black/60 z-0"></div>
 
       {/* BLOBS */}
-      <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#d4af37]/15 blur-3xl rounded-full" />
-      <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-white/10 blur-3xl rounded-full" />
+      <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#d4af37]/20 blur-3xl rounded-full z-0" />
+      <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-white/10 blur-3xl rounded-full z-0" />
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-6">
+      {/* CONTENT */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
 
           {/* LEFT SIDE */}
           <div className="text-white">
-            <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/20 text-sm">
+            <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 border border-white/20 text-sm">
               <span className="w-2 h-2 rounded-full bg-[#d4af37]" />
               Trusted
             </span>
 
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
               Find Your{" "}
-              <span className="relative text-[#d4af37]">
-                Dream Property 
-                <span className="absolute left-0 -bottom-1 h-[3px] w-full bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-80" />
-              </span>
+              <span className="text-[#d4af37]">Dream Property</span>
               <br />
-              At Best Price 
-              <span className="relative text-[#d4af37]" > With Us</span>
+              At Best Price <span className="text-[#d4af37]">With Us</span>
             </h1>
 
             <p className="text-lg text-white/85 mb-8 max-w-xl">
@@ -82,17 +79,15 @@ export default function Hero() {
               100% verified listings with trusted property dealers.
             </p>
 
-            <div className="flex gap-4 flex-wrap mb-8">
-              <button
-                onClick={() => setPopupOpen(true)}
-                className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-black transition"
-              >
-                Contact Agent
-              </button>
-            </div>
+            <button
+              onClick={() => setPopupOpen(true)}
+              className="px-6 py-3 border border-white text-white rounded-md font-semibold hover:bg-white hover:text-black transition"
+            >
+              Contact Agent
+            </button>
 
             {/* STATS */}
-            <div className="grid grid-cols-3 gap-4 max-w-md">
+            <div className="grid grid-cols-3 gap-4 max-w-md mt-10">
               <Stat value={`${counts.listings.toLocaleString()}+`} label="Verified Listings" />
               <Stat value={`${counts.cities}+`} label="Cities Covered" />
               <Stat value={`${counts.years}+`} label="Years Experience" />
@@ -104,7 +99,6 @@ export default function Hero() {
             <h3 className="text-lg font-bold mb-4 text-white text-center">
               Get Free Consultation
             </h3>
-
             <HeroForm />
           </div>
 
@@ -119,7 +113,7 @@ export default function Hero() {
   );
 }
 
-/* 🔹 HERO FORM COMPONENT */
+/* FORM */
 function HeroForm() {
   const [loading, setLoading] = useState(false);
 
@@ -152,23 +146,19 @@ function HeroForm() {
 
     setLoading(true);
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("Query submitted successfully!");
+    alert("Query submitted successfully!");
 
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        lookingFor: "",
-        message: "",
-      });
-    } catch (err) {
-      alert("Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      lookingFor: "",
+      message: "",
+    });
+
+    setLoading(false);
   };
 
   const inputClass =
@@ -176,72 +166,24 @@ function HeroForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
-
-      <input
-        type="text"
-        name="name"
-        required
-        value={form.name}
-        onChange={handleChange}
-        placeholder="Your Name"
-        className={inputClass}
-      />
-
-      <input
-        type="text"
-        name="phone"
-        inputMode="numeric"
-        required
-        value={form.phone}
-        onChange={handleChange}
-        placeholder="Phone Number"
-        className={inputClass}
-      />
-
-      <input
-        type="email"
-        name="email"
-        required
-        value={form.email}
-        onChange={handleChange}
-        placeholder="Email Address"
-        className={inputClass}
-      />
-
-      <select
-        name="lookingFor"
-        required
-        value={form.lookingFor}
-        onChange={handleChange}
-        className={inputClass}
-      >
+      <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Your Name" className={inputClass} />
+      <input type="text" name="phone" inputMode="numeric" required value={form.phone} onChange={handleChange} placeholder="Phone Number" className={inputClass} />
+      <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="Email Address" className={inputClass} />
+      <select name="lookingFor" required value={form.lookingFor} onChange={handleChange} className={inputClass}>
         <option value="">Looking for</option>
         <option>Buy Property</option>
         <option>Rent Property</option>
         <option>Sell Property</option>
       </select>
-
-      <textarea
-        name="message"
-        rows={3}
-        value={form.message}
-        onChange={handleChange}
-        placeholder="Your Message"
-        className={`${inputClass} resize-none`}
-      />
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full bg-[#d4af37] text-black py-2.5 rounded-md font-semibold hover:bg-[#c9a227] transition disabled:opacity-60"
-      >
+      <textarea name="message" rows={3} value={form.message} onChange={handleChange} placeholder="Your Message" className={`${inputClass} resize-none`} />
+      <button type="submit" disabled={loading} className="w-full bg-[#d4af37] text-black py-2.5 rounded-md font-semibold hover:bg-[#c9a227] transition disabled:opacity-60">
         {loading ? "Submitting..." : "Submit Query"}
       </button>
     </form>
   );
 }
 
-/* 🔹 SMALL STAT COMPONENT */
+/* STAT */
 function Stat({ value, label }) {
   return (
     <div className="bg-white/15 backdrop-blur border border-white/20 rounded-xl p-3 text-center">

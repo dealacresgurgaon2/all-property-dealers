@@ -9,7 +9,6 @@ export default function Hero() {
   const [form, setForm] = useState({
     name: "",
     phone: "",
-    email: "",
     option: "Buy Property",
     message: "",
   });
@@ -49,7 +48,6 @@ export default function Hero() {
         body: JSON.stringify({
           name: form.name,
           phone: form.phone,
-          email: form.email, // ✅ Added (Fixes 400 error)
           option: form.option,
           message: form.message,
           website,
@@ -59,17 +57,16 @@ export default function Hero() {
       const result = await res.json();
 
       if (result.success) {
-        alert("Your enquiry has been submitted successfully!");
+        alert("Your enquiry has been submitted!");
 
         setForm({
           name: "",
           phone: "",
-          email: "",
           option: "Buy Property",
           message: "",
         });
       } else {
-        alert(result.error || "Something went wrong.");
+        alert("Something went wrong. Please try again.");
       }
     } catch (error) {
       console.log("Hero form error:", error);
@@ -135,17 +132,6 @@ export default function Hero() {
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="Phone Number"
-                className="w-full border border-white/40 bg-white rounded-md px-4 py-2 text-[#5E23DC] placeholder-[#5E23DC] outline-none"
-              />
-
-              {/* ✅ EMAIL FIELD ADDED */}
-              <input
-                type="email"
-                name="email"
-                required
-                value={form.email}
-                onChange={handleChange}
-                placeholder="Email Address"
                 className="w-full border border-white/40 bg-white rounded-md px-4 py-2 text-[#5E23DC] placeholder-[#5E23DC] outline-none"
               />
 
