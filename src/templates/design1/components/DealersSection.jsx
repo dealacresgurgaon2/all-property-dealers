@@ -19,15 +19,13 @@ export default function DealersSection({ domain }) {
   const isMounted = useRef(false);
 
   // DOMAIN SET LOGIC (AS IT IS)
-  useEffect(() => {
-    if (
-      domain &&
-      (domain === "propertydeler-gold-frontend.vercel.app" ||
-        domain === "localhost")
-    ) {
+ useEffect(() => {
+    if (domain && domain === "localhost") {
       setDomain("propertydealeringurgaon.com");
+    } else {
+      setDomain(domain);
     }
-  }, [domain]);
+  }, [domain, setDomain]);
 
   useEffect(() => {
     isMounted.current = true;

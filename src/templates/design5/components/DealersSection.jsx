@@ -25,12 +25,12 @@ export default function DealersSection({ domain }) {
 
     if (
       domain &&
-      (domain === "propertydeler-gold-frontend-k2da.vercel.app" ||
+      (domain === 
         domain === "localhost")
     ) {
       setDomain("propertydealerindelhi.com");
     }
-  }, [domain]);
+  }, [domain ,setDomain]);
 
   /* ================= INITIAL LOAD ================= */
 

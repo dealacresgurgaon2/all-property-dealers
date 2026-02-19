@@ -87,83 +87,144 @@ export default function DealerDetailPage() {
           <li>Assisting with negotiations</li>
           <li>Coordinating documentation and registration</li>
         </ul>
+        <p className="text-gray-700 leading-7 mb-8" >This structured process helps reduce risks and improves decision-making accuracy.</p>
 
         {/* MARKET UNDERSTANDING */}
-        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Understanding the {dealerCity} Real Estate Market
-        </h2>
+        {/* MARKET UNDERSTANDING */}
+<h2 className="text-xl font-semibold text-[#0b1f33] mb-3 mt-10">
+  Understanding the {dealerCity} Real Estate Market
+</h2>
 
-        <p className="text-gray-700 leading-7 mb-8">
-          {dealerCity}’s real estate market is driven by infrastructure projects, corporate expansion, and residential demand.  
-          Property values vary significantly by sector, connectivity, and development status.
-        </p>
+<p className="text-gray-700 leading-7 mb-6">
+  {dealerCity}’s real estate market is driven by infrastructure projects,
+  corporate expansion, and increasing residential demand. Property values
+  vary significantly based on sector planning, connectivity, and development status.
+</p>
 
-        <p className="text-gray-700 leading-7 mb-8">
-          {dealerName} closely monitors:
-        </p>
+<p className="text-gray-700 leading-7 mb-4">
+  <strong>{dealerName}</strong> closely monitors:
+</p>
 
-        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
-          <li>Sector-wise price movements</li>
-          <li>Infrastructure developments</li>
-          <li>Rental demand trends</li>
-          <li>Commercial growth corridors</li>
-          <li>Builder credibility and approvals</li>
-        </ul>
+<ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+  <li>Sector-wise price movements</li>
+  <li>Infrastructure developments</li>
+  <li>Rental demand trends</li>
+  <li>Commercial growth corridors</li>
+  <li>Builder credibility and legal approvals</li>
+</ul>
 
-        {/* SERVICES */}
-        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Services Offered
-        </h2>
+<p className="text-gray-700 leading-7 mb-4">
+  This local market knowledge helps clients identify suitable options for:
+</p>
 
-        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
-          <li>Buying and selling of residential property in {dealerCity}</li>
-          <li>Assistance with commercial property for sale in {dealerCity}</li>
-          <li>Support for rental property in {dealerCity}</li>
-          <li>Property shortlisting and site visits</li>
-          <li>Title verification and document checks</li>
-          <li>Negotiation support</li>
-          <li>Registration and legal coordination</li>
-        </ul>
+<ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+  <li>Residential property in {dealerCity}</li>
+  <li>Commercial property for sale in {dealerCity}</li>
+  <li>Rental property in {dealerCity}</li>
+</ul>
+
+<p className="text-gray-700 leading-7 mb-10">
+  All recommendations are based on data-backed analysis rather than speculation.
+</p>
+
+
+        {/* SERVICES OFFERED */}
+<h2 className="text-xl font-semibold text-[#0b1f33] mb-3 mt-10">
+  Services Offered
+</h2>
+
+<p className="text-gray-700 leading-7 mb-6">
+  <strong>{dealerName}</strong> provides comprehensive real estate services in {dealerCity}, including:
+</p>
+
+<ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+  <li>Buying and selling of residential property in {dealerCity}</li>
+  <li>Assistance with commercial property for sale in {dealerCity}</li>
+  <li>Support for rental property in {dealerCity}</li>
+  <li>Property shortlisting and coordinated site visits</li>
+  <li>Title verification and documentation checks</li>
+  <li>Negotiation support</li>
+  <li>Registration and legal coordination</li>
+</ul>
+
+<p className="text-gray-700 leading-7 mb-10">
+  Each service is delivered with a strong focus on compliance, clarity, and operational efficiency.
+</p>
+
 
         {/* WHY CHOOSE */}
-        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Why Choose {dealerName}?
-        </h2>
+<h2 className="text-xl font-semibold text-[#0b1f33] mb-3 mt-10">
+  Why Choose {dealerName}?
+</h2>
 
-        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
-          <li>Local Market Expertise – In-depth knowledge of {dealerCity} real estate zones</li>
-          <li>Transparent Process – Clear pricing and documentation guidance</li>
-          <li>Client-Oriented Solutions – Property options based on individual needs</li>
-          <li>Complete Transaction Support – Assistance from inquiry to registration</li>
-          <li>Professional Conduct – Ethical practices and reliable communication</li>
-        </ul>
+<p className="text-gray-700 leading-7 mb-6">
+  Choosing the right property dealer is essential for smooth and secure transactions.
+  <strong> {dealerName}</strong> offers:
+</p>
 
-        {/* SUPPORT */}
-        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Support for Confident Property Decisions
-        </h2>
+<ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+  <li><strong>Local Market Expertise –</strong> In-depth knowledge of {dealerCity}’s real estate zones</li>
+  <li><strong>Transparent Process –</strong> Clear pricing and documentation guidance</li>
+  <li><strong>Client-Oriented Solutions –</strong> Property options based on individual needs</li>
+  <li><strong>Complete Transaction Support –</strong> Assistance from inquiry to registration</li>
+  <li><strong>Professional Conduct –</strong> Ethical practices and reliable communication</li>
+</ul>
 
-        <p className="text-gray-700 leading-7 mb-8">
-          Real estate transactions involve significant financial and legal considerations.  
-          {dealerName} provides structured guidance to help clients understand:
-        </p>
+<p className="text-gray-700 leading-7 mb-10">
+  These factors position <strong>{dealerName}</strong> as a reliable property dealer in {dealerCity}.
+</p>
 
-        <ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
-          <li>Market value</li>
-          <li>Location suitability</li>
-          <li>Legal documentation</li>
-          <li>Long-term investment potential</li>
-        </ul>
+{/* SUPPORT SECTION */}
+<h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
+  Support for Confident Property Decisions
+</h2>
 
-        {/* CONTACT */}
-        <h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
-          Contact {dealerName}
-        </h2>
+<p className="text-gray-700 leading-7 mb-6">
+  Real estate transactions involve significant financial and legal considerations.
+  Clients often require clarity on:
+</p>
 
-        <p className="text-gray-700 leading-7 mb-10">
-          For buying, selling, renting, or investing in {dealerCity} real estate, professional consultation is recommended.  
-          {dealerName} offers reliable property assistance tailored to residential and commercial requirements.
-        </p>
+<ul className="list-disc ml-6 text-gray-700 space-y-2 mb-8">
+  <li>Market value</li>
+  <li>Location suitability</li>
+  <li>Legal documentation</li>
+  <li>Long-term investment potential</li>
+</ul>
+
+<p className="text-gray-700 leading-7 mb-10">
+  <strong>{dealerName}</strong> provides structured guidance to address these concerns,
+  helping clients proceed with confidence and accuracy.
+</p>
+
+{/* CONTACT SECTION */}
+<h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
+  Contact {dealerName}
+</h2>
+
+<p className="text-gray-700 leading-7 mb-10">
+  For buying, selling, renting, or investing in {dealerCity} real estate,
+  professional consultation is recommended. <strong>{dealerName}</strong> offers
+  reliable property assistance tailored to both residential and commercial requirements.
+  Clients can connect to discuss their needs and receive relevant property options
+  supported by verified market insights.
+</p>
+
+{/* CONCLUSION */}
+<h2 className="text-xl font-semibold text-[#0b1f33] mb-3">
+  Conclusion
+</h2>
+
+<p className="text-gray-700 leading-7 mb-6">
+  {dealerCity}’s real estate market offers strong opportunities, but successful
+  outcomes depend on accurate information and professional handling.
+</p>
+
+<p className="text-gray-700 leading-7 mb-12">
+  With transparent processes, strong market knowledge, and end-to-end transaction
+  support, <strong>{dealerName}</strong> serves as a dependable real estate agent in
+  {dealerCity} for residential, commercial, and rental property requirements.
+</p>
+
 
         {/* FAQ SECTION */}
         <h2 className="text-xl font-semibold text-[#0b1f33] mb-4">

@@ -79,6 +79,9 @@ export default function DealerDetailPage() {
             across residential, commercial, and rental segments. The firm works with individuals, families,  
             business owners, and investors to deliver property solutions aligned with specific requirements.
           </p>
+          <p className="text-black/80 leading-7">
+            As an experienced property dealer in Noida, the approach includes:
+          </p>
 
           <ul className="mt-4 list-disc pl-6 text-black/80 space-y-2">
             <li>Understanding client objectives</li>
@@ -86,6 +89,9 @@ export default function DealerDetailPage() {
             <li>Providing price and location analysis</li>
             <li>Ensuring clear ownership and documentation</li>
           </ul>
+           <p className="text-black/80 leading-7">
+            Each transaction is handled with professionalism, accuracy, and attention to detail.
+          </p>
         </div>
 
         {/* WORK APPROACH */}
@@ -93,6 +99,8 @@ export default function DealerDetailPage() {
           <h2 className="text-xl font-semibold text-black mb-3">
             Work Approach and Objectives
           </h2>
+           <p className="text-black/80 leading-7">
+The objective is to simplify real estate decision-making by providing factual information and practical insights. All aspects of the transaction — pricing, location advantages, legal documentation, and timelines — are communicated clearly.          </p>
 
           <p className="text-black/80 leading-7">
             As a trusted real estate agent in {dealerCity}, {dealerName} follows a structured process:
@@ -105,6 +113,8 @@ export default function DealerDetailPage() {
             <li>Price negotiation support</li>
             <li>Documentation and registration assistance</li>
           </ul>
+           <p className="text-black/80 leading-7">
+This method reduces risks and ensures smoother transactions.          </p>
         </div>
 
         {/* MARKET UNDERSTANDING */}
@@ -115,8 +125,11 @@ export default function DealerDetailPage() {
 
           <p className="text-black/80 leading-7">
             {dealerCity}’s real estate growth is driven by planned development, corporate presence,  
-            expressway connectivity, and expanding residential demand.
+            expressway connectivity, and expanding residential demand.Property values vary based on sector planning, infrastructure access, and project approvals.
+
           </p>
+            <p className="text-black/80 leading-7">
+ {dealerName} actively tracks:          </p>
 
           <ul className="mt-4 list-disc pl-6 text-black/80 space-y-2">
             <li>Sector-wise property rates</li>
@@ -125,6 +138,16 @@ export default function DealerDetailPage() {
             <li>Commercial growth areas and IT corridors</li>
             <li>Builder track records and legal approvals</li>
           </ul>
+           <p className="text-black/80 leading-7">
+This market understanding helps clients choose the right:          </p>
+           <ul className="mt-4 list-disc pl-6 text-black/80 space-y-2 font-bold">
+            <li>Residential property in Noida</li>
+            <li>Commercial property for sale in Noida</li>
+            <li>Rental property in Noida</li>
+            
+          </ul>
+           <p className="text-black/80 leading-7">
+Recommendations are data-based and location-specific. </p>
         </div>
 
         {/* SERVICES OFFERED */}
@@ -132,35 +155,122 @@ export default function DealerDetailPage() {
           <h2 className="text-xl font-semibold text-black mb-3">
             Services Offered
           </h2>
-
+              <p className="text-black/80 leading-7 mt-3">
+ {dealerName}provides comprehensive real estate services in Noida, including:         </p>
           <ul className="list-disc pl-6 text-black/80 space-y-2">
             <li>Buying and selling of residential property in {dealerCity}</li>
-            <li>Assistance with commercial property sales</li>
-            <li>Residential and commercial rentals</li>
-            <li>Property shortlisting and site visits</li>
-            <li>Title verification and document checks</li>
-            <li>Price negotiation assistance</li>
-            <li>Registration and legal coordination</li>
+            <li>Assistance with commercial property sales {dealerCity}</li>
+            <li>Residential and commercial rentals {dealerCity}</li>
+            <li>Property shortlisting and site visits {dealerCity}</li>
+            <li>Title verification and document checks {dealerCity}</li>
+            <li>Price negotiation assistance {dealerCity}</li>
+            <li>Registration and legal coordination {dealerCity}</li>
           </ul>
+           <p className="text-black/80 leading-7">
+All services are delivered with a focus on transparency and compliance.          </p>
         </div>
 
         {/* WHY CHOOSE */}
-        <div className="bg-green-50 rounded-2xl p-6 mb-10 border border-green-200">
-          <h2 className="text-xl font-semibold text-black mb-3">
-            Why Choose {dealerName}?
-          </h2>
+<div className=" rounded-2xl p-6 mb-10 border border-green-200">
+  <h2 className="text-xl font-semibold text-black mb-4">
+    Why Choose {dealerName}?
+  </h2>
 
-          <ul className="list-disc pl-6 text-black/80 space-y-2">
-            <li>Local Market Knowledge</li>
-            <li>Transparent Transactions</li>
-            <li>Client-Focused Solutions</li>
-            <li>Complete Support from start to end</li>
-            <li>Professional Ethics</li>
-          </ul>
-        </div>
+  <p className="text-black/80 leading-7">
+    Selecting the right property dealer plays a critical role in real estate outcomes.
+    <b> {dealerName}</b> offers:
+  </p>
+
+  <ul className="mt-4 list-disc pl-6 text-black/80 space-y-3">
+    <li>
+      <b>Local Market Knowledge –</b> Detailed understanding of {dealerCity} sectors and developments
+    </li>
+
+    <li>
+      <b>Transparent Transactions –</b> Clear pricing and documentation processes
+    </li>
+
+    <li>
+      <b>Client-Focused Solutions –</b> Property options aligned with individual needs
+    </li>
+
+    <li>
+      <b>Complete Support –</b> Assistance from initial inquiry to registration
+    </li>
+
+    <li>
+      <b>Professional Ethics –</b> Reliable communication and responsible practices
+    </li>
+  </ul>
+
+  <p className="text-black/80 leading-7 mt-4">
+    These strengths position <b>{dealerName}</b> as a dependable property dealer in {dealerCity}.
+  </p>
+</div>
+{/* ASSISTING CONFIDENT PROPERTY DECISIONS */}
+<div className="bg-white rounded-2xl p-6 mt-6 border border-green-200">
+  <h2 className="text-xl font-semibold text-black mb-4">
+    Assisting Confident Property Decisions
+  </h2>
+
+  <p className="text-black/80 leading-7">
+    Property transactions involve financial, legal, and long-term considerations.
+    Clients often seek clarity on:
+  </p>
+
+  <ul className="mt-4 list-disc pl-6 text-black/80 space-y-3">
+    <li>Market valuation</li>
+    <li>Location suitability</li>
+    <li>Legal documentation</li>
+    <li>Investment potential</li>
+  </ul>
+
+  <p className="text-black/80 leading-7 mt-4">
+    <b>{dealerName}</b> provides structured guidance to help clients make
+    informed and confident decisions.
+  </p>
+</div>
+
+{/* CONTACT SECTION */}
+<div className="bg-white rounded-2xl p-6 mt-6 border border-green-200">
+  <h2 className="text-xl font-semibold text-black mb-4">
+    Contact {dealerName}
+  </h2>
+
+  <p className="text-black/80 leading-7">
+    Whether you are planning to buy, sell, rent, or invest in {dealerCity} real estate,
+    professional guidance can simplify the process.
+  </p>
+
+  <p className="text-black/80 leading-7 mt-3">
+    Connect with <b>{dealerName}</b> to discuss your requirements and receive
+    suitable property options based on verified market insights.
+  </p>
+</div>
+
+{/* CONCLUSION */}
+<div className="bg-green-50 rounded-2xl p-6 mt-6 border border-green-200">
+  <h2 className="text-xl font-semibold text-black mb-4">
+    Conclusion
+  </h2>
+
+  <p className="text-black/80 leading-7">
+    {dealerCity}’s real estate market offers diverse opportunities across
+    residential, commercial, and rental segments. Navigating these
+    opportunities effectively requires local knowledge and professional handling.
+  </p>
+
+  <p className="text-black/80 leading-7 mt-3">
+    With transparent processes, market expertise, and complete transaction
+    support, <b>{dealerName}</b> serves as a reliable real estate agent in
+    {dealerCity} for property buyers, sellers, and investors.
+  </p>
+</div>
+
+
 
         {/* FAQ SECTION */}
-        <div className="bg-white rounded-2xl p-6 border border-green-200">
+        <div className="bg-white rounded-2xl p-6 border border-green-200 mt-4">
   <h2 className="text-xl font-semibold text-black mb-4">
     Frequently Asked Questions
   </h2>
@@ -168,20 +278,25 @@ export default function DealerDetailPage() {
   <div className="space-y-4">
     {[
       {
-        q: "Can a property dealer help sell commercial property?",
-        a: "Yes. A professional property dealer assists with valuation, marketing, and transaction execution."
+        q: "Can a property dealer help sell commercial property in Noida?",
+        a: " Yes. A professional property dealer in Noida assists with valuation, marketing, and transaction execution."
       },
       {
         q: `Does ${dealerName} provide rental property services?`,
-        a: "Yes. Both residential and commercial rental services are provided."
+        a: "Yes. Both residential and commercial rental property in Noida are handled"
       },
       {
-        q: "Is legal and documentation support included?",
-        a: "Yes. Title verification, documentation checks, and registration support are provided."
+        q: `Can I find residential property through ${dealerName}`,
+        a: " Yes. Residential property in Noida is a core service."
       },
+      {
+        q: " Is legal and documentation support included?",
+        a: "Yes. Title verification, documentation checks, and registration support are provided."
+      }
+      ,
       {
         q: "How can I begin my property search?",
-        a: `You can contact ${dealerName} and share your requirements to receive guided options.`
+        a: ` You can contact ${dealerName} and share your property requirements to receive guided options.`
       }
     ].map((item, index) => (
       <div

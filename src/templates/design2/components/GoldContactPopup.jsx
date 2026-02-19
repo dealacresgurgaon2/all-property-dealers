@@ -107,7 +107,7 @@ export default function GoldContactPopup({ isOpen, onClose, dealerName }) {
           max-w-lg 
           p-5
           z-[10000]
-          max-h-[80vh]
+          max-h-[60vh]
           overflow-y-auto
         "
       >

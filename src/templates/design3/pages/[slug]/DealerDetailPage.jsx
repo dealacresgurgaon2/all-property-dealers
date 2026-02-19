@@ -130,6 +130,8 @@ export default function DealerDetailPage() {
           <li>Price negotiation guidance</li>
           <li>Registration and paperwork assistance</li>
         </ul>
+        <p className="text-gray-700 mb-4">
+Everything is explained simply. Everything was handled smoothly.        </p>
 
         {/* WHY CHOOSE US */}
         <h2 className="text-xl font-semibold text-black mb-3">
@@ -143,6 +145,8 @@ export default function DealerDetailPage() {
           <li><b>Complete Support</b> – From first inquiry to final registration</li>
           <li><b>Client Satisfaction Focus</b> – Because long-term trust matters more than quick deals</li>
         </ul>
+        <p className="text-gray-700 mb-4">
+This is how a true real estate agent in Hisar should work: steady, honest, reliable.        </p>
 
         {/* HELP SECTION */}
         <h2 className="text-xl font-semibold text-black mb-3">
@@ -152,9 +156,16 @@ export default function DealerDetailPage() {
         <p className="text-gray-700 leading-7 mb-8">
           Many people delay property decisions simply because they feel unsure.  
           Is the price right? Is the location good? Are documents clear?  
-          We help remove that uncertainty and guide you in the right direction.
-        </p>
-
+We help remove that uncertainty. Every property option is explained. Every risk is checked. Every opportunity is explored. So clients move forward with confidence, not guesswork.        </p>
+          <p className="text-gray-700 mb-4">
+That’s the quiet difference a professional best property dealer in Hisar brings.        </p>
+              <h2 className="text-xl font-semibold text-black mb-3">
+         Connect With {dealerName}
+        </h2>
+        <p className="text-gray-700 mb-4">
+If you’re planning to buy, sell, rent, or invest in property, a simple conversation can change everything.        </p>
+        <p className="text-gray-700 mb-4">
+Reach out to us and explore genuine real estate opportunities in Hisar with clarity and comfort. Whether it’s a home, a business space, or an investment plot,  the right guidance is now within reach.        </p>
         {/* CONCLUSION */}
         <h2 className="text-xl font-semibold text-black mb-3">
           Conclusion
@@ -164,8 +175,11 @@ export default function DealerDetailPage() {
           Property decisions are big. Emotional. Financial. Personal.  
           Having the <b>best property dealer in {dealerCity}</b> beside you  
           turns uncertainty into clarity.  
-          <b> {dealerName}</b> stands for honest guidance, market understanding, and smooth real estate experiences.
+          <b> {dealerName}</b> stands for honest guidance, market understanding, and smooth real estate experiences. Whether you’re buying a home, leasing a shop, or investing in land, your property journey deserves support that feels human, not mechanical.
+
         </p>
+        <p className="text-gray-700 mb-4">
+And it all begins with one simple step, reaching out.        </p>
 
         {/* FAQ SECTION */}
         {/* FAQ SECTION */}

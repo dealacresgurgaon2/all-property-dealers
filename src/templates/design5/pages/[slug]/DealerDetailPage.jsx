@@ -17,7 +17,7 @@ export default function DealerDetailPage() {
   };
 
   return (
-    <section className="bg-gray-50 py-14">
+    <section className=" py-8">
       <div className="max-w-4xl mx-auto px-4">
 
         {/* ================= HEADER ================= */}
@@ -49,9 +49,8 @@ export default function DealerDetailPage() {
           </h2>
 
           <p className="text-black/80 leading-7">
-            {dealerCity} is still one of India's largest real estate markets that offers numerous opportunities in the commercial, residential, and rental segments.  
-            The city has established neighbourhoods, growing infrastructure, and constant demand.  
-            {dealerCity} continues to attract home buyers as well as investors, companies, and homebuyers.
+            {dealerCity} is still one of India's largest real estate markets that offers numerous opportunities in the commercial, residential, and rental segments. The city has established neighbourhoods, growing infrastructure, and constant demand. Delhi continues to attract home buyers as well as investors, companies, and homebuyers. 
+            {dealerCity} is an experienced property agent and professional property dealer in Delhi offering organised real estate services to sellers, buyers, landlords, tenants and investors. The primary focus is on clear deals, market-driven direction and legally compliant property transactions.
           </p>
 
           <p className="text-black/80 leading-7 mt-3">
@@ -86,6 +85,9 @@ export default function DealerDetailPage() {
             <li>Accurate documentation compliance</li>
             <li>Ethical and transparent transactions</li>
           </ul>
+          <p className="text-black/80 leading-7">
+            Every transaction is dealt with care and ethical business procedures
+          </p>
         </div>
 
         {/* WORK APPROACH */}
@@ -135,8 +137,21 @@ export default function DealerDetailPage() {
             <li>Price trends based on area</li>
             <li>Developments in connectivity and infrastructure</li>
             <li>Demand for commercial and residential rental</li>
+            <li>Supply and market availability</li>
             <li>Ownership documentation and approvals</li>
           </ul>
+          <p className="text-black/80 leading-7">
+            This market knowledge helps inform decision-making to:
+          </p>
+          
+          <ul className="list-disc ml-6 mt-3 text-black/80">
+            <li>Residential property for sale in Delhi</li>
+            <li>Commercial property available for sale in Delhi</li>
+            <li>Rent property in Delhi</li>
+          </ul>
+          <p className="text-black/80 leading-7">
+            Recommendations are based on data and are location-specific.
+          </p>
         </div>
 
         {/* SERVICES */}
@@ -144,7 +159,9 @@ export default function DealerDetailPage() {
           <h2 className="text-xl font-semibold text-red-600 mb-3">
             Services Offered in {dealerCity}
           </h2>
-
+            <p className="text-black/80 leading-7">
+           They provide a variety of services in Delhi. The services include:
+          </p>
           <ul className="list-disc ml-6 text-black/80">
             <li>Residential property in {dealerCity}</li>
             <li>Assistance with commercial properties</li>
@@ -154,6 +171,9 @@ export default function DealerDetailPage() {
             <li>Assistance in negotiations</li>
             <li>Legal coordination and registration</li>
           </ul>
+          <p className="text-black/80 leading-7">
+            Every service is provided in a transparent manner and with professional accountability.
+          </p>
         </div>
 
         {/* WHY CHOOSE */}
@@ -161,15 +181,84 @@ export default function DealerDetailPage() {
           <h2 className="text-xl font-semibold text-red-600 mb-3">
             Why Choose {dealerName}?
           </h2>
-
+           <p className="text-black/80 leading-7">
+            Selecting the right property broker is crucial in a market as complicated as Delhi.  They offer:
+          </p>
           <ul className="list-disc ml-6 text-black/80">
-            <li>Local Market Experience in {dealerCity}</li>
-            <li>Transparent Procedures</li>
-            <li>Client Focused Solutions</li>
-            <li>End-to-End Assistance</li>
-            <li>Professional Ethics</li>
+            <li>Local Market Experience - Understanding of Delhi's micro-markets and zones {dealerCity}</li>
+            <li>Transparent Procedures - Easy pricing and document guidance</li>
+            <li>Solution-focused for Clients - Property options that are aligned with the objectives of the client</li>
+            <li>End-to-End Assistance - From enquiry to registration</li>
+            <li>Professional Ethics: Reliable Communication and practices that are compliant</li>
           </ul>
+            <p className="text-black/80 leading-7">
+           These strengths make them a reliable agent for property in Delhi.
+          </p>
         </div>
+        {/* INFORMED PROPERTY DECISIONS */}
+<div className="bg-white rounded-2xl p-7 mb-7 border border-red-200 shadow-sm">
+  <h2 className="text-xl font-semibold text-red-600 mb-4">
+    Supporting Informed Property Decisions
+  </h2>
+
+  <p className="text-black leading-7">
+    Real estate transactions involve important legal and financial considerations.
+    Clients often require clarity regarding:
+  </p>
+
+  <ul className="list-disc ml-6 mt-4 text-black space-y-2">
+    <li>Market valuation</li>
+    <li>Location suitability</li>
+    <li>Legal documentation</li>
+    <li>Investment value and long-term usability</li>
+  </ul>
+
+  <p className="text-black leading-7 mt-4">
+    <b>{dealerName}</b> provides structured guidance to help clients evaluate
+    their options and move forward with confidence.
+  </p>
+</div>
+
+{/* CONTACT SECTION */}
+<div className="bg-white rounded-2xl p-7 mb-7 border border-red-200 shadow-sm">
+  <h2 className="text-xl font-semibold text-red-600 mb-4">
+    Contact {dealerName}
+  </h2>
+
+  <p className="text-black leading-7">
+    Whether you are selling, buying, or investing in property in {dealerCity},
+    expert guidance can reduce uncertainty and improve results.
+  </p>
+
+  <p className="text-black leading-7 mt-3">
+    Contact <b>{dealerName}</b> to discuss your requirements and receive
+    property options based on verified market insight.
+  </p>
+</div>
+
+{/* CONCLUSION */}
+<div className="bg-white rounded-2xl p-7 mb-10 border border-red-200 shadow-sm">
+  <h2 className="text-xl font-semibold text-red-600 mb-4">
+    Conclusion
+  </h2>
+
+  <p className="text-black leading-7">
+    The real estate market in {dealerCity} offers security and opportunities
+    across commercial, residential, and rental sectors.
+  </p>
+
+  <p className="text-black leading-7 mt-3">
+    Successfully navigating this market requires local expertise and a
+    professional approach.
+  </p>
+
+  <p className="text-black leading-7 mt-3">
+    With strong market knowledge, transparent processes, and complete
+    transaction support, <b>{dealerName}</b> serves as a reliable property
+    consultant for property owners, buyers, and investors.
+  </p>
+</div>
+
 
         {/* FAQ SECTION */}
         {/* FAQ SECTION */}

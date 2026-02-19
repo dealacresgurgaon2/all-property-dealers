@@ -102,7 +102,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-[80vh] flex items-center overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-black">
+    <section className="relative w-full min-h-[70vh] flex items-center overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-black">
       
       <div className="absolute inset-0 bg-gradient-to-b from-green-700/40 via-green-600/40 to-black/80" />
       <div className="absolute -top-24 -left-24 w-72 h-72 bg-green-500/20 blur-3xl rounded-full" />
