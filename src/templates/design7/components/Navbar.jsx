@@ -54,7 +54,7 @@ export default function Navbar() {
             About
           </Link>
 
-          <Link
+          {/* <Link
             href="/blogs"
             className="
               relative
@@ -70,7 +70,7 @@ export default function Navbar() {
             "
           >
             Blog
-          </Link>
+          </Link> */}
 
           {/* ===== CONTACT BUTTON ===== */}
           <Link
