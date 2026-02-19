@@ -12,6 +12,8 @@ export const DOMAIN_LAYOUT_MAP = {
   "www.propertydealerinfaridabad.com":"faridabad",
   "propertydealerinnoida.com":"noida",
   "www.propertydealerinnoida.com":"noida",
+  "propertydealeringurgaon.com":"gurgaon",
+  "www.propertydealeringurgaon.com":"gurgaon",
   "propertydeler-gold-frontend-yg8l.vercel.app": "haryana",
     "projectwallah.live":"hisar",
     "www.projectwallah.live":"hisar",
