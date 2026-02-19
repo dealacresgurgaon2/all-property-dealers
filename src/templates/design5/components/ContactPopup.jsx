@@ -81,7 +81,7 @@ export default function ContactPopup({ isOpen, onClose }) {
       />
 
       {/* MODAL BOX (Height Reduced) */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg p-5 z-[10000]">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[85vh]  p-5 z-[10000]">
 
         {/* HEADER */}
         <div className="flex justify-between items-center mb-4 border-b border-red-500/30 pb-2">

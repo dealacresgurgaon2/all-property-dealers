@@ -96,21 +96,22 @@ export default function GoldContactPopup({ isOpen, onClose, dealerName }) {
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
       />
 
-      {/* MODAL */}
-      <div
-        className="
-          relative 
-          bg-white 
-          rounded-2xl 
-          shadow-2xl 
-          w-full
-          max-w-lg 
-          p-5
-          z-[10000]
-          max-h-[60vh]
-          overflow-y-auto
-        "
-      >
+     {/* MODAL */}
+<div
+  className="
+    relative
+    bg-white
+    rounded-xl
+    shadow-2xl
+    w-full
+    max-w-md        /* width reduced */
+    p-4             /* padding reduced */
+    z-[10000]
+    max-h-[70vh]    /* slightly better scroll */
+    overflow-y-auto
+  "
+>
+
 
         {/* HEADER */}
         <div className="flex justify-between items-center mb-4 border-b border-[#d4af37]/40 pb-2">

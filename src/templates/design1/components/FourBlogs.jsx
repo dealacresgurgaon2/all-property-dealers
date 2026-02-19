@@ -16,20 +16,18 @@ export default function FourBlogs() {
   const { blogs, loading, setDomain } = useBlogs();
 
   // 👉 Domain detect karke context me set karna
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let currentDomain = window.location.hostname.replace("www.", "");
+ useEffect(() => {
+  if (typeof window !== "undefined") {
+    let hostname = window.location.hostname;
 
-      console.log("Current Domain:", currentDomain);
-
-      // LOCALHOST FIX FOR DEVELOPMENT
-      if (currentDomain === "localhost") {
-        currentDomain = "www.propertydealeringurgaon.com";   // 👈 Apna testing domain yahan change kar sakte ho
-      }
-
-      setDomain(currentDomain);
+    if (hostname === "localhost") {
+      hostname = "www.propertydealeringurgaon.com";
     }
-  }, []);
+
+    setDomain(hostname);
+  }
+}, [setDomain]);
+
 
   if (loading) {
     return (

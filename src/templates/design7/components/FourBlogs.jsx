@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+
 const formatDate = (date) => {
   if (!date) return "";
 
@@ -22,14 +24,13 @@ export default function FourBlogs() {
     const fetchBlogs = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/blogs/getBlogsByFixedDomains/blogs"
+          `${API_BASE}/api/blogs/getBlogsByFixedDomains/blogs`
         );
 
-        setBlogs(res.data.data);
-        setLoading(false);
-
+        setBlogs(res.data.data || []);
       } catch (error) {
         console.log("Error fetching blogs:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -45,13 +46,11 @@ export default function FourBlogs() {
     );
   }
 
-  // 🔥 Sirf first 4 blogs
   const fourBlogs = blogs.slice(0, 4);
 
   return (
     <section className="px-4 py-8 bg-[#f8fafc]">
       <div className="max-w-7xl mx-auto">
-
         <h2 className="text-2xl font-bold text-purple-700 mb-6">
           Latest Blogs
         </h2>
@@ -91,12 +90,10 @@ export default function FourBlogs() {
                 <p className="text-sm text-blue-600 mt-1">
                   {formatDate(post.date)}
                 </p>
-
               </Link>
             );
           })}
         </div>
-
       </div>
     </section>
   );

@@ -1,8 +1,10 @@
 "use client";
+import { useState } from "react";
 
 import Link from "next/link";
 
 export default function Footer() {
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
 
   const hisarLocations = [
     "Sector 1-4, Hisar",
@@ -131,10 +133,7 @@ export default function Footer() {
                 Property <span className="text-white/80">Dealer</span>
               </h3>
 
-              <p className="text-white/80 leading-6 text-sm mb-5">
-                Your trusted real estate partner for buying, selling and
-                investing in premium properties across top cities.
-              </p>
+             
             </div>
 
             {/* HISAR LOCATIONS – ONLY 21 LOCATIONS */}
@@ -192,6 +191,35 @@ export default function Footer() {
 
             </div>
 
+          </div>
+          <div className="">
+            <p className="font-semibold mb-2 text-white">
+              Disclaimer :
+            </p>
+
+            <p className="text-white/60 text-sm leading-6 max-w-4xl">
+              {!showDisclaimer ? (
+                <>
+                  The property dealers listed on this platform are not employed,...
+                  <span
+                    onClick={() => setShowDisclaimer(true)}
+                    className="ml-2 text-[#d4af37] cursor-pointer hover:underline"
+                  >
+                    Read More
+                  </span>
+                </>
+              ) : (
+                <>
+                  The property dealers listed on this platform are not employed, endorsed, or directly affiliated with us. Dealer information is aggregated from publicly available sources across the web. Users are advised to independently verify credentials, documents, and transaction details before proceeding. We act solely as a discovery and connection platform and shall not be held responsible for any disputes, losses, or issues arising from dealings with listed dealers.
+                  <span
+                    onClick={() => setShowDisclaimer(false)}
+                    className="ml-2 text-[#d4af37] cursor-pointer hover:underline"
+                  >
+                    Show Less
+                  </span>
+                </>
+              )}
+            </p>
           </div>
 
           {/* DIVIDER */}
