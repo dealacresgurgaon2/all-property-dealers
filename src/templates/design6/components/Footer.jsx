@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 export default function Footer() {
-
+const [isMobile, setIsMobile] = useState(false);
+const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
 
   const noidaSectors = [
@@ -32,42 +33,68 @@ export default function Footer() {
 
   const footerLocations = sortedNoida.slice(0, 21);
   const topLocations = sortedNoida.slice(21);
+useEffect(() => {
+  const checkScreen = () => {
+    setIsMobile(window.innerWidth < 640);
+  };
+
+  checkScreen();
+  window.addEventListener("resize", checkScreen);
+
+  return () => window.removeEventListener("resize", checkScreen);
+}, []);
 
   return (
     <>
-      {/* UPPER LOCATIONS SECTION */}
-      <section className="bg-white py-10">
-        <div className="max-w-7xl mx-auto px-4">
+     {/* UPPER LOCATIONS SECTION */}
+<section className="bg-white py-10">
+  <div className="max-w-7xl mx-auto px-4">
 
-          <h3 className="text-xl font-bold text-black mb-6">
-            Property Dealers Across Noida
-          </h3>
+    <h3 className="text-xl font-bold text-black mb-6">
+      Property Dealers Across Noida
+    </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {topLocations.map((loc, index) => {
+    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {(isMobile && !showAllMobileLocations
+        ? topLocations.slice(0, 20)
+        : topLocations
+      ).map((loc, index) => {
 
-              const slug = loc
-                .toLowerCase()
-                .replaceAll(",", "")
-                .replaceAll("/", "")
-                .replaceAll("  ", " ")
-                .trim()
-                .replaceAll(" ", "-");
+        const slug = loc
+          .toLowerCase()
+          .replaceAll(",", "")
+          .replaceAll("/", "")
+          .replaceAll("  ", " ")
+          .trim()
+          .replaceAll(" ", "-");
 
-              return (
-                <Link
-                  key={index}
-                  href={`/noida/${slug}?location=${encodeURIComponent(loc)}`}
-                  className="text-black hover:text-green-600 transition text-sm truncate"
-                >
-                  Property Dealer in {loc}
-                </Link>
-              );
-            })}
-          </div>
+        return (
+          <Link
+            key={index}
+            href={`/noida/${slug}?location=${encodeURIComponent(loc)}`}
+            className="text-black hover:text-green-600 transition text-sm truncate"
+          >
+            Property Dealer in {loc}
+          </Link>
+        );
+      })}
+    </div>
 
-        </div>
-      </section>
+    {/* Mobile Know More */}
+    {isMobile && !showAllMobileLocations && topLocations.length > 20 && (
+      <div className="mt-4">
+        <span
+          onClick={() => setShowAllMobileLocations(true)}
+          className="text-black cursor-pointer hover:underline text-sm font-medium"
+        >
+          Know More
+        </span>
+      </div>
+    )}
+
+  </div>
+</section>
+
 
       {/* MAIN FOOTER */}
       <footer className="relative bg-[#0b120e] text-white overflow-hidden">
@@ -81,7 +108,7 @@ export default function Footer() {
             {/* BRAND ONLY */}
             <div>
               <h3 className="text-2xl font-bold text-green-500">
-                PropertyDealer
+                Property Dealer Noida
               </h3>
             </div>
 
@@ -89,7 +116,7 @@ export default function Footer() {
             <div className="lg:col-span-3">
 
               <h4 className="text-xl font-semibold mb-6 text-green-500">
-                Popular Locations in Noida
+                Real Estate Agents in Popular Locations Noida
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3">
@@ -128,13 +155,12 @@ export default function Footer() {
             <p className="text-white/60 text-sm leading-6 max-w-4xl">
               {!showDisclaimer ? (
                 <>
-                  The property dealers listed on this platform are not employed,
-                  endorsed, or directly affiliated with us...
+                 ...
                   <span
                     onClick={() => setShowDisclaimer(true)}
                     className="ml-2 text-green-500 cursor-pointer hover:underline"
                   >
-                    Read More
+                    Learn More
                   </span>
                 </>
               ) : (
@@ -161,20 +187,23 @@ export default function Footer() {
           <div className="my-12 h-px bg-gradient-to-r from-transparent via-green-600/40 to-transparent" />
 
           {/* COPYRIGHT */}
-          <div className="text-center text-sm text-white/60">
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/60">
             <p>
-              © {new Date().getFullYear()} PropertyDealer. All rights reserved.
+              © {new Date().getFullYear()} Property Dealer Noida. All rights reserved.
             </p>
 
             <div className="mt-2">
-              <Link
-                href="https://www.parcharmanch.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition"
-              >
-                Designed by Parchar Manch
-              </Link>
+                     <p>
+  Designed by :{" "}
+  <Link
+    href="https://www.parcharmanch.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline hover:text-white"
+  >
+    Parchar Manch
+  </Link>
+</p>
             </div>
           </div>
 

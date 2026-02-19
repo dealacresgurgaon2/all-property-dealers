@@ -238,7 +238,7 @@ export default function AboutSection() {
           </p>
 
           <Link
-            href="/dealers"
+            href="/"
             className="inline-block px-8 py-3 bg-white text-green-700 font-semibold rounded-lg hover:scale-105 transition"
           >
             Browse Dealers

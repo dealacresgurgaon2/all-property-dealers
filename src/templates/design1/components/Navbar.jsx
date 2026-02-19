@@ -15,7 +15,7 @@ export default function Navbar() {
           href="/"
           className="text-2xl font-bold text-white tracking-wide"
         >
-          Property<span className="text-[#38bdf8]">Dealer</span>
+          Property<span className="text-[#38bdf8]"> Dealer Gurgaon</span>
         </Link>
 
         {/* DESKTOP NAV */}

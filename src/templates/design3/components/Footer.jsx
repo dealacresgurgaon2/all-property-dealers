@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 import Link from "next/link";
 
 export default function Footer() {
   const [showDisclaimer, setShowDisclaimer] = useState(false);
-
+const [isMobile, setIsMobile] = useState(false);
+const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
   const hisarLocations = [
     "Sector 1-4, Hisar",
     "12 Quarter Road, Hisar",
@@ -76,46 +77,74 @@ export default function Footer() {
   // Upper section: remaining locations
   const topLocations = hisarLocations.slice(21);
 
+
+useEffect(() => {
+  const checkScreen = () => {
+    setIsMobile(window.innerWidth < 640);
+  };
+
+  checkScreen();
+  window.addEventListener("resize", checkScreen);
+
+  return () => window.removeEventListener("resize", checkScreen);
+}, []);
+
   return (
     <>
       {/* UPPER LOCATIONS SECTION – WHITE BG */}
       <section className="bg-white py-10">
-        <div className="max-w-7xl mx-auto px-4">
+  <div className="max-w-7xl mx-auto px-4">
 
-          <h3 className="text-xl font-bold text-[#5E23DC] mb-6">
-            Property Dealers Across Hisar
-          </h3>
+    <h3 className="text-xl font-bold text-[#5E23DC] mb-6">
+      Property Dealers Across Hisar
+    </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {topLocations.map((loc, index) => {
+    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {(isMobile && !showAllMobileLocations
+        ? topLocations.slice(0, 20)
+        : topLocations
+      ).map((loc, index) => {
 
-              const slug = loc
-                .toLowerCase()
-                .replace(/,/g, "")
-                .replace(/\s+/g, "-");
+        const slug = loc
+          .toLowerCase()
+          .replace(/,/g, "")
+          .replace(/\s+/g, "-");
 
-              return (
-                <Link
-                  key={index}
-                  href={`/hisar/${slug}?location=${encodeURIComponent(loc)} `}
-                  title={`Property Dealer in ${loc}`}
-                  className="
-                    text-black
-                    hover:text-[#5E23DC]
-                    transition
-                    text-sm
-                    whitespace-nowrap
-                    truncate
-                  "
-                >
-                  Property Dealer in {loc}
-                </Link>
-              );
-            })}
-          </div>
+        return (
+          <Link
+            key={index}
+            href={`/hisar/${slug}?location=${encodeURIComponent(loc)}`}
+            title={`Property Dealer in ${loc}`}
+            className="
+              text-black
+              hover:text-[#5E23DC]
+              transition
+              text-sm
+              whitespace-nowrap
+              truncate
+            "
+          >
+            Property Dealer in {loc}
+          </Link>
+        );
+      })}
+    </div>
 
-        </div>
-      </section>
+    {/* Mobile Know More */}
+    {isMobile && !showAllMobileLocations && topLocations.length > 20 && (
+      <div className="mt-4">
+        <span
+          onClick={() => setShowAllMobileLocations(true)}
+          className="text-black cursor-pointer hover:underline text-sm font-medium"
+        >
+          Know More
+        </span>
+      </div>
+    )}
+
+  </div>
+</section>
+
 
       {/* MAIN FOOTER SECTION */}
       <footer className="relative bg-[#5E23DC] text-white overflow-hidden">
@@ -130,7 +159,7 @@ export default function Footer() {
             {/* BRAND SECTION */}
             <div className="md:col-span-3">
               <h3 className="text-xl font-bold mb-2 tracking-wide">
-                Property <span className="text-white/80">Dealer</span>
+                Property <span className="text-white/80"> Dealer Hisar</span>
               </h3>
 
              
@@ -140,7 +169,7 @@ export default function Footer() {
             <div className="md:col-span-9 w-full">
 
               <h4 className="font-semibold text-base mb-4">
-                Popular Locations in Hisar
+               Real Estate Agents in Popular Locations Hisar
               </h4>
 
               {/* 3 COLUMN FOOTER */}
@@ -200,12 +229,12 @@ export default function Footer() {
             <p className="text-white/60 text-sm leading-6 max-w-4xl">
               {!showDisclaimer ? (
                 <>
-                  The property dealers listed on this platform are not employed,...
+                  ...
                   <span
                     onClick={() => setShowDisclaimer(true)}
                     className="ml-2 text-[#d4af37] cursor-pointer hover:underline"
                   >
-                    Read More
+                    Learn More
                   </span>
                 </>
               ) : (
@@ -226,22 +255,24 @@ export default function Footer() {
           <div className="my-7 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
           {/* BOTTOM BAR */}
-          <div className="text-center justify-center text-sm  text-white/70">
+          <div className="flex flex-col md:flex-row max-w-7xl mx-auto justify-between items-center text-sm  text-white/70">
 
             <p>
-              © {new Date().getFullYear()} PropertyDealer. All rights reserved.
+              © {new Date().getFullYear()} Property Dealer Hisar. All rights reserved.
             </p>
 
             <div className="">
-              <Link 
-  href="https://www.parcharmanch.com" 
-  target="_blank"
-  rel="noopener noreferrer"
-  className="hover:text-white transition"
->
-  Designed by Parchar Manch
-</Link>
-
+                      <p>
+  Designed by :{" "}
+  <Link
+    href="https://www.parcharmanch.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline hover:text-white"
+  >
+    Parchar Manch
+  </Link>
+</p>
 
               
             </div>

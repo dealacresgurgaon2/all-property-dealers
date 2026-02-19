@@ -94,7 +94,7 @@ export default function Hero() {
 
             <p className="text-lg text-white/80 mb-8 max-w-xl">
               We help you buy, sell and rent properties in prime locations.
-              100% verified listings and trusted property dealers.
+              Real Estate Agents listings and trusted property dealers.
             </p>
 
             <button

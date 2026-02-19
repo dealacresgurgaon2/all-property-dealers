@@ -119,11 +119,11 @@ export default function DealersSection({ domain }) {
       <div className="max-w-7xl mx-auto px-4">
 
         <div className="mb-8">
-          <h2 className="text-3xl font-extrabold text-[#0b1f33]">
-            Top Property Dealers
+          <h2 className="text-3xl font-bold text-[#0b1f33]">
+             Real Estate Broker and Property consultants in Gurgaon
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            Verified agents & trusted property consultants
+          
           </p>
         </div>
 

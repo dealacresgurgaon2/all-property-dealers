@@ -126,13 +126,13 @@ export default function DealersSection({ domain }) {
       <div className="max-w-7xl mx-auto px-4">
 
         <div className="mb-10">
-          <h2 className="text-3xl font-extrabold text-gray-800">
-            Top Property Dealers
+          <h2 className="text-3xl font-bold text-gray-800">
+            Real Estate Broker and Property consultants in Delhi
           </h2>
 
-          <p className="text-sm text-gray-500 mt-2">
+          {/* <p className="text-sm text-gray-500 mt-2">
             Verified agents & trusted property consultants
-          </p>
+          </p> */}
 
           <div className="w-16 h-1 bg-red-600 mt-3 rounded-full"></div>
 

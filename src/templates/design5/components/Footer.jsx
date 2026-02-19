@@ -17,8 +17,8 @@ export default function Footer() {
 
           {/* BRAND */}
           <div>
-            <h3 className="text-3xl font-extrabold text-red-500 mb-4 tracking-wide">
-              Property <span className="text-white">Dealer</span>
+            <h3 className="text-2xl font-bold text-red-500 mb-4 tracking-wide">
+              Property <span className="text-white"> Dealer Delhi</span>
             </h3>
           </div>
 
@@ -88,13 +88,12 @@ export default function Footer() {
           <p className="text-white/60 text-sm leading-6 max-w-4xl">
             {!showDisclaimer ? (
               <>
-                The property dealers listed on this platform are not employed,
-                endorsed, or directly affiliated with us...
+                ...
                 <span
                   onClick={() => setShowDisclaimer(true)}
                   className="ml-2 text-red-500 cursor-pointer hover:underline"
                 >
-                  Read More
+                  Learn More
                 </span>
               </>
             ) : (
@@ -122,21 +121,24 @@ export default function Footer() {
         <div className="my-12 h-px bg-gradient-to-r from-transparent via-red-600/40 to-transparent" />
 
         {/* BOTTOM BAR */}
-        <div className="flex flex-col md:flex-row items-center justify-between text-sm text-white/50 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/50 gap-4">
 
           <div>
-            © {new Date().getFullYear()} PropertyDealer. All rights reserved.
+            © {new Date().getFullYear()} Property Dealer Delhi. All rights reserved.
           </div>
 
           <div>
-            <Link
-              href="https://www.parcharmanch.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition"
-            >
-              Designed by Parchar Manch
-            </Link>
+                    <p>
+  Designed by :{" "}
+  <Link
+    href="https://www.parcharmanch.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="underline hover:text-white"
+  >
+    Parchar Manch
+  </Link>
+</p>
           </div>
 
         </div>

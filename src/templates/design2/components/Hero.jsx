@@ -12,7 +12,7 @@ export default function Hero() {
   });
 
   useEffect(() => {
-    const targets = { listings: 5000, cities: 25, years: 10 };
+    const targets = { listings:1000 , cities: 25, years: 20 };
     const duration = 2000;
     const steps = 60;
     let step = 0;
@@ -76,7 +76,7 @@ export default function Hero() {
 
             <p className="text-lg text-white/85 mb-8 max-w-xl">
               Buy, sell & rent luxury properties in prime locations.
-              100% verified listings with trusted property dealers.
+              Real Estste Agents listings with trusted property dealers.
             </p>
 
             <button
@@ -88,8 +88,8 @@ export default function Hero() {
 
             {/* STATS */}
             <div className="grid grid-cols-3 gap-4 max-w-md mt-10">
-              <Stat value={`${counts.listings.toLocaleString()}+`} label="Verified Listings" />
-              <Stat value={`${counts.cities}+`} label="Cities Covered" />
+              <Stat value={`${counts.listings.toLocaleString()}+`} label=" Listings" />
+              
               <Stat value={`${counts.years}+`} label="Years Experience" />
             </div>
           </div>

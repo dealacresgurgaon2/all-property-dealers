@@ -26,6 +26,7 @@ function CityDealers({ urlCity }) {
 
   const [activeLocation, setActiveLocation] = useState(null);
   const [showAllLocations, setShowAllLocations] = useState(false);
+const [isMobile, setIsMobile] = useState(false);
 
   // ================= Helpers =================
 
@@ -76,7 +77,7 @@ function CityDealers({ urlCity }) {
         setAllDealers(finalData);
         setCity(urlCity);
       } catch (err) {
-        console.log("City dealers error:", err);
+        
         setDealers([]);
         setAllDealers([]);
       } finally {
@@ -112,7 +113,7 @@ function CityDealers({ urlCity }) {
 
         setLocations(finalLocations);
       } catch (error) {
-        console.log("Location fetch error:", error);
+        
         setLocations([]);
       } finally {
         setLoadingLocations(false);
@@ -158,13 +159,26 @@ function CityDealers({ urlCity }) {
       }, 150);
     }
   };
+  useEffect(() => {
+  const checkScreen = () => {
+    setIsMobile(window.innerWidth < 640);
+  };
+
+  checkScreen();
+  window.addEventListener("resize", checkScreen);
+
+  return () => window.removeEventListener("resize", checkScreen);
+}, []);
+
 
   // ================= Mobile Only Limit =================
 
-  const visibleLocations =
-    showAllLocations || locations.length <= 20
-      ? locations
-      : locations.slice(0, 20);
+ const visibleLocations =
+  isMobile && !showAllLocations
+    ? locations.slice(0, 20)
+    : locations;
+
+
 
   return (
     <section className="bg-slate-50 min-h-screen py-12">
@@ -233,7 +247,8 @@ function CityDealers({ urlCity }) {
               </ul>
 
               {/* 🔥 Read More Text (Mobile Only) */}
-              {locations.length > 20 && !showAllLocations && (
+              {isMobile && locations.length > 20 && !showAllLocations && (
+
                 <div className="mt-4 sm:hidden">
                   <span
                     onClick={() => setShowAllLocations(true)}

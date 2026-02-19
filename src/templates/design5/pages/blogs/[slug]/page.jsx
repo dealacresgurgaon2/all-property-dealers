@@ -134,43 +134,50 @@ export default function SingleBlogPage() {
 
         {/* ================= MAIN STACK ================= */}
         <div className="lg:col-span-2">
+             
+          <div className="lg:col-span-2">
 
-          {blogStack.map((blog, index) => (
-            <div key={`${blog._id}-${index}`} className="mb-20">
+  {blogStack.map((blog, index) => (
+    <div key={`${blog._id}-${index}`} className="mb-20">
 
-              {index !== 0 && <hr className="mb-12 border-gray-300" />}
+      {index !== 0 && <hr className="mb-12 border-gray-300" />}
 
-              {/* ===== HERO IMAGE ===== */}
-              <div className="relative w-full h-[460px] rounded-2xl overflow-hidden mb-8">
-                <Image
-                  src={blog.heroImg}
-                  alt={blog.title?.rendered}
-                  fill
-                  priority={index === 0}
-                  className="object-cover"
-                />
+      {/* ===== HEADING + DATE (TOP) ===== */}
+      <div className="mb-6">
+        <h1 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight">
+          {blog.title?.rendered}
+        </h1>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-red-600/90 via-black/20 to-transparent"></div>
+        <p className="text-sm text-gray-500 mt-3">
+          Published on {formatDate(blog.date)}
+        </p>
+      </div>
 
-                <div className="absolute bottom-6 left-6 right-6">
-                  <h1 className="text-2xl md:text-4xl font-bold text-white">
-                    {blog.title?.rendered}
-                  </h1>
-                  <p className="text-white/90 mt-2">
-                    Published on {formatDate(blog.date)}
-                  </p>
-                </div>
-              </div>
+      {/* ===== HERO IMAGE ===== */}
+      <div className="relative w-full h-[460px] rounded-2xl overflow-hidden mb-8">
+        <Image
+          src={blog.heroImg}
+          alt={blog.title?.rendered}
+          fill
+          priority={index === 0}
+          className="object-cover"
+        />
+      </div>
 
-              {/* ===== CONTENT ===== */}
-              <div
-                className="text-gray-700 leading-relaxed space-y-6 text-[17px]"
-                dangerouslySetInnerHTML={{
-                  __html: blog.content?.rendered,
-                }}
-              />
-            </div>
-          ))}
+      {/* ===== CONTENT ===== */}
+      <div
+        className="text-gray-700 leading-relaxed space-y-6 text-[17px]"
+        dangerouslySetInnerHTML={{
+          __html: blog.content?.rendered,
+        }}
+      />
+
+    </div>
+  ))}
+
+</div>
+
+
 
           {/* 🔥 Infinite Loader */}
           {nextLoading && (

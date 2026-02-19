@@ -74,20 +74,16 @@ export default function DealerCard({ dealer }) {
             {dealer.name}
           </h3>
           <p className="text-xs text-black/60">
-            {dealer.city}
+            {dealer.address}
             {/* {dealer.state && `, ${dealer.state}`} */}
           </p>
-        </div>
-      </div>
-
-      {/* ADDRESS */}
-      <p
+          <p
         className="
           text-xs
-          text-gray-700
+          text-black
           mb-1
           flex items-start gap-2
-          leading-snug
+          leading-snug mt-2
         "
       >
         <span className="mt-0.5 shrink-0 text-red-600">
@@ -108,8 +104,13 @@ export default function DealerCard({ dealer }) {
             <circle cx="12" cy="11" r="2.5" />
           </svg>
         </span>
-        <span className="line-clamp-2">{dealer.address}</span>
+        <span className="line-clamp-2">{dealer.city}</span>
       </p>
+        </div>
+      </div>
+
+      {/* ADDRESS */}
+      
 
       {/* TAGS */}
       {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (

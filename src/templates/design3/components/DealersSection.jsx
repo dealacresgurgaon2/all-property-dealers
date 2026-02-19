@@ -97,7 +97,7 @@ export default function DealersSection({ domain }) {
       <div className="max-w-7xl mx-auto px-4">
 
         <h2 className="text-3xl font-bold text-[#5E23DC] mb-8">
-          Top Property Dealers
+          Real Estate Broker and Property consultants in Hisar
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -75,8 +75,8 @@ export default function DealerCard({ dealer }) {
           <h3 className="text-lg font-bold text-black leading-tight">
             {dealer.name}
           </h3>
-          <p className="text-xs text-black/60">
-            {dealer.city}{dealer.state && `, ${dealer.state}`}
+          <p className="text-xs text-black/80">
+            {dealer.address}
           </p>
         </div>
       </div>
@@ -103,8 +103,8 @@ export default function DealerCard({ dealer }) {
   </svg>
 
   {/* Address Text */}
-  <p className="text-sm text-black/70 leading-snug line-clamp-2">
-    {dealer.address}
+  <p className="text-sm text-black leading-snug line-clamp-2">
+    {dealer.city}{dealer.state && `, ${dealer.state}`}
   </p>
 
 </div>

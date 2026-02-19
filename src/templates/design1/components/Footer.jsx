@@ -1,11 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+ 
 
 export default function Footer() {
 
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+const [isMobile, setIsMobile] = useState(false);
+const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
+
 
   const locations = [
     "Sector 86, Gurgaon","Sector 92, Gurgaon","Sector 37D, Gurgaon",
@@ -55,41 +60,68 @@ export default function Footer() {
 
   const footerLocations = sortedLocations.slice(0, 21);
   const topLocations = sortedLocations.slice(21);
+ useEffect(() => {
+  const checkScreen = () => {
+    setIsMobile(window.innerWidth < 640);
+  };
+
+  checkScreen();
+  window.addEventListener("resize", checkScreen);
+
+  return () => window.removeEventListener("resize", checkScreen);
+}, []);
+
 
   return (
     <>
-      {/* UPPER LOCATIONS SECTION */}
-      <section className="bg-[#f8fafc] py-10">
-        <div className="max-w-7xl mx-auto px-4">
+     <section className="bg-[#f8fafc] py-10">
+  <div className="max-w-7xl mx-auto px-4">
 
-          <h3 className="text-xl font-bold text-[#0b1f33] mb-6">
-            Property Dealers Across Gurgaon
-          </h3>
+    <h3 className="text-xl font-bold text-[#0b1f33] mb-6">
+      Property Dealers Across Gurgaon
+    </h3>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {topLocations.map((loc, index) => {
+    <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
+      {(isMobile && !showAllMobileLocations
+        ? topLocations.slice(0, 20)
+        : topLocations
+      ).map((loc, index) => {
 
-              const slug = loc
-                .toLowerCase()
-                .replaceAll(",", "")
-                .replaceAll("  ", " ")
-                .trim()
-                .replaceAll(" ", "-");
+        const slug = loc
+          .toLowerCase()
+          .replaceAll(",", "")
+          .replaceAll("  ", " ")
+          .trim()
+          .replaceAll(" ", "-");
 
-              return (
-                <Link
-                  key={index}
-                  href={`/gurgaon/${slug}?location=${encodeURIComponent(loc)}`}
-                  className="text-[#1e40af] hover:text-[#0b1f33] transition text-sm truncate"
-                >
-                  Property Dealer in {loc}
-                </Link>
-              );
-            })}
-          </div>
+        return (
+          <Link
+            key={index}
+            href={`/gurgaon/${slug}?location=${encodeURIComponent(loc)}`}
+            className="text-[#1e40af] hover:text-[#0b1f33] transition text-sm truncate"
+          >
+            Property Dealer in {loc}
+          </Link>
+        );
+      })}
+    </div>
 
-        </div>
-      </section>
+    {/* Know More – ONLY if mobile */}
+    {isMobile && !showAllMobileLocations && topLocations.length > 20 && (
+      <div className="mt-4">
+        <span
+          onClick={() => setShowAllMobileLocations(true)}
+          className="text-[#1e40af] cursor-pointer hover:underline text-sm font-medium"
+        >
+          Know More
+        </span>
+      </div>
+    )}
+
+  </div>
+</section>
+
+
 
       {/* MAIN FOOTER */}
       <footer className="bg-[#0b1f33] text-white w-full">
@@ -100,15 +132,15 @@ export default function Footer() {
 
             {/* BRAND ONLY */}
             <div>
-              <h3 className="text-2xl font-bold mb-3">
-                Property<span className="text-[#38bdf8]">Dealer</span>
+              <h3 className="text-1xl font-bold mb-3">
+                Property<span className="text-[#38bdf8]"> Dealer Gurgaon</span>
               </h3>
             </div>
 
             {/* POPULAR LOCATIONS */}
             <div className="lg:col-span-3">
               <h4 className="text-xl font-semibold text-[#38bdf8] mb-5">
-                Popular Locations in Gurgaon
+               Real Estate Agents in Popular Locations Gurgaon
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3">
@@ -147,13 +179,12 @@ export default function Footer() {
             <p className="text-white/60 text-sm leading-6 max-w-4xl">
               {!showDisclaimer ? (
                 <>
-                  The property dealers listed on this platform are not employed,
-                  endorsed, or directly affiliated with us...
+                  ...
                   <span
                     onClick={() => setShowDisclaimer(true)}
                     className="ml-2 text-[#38bdf8] cursor-pointer hover:underline"
                   >
-                    Read More
+                   Learn More
                   </span>
                 </>
               ) : (
@@ -180,20 +211,28 @@ export default function Footer() {
           <div className="my-10 h-px bg-gradient-to-r from-transparent via-[#1e40af]/50 to-transparent" />
 
           {/* COPYRIGHT */}
-          <div className="flex flex-col items-center text-center text-sm text-white/60 gap-1">
-            <p>
-              © {new Date().getFullYear()} PropertyDealer. All rights reserved.
-            </p>
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/60 gap-2">
 
-            <Link
-              href="https://www.parcharmanch.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-white transition"
-            >
-              Designed by Parchar Manch
-            </Link>
-          </div>
+  {/* LEFT SIDE */}
+  <p>
+    © {new Date().getFullYear()} Property Dealer Gurgaon. All rights reserved.
+  </p>
+
+  {/* RIGHT SIDE */}
+  <p>
+    Designed by :{" "}
+    <Link
+      href="https://www.parcharmanch.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline hover:text-white transition"
+    >
+      Parchar Manch
+    </Link>
+  </p>
+
+</div>
+
 
         </div>
       </footer>

@@ -29,7 +29,7 @@ export default function DealerCard({ dealer }) {
           border border-green-500/40
           bg-white
           flex items-center justify-center
-          text-green-600
+          
           hover:bg-green-600
           hover:text-white
           transition-all
@@ -37,7 +37,7 @@ export default function DealerCard({ dealer }) {
         "
         title="Save dealer"
       >
-        ❤
+       ❤
       </button>
 
       <div className="p-5 flex flex-col h-full">
@@ -66,18 +66,39 @@ export default function DealerCard({ dealer }) {
 
             <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
               <span className="flex items-center gap-1">
-                 {dealer.city}{dealer.state && `, ${dealer.state}`}
+                 {dealer.address}
               </span>
             </div>
           </div>
         </div>
 
         {/* ADDRESS CARD */}
-        <div className="bg-green-50/50 border border-green-200 rounded-lg p-3 mb-3">
-          <p className="text-sm text-gray-700 leading-snug line-clamp-2">
-            {dealer.address}
-          </p>
-        </div>
+      <div className="bg-green-50/50 border border-green-200 rounded-lg p-3 mb-3">
+  <div className="flex items-center gap-2">
+
+    {/* Location SVG */}
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className="w-5 h-5 text-green-600 flex-shrink-0"
+    >
+      <path
+        fillRule="evenodd"
+        d="M12 2.25c-4.418 0-8 3.582-8 8 0 5.25 8 11.5 8 11.5s8-6.25 8-11.5c0-4.418-3.582-8-8-8zm0 11a3 3 0 100-6 3 3 0 000 6z"
+        clipRule="evenodd"
+      />
+    </svg>
+
+    {/* Location Text */}
+    <p className="text-sm text-gray-700 leading-snug line-clamp-2">
+      {dealer.city}
+      {dealer.state && `, ${dealer.state}`}
+    </p>
+
+  </div>
+</div>
+
 
         {/* TAGS */}
         {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (

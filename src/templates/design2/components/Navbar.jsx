@@ -31,7 +31,7 @@ export default function Navbar() {
           "
         >
           <span className="text-[#d4af37]">Property</span>
-          <span>Dealer</span>
+          <span> Dealer Faridabad</span>
         </Link>
 
         {/* DESKTOP NAV LINKS */}

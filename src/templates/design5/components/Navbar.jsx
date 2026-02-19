@@ -30,7 +30,7 @@ export default function Navbar() {
           "
         >
           <span className="text-red-600">Property</span>
-          <span>Dealer</span>
+          <span> Dealer Delhi</span>
         </Link>
 
         {/* DESKTOP NAV LINKS */}

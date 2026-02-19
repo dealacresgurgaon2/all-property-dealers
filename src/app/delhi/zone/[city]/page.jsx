@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-
+import { useState, useEffect } from "react";
 export default function ZonePage() {
   const params = useParams();
   const zone = params?.city;
-  console.log("hjdcg =>",zone)
-
+  
+const [isMobile, setIsMobile] = useState(false);
+const [showAll, setShowAll] = useState(false);
   const zones = {
     "central-delhi": ['Ajmeri Gate',
       'Amrita Shergill Marg',
@@ -1145,6 +1146,16 @@ export default function ZonePage() {
     ?.replace(/-/g, " ")
     .replace(/\b\w/g, (c) => c.toUpperCase());
 
+useEffect(() => {
+  const checkScreen = () => {
+    setIsMobile(window.innerWidth < 640);
+  };
+
+  checkScreen();
+  window.addEventListener("resize", checkScreen);
+
+  return () => window.removeEventListener("resize", checkScreen);
+}, []);
   return (
    <section className="min-h-screen bg-white py-16">
   <div className="max-w-7xl mx-auto px-6">
@@ -1165,7 +1176,10 @@ export default function ZonePage() {
     {/* LIST */}
     <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-8 text-gray-700">
 
-      {locations.map((location, index) => (
+      {(isMobile && !showAll
+  ? locations.slice(0, 20)
+  : locations
+).map((location, index) => (
         <li key={index}>
           <Link
             href={`/delhi/${createSlug(location)}`}
@@ -1178,6 +1192,16 @@ export default function ZonePage() {
       ))}
 
     </ul>
+{isMobile && !showAll && locations.length > 20 && (
+  <div className="mt-6 text-center">
+    <span
+      onClick={() => setShowAll(true)}
+      className="cursor-pointer text-red-600 font-medium hover:underline"
+    >
+      Know More
+    </span>
+  </div>
+)}
 
   </div>
 </section>

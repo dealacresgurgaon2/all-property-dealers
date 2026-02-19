@@ -26,9 +26,9 @@ export default function DealerDetailPage() {
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
             <div>
-              <span className="inline-block bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full mb-2 border border-red-300">
+              {/* <span className="inline-block bg-red-100 text-red-600 text-xs px-3 py-1 rounded-full mb-2 border border-red-300">
                 Verified Property Dealer
-              </span>
+              </span> */}
 
               <h1 className="text-3xl md:text-4xl font-extrabold text-black leading-tight">
                 {dealerName} – Professional Property Dealer in {dealerCity}

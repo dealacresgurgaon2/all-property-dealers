@@ -21,7 +21,7 @@ export default function Hero() {
   });
 
   useEffect(() => {
-    const targets = { listings: 5000, cities: 25, years: 10 };
+    const targets = { listings: 500, cities: 25, years: 20 };
     const duration = 2000;
     const steps = 60;
     let step = 0;
@@ -176,7 +176,7 @@ export default function Hero() {
           <div className="text-white">
             <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/20 text-sm">
               <span className="w-2 h-2 rounded-full bg-green-500" />
-              Trusted • Verified • Premium
+              Trusted • Premium
             </span>
 
             <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
@@ -191,7 +191,7 @@ export default function Hero() {
 
             <p className="text-lg text-white/85 mb-8 max-w-xl">
               Buy, sell & rent premium properties in prime locations.
-              100% verified listings with trusted property dealers.
+              Real Estate Agents listings with trusted property dealers.
             </p>
 
             <div className="flex gap-4 flex-wrap mb-8">
@@ -204,8 +204,8 @@ export default function Hero() {
             </div>
 
             <div className="grid grid-cols-3 gap-4 max-w-md">
-              <Stat value={`${counts.listings.toLocaleString()}+`} label="Verified Listings" />
-              <Stat value={`${counts.cities}+`} label="Cities Covered" />
+              <Stat value={`${counts.listings.toLocaleString()}+`} label=" Listings" />
+             
               <Stat value={`${counts.years}+`} label="Years Experience" />
             </div>
           </div>

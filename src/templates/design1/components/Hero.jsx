@@ -94,7 +94,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-base md:text-lg text-white/75 mb-7 max-w-xl">
-              Verified listings, expert consultants and transparent deals
+             Property listings, expert consultants and transparent deals
               for buying, selling and renting properties.
             </p>
 
