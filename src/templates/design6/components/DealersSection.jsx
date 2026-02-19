@@ -13,9 +13,11 @@ export default function DealersSection({ domain }) {
     useDealers();
 
   // 🔥 Fix localhost domain
-  useEffect(() => {
+   useEffect(() => {
     if (domain && domain === "localhost") {
       setDomain("propertydealerinnoida.com");
+    } else {
+      setDomain(domain);
     }
   }, [domain, setDomain]);
 
