@@ -17,20 +17,16 @@ export default function FourBlogs() {
 
  useEffect(() => {
   if (typeof window !== "undefined") {
-    let currentDomain = window.location.hostname.replace("www.", "");
+    let hostname = window.location.hostname;
 
-    console.log("Current Domain:", currentDomain);
-
-    if (
-      currentDomain === "localhost" ||
-      currentDomain.includes("propertydeler-gold-frontend-lp3d.vercel.app")
-    ) {
-      currentDomain = "www.propertydealerinhisar.com";
+    if (hostname === "localhost") {
+      hostname = "www.propertydealerinhisar.com";
     }
 
-    setDomain(currentDomain);
+    setDomain(hostname);
   }
-}, []);
+}, [setDomain]);
+
 
  // 👈 FIXED
 
@@ -60,7 +56,7 @@ export default function FourBlogs() {
   const fourBlogs = blogs.slice(0, 4);
 
   return (
-    <section className="px-4 py-8 bg-white">
+    <section className="px-4 py-8 ">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-[#5E23DC] mb-6">
           Latest Blogs

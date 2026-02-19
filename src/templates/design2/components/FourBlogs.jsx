@@ -57,7 +57,7 @@ export default function FourBlogs() {
   const fourBlogs = blogs.slice(0, 4);
 
   return (
-    <section className="px-4 py-8 bg-[#f8fafc]">
+    <section className="px-4 py-8 ">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-[#d4af37] mb-6">
           Latest Blogs
