@@ -106,7 +106,7 @@ export default function DealerCard({ dealer }) {
             <span className="line-clamp-2">{dealer.address}</span>
           </p>
 
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-black mt-1">
             {dealer.city}{dealer.state && `, ${dealer.state}`}
           </p>
 
@@ -116,7 +116,7 @@ export default function DealerCard({ dealer }) {
                 <span
                   key={index}
                   className="
-                    text-[10px]
+                    text-[13px]
                     px-2 py-0.5
                     rounded-full
                     bg-[#1e40af]/10

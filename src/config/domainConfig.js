@@ -4,7 +4,7 @@ export const DOMAIN_LAYOUT_MAP = {
   "propertydeler-gold-frontend-lp3d.vercel.app": "hisar",
   "propertydeler-gold-frontend-xkw9.vercel.app": "noida",
   "propertydeler-gold-frontend-k2da.vercel.app": "delhi",
-  "propertydeler-gold-frontend-w423.vercel.app": "sonipate",
+  "propertydeler-gold-frontend-w423.vercel.app": "sonipat",
   "https://propertydealerinhisar.com":"hisar",
   "www.propertydealerinhisar.com":"hisar",
   "www.propertydealerinhisar.com/":"hisar",
@@ -18,7 +18,7 @@ export const DOMAIN_LAYOUT_MAP = {
     "https://www.projectwallah.live/":"hisar",
     "https://projectwallah.live/":"hisar",
   "property-dealer-in-hisar-2.vercel.app": "hisar",
-"localhost:3000": "hisar",
+"localhost:3000": "faridabad",
 };
 
-export const DEFAULT_LAYOUT = "sonipate"
+export const DEFAULT_LAYOUT = "sonipat"

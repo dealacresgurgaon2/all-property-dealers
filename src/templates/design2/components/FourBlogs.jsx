@@ -17,20 +17,18 @@ export default function FourBlogs() {
 
  useEffect(() => {
   if (typeof window !== "undefined") {
-    let currentDomain = window.location.hostname.replace("www.", "");
+    let hostname = window.location.hostname;
 
-    console.log("Current Domain:", currentDomain);
-
-    if (
-      currentDomain === "localhost" ||
-      currentDomain.includes("propertydeler-gold-frontend-9wvp.vercel.app")
-    ) {
-      currentDomain = "www.propertydealerinfaridabad.com";
+    if (hostname === "localhost") {
+      hostname = "www.propertydealerinfaridabad.com";
     }
 
-    setDomain(currentDomain);
+    setDomain(hostname);
   }
-}, []);
+}, [setDomain]);
+
+
+
 
   if (loading) {
     return (
