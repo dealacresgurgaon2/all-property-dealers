@@ -152,7 +152,7 @@ export default function Navbar() {
               About
             </Link>
 
-            <Link
+            {/* <Link
               href="/blogs"
               onClick={() => setOpen(false)}
               className="
@@ -166,7 +166,7 @@ export default function Navbar() {
               "
             >
               Blog
-            </Link>
+            </Link> */}
 
             {/* ===== CONTACT MOBILE ===== */}
             <Link
