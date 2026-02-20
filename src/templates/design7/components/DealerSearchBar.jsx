@@ -13,7 +13,7 @@ export default function DealerSearchBar({ onSearch }) {
   };
 
   return (
-    <div className="mb-10 max-w-[900px] mx-auto">
+    <div className="mb-10 max-w-[900px] mx-auto px-3">
 
       <div
         className="
@@ -24,15 +24,16 @@ export default function DealerSearchBar({ onSearch }) {
           shadow-md
           hover:shadow-xl
           transition-all
-          p-2
+          p-2 sm:p-3
+          overflow-hidden
         "
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
 
-          {/* ICON - SAME AS BEFORE */}
-          <div className="p-3 rounded-xl bg-indigo-50 text-indigo-600">
+          {/* ICON */}
+          <div className="p-2 sm:p-3 rounded-xl bg-indigo-50 text-indigo-600">
             <svg
-              className="w-6 h-6"
+              className="w-5 h-5 sm:w-6 sm:h-6"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -47,42 +48,45 @@ export default function DealerSearchBar({ onSearch }) {
             </svg>
           </div>
 
-          {/* INPUT AREA */}
+          {/* INPUT */}
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Search dealers by name, city or location..."
+            placeholder="Search dealers..."
             className="
               flex-1
-              text-base md:text-lg
+              min-w-0
+              text-sm sm:text-base md:text-lg
               outline-none
               bg-transparent
               placeholder-gray-400
               text-gray-800
-              px-2
+              px-1
             "
           />
 
-          {/* SEARCH BUTTON - NEW STYLE */}
+          {/* BUTTON */}
           <button
             onClick={() => onSearch(query)}
             className="
-              px-6 py-3
+              px-3 sm:px-6
+              py-2 sm:py-3
               rounded-xl
               bg-gradient-to-r from-indigo-600 to-purple-600
               text-white
+              text-xs sm:text-base
               font-semibold
               hover:opacity-90
               transition
-              flex items-center gap-2
+              flex items-center gap-1 sm:gap-2
+              whitespace-nowrap
             "
           >
             Search
-
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -100,14 +104,7 @@ export default function DealerSearchBar({ onSearch }) {
           </button>
 
         </div>
-
-        {/* BOTTOM HINT STRIP */}
-        {/* <div className="mt-2 text-xs text-gray-400 pl-1">
-          Try: “Delhi”, “Gurgaon”, “Commercial Dealer”
-        </div> */}
-
       </div>
-
     </div>
   );
 }
