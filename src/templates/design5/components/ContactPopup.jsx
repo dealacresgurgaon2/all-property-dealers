@@ -24,7 +24,6 @@ export default function ContactPopup({ isOpen, onClose }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Phone validation (only digits, max 10)
     if (name === "phone") {
       if (!/^\d*$/.test(value)) return;
       if (value.length > 10) return;
@@ -44,13 +43,6 @@ export default function ContactPopup({ isOpen, onClose }) {
     setLoading(true);
 
     try {
-      // 🔥 API Ready
-      // await fetch("/api/contact", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(formData),
-      // });
-
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       alert("Message Sent Successfully!");
@@ -72,7 +64,7 @@ export default function ContactPopup({ isOpen, onClose }) {
   };
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center px-3">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center px-3 sm:px-4">
 
       {/* BACKDROP */}
       <div
@@ -80,25 +72,33 @@ export default function ContactPopup({ isOpen, onClose }) {
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
       />
 
-      {/* MODAL BOX (Height Reduced) */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md max-h-[85vh]  p-5 z-[10000]">
-
+      {/* MODAL BOX */}
+      <div
+        className="
+        relative z-[10000]
+        w-full max-w-md
+        bg-white rounded-2xl shadow-2xl
+        border border-red-500/30
+        p-4 sm:p-6
+        max-h-[95vh] overflow-y-auto
+      "
+      >
         {/* HEADER */}
-        <div className="flex justify-between items-center mb-4 border-b border-red-500/30 pb-2">
-          <h2 className="text-lg font-extrabold text-black tracking-wide">
+        <div className="flex justify-between items-start mb-4 border-b border-red-500/30 pb-3">
+          <h2 className="text-base sm:text-lg font-extrabold text-black leading-snug pr-4">
             Contact Form
           </h2>
 
           <button
             onClick={onClose}
-            className="text-red-600 text-2xl hover:scale-110 transition"
+            className="text-red-600 text-xl sm:text-2xl hover:scale-110 transition"
           >
             ✕
           </button>
         </div>
 
         {/* FORM */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
 
           <input
             type="text"
@@ -107,7 +107,9 @@ export default function ContactPopup({ isOpen, onClose }) {
             onChange={handleChange}
             required
             placeholder="Full Name"
-            className="w-full border border-red-500/40 rounded-xl p-2.5 text-black focus:outline-none focus:ring-2 focus:ring-red-500/50 transition text-sm"
+            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                       focus:outline-none focus:ring-2 focus:ring-red-500/50 
+                       transition text-sm"
           />
 
           <input
@@ -118,7 +120,9 @@ export default function ContactPopup({ isOpen, onClose }) {
             onChange={handleChange}
             required
             placeholder="Phone Number"
-            className="w-full border border-red-500/40 rounded-xl p-2.5 text-black focus:outline-none focus:ring-2 focus:ring-red-500/50 transition text-sm"
+            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                       focus:outline-none focus:ring-2 focus:ring-red-500/50 
+                       transition text-sm"
           />
 
           <input
@@ -128,14 +132,18 @@ export default function ContactPopup({ isOpen, onClose }) {
             onChange={handleChange}
             required
             placeholder="Email Address"
-            className="w-full border border-red-500/40 rounded-xl p-2.5 text-black focus:outline-none focus:ring-2 focus:ring-red-500/50 transition text-sm"
+            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                       focus:outline-none focus:ring-2 focus:ring-red-500/50 
+                       transition text-sm"
           />
 
           <select
             name="option"
             value={formData.option}
             onChange={handleChange}
-            className="w-full border border-red-500/40 rounded-xl p-2.5 text-black focus:outline-none focus:ring-2 focus:ring-red-500/50 transition text-sm"
+            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                       focus:outline-none focus:ring-2 focus:ring-red-500/50 
+                       transition text-sm"
           >
             <option>Buy Property</option>
             <option>Sell Property</option>
@@ -148,23 +156,26 @@ export default function ContactPopup({ isOpen, onClose }) {
             value={formData.description}
             onChange={handleChange}
             placeholder="Describe your requirement..."
-            className="w-full border border-red-500/40 rounded-xl p-2.5 text-black focus:outline-none focus:ring-2 focus:ring-red-500/50 transition text-sm resize-none"
+            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                       focus:outline-none focus:ring-2 focus:ring-red-500/50 
+                       transition text-sm resize-none"
           />
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-red-600 text-white py-2.5 rounded-xl font-semibold hover:bg-red-700 transition-all shadow-md disabled:opacity-60 text-sm"
+            className="w-full bg-red-600 text-white py-3 rounded-xl font-semibold 
+                       hover:bg-red-700 transition-all shadow-md 
+                       disabled:opacity-60 text-sm"
           >
             {loading ? "Sending..." : "Send Message"}
           </button>
 
         </form>
 
-        <p className="text-[10px] text-gray-600 text-center mt-3">
+        <p className="text-[11px] text-gray-600 text-center mt-4">
           Your information is safe with us. We never share your details.
         </p>
-
       </div>
     </div>,
     document.body
