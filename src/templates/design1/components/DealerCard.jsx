@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import ContactPopup from "./ContactPopup";      // 👈 ONLY NEW IMPORT
+import ContactPopup from "./ContactPopup";
 
 export default function DealerCard({ dealer }) {
   const [liked, setLiked] = useState(false);
-  const [openPopup, setOpenPopup] = useState(false);   // 👈 ONLY NEW STATE
+  const [openPopup, setOpenPopup] = useState(false);
 
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
@@ -20,25 +20,24 @@ export default function DealerCard({ dealer }) {
         group relative
         bg-white
         border border-gray-200
-        rounded
+        rounded-xl
         shadow-sm
         transition-all duration-300 ease-out
-        hover:-translate-y-2
-        hover:shadow-2xl
+        hover:-translate-y-1 sm:hover:-translate-y-2
+        hover:shadow-xl
         hover:border-[#1e40af]/40
       "
     >
+      {/* Hover ring */}
+      <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition duration-300 ring-2 ring-[#1e40af]/20" />
 
-      <div className="pointer-events-none absolute inset-0 rounded opacity-0 group-hover:opacity-100 transition duration-300 ring-2 ring-[#1e40af]/20" />
-
+      {/* Like Button */}
       <button
         onClick={() => setLiked(!liked)}
         aria-label="Add to favourites"
-        className={`
-          absolute top-3 right-3 z-20
-          transition-all duration-300
-          ${liked ? "scale-110" : "scale-100"}
-        `}
+        className={`absolute top-3 right-3 z-20 transition-all duration-300 ${
+          liked ? "scale-110" : "scale-100"
+        }`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -58,20 +57,22 @@ export default function DealerCard({ dealer }) {
         </svg>
       </button>
 
-      <div className="flex gap-4 p-4 relative z-10">
+      <div className="flex gap-3 sm:gap-4 p-4 relative z-10">
 
+        {/* Avatar */}
         <div className="flex-shrink-0">
           <div
             className="
               bg-gradient-to-br from-[#1e40af] to-[#1d4ed8]
               text-white
-              font-bold text-xl
+              font-bold
+              text-lg sm:text-xl
               rounded-lg
-              px-5 py-4
-              min-w-[72px]
+              px-4 py-3 sm:px-5 sm:py-4
+              min-w-[60px] sm:min-w-[72px]
               flex items-center justify-center
               transition-transform duration-300
-              group-hover:scale-110
+              group-hover:scale-105
               shadow-md
             "
           >
@@ -79,12 +80,15 @@ export default function DealerCard({ dealer }) {
           </div>
         </div>
 
+        {/* Content */}
         <div className="flex-1 flex flex-col">
-          <h3 className="text-base font-bold text-[#0b1f33]">
+
+          <h3 className="text-sm sm:text-base font-bold text-[#0b1f33]">
             {dealer.name}
           </h3>
 
-          <p className="text-xs text-gray-600 mt-0.5 flex items-start gap-2 leading-snug">
+          {/* Address */}
+          <p className="text-xs text-gray-600 mt-1 flex items-start gap-2 leading-snug">
             <span className="mt-0.5 text-[#1e40af] shrink-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,16 +111,18 @@ export default function DealerCard({ dealer }) {
           </p>
 
           <p className="text-xs text-black mt-1">
-            {dealer.city}{dealer.state && `, ${dealer.state}`}
+            {dealer.city}
+            {dealer.state && `, ${dealer.state}`}
           </p>
 
+          {/* Tags */}
           {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-2">
-              {dealer.tags.map((tag, index) => (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {dealer.tags.slice(0, 5).map((tag, index) => (
                 <span
                   key={index}
                   className="
-                    text-[13px]
+                    text-[11px] sm:text-[13px]
                     px-2 py-0.5
                     rounded-full
                     bg-[#1e40af]/10
@@ -131,16 +137,17 @@ export default function DealerCard({ dealer }) {
             </div>
           )}
 
-          <div className="flex gap-3 mt-auto pt-3 border-t border-gray-200">
+          {/* Buttons */}
+          <div className="flex gap-2 sm:gap-3 mt-4 pt-3 border-t border-gray-200">
 
-            {/* 👇 ONLY THIS PART CHANGED */}
             <button
               onClick={() => setOpenPopup(true)}
               className="
-                px-3 py-1.5
+                flex-1
+                py-2
                 bg-[#1e40af]
                 text-white
-                text-xs
+                text-[11px] sm:text-xs
                 rounded-md
                 font-semibold
                 hover:bg-[#1d4ed8]
@@ -159,30 +166,32 @@ export default function DealerCard({ dealer }) {
                 },
               }}
               className="
-                px-3 py-1.5
+                flex-1
+                py-2
                 border border-[#1e40af]
                 text-[#1e40af]
-                text-xs
+                text-[11px] sm:text-xs
                 rounded-md
                 font-semibold
                 hover:bg-[#1e40af]
                 hover:text-white
                 transition
+                text-center
               "
             >
               View Details
             </Link>
+
           </div>
         </div>
       </div>
 
-      {/* 👇 ONLY NEW ADDITION */}
+      {/* Popup */}
       <ContactPopup
         isOpen={openPopup}
         onClose={() => setOpenPopup(false)}
         dealerName={dealer.name}
       />
-
     </div>
   );
 }
