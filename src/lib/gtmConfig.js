@@ -1,0 +1,4 @@
+export const GTM_IDS = {
+    "www.propertydealerindelhi.com": "GTM-NL4P6JP3",
+  "localhost": "GTM-MD7W3G3K",
+}
