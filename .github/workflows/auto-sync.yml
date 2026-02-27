@@ -22,12 +22,6 @@ jobs:
 
       - name: Sync to Property Dealers Repo
         run: |
-          git remote remove mirror || true
-          git remote add mirror https://x-access-token:${{ secrets.PROPERTY_DEALER_HISAR_TOKEN }}@github.com/propertydealerhisar/Property_Dealer_In_Hisar.git
-          git push mirror HEAD:main --force
-
-      - name: Sync to Property Dealers Repo
-        run: |
           git remote remove second || true
           git remote add second https://x-access-token:${{ secrets.PROPERTY_DEALERS_TOKEN }}@github.com/propertydealerhisar/All_Property_Dealers.git
           git push second HEAD:main --force
