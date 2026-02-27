@@ -21,7 +21,7 @@ export default function DealersSection({ domain }) {
   useEffect(() => {
     if (
       domain &&
-      (domain === "propertydeler-gold-frontend-lp3d.vercel.app" ||
+      (domain === "propertydeler-gold-frontend-lp3d.vercel.app" || "all-property-dealers.vercel.app" ||
         domain === "localhost")
     ) {
       setDomain("propertydealerinhisar.com");
