@@ -54,7 +54,7 @@ export default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* ✅ Google Tag Manager here */}
+        {/* ✅ Google Tag Manager  */}
         <GoogleTagManager gtmId={gtmId} />
 
         {/* ✅ Google Analytics */}
