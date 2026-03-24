@@ -3,15 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 import { useBlogs } from "@/context/blogcontext/BlogContext";
 import ContactPopup from "@/templates/design5/components/ContactPopup";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
-const MAX_BLOGS = 8;
-
 const formatDate = (date) => {
+  if (!date) return "";
   const d = new Date(date);
   return `${d.getDate().toString().padStart(2, "0")}-${(d.getMonth() + 1)
     .toString()
@@ -25,93 +23,28 @@ export default function SingleBlogPage() {
     singleBlog,
     fetchSingleBlog,
     recentBlogs,
-    loading,
+    singleLoading,
     singleError,
     listError,
     setPage,
+    clearSingleBlog,
   } = useBlogs();
 
-  const [blogStack, setBlogStack] = useState([]);
-  const [nextLoading, setNextLoading] = useState(false);
   const [popupOpen, setPopupOpen] = useState(false);
+  const [activeFAQ, setActiveFAQ] = useState(null);
 
-  const bottomRef = useRef(null);
-  const isFetchingRef = useRef(false);
-
-  // 🔹 First Load
+  // LOAD BLOG
   useEffect(() => {
     if (slug) {
+      clearSingleBlog();
       fetchSingleBlog(slug);
       setPage(1);
       window.scrollTo(0, 0);
     }
   }, [slug]);
 
-  // 🔹 Reset Stack
-  useEffect(() => {
-    if (singleBlog) {
-      setBlogStack([singleBlog]);
-    }
-  }, [singleBlog]);
-
-  // 🔥 Infinite Scroll
-  useEffect(() => {
-    if (!bottomRef.current) return;
-    if (blogStack.length === 0) return;
-    if (blogStack.length >= MAX_BLOGS) return;
-
-    const observer = new IntersectionObserver(
-      async (entries) => {
-        if (!entries[0].isIntersecting) return;
-        if (isFetchingRef.current) return;
-
-        isFetchingRef.current = true;
-        setNextLoading(true);
-
-        const lastBlog = blogStack[blogStack.length - 1];
-
-        try {
-          const res = await fetch(
-            `${API_BASE}/api/blogs/next/${lastBlog.slug}`
-          );
-          const result = await res.json();
-
-          if (result.success && result.data) {
-            setBlogStack((prev) => {
-              if (prev.length >= MAX_BLOGS) return prev;
-
-              const exists = prev.some(
-                (b) => b._id === result.data._id
-              );
-              if (exists) return prev;
-
-              return [...prev, result.data];
-            });
-
-            window.history.replaceState(
-              null,
-              "",
-              `/blogs/${result.data.slug}`
-            );
-          }
-        } catch (err) {
-          console.error("Next fetch error:", err);
-        }
-
-        setNextLoading(false);
-        isFetchingRef.current = false;
-      },
-      {
-        rootMargin: "300px",
-      }
-    );
-
-    observer.observe(bottomRef.current);
-    return () => observer.disconnect();
-  }, [blogStack]);
-
-  // 🔹 Loading Screen
-  if (loading && blogStack.length === 0) {
+  // LOADER
+  if (singleLoading || !singleBlog) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
         <div className="w-14 h-14 border-4 border-red-600/30 border-t-red-600 rounded-full animate-spin"></div>
@@ -120,6 +53,7 @@ export default function SingleBlogPage() {
     );
   }
 
+  // ERROR
   if (singleError) {
     return (
       <div className="py-32 text-center text-xl text-red-700">
@@ -132,74 +66,113 @@ export default function SingleBlogPage() {
     <section className="bg-white py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
 
-        {/* ================= MAIN STACK ================= */}
+        {/* ===== MAIN ===== */}
         <div className="lg:col-span-2">
-             
-          <div className="lg:col-span-2">
 
-  {blogStack.map((blog, index) => (
-    <div key={`${blog._id}-${index}`} className="mb-20">
+          {/* TITLE */}
+          <div className="mb-6">
+            <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
+              {singleBlog?.Title}
+            </h1>
 
-      {index !== 0 && <hr className="mb-12 border-gray-300" />}
+            <p className="text-sm text-gray-500 mt-3">
+              Published on {formatDate(singleBlog?.Date)}
+            </p>
+          </div>
 
-      {/* ===== HEADING + DATE (TOP) ===== */}
-      <div className="mb-6">
-        <h1 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight">
-          {blog.title?.rendered}
-        </h1>
+          {/* HERO */}
+          <div className="relative w-full h-[460px] rounded-2xl overflow-hidden mb-8">
+            <Image
+              src={
+                typeof singleBlog?.HeroImg === "string"
+                  ? singleBlog?.HeroImg
+                  : singleBlog?.HeroImg?.url || "/placeholder.jpg"
+              }
+              alt={singleBlog?.Title}
+              fill
+              className="object-cover"
+            />
+          </div>
 
-        <p className="text-sm text-gray-500 mt-3">
-          Published on {formatDate(blog.date)}
-        </p>
-      </div>
+          {/* CONTENT */}
+          <div className="space-y-6 text-gray-700 text-[17px] leading-relaxed">
+            {singleBlog?.Content?.map((section) => (
+              <div key={section?._id}>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: section?.content,
+                  }}
+                />
 
-      {/* ===== HERO IMAGE ===== */}
-      <div className="relative w-full h-[460px] rounded-2xl overflow-hidden mb-8">
-        <Image
-          src={blog.heroImg}
-          alt={blog.title?.rendered}
-          fill
-          priority={index === 0}
-          className="object-cover"
-        />
-      </div>
+                {section?.img?.url && (
+                  <Image
+                    src={section.img.url}
+                    alt="blog"
+                    width={900}
+                    height={600}
+                    className="rounded-xl mt-4"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
 
-      {/* ===== CONTENT ===== */}
-      <div
-        className="text-gray-700 leading-relaxed space-y-6 text-[17px]"
-        dangerouslySetInnerHTML={{
-          __html: blog.content?.rendered,
-        }}
-      />
+          {/* FAQ */}
+          {singleBlog?.FAQs?.length > 0 && (
+            <div className="mt-16">
+              <h2 className="text-2xl font-bold mb-6 text-gray-900">
+                FAQs
+              </h2>
 
-    </div>
-  ))}
+              <div className="space-y-4">
+                {singleBlog.FAQs.map((faq, i) => {
+                  const isOpen = activeFAQ === i;
 
-</div>
+                  return (
+                    <div
+                      key={i}
+                      className={`rounded-xl border ${
+                        isOpen
+                          ? "bg-red-50 border-red-400"
+                          : "bg-white border-gray-200"
+                      }`}
+                    >
+                      <button
+                        onClick={() =>
+                          setActiveFAQ(isOpen ? null : i)
+                        }
+                        className="w-full p-4 flex justify-between"
+                      >
+                        <span>{faq.Q}</span>
+                        <span
+                          className={`${
+                            isOpen ? "rotate-180 text-red-600" : ""
+                          }`}
+                        >
+                          ⌄
+                        </span>
+                      </button>
 
-
-
-          {/* 🔥 Infinite Loader */}
-          {nextLoading && (
-            <div className="space-y-6 mb-20 animate-pulse">
-              <div className="h-8 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-[300px] bg-gray-200 rounded-2xl"></div>
-              <div className="h-4 bg-gray-200 rounded"></div>
+                      {isOpen && (
+                        <div className="px-4 pb-4 text-gray-600">
+                          {faq.A}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
 
-          {blogStack.length < MAX_BLOGS && (
-            <div ref={bottomRef} className="h-20"></div>
-          )}
         </div>
 
-        {/* ================= SIDEBAR ================= */}
+        {/* ===== SIDEBAR ===== */}
         <div className="hidden lg:block">
           <div className="sticky top-24 space-y-6">
 
-            {/* RECENT BLOGS */}
             <div className="bg-white border border-red-600/20 rounded-2xl p-5">
-              <h3 className="text-xl font-bold text-red-600 mb-4 border-b border-red-600/20 pb-2">
+              <h3 className="text-xl font-bold text-red-600 mb-4 border-b pb-2">
                 Recent Blogs
               </h3>
 
@@ -210,31 +183,33 @@ export default function SingleBlogPage() {
               )}
 
               <div className="space-y-4">
-                {recentBlogs?.map((b) => (
-                  <Link
-                    key={b._id}
-                    href={`/blogs/${b.slug}`}
-                    className="flex gap-3 p-3 rounded-xl hover:bg-red-600/5"
-                  >
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-                      <Image
-                        src={b.heroImg}
-                        alt={b.title?.rendered}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                {recentBlogs
+                  ?.slice(0, 5)
+                  .map((b, i) => (
+                    <Link
+                      key={b?._id || b?.Slug || i}
+                      href={`/blogs/${b?.Slug}`}
+                      className="flex gap-3 p-3 rounded-xl hover:bg-red-50"
+                    >
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden">
+                        <Image
+                          src={b?.HeroImg?.url || "/placeholder.jpg"}
+                          alt={b?.Title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
 
-                    <div>
-                      <p className="text-xs text-gray-500">
-                        {formatDate(b.date)}
-                      </p>
-                      <h4 className="text-sm font-semibold text-red-600 line-clamp-2">
-                        {b.title?.rendered}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
+                      <div>
+                        <p className="text-xs text-gray-500">
+                          {formatDate(b?.Date)}
+                        </p>
+                        <h4 className="text-sm font-semibold text-red-600 line-clamp-2">
+                          {b?.Title}
+                        </h4>
+                      </div>
+                    </Link>
+                  ))}
               </div>
             </div>
 

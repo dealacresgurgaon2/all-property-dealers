@@ -6,6 +6,7 @@ import { useBlogs } from "../../../../context/blogcontext/BlogContext";
 
 // 📅 Date formatter
 const formatDate = (date) => {
+  if (!date) return "N/A";
   const d = new Date(date);
   return `${d.getDate().toString().padStart(2, "0")}-${(d.getMonth() + 1)
     .toString()
@@ -13,15 +14,19 @@ const formatDate = (date) => {
 };
 
 export default function BlogList() {
-const { blogs, page, setPage, totalPages, loading } = useBlogs();
-  // 🔒 SAFETY CHECKS
-  if (loading) {
+  const { blogs = [], page, setPage, totalPages, listloading, listerror } = useBlogs();
+
+  // ✅ SORT LATEST FIRST
+  const sortedBlogs = [...blogs].sort(
+    (a, b) => new Date(b?.date || b?.Date) - new Date(a?.date || a?.Date)
+  );
+
+  // ===== LOADING =====
+  if (listloading) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-white">
-
         <div className="flex flex-col items-center gap-4">
 
-          {/* Animated Loader */}
           <div className="w-14 h-14 border-4 border-green-700/30 border-t-green-700 rounded-full animate-spin"></div>
 
           <h2 className="text-lg text-green-700 font-semibold">
@@ -33,7 +38,24 @@ const { blogs, page, setPage, totalPages, loading } = useBlogs();
           </p>
 
         </div>
+      </div>
+    );
+  }
 
+  // ===== ERROR =====
+  if (listerror) {
+    return (
+      <div className="min-h-[300px] flex items-center justify-center text-red-600 text-lg">
+        {listerror || "Something went wrong"}
+      </div>
+    );
+  }
+
+  // ===== EMPTY =====
+  if (!sortedBlogs.length) {
+    return (
+      <div className="min-h-[300px] flex items-center justify-center text-gray-700 text-lg">
+        No blogs available
       </div>
     );
   }
@@ -60,33 +82,72 @@ const { blogs, page, setPage, totalPages, loading } = useBlogs();
         {/* BLOG GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-         {blogs.map((post) => (
+          {sortedBlogs.map((post, i) => {
 
-          <Link
-            key={post._id}
-            href={`/blogs/${post.slug}`}
-            className="group bg-white border border-green-700/20 rounded-xl shadow-sm p-4 hover:shadow-md transition"
-          >
+            // ✅ SAFE TITLE
+            const titleText =
+              typeof post?.title === "object"
+                ? post?.title?.rendered
+                : post?.title || post?.Title || "Untitled Blog";
 
-            <div className="relative w-full h-56 rounded-md overflow-hidden mb-4">
-              <Image
-                src={post.heroImg}
-                alt={post.title?.rendered}
-                fill
-                className="object-cover"
-              />
-            </div>
+            // ✅ SAFE IMAGE
+            const imageUrl =
+              post?.heroImg ||
+              post?.HeroImg?.url ||
+              "/placeholder.jpg";
 
-            <h3 className="text-lg font-semibold text-green-700 mb-2">
-              {post.title?.rendered}
-            </h3>
+            // ✅ SAFE SLUG
+            const slug = post?.slug || post?.Slug;
 
-            <p className="text-sm text-gray-600">
-              {formatDate(post.date)}
-            </p>
+            // ✅ CATEGORY
+            const category =
+              typeof post?.category === "string"
+                ? post.category
+                : typeof post?.Category === "string"
+                ? post.Category
+                : Array.isArray(post?.categories)
+                ? post.categories[0]?.name || post.categories[0]
+                : post?.categories || null;
 
-          </Link>
-          ))}
+            return (
+              <Link
+                key={post?._id || slug || i}
+                href={`/blogs/${slug}`}
+                className="group bg-white border border-green-700/20 rounded-xl shadow-sm p-4 hover:shadow-lg hover:-translate-y-1 transition duration-300"
+              >
+
+                {/* IMAGE */}
+                <div className="relative w-full h-56 rounded-md overflow-hidden mb-4">
+                  <Image
+                    src={imageUrl}
+                    alt={titleText}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+
+                {/* 🔥 CATEGORY */}
+                {category && (
+                  <div className="mb-2">
+                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-green-100 text-green-700">
+                      {category}
+                    </span>
+                  </div>
+                )}
+
+                {/* TITLE */}
+                <h3 className="text-lg font-semibold text-green-800 mb-2 line-clamp-2 group-hover:text-green-700">
+                  {titleText}
+                </h3>
+
+                {/* DATE */}
+                <p className="text-sm text-gray-600">
+                  {formatDate(post?.date || post?.Date)}
+                </p>
+
+              </Link>
+            );
+          })}
 
         </div>
 
@@ -94,6 +155,3 @@ const { blogs, page, setPage, totalPages, loading } = useBlogs();
     </section>
   );
 }
-
-
-
