@@ -1,14 +1,10 @@
-
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useBlogs } from "@/context/blogcontext/BlogContext";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
-const MAX_BLOGS = 8;
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -24,104 +20,34 @@ export default function SingleBlogPage() {
     singleBlog,
     fetchSingleBlog,
     recentBlogs,
-    loading,
+    singleLoading,
     singleError,
     setPage,
+    clearSingleBlog, // 👈 IMPORTANT
   } = useBlogs();
 
-  const [blogStack, setBlogStack] = useState([]);
-  const [nextLoading, setNextLoading] = useState(false);
-  const bottomRef = useRef(null);
-  const isFetchingRef = useRef(false);
+  const [activeFAQ, setActiveFAQ] = useState(null);
 
-  // 🔹 First Load
+  // 🔥 LOAD BLOG (FIXED)
   useEffect(() => {
     if (slug) {
+      clearSingleBlog(); // old remove
       fetchSingleBlog(slug);
       setPage(1);
       window.scrollTo(0, 0);
     }
   }, [slug]);
 
-  // 🔹 Reset stack
-  useEffect(() => {
-    if (singleBlog) {
-      setBlogStack([singleBlog]);
-    }
-  }, [singleBlog]);
-
-  // 🔥 Infinite Scroll
-  useEffect(() => {
-    if (!bottomRef.current) return;
-    if (blogStack.length === 0) return;
-    if (blogStack.length >= MAX_BLOGS) return;
-
-    const observer = new IntersectionObserver(
-      async (entries) => {
-        if (!entries[0].isIntersecting) return;
-        if (isFetchingRef.current) return;
-
-        isFetchingRef.current = true;
-        setNextLoading(true);
-
-        const lastBlog = blogStack[blogStack.length - 1];
-
-        try {
-          const res = await fetch(
-            `${API_BASE}/api/blogs/next/${lastBlog.slug}`
-          );
-          const result = await res.json();
-
-          if (result.success && result.data) {
-            setBlogStack((prev) => {
-              if (prev.length >= MAX_BLOGS) return prev;
-
-              const exists = prev.some(
-                (b) => b._id === result.data._id
-              );
-              if (exists) return prev;
-
-              return [...prev, result.data];
-            });
-
-            window.history.replaceState(
-              null,
-              "",
-              `/blogs/${result.data.slug}`
-            );
-          }
-        } catch (err) {
-          console.error("Next fetch error:", err);
-        }
-
-        setNextLoading(false);
-        isFetchingRef.current = false;
-      },
-      {
-        rootMargin: "300px",
-        threshold: 0,
-      }
-    );
-
-    observer.observe(bottomRef.current);
-
-    return () => observer.disconnect();
-  }, [blogStack]);
-
-  // 🔹 Full Page First Loading
-  if (loading && blogStack.length === 0) {
+  // 🔥 LOADER
+  if (singleLoading || !singleBlog) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-16 h-16 border-4 border-[#5E23DC]/20 border-t-[#5E23DC] rounded-full animate-spin"></div>
-          <p className="text-[#5E23DC] font-semibold animate-pulse">
-            Loading Blog...
-          </p>
-        </div>
+        <div className="w-16 h-16 border-4 border-[#5E23DC]/20 border-t-[#5E23DC] rounded-full animate-spin"></div>
       </div>
     );
   }
 
+  // 🔥 ERROR
   if (singleError) {
     return (
       <div className="py-32 text-center text-xl text-red-700">
@@ -134,79 +60,132 @@ export default function SingleBlogPage() {
     <section className="bg-white py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
 
-        {/* MAIN STACK */}
+        {/* MAIN */}
         <div className="lg:col-span-2">
 
-          {blogStack.map((blog, index) => (
-            <div key={`${blog._id}-${index}`} className="mb-20">
+          <article className="space-y-10 mb-20">
 
-              {index !== 0 && (
-                <div className="mb-8">
-                  <hr className="border-gray-300" />
-                </div>
-              )}
-
-              <div className="mb-6">
-                <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight">
-                  {blog.title?.rendered}
-                </h1>
-
-                <p className="text-sm text-gray-500 mt-3">
-                  Published on {formatDate(blog.date)}
-                </p>
-              </div>
-
-              {/* IMAGE */}
-              <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden mb-8 bg-gray-100 ">
+            {/* HERO */}
+            <div>
+              <div className="w-full h-[260px] md:h-[480px] rounded-2xl overflow-hidden shadow-sm">
                 <Image
-                  src={blog.heroImg}
-                  alt={blog.title?.rendered}
-                  fill
-                  priority={index === 0}
-                  className="object-cover object-center"
+                  src={
+                    typeof singleBlog?.HeroImg === "string"
+                      ? singleBlog?.HeroImg
+                      : singleBlog?.HeroImg?.url || "/placeholder.jpg"
+                  }
+                  alt={singleBlog?.Title}
+                  width={1200}
+                  height={800}
+                  unoptimized
+                  className="w-full h-full object-cover"
                 />
               </div>
 
-              <div
-                className="text-gray-700 leading-relaxed space-y-6 text-[17px]"
-                dangerouslySetInnerHTML={{
-                  __html: blog.content?.rendered,
-                }}
-              />
-            </div>
-          ))}
+              <div className="mt-6">
+                <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
+                  {singleBlog?.Title}
+                </h1>
 
-          {/* 🔥 Infinite Scroll Skeleton Loader */}
-          {nextLoading && (
-            <div className="space-y-6 mb-20 animate-pulse">
-              <div className="h-8 bg-gray-200 rounded w-3/4"></div>
-              <div className="h-[300px] bg-gray-200 rounded-2xl"></div>
-              <div className="space-y-3">
-                <div className="h-4 bg-gray-200 rounded"></div>
-                <div className="h-4 bg-gray-200 rounded"></div>
-                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                <p className="text-sm text-gray-500 mt-2">
+                  {new Date(singleBlog?.Date).toDateString()}
+                </p>
               </div>
             </div>
-          )}
 
-          {blogStack.length < MAX_BLOGS && (
-            <div ref={bottomRef} className="h-20"></div>
-          )}
+            {/* CONTENT */}
+            <div className="max-w-3xl mx-auto space-y-8">
+
+              {singleBlog?.Content?.map((section) => (
+                <div key={section?._id}>
+                  <div
+                    className="ql-editor !p-0 text-gray-800 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: section?.content }}
+                  />
+
+                  {section?.img?.url && (
+                    <div className="my-6">
+                      <Image
+                        src={section.img.url}
+                        alt="Blog"
+                        width={900}
+                        height={600}
+                        unoptimized
+                        className="rounded-xl"
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* FAQ */}
+              {singleBlog?.FAQs?.length > 0 && (
+                <div className="mt-16">
+
+                  <h2 className="text-2xl md:text-3xl font-bold mb-8 text-gray-900">
+                    Frequently Asked Questions
+                  </h2>
+
+                  <div className="space-y-4">
+                    {singleBlog.FAQs.map((faq, i) => {
+                      const isOpen = activeFAQ === i;
+
+                      return (
+                        <div
+                          key={i}
+                          className={`rounded-2xl border transition-all duration-300 
+                          ${isOpen 
+                            ? "bg-gradient-to-r from-[#f3f0ff] to-[#f8f6ff] border-[#5E23DC]/30 shadow-md" 
+                            : "bg-[#faf9ff] border-gray-200 hover:shadow-sm"
+                          }`}
+                        >
+                          <button
+                            onClick={() => setActiveFAQ(isOpen ? null : i)}
+                            className="w-full flex justify-between items-center p-5 text-left"
+                          >
+                            <span className="font-semibold text-gray-800">
+                              {faq.Q}
+                            </span>
+
+                            <span
+                              className={`text-lg font-bold transition-all duration-300 
+                              ${isOpen 
+                                ? "rotate-180 text-[#5E23DC]" 
+                                : "text-gray-400"
+                              }`}
+                            >
+                              ⌄
+                            </span>
+                          </button>
+
+                          <div
+                            className={`px-5 transition-all duration-300 overflow-hidden ${
+                              isOpen
+                                ? "max-h-[300px] pb-5 opacity-100"
+                                : "max-h-0 opacity-0"
+                            }`}
+                          >
+                            <p className="text-gray-600 leading-relaxed">
+                              {faq.A}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                </div>
+              )}
+
+            </div>
+
+          </article>
 
         </div>
 
         {/* SIDEBAR */}
         <div>
-          <div className="sticky top-24 space-y-6">
-
-            <div className="bg-white border border-[#5E23DC]/20 rounded-2xl p-6">
-              <h3 className="text-lg font-bold text-[#5E23DC] mb-3">
-                About This Blog
-              </h3>
-              <p className="text-sm text-gray-600">
-                Stay updated with real estate insights.
-              </p>
-            </div>
+          <div className="sticky top-24">
 
             <div className="bg-white border border-[#5E23DC]/20 rounded-2xl p-5">
               <h3 className="text-xl font-bold text-[#5E23DC] mb-4 border-b pb-2">
@@ -214,31 +193,36 @@ export default function SingleBlogPage() {
               </h3>
 
               <div className="space-y-4">
-                {recentBlogs?.map((b) => (
-                  <Link
-                    key={b._id}
-                    href={`/blogs/${b.slug}`}
-                    className="group flex gap-3 p-3 border border-[#5E23DC]/20 rounded-xl transition-all duration-300 hover:bg-[#5E23DC]"
-                  >
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-gray-200">
-                      <Image
-                        src={b.heroImg}
-                        alt={b.title?.rendered}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
+                {[...(recentBlogs || [])]
+                  .sort((a, b) => new Date(b?.Date) - new Date(a?.Date))
+                  .slice(0, 5)
+                  .map((b, i) => (
+                    <Link
+                      key={i}
+                      href={`/blogs/${b?.Slug}`}
+                      className="group flex gap-3 p-3 border rounded-xl hover:bg-[#5E23DC]"
+                    >
+                      <div className="relative w-20 h-20 overflow-hidden rounded-lg">
+                        <Image
+                          src={b?.HeroImg?.url || "/placeholder.jpg"}
+                          alt={b?.Title}
+                          fill
+                          unoptimized
+                          className="object-cover"
+                        />
+                      </div>
 
-                    <div>
-                      <p className="text-xs text-gray-500 group-hover:text-white transition-colors">
-                        {formatDate(b.date)}
-                      </p>
-                      <h4 className="text-sm font-semibold text-[#5E23DC] group-hover:text-white transition-colors line-clamp-2">
-                        {b.title?.rendered}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
+                      <div>
+                        <p className="text-xs text-gray-500 group-hover:text-white">
+                          {formatDate(b?.Date)}
+                        </p>
+
+                        <h4 className="text-sm font-semibold text-gray-800 group-hover:text-white line-clamp-2">
+                          {b?.Title}
+                        </h4>
+                      </div>
+                    </Link>
+                  ))}
               </div>
 
             </div>

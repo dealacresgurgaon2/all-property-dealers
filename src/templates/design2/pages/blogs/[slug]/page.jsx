@@ -184,13 +184,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useBlogs } from "@/context/blogcontext/BlogContext";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
-const MAX_BLOGS = 6;
-
 const formatDate = (date) => {
+  if (!date) return "N/A";
   const d = new Date(date);
   return `${d.getDate().toString().padStart(2, "0")}-${(d.getMonth() + 1)
     .toString()
@@ -204,193 +202,207 @@ export default function SingleBlogPage() {
     singleBlog,
     fetchSingleBlog,
     recentBlogs,
-    loading,
+    singleLoading,
+    singleError,
+    clearSingleBlog,
   } = useBlogs();
 
-  const [blogStack, setBlogStack] = useState([]);
-  const bottomRef = useRef(null);
-  const isFetchingRef = useRef(false);
+  const [activeFAQ, setActiveFAQ] = useState(null);
 
-  // ===== First Load =====
   useEffect(() => {
     if (slug) {
+      clearSingleBlog();
       fetchSingleBlog(slug);
       window.scrollTo(0, 0);
     }
   }, [slug]);
 
-  // ===== Reset Stack When First Blog Loads =====
-  useEffect(() => {
-    if (singleBlog) {
-      setBlogStack([singleBlog]);
-    }
-  }, [singleBlog]);
-
-  // ===== Infinite Scroll =====
-  useEffect(() => {
-    if (!bottomRef.current) return;
-    if (blogStack.length === 0) return;
-    if (blogStack.length >= MAX_BLOGS) return;
-
-    const observer = new IntersectionObserver(
-      async (entries) => {
-        if (!entries[0].isIntersecting) return;
-        if (isFetchingRef.current) return;
-
-        isFetchingRef.current = true;
-
-        const lastBlog = blogStack[blogStack.length - 1];
-
-        try {
-          const res = await fetch(
-            `${API_BASE}/api/blogs/next/${lastBlog.slug}`
-          );
-          const result = await res.json();
-
-          if (result.success && result.data) {
-            setBlogStack((prev) => {
-              if (prev.length >= MAX_BLOGS) return prev;
-
-              const exists = prev.some(
-                (b) => b._id === result.data._id
-              );
-              if (exists) return prev;
-
-              return [...prev, result.data];
-            });
-
-            // Update URL without reload
-            window.history.replaceState(
-              null,
-              "",
-              `/blogs/${result.data.slug}`
-            );
-          }
-        } catch (err) {
-          console.error("Next blog fetch error:", err);
-        }
-
-        isFetchingRef.current = false;
-      },
-      {
-        rootMargin: "300px",
-        threshold: 0,
-      }
-    );
-
-    observer.observe(bottomRef.current);
-
-    return () => observer.disconnect();
-  }, [blogStack]);
-
-  // ===== Loader =====
-  if (loading && blogStack.length === 0) {
+  // LOADER
+  if (singleLoading || !singleBlog) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#faf6f3]">
-        <div className="w-14 h-14 border-4 border-[#d4c2b5] border-t-[#422c18] rounded-full animate-spin"></div>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#faf6f3]">
+        <div className="w-14 h-14 border-4 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin"></div>
+        <p className="mt-4 text-[#422c18] font-semibold">
+          Loading Blog...
+        </p>
+      </div>
+    );
+  }
+
+  // ERROR
+  if (singleError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-center px-4">
+        <p className="text-red-600 text-lg font-semibold">
+          {singleError}
+        </p>
       </div>
     );
   }
 
   return (
-    <section className="bg-[#fafafa] py-16">
+    <section className="bg-white py-12">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 px-4">
 
-        {/* ===== MAIN STACK ===== */}
+        {/* MAIN */}
         <div className="lg:col-span-2">
 
-          {blogStack.map((blog, index) => (
-            <div key={`${blog._id}-${index}`} className="mb-20">
+          <article className="space-y-10">
 
-              {/* Separator */}
-              {index !== 0 && (
-                <div className="mb-8">
-                  <hr className="border-gray-300" />
-                </div>
-              )}
-
-              {/* TITLE */}
-              <div className="mb-6">
-                <h1 className="text-3xl md:text-5xl font-bold text-black leading-tight">
-                  {blog.title?.rendered}
-                </h1>
-                <p className="text-sm text-black/50 mt-3">
-                  Published on {formatDate(blog.date)}
-                </p>
-              </div>
-
-              {/* HERO IMAGE */}
-              <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden mb-8">
-
-  <Image
-    src={blog.heroImg}
-    alt={blog.title?.rendered}
-    fill
-    priority={index === 0}
-    className="object-cover object-left"
-  />
-
-</div>
-
-
-              {/* CONTENT */}
-              <div
-                className="space-y-6 text-black/80 leading-8 text-[17px]"
-                dangerouslySetInnerHTML={{
-                  __html: blog.content?.rendered,
-                }}
+            {/* HERO */}
+            <div className="rounded-2xl overflow-hidden shadow-md border border-[#d4af37]/20">
+              <Image
+                src={
+                  typeof singleBlog?.HeroImg === "string"
+                    ? singleBlog?.HeroImg
+                    : singleBlog?.HeroImg?.url || "/placeholder.jpg"
+                }
+                alt={singleBlog?.Title}
+                width={1200}
+                height={700}
+                className="w-full h-[260px] md:h-[420px] object-cover"
+                unoptimized
               />
             </div>
-          ))}
 
-          {/* Scroll Trigger */}
-          {blogStack.length < MAX_BLOGS && (
-            <div ref={bottomRef} className="h-20"></div>
-          )}
+            {/* TITLE */}
+            <div>
+              <h1 className="text-3xl md:text-5xl font-bold text-black leading-tight mt-5">
+                {singleBlog?.Title}
+              </h1>
 
-          
-          {/* {blogStack.length >= MAX_BLOGS && (
-            <div className="text-center text-gray-500 py-10">
-              You have reached the end.
+              <p className="text-sm text-black/60 mt-3">
+                Published on {formatDate(singleBlog?.Date)}
+              </p>
             </div>
-          )} */}
+
+            {/* CONTENT */}
+            <div className="space-y-8 text-black/80">
+              {singleBlog?.Content?.map((section) => (
+                <div key={section?._id}>
+                  <div
+                    className="ql-editor !p-0 leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: section?.content,
+                    }}
+                  />
+
+                  {section?.img?.url && (
+                    <div className="my-6">
+                      <Image
+                        src={section.img.url}
+                        alt="Blog"
+                        width={900}
+                        height={600}
+                        className="rounded-xl"
+                        unoptimized
+                      />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* FAQ */}
+            {singleBlog?.FAQs?.length > 0 && (
+              <div className="mt-16">
+                <h2 className="text-2xl md:text-3xl font-bold mb-8 text-black">
+                  FAQs
+                </h2>
+
+                <div className="space-y-4">
+                  {singleBlog.FAQs.map((faq, i) => {
+                    const isOpen = activeFAQ === i;
+
+                    return (
+                      <div
+                        key={i}
+                        className={`rounded-2xl border transition-all 
+                        ${
+                          isOpen
+                            ? "bg-[#fff8e6] border-[#d4af37] shadow"
+                            : "bg-white border-gray-200"
+                        }`}
+                      >
+                        <button
+                          onClick={() =>
+                            setActiveFAQ(isOpen ? null : i)
+                          }
+                          className="w-full flex justify-between items-center p-5"
+                        >
+                          <span className="font-semibold text-black">
+                            {faq.Q}
+                          </span>
+
+                          <span
+                            className={`transition ${
+                              isOpen
+                                ? "rotate-180 text-[#d4af37]"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            ⌄
+                          </span>
+                        </button>
+
+                        {isOpen && (
+                          <div className="px-5 pb-5 text-black/70">
+                            {faq.A}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+          </article>
 
         </div>
 
-        {/* ===== SIDEBAR ===== */}
+        {/* SIDEBAR */}
         <aside className="hidden lg:block">
-          <div className="sticky top-28">
+          <div className="sticky top-24">
 
-            <h3 className="text-xl font-semibold text-black mb-6">
-              Recent <span className="text-[#d4af37]">Blogs</span>
-            </h3>
+            <div className="bg-white border border-[#d4af37]/30 rounded-2xl p-5 shadow-md">
+              <h3 className="text-xl font-bold text-black mb-4 border-b pb-2">
+                Recent <span className="text-[#d4af37]">Blogs</span>
+              </h3>
 
-            <div className="space-y-4">
-              {recentBlogs?.map((b) => (
-                <Link
-                  key={b._id}
-                  href={`/blogs/${b.slug}`}
-                  className="group flex gap-4 p-3 rounded-xl bg-white border border-[#d4af37]/20 shadow hover:shadow-lg transition hover:bg-[#d4af37]"
-                >
-                  <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
-                    <Image
-                      src={b.heroImg}
-                      alt={b.title?.rendered}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+              <div className="space-y-4">
+                {recentBlogs
+                  ?.sort((a, b) => new Date(b.Date) - new Date(a.Date))
+                  .slice(0, 5)
+                  .map((b, i) => (
+  <Link
+    key={b?._id || b?.Slug || i}
+    href={`/blogs/${b?.Slug}`}
+                      
+                      className="group flex gap-3 p-3 rounded-xl hover:bg-[#d4af37] transition"
+                    >
+                      <div className="relative w-20 h-20 rounded-lg overflow-hidden">
+                        <Image
+                          src={b?.HeroImg?.url || "/placeholder.jpg"}
+                          alt={b?.Title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
 
-                  <div>
-                    <p className="text-xs text-black/50 group-hover:text-white mb-1">
-                      {formatDate(b.date)}
-                    </p>
-                    <h4 className="text-sm font-semibold text-black group-hover:text-white line-clamp-2">
-                      {b.title?.rendered}
-                    </h4>
-                  </div>
-                </Link>
-              ))}
+                      <div>
+                        <p className="text-xs text-black/50 group-hover:text-white">
+                          {formatDate(b?.Date)}
+                        </p>
+
+                        <h4 className="text-sm font-semibold text-black group-hover:text-white line-clamp-2">
+                          {b?.Title}
+                        </h4>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+
             </div>
 
           </div>

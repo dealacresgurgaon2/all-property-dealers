@@ -4,132 +4,99 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const BlogContext = createContext();
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE = "https://deal-acres-backend.onrender.com";
 
 export const BlogProvider = ({ children }) => {
 
   const [blogs, setBlogs] = useState([]);
   const [singleBlog, setSingleBlog] = useState(null);
-  
   const [recentBlogs, setRecentBlogs] = useState([]);
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  const [domain, setDomain] = useState(null);
+  // ✅ DOMAIN FIX (instant load on refresh)
+  const [domain, setDomain] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("domain");
+    }
+    return null;
+  });
 
-  const [loading, setLoading] = useState(false);
+  const clearSingleBlog = () => {
+  setSingleBlog(null);
+};
+  // ✅ Separate loading
+  const [listLoading, setListLoading] = useState(false);
+  const [singleLoading, setSingleLoading] = useState(false);
 
+  // ✅ Errors
   const [listError, setListError] = useState(null);
   const [singleError, setSingleError] = useState(null);
-
-  // ===== DOMAIN PERSIST FIX =====
-  useEffect(() => {
-    const savedDomain = localStorage.getItem("domain");
-    if (savedDomain) {
-      setDomain(savedDomain);
-    }
-  }, []);
 
   const handleDomain = (d) => {
     setDomain(d);
     localStorage.setItem("domain", d);
   };
 
-  // ===== BLOG LIST FETCH =====
+  // ===== BLOG LIST =====
   useEffect(() => {
     if (!domain) return;
-
     fetchBlogs(page);
   }, [page, domain]);
 
   const fetchBlogs = async (pageNumber) => {
     try {
-      setLoading(true);
+      setListLoading(true);
       setListError(null);
 
-      if (!domain) return;
+      const res = await fetch(
+        `${API_BASE}/admin/blog/fetchBlogs?domain=${domain}&page=${pageNumber}&limit=30`
+      );
 
-      const API_URL = `${API_BASE}/api/blogs?domain=${domain}&page=${pageNumber}`;
-
-      const res = await fetch(API_URL);
-
-      if (!res.ok) {
-        throw new Error(`Server Error: ${res.status}`);
-      }
+      if (!res.ok) throw new Error("Failed to fetch blogs");
 
       const data = await res.json();
 
-      if (!data.success) {
-        throw new Error(data.message || "Failed to load blogs");
-      }
+      if (!data.success) throw new Error(data.message);
 
-      setBlogs(data.data);
+      setBlogs(data.blogs || []);
+      setRecentBlogs(data.blogs || []);
       setTotalPages(data.totalPages || 1);
 
-      // ===== IMPORTANT: RECENT BLOGS SET =====
-      setRecentBlogs(data.data.slice(0, 5));
-
-    } catch (error) {
-      setListError(error.message);
+    } catch (err) {
+      setListError(err.message);
       setBlogs([]);
-      setRecentBlogs([]);
     } finally {
-      setLoading(false);
+      setListLoading(false);
     }
   };
 
-  // ===== RECENT BLOGS FUNCTION =====
-  const loadRecentBlogs = async () => {
+  // ===== SINGLE BLOG =====
+  const fetchSingleBlog = async (slug) => {
     try {
+      setSingleLoading(true);
+      setSingleError(null);
+
       if (!domain) return;
 
       const res = await fetch(
-        `${API_BASE}/api/blogs?domain=${domain}&page=1`
+        `${API_BASE}/admin/blog/getBlogBySlug/${slug}?domain=${domain}`
       );
+
+      if (!res.ok) throw new Error("Failed to fetch blog");
 
       const data = await res.json();
 
-      if (data.success) {
-        setRecentBlogs(data.data.slice(0, 5));
-      }
-    } catch (error) {
-      console.log("Recent Blogs Error:", error.message);
-    }
-  };
+      if (!data.success) throw new Error("Blog not found");
 
-  // ===== FETCH SINGLE BLOG =====
-  const fetchSingleBlog = async (slug) => {
-    try {
-      setLoading(true);
-      setSingleError(null);
+      setSingleBlog(data.blog);
 
-      const res = await fetch(
-        `${API_BASE}/api/blogs/slug/${slug}`
-      );
-
-
-      if (!res.ok) {
-        throw new Error(`Server Error: ${res.status}`);
-      }
-
-      const data = await res.json();
-
-      if (!data.success) {
-        throw new Error("Blog not found");
-      }
-
-      setSingleBlog(data.data);
-      
-      // ===== MOST IMPORTANT FIX =====
-      loadRecentBlogs();
-
-    } catch (error) {
-      setSingleError(error.message);
+    } catch (err) {
       setSingleBlog(null);
-      
+      setSingleError(err.message);
     } finally {
-      setLoading(false);
+      setSingleLoading(false);
     }
   };
 
@@ -142,19 +109,18 @@ export const BlogProvider = ({ children }) => {
         totalPages,
 
         singleBlog,
-        
         fetchSingleBlog,
 
         recentBlogs,
 
         setDomain: handleDomain,
 
-        loading,
+        listLoading,
+        singleLoading,
 
         listError,
         singleError,
-
-        loadRecentBlogs
+        clearSingleBlog, 
       }}
     >
       {children}
