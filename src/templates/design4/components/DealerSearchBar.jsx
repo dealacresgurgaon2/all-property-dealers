@@ -13,24 +13,28 @@ export default function DealerSearchBar({ onSearch }) {
   };
 
   return (
-    <div className="mb-8 max-w-[860px] mx-auto">
+    <div className="mb-10 max-w-[900px] mx-auto">
+
       <div
         className="
-          group
-          flex items-center
+          relative flex items-center
           bg-white
-          border border-gray-300
-          rounded-xl
-          px-5
-          py-3
-          shadow-sm
+          border border-[#f3c6d1]
+          rounded-full
+          px-6 py-3
+          shadow-lg
+          focus-within:shadow-2xl
+          focus-within:border-[#D02752]
           transition-all duration-300
-          focus-within:border-[#ff7a1a]
-          focus-within:shadow-md
+          group
         "
       >
-        {/* 📍 LOCATION ICON */}
-        <span className="mr-4 text-[#ff7a1a] shrink-0 transition group-focus-within:scale-110">
+
+        {/* GLOW EFFECT */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D02752]/10 to-[#8A244B]/10 opacity-0 group-focus-within:opacity-100 transition pointer-events-none"></div>
+
+        {/* ICON */}
+        <div className="mr-4 text-[#D02752]">
           <svg
             className="w-6 h-6"
             fill="none"
@@ -45,7 +49,7 @@ export default function DealerSearchBar({ onSearch }) {
             />
             <circle cx="12" cy="11" r="2.5" />
           </svg>
-        </span>
+        </div>
 
         {/* INPUT */}
         <input
@@ -53,30 +57,31 @@ export default function DealerSearchBar({ onSearch }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Search dealers by name, city or area..."
+          placeholder="Search dealers, sectors or locations..."
           className="
             flex-1
-            bg-transparent
-            outline-none
             text-base md:text-lg
-            text-gray-800
+            outline-none
+            bg-transparent
             placeholder-gray-400
+            text-gray-800
           "
         />
 
-        {/* 🔍 SEARCH BUTTON */}
+        {/* BUTTON */}
         <button
           onClick={() => onSearch(query)}
           className="
             ml-4
-            px-4 py-2.5
-            rounded-lg
-            bg-[#ff7a1a]
-            hover:bg-[#ff6b00]
-            transition
+            w-11 h-11
+            rounded-full
+            bg-gradient-to-r from-[#D02752] to-[#8A244B]
             text-white
             flex items-center justify-center
-            shadow-sm
+            shadow-lg
+            hover:scale-110
+            hover:shadow-xl
+            transition-all duration-300
           "
         >
           <svg
@@ -96,7 +101,9 @@ export default function DealerSearchBar({ onSearch }) {
             />
           </svg>
         </button>
+
       </div>
+
     </div>
   );
 }

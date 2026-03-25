@@ -17,13 +17,12 @@ const formatDate = (date) => {
 export default function FourBlogs() {
   const { blogs = [], loading, setDomain } = useBlogs();
 
-  // ✅ DOMAIN FIX
   useEffect(() => {
     if (typeof window !== "undefined") {
       let hostname = window.location.hostname;
 
       if (hostname === "localhost") {
-        hostname = "www.propertydealerinnoida.com";
+        hostname = "www.propertydealerinchandigarh.com";
       }
 
       setDomain(hostname);
@@ -33,8 +32,8 @@ export default function FourBlogs() {
   // ===== LOADING =====
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-10">
-        <div className="w-10 h-10 border-4 border-green-600/30 border-t-green-600 rounded-full animate-spin"></div>
+      <div className="flex items-center justify-center py-12">
+        <div className="w-10 h-10 border-4 border-[#D02752]/30 border-t-[#D02752] rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -42,15 +41,23 @@ export default function FourBlogs() {
   // ===== EMPTY =====
   if (!blogs.length) {
     return (
-      <section className="px-4 py-8 bg-[#f8fafc]">
-        <div className="max-w-7xl mx-auto text-center text-gray-600">
-          No blogs available
+      <section className="relative px-4 py-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#fff0f4] via-white to-[#fde6ec]" />
+
+        <div className="relative max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-[#8A244B] mb-6">
+            Latest Chandigarh Blogs
+          </h2>
+
+          <p className="text-center text-gray-500">
+            No blogs available right now
+          </p>
         </div>
       </section>
     );
   }
 
-  // 🔥 SORT (same as BlogList)
+  // 🔥 SORT LATEST FIRST (IMPORTANT FIX)
   const sortedBlogs = [...blogs].sort(
     (a, b) => new Date(b?.date || b?.Date) - new Date(a?.date || a?.Date)
   );
@@ -59,24 +66,27 @@ export default function FourBlogs() {
   const fourBlogs = sortedBlogs.slice(0, 4);
 
   return (
-    <section className="px-4 py-10 bg-[#f8fafc]">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative px-4 py-12">
+
+      {/* PREMIUM BACKGROUND */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#fff0f4] via-white to-[#fde6ec]" />
+      <div className="absolute top-0 left-1/3 w-[400px] h-[400px] bg-[#D02752]/10 blur-[120px] rounded-full" />
+
+      <div className="relative max-w-7xl mx-auto">
 
         {/* HEADER */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-green-700">
-            Latest Blogs
+        <div className="mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#8A244B]">
+            Latest Property Blogs in
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#D02752] to-[#8A244B]">
+              Chandigarh
+            </span>
           </h2>
 
-          <Link
-            href="/blogs"
-            className="text-sm text-green-700 font-semibold hover:underline"
-          >
-            View All →
-          </Link>
+          <div className="w-20 h-1 bg-gradient-to-r from-[#D02752] to-[#8A244B] mt-3 rounded-full"></div>
         </div>
 
-        {/* GRID */}
+        {/* BLOG GRID */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
           {fourBlogs.map((post, i) => {
@@ -87,7 +97,7 @@ export default function FourBlogs() {
                 ? post?.title?.rendered
                 : post?.title || post?.Title || "Untitled Blog";
 
-            // ✅ SAFE IMAGE
+            // ✅ SAFE IMAGE (IMPORTANT FIX)
             const imageUrl =
               post?.heroImg ||
               post?.HeroImg?.url ||
@@ -96,47 +106,33 @@ export default function FourBlogs() {
             // ✅ SAFE SLUG
             const slug = post?.slug || post?.Slug;
 
-            // ✅ CATEGORY
-            const category =
-              typeof post?.category === "string"
-                ? post.category
-                : typeof post?.Category === "string"
-                ? post.Category
-                : Array.isArray(post?.categories)
-                ? post.categories[0]?.name || post.categories[0]
-                : post?.categories || null;
-
             return (
               <Link
                 key={post?._id || slug || i}
                 href={`/blogs/${slug}`}
-                className="group bg-white border border-green-700/20 rounded-xl p-3 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+                className="group relative bg-white border border-[#f3c6d1] rounded-2xl p-3 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden"
               >
 
+                {/* GLOW */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-[#D02752]/5 to-[#8A244B]/5" />
+
                 {/* IMAGE */}
-                <div className="relative w-full h-44 rounded-lg overflow-hidden mb-3">
+                <div className="relative w-full h-48 rounded-xl overflow-hidden mb-3">
                   <Image
                     src={imageUrl}
                     alt={titleText}
                     fill
-                    className="object-cover group-hover:scale-105 transition"
+                    className="object-cover group-hover:scale-110 transition duration-300"
                   />
                 </div>
 
-                {/* CATEGORY */}
-                {category && (
-                  <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-                    {category}
-                  </span>
-                )}
-
                 {/* TITLE */}
-                <h3 className="text-sm font-semibold text-green-800 mt-2 line-clamp-2 group-hover:text-green-600">
+                <h3 className="text-base font-semibold text-gray-800 group-hover:text-[#D02752] transition line-clamp-2">
                   {titleText}
                 </h3>
 
                 {/* DATE */}
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-sm text-[#D02752] mt-2 font-medium">
                   {formatDate(post?.date || post?.Date)}
                 </p>
 
