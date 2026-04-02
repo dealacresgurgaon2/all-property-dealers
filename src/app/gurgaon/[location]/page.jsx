@@ -1,84 +1,99 @@
 "use client";
 
-import { useParams, useSearchParams } from "next/navigation";
-import { useDealers } from "@/context/propertydealercontext/DealerContext";
+import { useSearchParams, usePathname } from "next/navigation";
 import DealerCard from "@/templates/design1/components/DealerCard";
 import Pagination from "@/templates/design1/components/Pagination";
 import QueryForm from "@/templates/design1/components/QueryForm";
-
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function LocationDealersPage() {
 
-  const params = useParams();
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+
   const searchParams = useSearchParams();
+  const pathname = usePathname();
 
-  // 🔥 REAL LOCATION FROM QUERY PARAM
-  const location = searchParams.get("location");
+  // ✅ SUPPORT BOTH (query + slug)
+  const queryLocation = searchParams.get("location");
 
-  const dealerContext = useDealers();
+  const slug = pathname.split("/").pop();
 
-  if (!dealerContext) {
-    return (
-      <div className="p-10 text-center text-red-600 font-semibold">
-        Context Not Loaded
-      </div>
-    );
-  }
+  const location =
+    queryLocation ||
+    slug?.replace(/-/g, " ")?.replace(/\b\w/g, (c) => c.toUpperCase());
 
-  const {
-    dealers,
-    loading,
-    setDomain2,
-   applyLocationFilter
-  } = dealerContext;
+  const [dealers, setDealers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const currentDomain = window.location.hostname.replace("www.", "");
+  const ITEMS_PER_PAGE = 70;
 
-      if (
-        currentDomain === "propertydeler-gold-frontend.vercel.app" ||
-        currentDomain === "localhost"
-      ) {
-        setDomain2("propertydealeringurgaon.com");
-      } else {
-        setDomain2(currentDomain);
+  // ✅ DOMAIN DETECT
+  const getDomain = () => {
+    if (typeof window === "undefined") return "";
+
+    const host = window.location.hostname.replace("www.", "");
+
+    if (host === "localhost" || host.includes("vercel")) {
+      return "www.propertydealeringurgaon.com";
+    }
+
+    return host;
+  };
+
+  // 🔥 API CALL
+  const fetchDealers = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const domain = getDomain();
+
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: ITEMS_PER_PAGE.toString(),
+      });
+
+      if (location) {
+        params.append("search", location.toLowerCase());
       }
-    }
-  }, [setDomain2]);
 
-  // 🔥 MOST IMPORTANT – LOCATION FILTER CALL
+      const url = `${API_BASE}/api/get/getDealers/${domain}?${params.toString()}`;
+
+      console.log("API:", url);
+
+      const res = await axios.get(url);
+
+      setDealers(res?.data?.data || []);
+      setTotalPages(res?.data?.pagination?.totalPages ?? 1);
+
+    } catch (err) {
+      console.error("API Error:", err);
+
+      setError(
+        err?.response?.status === 403
+          ? "Access denied. Please try again later."
+          : "Something went wrong. Please refresh the page."
+      );
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 🔁 CALL
   useEffect(() => {
-    if (location) {
-      applyLocationFilter(location);
-    }
-  }, [location]);
+    fetchDealers();
+  }, [page, location]);
 
-  const formattedLocation = location
-    ?.replace(/,/g, "")
-    ?.replace(/\b\w/g, (c) => c.toUpperCase());
-
-  const allDealers = Array.isArray(dealers) ? dealers : [];
-
-  const ITEMS_PER_PAGE = 30;
-
-  const totalPages = Math.ceil(allDealers.length / ITEMS_PER_PAGE);
-
-  const startIndex = (page - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-
-  const visibleDealers = allDealers.slice(startIndex, endIndex);
-
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+  // 🔁 PAGE CHANGE
+  const handlePageChange = (p) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -86,63 +101,74 @@ export default function LocationDealersPage() {
 
       <div className="max-w-7xl mx-auto px-5">
 
+        {/* HEADER */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-[#1e40af]">
-            Dealers in {formattedLocation}
+            Dealers in {location || "Location"}
           </h1>
-
-          <p className="text-sm text-gray-600 mt-2">
-            Showing trusted property dealers in this location
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
+          {/* LEFT */}
           <div className="md:col-span-2">
 
-            {loading ? (
-
-              <div className="flex items-center justify-center py-24 bg-[#1e40af]/5 rounded-xl border border-[#1e40af]/20">
-                <div className="flex flex-col items-center gap-4">
-
-                  <div className="w-12 h-12 border-4 border-[#1e40af]/30 border-t-[#1e40af] rounded-full animate-spin"></div>
-
-                  <h2 className="text-base text-[#1e40af] font-semibold">
-                    Loading Dealers...
-                  </h2>
-
-                </div>
+            {/* 🔄 LOADING */}
+            {loading && (
+              <div className="flex flex-col items-center justify-center py-24">
+                <div className="w-14 h-14 border-4 border-gray-300 border-t-[#1e40af] rounded-full animate-spin"></div>
+                <p className="mt-4 text-gray-600 font-medium">
+                  Loading Dealers...
+                </p>
               </div>
+            )}
 
-            ) : allDealers.length === 0 ? (
+            {/* ❌ ERROR */}
+            {!loading && error && (
+              <div className="text-center py-16">
+                <p className="text-red-600 font-semibold">{error}</p>
 
-              <div className="text-center text-red-600 py-14 font-semibold">
-                No Dealers Found in {formattedLocation}
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 px-6 py-2 bg-[#1e40af] text-white rounded-lg"
+                >
+                  Retry
+                </button>
               </div>
+            )}
 
-            ) : (
+            {/* ❌ NO DATA */}
+            {!loading && !error && dealers.length === 0 && (
+              <div className="text-center text-gray-500 py-14 font-semibold">
+                No Dealers Found in {location}
+              </div>
+            )}
 
+            {/* ✅ DATA */}
+            {!loading && !error && dealers.length > 0 && (
               <>
-                <div className="grid grid-cols-1 gap-6">
-                  {visibleDealers.map((dealer) => (
-                    <div key={dealer._id}>
-                      <DealerCard dealer={dealer} />
-                    </div>
+                <div className="grid gap-6">
+                  {dealers.map((dealer) => (
+                    <DealerCard key={dealer._id} dealer={dealer} />
                   ))}
                 </div>
 
-                <div className="mt-10 flex justify-center">
-                  <Pagination
-                    page={page}
-                    setPage={handlePageChange}
-                    totalPages={totalPages}
-                  />
-                </div>
+                {/* PAGINATION */}
+                {totalPages > 1 && (
+                  <div className="mt-10 flex justify-center">
+                    <Pagination
+                      page={page}
+                      totalPages={totalPages}
+                      setPage={handlePageChange}
+                    />
+                  </div>
+                )}
               </>
             )}
 
           </div>
 
+          {/* RIGHT */}
           <div className="hidden md:block">
             <div className="sticky top-24">
               <QueryForm />

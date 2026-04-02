@@ -48,7 +48,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-[80vh] flex items-center overflow-hidden bg-white">
+    <section className="relative w-full min-h-[80vh] py-3 flex items-center overflow-hidden bg-white">
 
       {/* PREMIUM BACKGROUND */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#fff0f4] via-white to-[#fde6ec]" />

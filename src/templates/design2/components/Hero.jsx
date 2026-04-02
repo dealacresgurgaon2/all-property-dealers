@@ -42,7 +42,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative w-full py-24 md:py-32 overflow-hidden"
+      className="relative w-full py-6 md:py-6 overflow-hidden"
       style={{
         backgroundImage: "url('/images/you.jpeg')",
         backgroundSize: "cover",

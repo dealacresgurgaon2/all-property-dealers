@@ -5,112 +5,102 @@ import { useDealers } from "@/context/propertydealercontext/DealerContext";
 import DealerCard from "@/templates/design4/components/DealerCard";
 import Pagination from "@/templates/design4/components/Pagination";
 import QueryForm from "@/templates/design4/components/QueryForm";
-
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 export default function LocationDealersPage() {
 
-  const params = useParams();
-  const searchParams = useSearchParams();
 
-  const location = searchParams.get("location");
 
-  // ✅ slug
-  const locationSlug = params?.location;
-
-  // ✅ slug → readable
-  const finalLocation = locationSlug
-    ?.replace(/-/g, " ")
-    ?.toLowerCase();
-
-  const dealerContext = useDealers();
-
-  if (!dealerContext) {
-    return (
-      <div className="p-10 text-center text-red-600 font-semibold">
-        Context Not Loaded
-      </div>
-    );
-  }
-
-  const { dealers, loading, setDomain2 } = dealerContext;
-
+  const [dealers, setDealers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+const [error, setError] = useState(null);
+const pathname = usePathname();
 
+const slug = pathname.split("/").pop(); // sector-4-hisar
+
+const location = slug
+  ?.replace(/-/g, " ")
+  ?.replace(/\b\w/g, (c) => c.toUpperCase());
+  const ITEMS_PER_PAGE = 100;
+
+  // =====================================================
+  // ✅ API CALL
+  // =====================================================
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const currentDomain = window.location.hostname.replace("www.", "");
+  if (typeof window === "undefined") return;
 
-      if (
-        currentDomain === "propertydeler-gold-frontend-xkw9.vercel.app" ||
-        currentDomain === "localhost"
-      ) {
-        setDomain2("propertydealerinchandigarh.com");
-      } else {
-        setDomain2(currentDomain);
-      }
-    }
-  }, [setDomain2]);
+  const fetchDealers = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-  // ✅ normalize function (MOST IMPORTANT)
-  const normalize = (str = "") =>
-    str.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const hostname = window.location.hostname;
 
-  const searchValue = normalize(location || finalLocation || "");
+      const domain =
+        hostname === "localhost"
+          ? "www.propertydealerinchandigarh.com"
+          : hostname;
 
-  // ✅ FINAL FILTER + RANKING
-  const allDealers = Array.isArray(dealers)
-  ? (() => {
-      const scored = dealers.map((d) => {
-        let score = 0;
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
-        const address = normalize(d.address || "");
-        const city = normalize(d.city || "");
-        const name = normalize(d.name || "");
+      // 🔥 CLEAN LOCATION
+      const cleanLocation = location?.toLowerCase().trim();
 
-        if (address.includes(searchValue)) score += 5;
-        if (city.includes(searchValue)) score += 3;
-        if (name.includes(searchValue)) score += 2;
-
-        return { ...d, score };
+      // 🔥 PARAMS BUILD
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: ITEMS_PER_PAGE.toString(),
       });
 
-      // ✅ matched (top)
-      const matched = scored
-        .filter((d) => d.score > 0)
-        .sort((a, b) => b.score - a.score);
+      if (cleanLocation) {
+        params.append("search", cleanLocation); // 🔥 IMPORTANT
+      }
 
-      // ✅ unmatched (random)
-      const unmatched = scored.filter((d) => d.score === 0);
+      const url = `${API_BASE}/api/get/getDealers/${domain}?${params.toString()}`;
 
-      const randomUnmatched = unmatched
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 30);
+      console.log("API URL:", url);
 
-      // ✅ FINAL COMBINE
-      return [...matched, ...randomUnmatched];
-    })()
-  : [];
+      const res = await fetch(url);
 
-  // ✅ pagination
-  const ITEMS_PER_PAGE = 20;
-  const totalPages = Math.ceil(allDealers.length / ITEMS_PER_PAGE);
+      if (!res.ok) {
+        throw new Error("Failed to fetch dealers");
+      }
 
-  const startIndex = (page - 1) * ITEMS_PER_PAGE;
-  const visibleDealers = allDealers.slice(
-    startIndex,
-    startIndex + ITEMS_PER_PAGE
-  );
+      const data = await res.json();
 
+      // ✅ DATA SET
+      setDealers(data?.data || []);
+
+      // 🔥 IMPORTANT FIX
+      setTotalPages(data?.pagination?.totalPages ?? 1);
+
+    } catch (err) {
+      console.error("API ERROR:", err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchDealers();
+
+}, [page, location]);
+
+  // =====================================================
+  // FORMAT LOCATION
+  // =====================================================
+  const formattedLocation = location;
+
+  // =====================================================
+  // PAGE CHANGE
+  // =====================================================
   const handlePageChange = (newPage) => {
     setPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  // ✅ heading
-  const formattedLocation = locationSlug
-    ?.replace(/-/g, " ")
-    ?.replace(/\b\w/g, (c) => c.toUpperCase());
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#fff0f4] via-white to-[#fde6ec] py-12">
@@ -152,7 +142,7 @@ export default function LocationDealersPage() {
                 </div>
               </div>
 
-            ) : allDealers.length === 0 ? (
+            ) : dealers.length === 0 ? (
 
               <div className="text-center text-[#D02752] py-14 font-semibold">
                 No Dealers Found in {formattedLocation}
@@ -163,7 +153,7 @@ export default function LocationDealersPage() {
               <>
                 {/* CARDS */}
                 <div className="grid grid-cols-1 gap-6">
-                  {visibleDealers.map((dealer, index) => (
+                  {dealers.map((dealer, index) => (
                     <div key={`${dealer._id}-${index}`}>
                       <DealerCard dealer={dealer} />
                     </div>

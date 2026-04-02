@@ -1,68 +1,100 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useDealers } from "@/context/propertydealercontext/DealerContext";
 import DealerCard from "@/templates/design3/components/DealerCard";
 import Pagination from "@/templates/design3/components/Pagination";
 import QueryForm from "@/templates/design3/components/QueryForm";
 import { useState, useEffect } from "react";
-
+import { usePathname } from "next/navigation";
 export default function LocationDealersPage() {
 
-  const searchParams = useSearchParams();
-  const location = searchParams.get("location");
 
-  const {
-    dealers,
-    loading,
-    applyLocationFilter,
-    setDomain2
-  } = useDealers();
 
+  const [dealers, setDealers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+const [error, setError] = useState(null);
+const pathname = usePathname();
+
+const slug = pathname.split("/").pop(); // sector-4-hisar
+
+const location = slug
+  ?.replace(/-/g, " ")
+  ?.replace(/\b\w/g, (c) => c.toUpperCase());
+  const ITEMS_PER_PAGE = 100;
 
   // =====================================================
-  // ✅ SINGLE EFFECT (DOMAIN + LOCATION TOGETHER)
+  // ✅ API CALL
   // =====================================================
   useEffect(() => {
-    if (typeof window === "undefined") return;
+  if (typeof window === "undefined") return;
 
-    const hostname = window.location.hostname;
+  const fetchDealers = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-    const finalDomain =
-      hostname === "localhost"
-        ? "www.propertydealerinhisar.com"
-        : hostname;
+      const hostname = window.location.hostname;
 
-    setDomain2(finalDomain);
+      const domain =
+        hostname === "localhost"
+          ? "www.propertydealerinhisar.com"
+          : hostname;
 
-    if (location) {
-      applyLocationFilter(location);
-      setPage(1);
+      const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+
+      // 🔥 CLEAN LOCATION
+      const cleanLocation = location?.toLowerCase().trim();
+
+      // 🔥 PARAMS BUILD
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: ITEMS_PER_PAGE.toString(),
+      });
+
+      if (cleanLocation) {
+        params.append("search", cleanLocation); // 🔥 IMPORTANT
+      }
+
+      const url = `${API_BASE}/api/get/getDealers/${domain}?${params.toString()}`;
+
+      console.log("API URL:", url);
+
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch dealers");
+      }
+
+      const data = await res.json();
+
+      // ✅ DATA SET
+      setDealers(data?.data || []);
+
+      // 🔥 IMPORTANT FIX
+      setTotalPages(data?.pagination?.totalPages ?? 1);
+
+    } catch (err) {
+      console.error("API ERROR:", err);
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
+  };
 
-  }, [location]);
+  fetchDealers();
+
+}, [page, location]);
 
   // =====================================================
   // FORMAT LOCATION
   // =====================================================
-  const formattedLocation = location
-    ?.replace(/-/g, " ")
-    ?.replace(/\b\w/g, (c) => c.toUpperCase());
-
-  const allDealers = Array.isArray(dealers) ? dealers : [];
+  const formattedLocation = location;
 
   // =====================================================
-  // PAGINATION (OPTIONAL — backend already gives 30)
+  // PAGE CHANGE
   // =====================================================
-  const ITEMS_PER_PAGE = 30;
-  const totalPages = Math.ceil(allDealers.length / ITEMS_PER_PAGE);
-
-  const startIndex = (page - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-
-  const visibleDealers = allDealers.slice(startIndex, endIndex);
-
   const handlePageChange = (newPage) => {
     setPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -90,44 +122,58 @@ export default function LocationDealersPage() {
 
             {loading ? (
 
-              <div className="flex items-center justify-center py-24 bg-[#5E23DC]/5 rounded-xl border border-[#5E23DC]/20">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="w-12 h-12 border-4 border-[#5E23DC]/30 border-t-[#5E23DC] rounded-full animate-spin"></div>
-                  <h2 className="text-base text-[#5E23DC] font-semibold">
-                    Loading Dealers...
-                  </h2>
-                </div>
-              </div>
+  <div className="flex items-center justify-center py-24">
+    <div className="flex flex-col items-center gap-4">
 
-            ) : allDealers.length === 0 ? (
+      {/* 🔄 Spinner */}
+      <div className="w-12 h-12 border-4 border-gray-300 border-t-[#5E23DC] rounded-full animate-spin"></div>
 
-              <div className="text-center text-red-600 py-14 font-semibold">
-                No Dealers Found in {formattedLocation}
-              </div>
+      <p className="text-[#5E23DC] font-semibold">
+        Loading Dealers...
+      </p>
 
-            ) : (
+    </div>
+  </div>
 
-              <>
-                <div className="grid grid-cols-1 gap-6">
-                  {visibleDealers.map((dealer) => (
-                    <DealerCard
-                      key={dealer._id}
-                      dealer={dealer}
-                    />
-                  ))}
-                </div>
+) : error ? (
 
-                {totalPages > 1 && (
-                  <div className="mt-10 flex justify-center">
-                    <Pagination
-                      page={page}
-                      setPage={handlePageChange}
-                      totalPages={totalPages}
-                    />
-                  </div>
-                )}
-              </>
-            )}
+  <div className="text-center py-16">
+    <p className="text-red-600 font-semibold">{error}</p>
+
+    <button
+      onClick={() => window.location.reload()}
+      className="mt-4 px-6 py-2 bg-[#5E23DC] text-white rounded-lg"
+    >
+      Retry
+    </button>
+  </div>
+
+) : dealers.length === 0 ? (
+
+  <div className="text-center text-gray-600 py-14 font-semibold">
+    No Dealers Found in {formattedLocation}
+  </div>
+
+) : (
+
+  <>
+    <div className="grid grid-cols-1 gap-6">
+      {dealers.map((dealer) => (
+        <DealerCard key={dealer._id} dealer={dealer} />
+      ))}
+    </div>
+
+    {totalPages > 1 && (
+      <div className="mt-10 flex justify-center">
+        <Pagination
+          page={page}
+          setPage={handlePageChange}
+          totalPages={totalPages}
+        />
+      </div>
+    )}
+  </>
+)}
 
           </div>
 

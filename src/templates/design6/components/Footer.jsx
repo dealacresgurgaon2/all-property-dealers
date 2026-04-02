@@ -71,7 +71,7 @@ useEffect(() => {
         return (
           <Link
             key={index}
-            href={`/noida/${slug}?location=${encodeURIComponent(loc)}`}
+            href={`/noida/${slug}`}
             className="text-black hover:text-green-600 transition text-sm truncate"
           >
             Property Dealer in {loc}
@@ -133,7 +133,7 @@ useEffect(() => {
                   return (
                     <Link
                       key={index}
-                      href={`/noida/${slug}?location=${encodeURIComponent(loc)}`}
+                      href={`/noida/${slug}`}
                       className="text-white/80 hover:text-green-500 transition text-sm truncate"
                     >
                       Property Dealer in {loc}
@@ -194,7 +194,7 @@ useEffect(() => {
 
             <div className="mt-2">
                      <p>
-  Designed by :{" "}
+  Designed by : {" "}
   <Link
     href="https://www.parcharmanch.com"
     target="_blank"

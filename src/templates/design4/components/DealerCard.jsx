@@ -23,12 +23,12 @@ export default function DealerCard({ dealer }) {
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#D02752]/5 to-[#8A244B]/5 pointer-events-none" />
 
       {/* SAVE */}
-      <button
+      {/* <button
         className="absolute top-4 right-4 w-9 h-9 rounded-full border border-[#e7a7b7] bg-white flex items-center justify-center hover:bg-gradient-to-r hover:from-[#D02752] hover:to-[#8A244B] hover:text-white transition-all z-10 shadow-sm"
         title="Save dealer"
       >
         ❤
-      </button>
+      </button> */}
 
       <div className="p-5 flex flex-col h-full relative z-10">
 

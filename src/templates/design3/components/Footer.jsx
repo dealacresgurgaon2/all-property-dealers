@@ -8,7 +8,7 @@ export default function Footer() {
 const [isMobile, setIsMobile] = useState(false);
 const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
   const hisarLocations = [
-    "Sector 1-4, Hisar",
+    "Sector 1 4, Hisar",
     "12 Quarter Road, Hisar",
     "Adarsh Nagar, Hisar",
     "Aggarwal Colony, Hisar",
@@ -113,7 +113,7 @@ useEffect(() => {
         return (
           <Link
             key={index}
-            href={`/hisar/${slug}?location=${encodeURIComponent(loc)}`}
+            href={`/hisar/${slug}`}
             title={`Property Dealer in ${loc}`}
             className="
               text-black
@@ -196,7 +196,7 @@ useEffect(() => {
                         return (
                           <Link
                             key={index}
-                             href={`/hisar/${slug}?location=${encodeURIComponent(loc)} `}
+                             href={`/hisar/${slug}`}
                             title={`Property Dealer in ${loc}`}
                             className="
                               text-white/80

@@ -9,73 +9,25 @@ import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 
 export default function DealersSection({ domain }) {
-  const { dealers, loading, page, setPage, totalPages, setDomain } =
-    useDealers();
 
+  const { dealers, loading, page, setPage, totalPages, setDomain, setSearch, search } = useDealers();
+
+  const listTopRef = useRef(null);
+
+  // ✅ DOMAIN SET FIXED
   useEffect(() => {
-    if (domain && domain === "localhost") {
-      setDomain("propertydealerinchandigarh.com");
+    if (
+      domain === "propertydeler-gold-frontend-lp3d.vercel.app" ||
+      domain === "all-property-dealers.vercel.app" ||
+      domain === "localhost"
+    ) {
+      setDomain("www.propertydealerinchandigarh.com");
     } else {
       setDomain(domain);
     }
   }, [domain, setDomain]);
 
-  const [filtered, setFiltered] = useState([]);
-  const listTopRef = useRef(null);
-
-  useEffect(() => {
-    setFiltered(dealers);
-  }, [dealers]);
-
-  const handleSearch = (query) => {
-    const q = query.toLowerCase().trim();
-
-    if (!q) {
-      setFiltered(dealers);
-      setPage(1);
-      scrollToList();
-      return;
-    }
-
-    const words = q.split(/\s+/);
-
-    const matched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return words.every((w) => text.includes(w));
-    });
-
-    const unmatched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return !words.every((w) => text.includes(w));
-    });
-
-    let finalList = [...matched, ...unmatched];
-
-    if (finalList.length < 100 && dealers.length > finalList.length) {
-      const extraNeeded = 100 - finalList.length;
-
-      const extra = dealers
-        .filter((d) => !finalList.includes(d))
-        .slice(0, extraNeeded);
-
-      finalList = [...finalList, ...extra];
-    }
-
-    setFiltered(finalList);
-    setPage(1);
-    scrollToList();
-  };
-
+  // ✅ SCROLL FUNCTION
   const scrollToList = () => {
     requestAnimationFrame(() => {
       const element = listTopRef.current;
@@ -92,6 +44,14 @@ export default function DealersSection({ domain }) {
         behavior: "smooth",
       });
     });
+  };
+
+  // ✅ SEARCH → API CALL
+  const handleSearch = (query) => {
+    const cleanQuery = query.trim(); 
+    setSearch(cleanQuery); // 🔥 backend me jayega
+    setPage(1);
+    scrollToList();
   };
 
   return (
@@ -130,7 +90,7 @@ export default function DealersSection({ domain }) {
                   </p>
                 </div>
 
-              ) : filtered.length === 0 ? (
+              ) : dealers.length === 0 ? (
 
                 <div className="py-20 text-center border border-dashed border-[#f3c6d1] rounded-xl bg-white">
                   <p className="text-[#D02752] font-medium">
@@ -143,7 +103,7 @@ export default function DealersSection({ domain }) {
 
               ) : (
 
-                filtered.map((dealer) => (
+                dealers.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))
 

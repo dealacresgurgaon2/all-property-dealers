@@ -9,79 +9,25 @@ import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 
 export default function DealersSection({ domain }) {
-  const { dealers, loading, page, setPage, totalPages, setDomain } =
-    useDealers();
 
-  // 🔥 Fix localhost domain
-   useEffect(() => {
-    if (domain && domain === "localhost") {
-      setDomain("propertydealerinnoida.com");
+  const { dealers, loading, page, setPage, totalPages, setDomain, setSearch, search } = useDealers();
+
+  const listTopRef = useRef(null);
+
+  // ✅ DOMAIN SET FIXED
+  useEffect(() => {
+    if (
+      domain === "propertydeler-gold-frontend-lp3d.vercel.app" ||
+      domain === "all-property-dealers.vercel.app" ||
+      domain === "localhost"
+    ) {
+      setDomain("www.propertydealerinnoida.com");
     } else {
       setDomain(domain);
     }
   }, [domain, setDomain]);
 
-  const [filtered, setFiltered] = useState([]);
-  const listTopRef = useRef(null);
-
-  useEffect(() => {
-    setFiltered(dealers);
-  }, [dealers]);
-
-  // ================= SEARCH LOGIC =================
-
-  const handleSearch = (query) => {
-    const q = query.toLowerCase().trim();
-
-    if (!q) {
-      setFiltered(dealers);
-      setPage(1);
-      scrollToList();
-      return;
-    }
-
-    const words = q.split(/\s+/);
-
-    const matched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return words.every((w) => text.includes(w));
-    });
-
-    const unmatched = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return !words.every((w) => text.includes(w));
-    });
-
-    let finalList = [...matched, ...unmatched];
-
-    // Guarantee minimum 100 cards
-    if (finalList.length < 100 && dealers.length > finalList.length) {
-      const extraNeeded = 100 - finalList.length;
-
-      const extra = dealers
-        .filter((d) => !finalList.includes(d))
-        .slice(0, extraNeeded);
-
-      finalList = [...finalList, ...extra];
-    }
-
-    setFiltered(finalList);
-    setPage(1);
-    scrollToList();
-  };
-
-  // ================= SCROLL FIX =================
-
+  // ✅ SCROLL FUNCTION
   const scrollToList = () => {
     requestAnimationFrame(() => {
       const element = listTopRef.current;
@@ -98,6 +44,14 @@ export default function DealersSection({ domain }) {
         behavior: "smooth",
       });
     });
+  };
+
+  // ✅ SEARCH → API CALL
+  const handleSearch = (query) => {
+    const cleanQuery = query.trim(); 
+    setSearch(cleanQuery); // 🔥 backend me jayega
+    setPage(1);
+    scrollToList();
   };
 
   // ================= RENDER =================
@@ -144,7 +98,7 @@ export default function DealersSection({ domain }) {
                   </p>
                 </div>
 
-              ) : filtered.length === 0 ? (
+              ) : dealers.length === 0 ? (
 
                 <div className="py-20 text-center border border-dashed border-green-300 rounded-xl bg-white">
                   <p className="text-green-600 font-medium">
@@ -157,7 +111,7 @@ export default function DealersSection({ domain }) {
 
               ) : (
 
-                filtered.map((dealer) => (
+               dealers.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))
 
