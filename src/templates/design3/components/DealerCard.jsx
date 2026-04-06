@@ -105,7 +105,7 @@ export default function DealerCard({ dealer }) {
 
         {/* CITY */}
         <p className="text-xs font-semibold text-gray-800 mb-2">
-          {dealer.city} {dealer.state && `, ${dealer.state}`}
+          City : {dealer.city}, {dealer.city && `  ${dealer.state}`}
         </p>
 
         {/* TAGS */}

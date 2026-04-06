@@ -1,84 +1,99 @@
 "use client";
 
 import { useParams, useSearchParams } from "next/navigation";
-import { useDealers } from "@/context/propertydealercontext/DealerContext";
 import DealerCard from "@/templates/design2/components/DealerCard";
 import Pagination from "@/templates/design2/components/Pagination";
 import QueryForm from "@/templates/design2/components/QueryForm";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-import { useState, useEffect } from "react";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function LocationDealersPage() {
 
   const params = useParams();
   const searchParams = useSearchParams();
 
-  // 🔥 REAL LOCATION FROM QUERY PARAM
   const location = searchParams.get("location");
 
-  const dealerContext = useDealers();
-
-  if (!dealerContext) {
-    return (
-      <div className="p-10 text-center text-red-600 font-semibold">
-        Context Not Loaded
-      </div>
-    );
-  }
-
-  const { dealers, loading, setDomain2, applyLocationFilter } = dealerContext;
+  const [dealers, setDealers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
-  // DOMAIN SET LOGIC (AS IT IS)
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const currentDomain = window.location.hostname.replace("www.", "");
+  const ITEMS_PER_PAGE = 70;
 
-      if (
-        currentDomain === "propertydeler-gold-frontend-9wvp.vercel.app" ||
-        currentDomain === "localhost"
-      ) {
-        setDomain2("propertydealerinfaridabad.com");
-      } else {
-        setDomain2(currentDomain);
+  // ✅ DOMAIN DETECT
+  const getDomain = () => {
+    if (typeof window === "undefined") return "";
+
+    const host = window.location.hostname.replace("www.", "");
+
+    if (host === "localhost" || host.includes("vercel")) {
+      return "www.propertydealerinfaridabad.com";
+    }
+
+    return host;
+  };
+
+  // 🔥 API CALL
+  const fetchDealers = async () => {
+    try {
+      setLoading(true);
+      setError("");
+
+      const domain = getDomain();
+
+      const params = new URLSearchParams({
+        page: page.toString(),
+        limit: ITEMS_PER_PAGE.toString(),
+      });
+
+      if (location) {
+        params.append("search", location);
       }
-    }
-  }, [setDomain2]);
 
-  // 🔥 CALL LOCATION API
-  useEffect(() => {
-    if (location) {
-      applyLocationFilter(location);
+      const url = `${API_BASE}/api/get/getDealers/${domain}?${params.toString()}`;
+
+      console.log("API:", url);
+
+      const res = await axios.get(url);
+
+      setDealers(res?.data?.data || []);
+      setTotalPages(res?.data?.pagination?.totalPages ?? 1);
+
+    } catch (err) {
+      console.error("API Error:", err);
+
+      setError(
+        err?.response?.status === 403
+          ? "Access denied. Please try again later."
+          : "Something went wrong. Please refresh the page."
+      );
+
+    } finally {
+      setLoading(false);
     }
-  }, [location]);
+  };
+
+  // 🔁 CALL
+  useEffect(() => {
+    fetchDealers();
+  }, [page, location]);
+
+  // 🔁 PAGE CHANGE
+  const handlePageChange = (p) => {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const locationSlug = params?.location;
 
   const formattedLocation = locationSlug
     ?.replace(/-/g, " ")
     ?.replace(/\b\w/g, (c) => c.toUpperCase());
-
-  // DIRECT DEALERS FROM BACKEND – NO EXTRA FILTER
-  const allDealers = Array.isArray(dealers) ? dealers : [];
-
-  const ITEMS_PER_PAGE = 20;
-
-  const totalPages = Math.ceil(allDealers.length / ITEMS_PER_PAGE);
-
-  const startIndex = (page - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
-
-  const visibleDealers = allDealers.slice(startIndex, endIndex);
-
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
 
   return (
     <div className="min-h-screen bg-white py-12">
@@ -90,71 +105,62 @@ export default function LocationDealersPage() {
           <h1 className="text-3xl font-bold text-black">
             Dealers in {formattedLocation}
           </h1>
-
-          <p className="text-sm text-gray-600 mt-2">
-            Showing trusted property dealers from this location
-          </p>
         </div>
 
-        {/* MAIN LAYOUT GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-          {/* LEFT SIDE - DEALER LIST */}
+          {/* LEFT */}
           <div className="md:col-span-2">
 
-            {loading ? (
-
-              <div className="flex items-center justify-center py-24 bg-[#d4af37]/5 rounded-xl border border-[#d4af37]/20">
-                <div className="flex flex-col items-center gap-4">
-
-                  <div className="w-12 h-12 border-4 border-[#d4af37]/30 border-t-[#d4af37] rounded-full animate-spin"></div>
-
-                  <h2 className="text-base text-[#d4af37] font-semibold">
-                    Loading Dealers...
-                  </h2>
-
-                  <p className="text-sm text-gray-600">
-                    Please wait while we fetch the data
-                  </p>
-
-                </div>
+            {/* 🔄 LOADING */}
+            {loading && (
+              <div className="flex flex-col items-center justify-center py-24">
+                <div className="w-14 h-14 border-4 border-gray-300 border-t-[#d4af37] rounded-full animate-spin"></div>
+                <p className="mt-4 text-gray-600 font-medium">
+                  Loading Dealers...
+                </p>
               </div>
+            )}
 
-            ) : allDealers.length === 0 ? (
-
-              <div className="text-center text-red-600 py-14 font-semibold">
-                No Dealers Found in {formattedLocation}
+            {/* ❌ ERROR */}
+            {!loading && error && (
+              <div className="text-center py-16 text-red-600 font-semibold">
+                {error}
               </div>
+            )}
 
-            ) : (
+            {/* ❌ NO DATA */}
+            {!loading && !error && dealers.length === 0 && (
+              <div className="text-center py-16 text-gray-500">
+                No Dealers Found
+              </div>
+            )}
 
+            {/* ✅ DATA */}
+            {!loading && !error && dealers.length > 0 && (
               <>
-                {/* DEALER CARDS */}
-                <div className="grid grid-cols-1 gap-6">
-                  {visibleDealers.map((dealer, index) => (
-                    <div
-                      key={`${dealer._id}-${index}`}
-                      className="transition-all duration-200"
-                    >
-                      <DealerCard dealer={dealer} />
-                    </div>
+                <div className="space-y-6">
+                  {dealers.map((dealer) => (
+                    <DealerCard key={dealer._id} dealer={dealer} />
                   ))}
                 </div>
 
                 {/* PAGINATION */}
-                <div className="mt-10 flex justify-center">
-                  <Pagination
-                    page={page}
-                    setPage={handlePageChange}
-                    totalPages={totalPages}
-                  />
-                </div>
+                {totalPages > 1 && (
+                  <div className="mt-10 flex justify-center">
+                    <Pagination
+                      page={page}
+                      totalPages={totalPages}
+                      setPage={handlePageChange}
+                    />
+                  </div>
+                )}
               </>
             )}
 
           </div>
 
-          {/* RIGHT SIDE - QUERY FORM */}
+          {/* RIGHT */}
           <div className="hidden md:block">
             <div className="sticky top-24">
               <QueryForm />

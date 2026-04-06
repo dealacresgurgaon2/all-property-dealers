@@ -34,7 +34,7 @@ export default function CityButtonsFilter({ onCitySelect }) {
               text-indigo-700
               hover:bg-indigo-50
               hover:border-indigo-500
-              transition
+              transition cursor-pointer
             "
           >
             Real Estate Agents {city}

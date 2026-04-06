@@ -111,7 +111,7 @@ export default function DealerCard({ dealer }) {
           </p>
 
           <p className="text-xs text-black mt-1">
-            {dealer.city}
+            City : {dealer.city}
             {dealer.state && `, ${dealer.state}`}
           </p>
 

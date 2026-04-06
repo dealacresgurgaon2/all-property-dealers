@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import GreenContactPopup from "./GreenContactPopup";
 
 export default function DealerCard({ dealer }) {
-  const [liked, setLiked] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
 
   const getInitials = (name = "") => {
     const words = name.trim().split(" ");
@@ -13,185 +14,111 @@ export default function DealerCard({ dealer }) {
   };
 
   return (
-    <div
-      className="
-        group relative
-        bg-white
-        border border-gray-200
-        rounded-2xl
-        overflow-hidden
-        shadow-sm
-        transition-all duration-300
-        hover:-translate-y-2
-        hover:shadow-2xl
-        hover:border-[#ff7a1a]/40
-      "
-    >
-      {/* TOP HEADER GRADIENT BAR */}
-      <div className="h-10 bg-gradient-to-r from-[#ff7a1a] to-[#ff9d4d] flex items-center px-4">
-        <span className="text-white text-xs font-semibold tracking-wide">
-        
-        </span>
-      </div>
+    <div className="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-[#f1c3cf] overflow-hidden group hover:-translate-y-1">
 
-      {/* ❤️ HEART BUTTON */}
-      <button
-        onClick={() => setLiked(!liked)}
-        className={`
-          absolute top-3 right-3 z-20
-          transition-all duration-300
-          bg-white rounded-full p-1.5 shadow
-          ${liked ? "scale-110" : "scale-100"}
-        `}
+      {/* TOP PREMIUM ACCENT */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#D02752] to-[#8A244B]" />
+
+      {/* GLOW EFFECT */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#D02752]/5 to-[#8A244B]/5 pointer-events-none" />
+
+      {/* SAVE */}
+      {/* <button
+        className="absolute top-4 right-4 w-9 h-9 rounded-full border border-[#e7a7b7] bg-white flex items-center justify-center hover:bg-gradient-to-r hover:from-[#D02752] hover:to-[#8A244B] hover:text-white transition-all z-10 shadow-sm"
+        title="Save dealer"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill={liked ? "#ef4444" : "none"}
-          stroke={liked ? "#ef4444" : "#64748b"}
-          strokeWidth="1.8"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 10-7.78 7.78L12 21.23l7.78-7.78a5.5 5.5 0 000-7.78z"
-          />
-        </svg>
-      </button>
+        ❤
+      </button> */}
 
-      {/* MAIN CONTENT */}
-      <div className="p-5 flex gap-4">
-        {/* LOGO BOX */}
-        <div className="flex-shrink-0">
-          <div
-            className="
-              bg-gradient-to-br from-[#ff7a1a] to-[#ff9d4d]
-              text-white
-              font-bold text-xl
-              rounded-xl
-              w-[76px] h-[76px]
-              flex items-center justify-center
-              transition-transform duration-300
-              group-hover:scale-110
-              shadow-lg
-            "
-          >
+      <div className="p-5 flex flex-col h-full relative z-10">
+
+        {/* HEADER */}
+        <div className="flex items-center gap-4 mb-4">
+
+          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#D02752] to-[#8A244B] flex items-center justify-center font-bold text-white text-lg shadow-lg group-hover:scale-105 transition-all">
             {getInitials(dealer.name)}
+          </div>
+
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-[#8A244B] leading-tight">
+              {dealer.name}
+            </h3>
+
+            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+              {dealer.address}
+            </p>
           </div>
         </div>
 
-        {/* DETAILS SECTION */}
-        <div className="flex-1 flex flex-col">
+        {/* LOCATION */}
+        <div className="bg-[#fde6ec] border border-[#f3c6d1] rounded-lg p-3 mb-3">
+          <div className="flex items-center gap-2">
 
-          <h3 className="text-lg font-bold text-gray-800 leading-tight">
-            {dealer.name}
-          </h3>
+            <svg
+              className="w-5 h-5 text-[#D02752]"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 2.25c-4.418 0-8 3.582-8 8 0 5.25 8 11.5 8 11.5s8-6.25 8-11.5c0-4.418-3.582-8-8-8zm0 11a3 3 0 100-6 3 3 0 000 6z" />
+            </svg>
 
-          {/* LOCATION */}
-          <div className="mt-2 flex items-start gap-2">
-            <span className="text-[#ff7a1a] mt-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z"
-                />
-                <circle cx="12" cy="11" r="2.5" />
-              </svg>
-            </span>
+            <p className="text-sm text-gray-700">
+              {dealer.city}
+              {dealer.state && `, ${dealer.state}`}
+            </p>
 
-            <span className="text-sm text-gray-600 line-clamp-2">
-              {dealer.address}
-            </span>
           </div>
+        </div>
 
-          <p className="text-xs text-gray-500 mt-1">
-             {dealer.city}
-          </p>
+        {/* TAGS */}
+        {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {dealer.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="text-[11px] px-2.5 py-1 rounded-full bg-[#fde6ec] text-[#D02752] border border-[#f3c6d1] hover:bg-gradient-to-r hover:from-[#D02752] hover:to-[#8A244B] hover:text-white transition"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
-          {/* TAG BADGES */}
-          {Array.isArray(dealer.tags) && dealer.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              {dealer.tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="
-                    text-[11px]
-                    px-2.5 py-1
-                    rounded-full
-                    bg-[#ff7a1a]/10
-                    text-[#ff7a1a]
-                    font-medium
-                    transition
-                    group-hover:bg-[#ff7a1a]/20
-                  "
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+        {/* BUTTONS */}
+        <div className="mt-auto">
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D02752]/40 to-transparent mb-4" />
 
-          {/* FOOTER ACTIONS */}
-          <div className="mt-auto pt-4 flex items-center justify-between border-t border-gray-100">
+          <div className="flex gap-3">
 
-            <a
-              href={`/contact?dealer=${dealer.slug}`}
-              className="
-                px-4 py-2
-                bg-[#ff7a1a]
-                text-white
-                text-xs
-                rounded-lg
-                font-semibold
-                hover:bg-[#ff6b00]
-                transition
-                shadow-sm
-              "
+            <button
+              onClick={() => setOpenPopup(true)}
+              className="flex-1 text-center py-2.5 rounded-lg bg-gradient-to-r from-[#D02752] to-[#8A244B] text-white text-sm font-semibold hover:scale-[1.04] transition shadow-lg"
             >
               Contact Now
-            </a>
+            </button>
 
             <Link
               href={{
-                pathname: `/adv-dse`,
+                pathname: `dealer/adv-dse`,
                 query: {
                   name: dealer.name,
                   city: dealer.city,
                 },
               }}
-              className="
-                px-4 py-2
-                border border-[#ff7a1a]
-                text-[#ff7a1a]
-                text-xs
-                rounded-lg
-                font-semibold
-                hover:bg-[#ff7a1a]
-                hover:text-white
-                transition
-              "
+              className="flex-1 text-center py-2.5 rounded-lg border border-[#D02752] text-[#D02752] text-sm font-semibold hover:bg-gradient-to-r hover:from-[#D02752] hover:to-[#8A244B] hover:text-white transition"
             >
-              View Profile →
+              View Details
             </Link>
 
           </div>
-
         </div>
+
       </div>
 
-      {/* SUBTLE HOVER GLOW */}
-      <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl ring-2 ring-[#ff7a1a]/20" />
+      <GreenContactPopup
+        isOpen={openPopup}
+        onClose={() => setOpenPopup(false)}
+      />
 
     </div>
   );

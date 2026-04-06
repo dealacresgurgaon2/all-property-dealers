@@ -50,5 +50,18 @@ body {
   }
 }
 
+.nav-link {
+  @apply relative text-gray-700 font-medium transition hover:text-[#FF52A0];
+}
+.nav-link::after {
+  content: "";
+  @apply absolute left-0 -bottom-1 h-[2px] w-0 bg-[#FF52A0] transition-all;
+}
+.nav-link:hover::after {
+  @apply w-full;
+}
 
+.mobile-link {
+  @apply text-gray-700 font-medium hover:text-[#FF52A0] transition;
+}
 

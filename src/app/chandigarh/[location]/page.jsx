@@ -1,11 +1,13 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import DealerCard from "@/templates/design3/components/DealerCard";
-import Pagination from "@/templates/design3/components/Pagination";
-import QueryForm from "@/templates/design3/components/QueryForm";
-import { useState, useEffect } from "react";
+import { useParams, useSearchParams } from "next/navigation";
+import { useDealers } from "@/context/propertydealercontext/DealerContext";
+import DealerCard from "@/templates/design4/components/DealerCard";
+import Pagination from "@/templates/design4/components/Pagination";
+import QueryForm from "@/templates/design4/components/QueryForm";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+
 export default function LocationDealersPage() {
 
 
@@ -39,7 +41,7 @@ const location = slug
 
       const domain =
         hostname === "localhost"
-          ? "www.propertydealerinhisar.com"
+          ? "www.propertydealerinchandigarh.com"
           : hostname;
 
       const API_BASE = process.env.NEXT_PUBLIC_API_URL;
@@ -101,83 +103,77 @@ const location = slug
   };
 
   return (
-    <div className="min-h-screen bg-white py-12">
+    <div className="min-h-screen bg-gradient-to-br from-[#fff0f4] via-white to-[#fde6ec] py-12">
+
       <div className="max-w-7xl mx-auto px-5">
 
         {/* HEADER */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-[#5E23DC]">
+          <h1 className="text-3xl font-bold text-[#8A244B]">
             Dealers in {formattedLocation}
           </h1>
-          <p className="text-sm text-gray-600 mt-2">
+
+          <p className="text-sm text-gray-500 mt-2">
             Showing trusted property dealers from this location
           </p>
+
+          <div className="w-16 h-1 bg-gradient-to-r from-[#D02752] to-[#8A244B] mx-auto mt-3 rounded-full"></div>
         </div>
 
         {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-          {/* LEFT SIDE */}
+          {/* LEFT */}
           <div className="md:col-span-2">
 
             {loading ? (
 
-  <div className="flex items-center justify-center py-24">
-    <div className="flex flex-col items-center gap-4">
+              <div className="flex items-center justify-center py-24 bg-white rounded-xl border border-[#f3c6d1] shadow-sm">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 border-4 border-[#D02752]/30 border-t-[#D02752] rounded-full animate-spin"></div>
 
-      {/* 🔄 Spinner */}
-      <div className="w-12 h-12 border-4 border-gray-300 border-t-[#5E23DC] rounded-full animate-spin"></div>
+                  <h2 className="text-base text-[#D02752] font-semibold">
+                    Loading Dealers...
+                  </h2>
 
-      <p className="text-[#5E23DC] font-semibold">
-        Loading Dealers...
-      </p>
+                  <p className="text-sm text-gray-500">
+                    Please wait while we fetch the data
+                  </p>
+                </div>
+              </div>
 
-    </div>
-  </div>
+            ) : dealers.length === 0 ? (
 
-) : error ? (
+              <div className="text-center text-[#D02752] py-14 font-semibold">
+                No Dealers Found in {formattedLocation}
+              </div>
 
-  <div className="text-center py-16">
-    <p className="text-red-600 font-semibold">{error}</p>
+            ) : (
 
-    <button
-      onClick={() => window.location.reload()}
-      className="mt-4 px-6 py-2 bg-[#5E23DC] text-white rounded-lg"
-    >
-      Retry
-    </button>
-  </div>
+              <>
+                {/* CARDS */}
+                <div className="grid grid-cols-1 gap-6">
+                  {dealers.map((dealer, index) => (
+                    <div key={`${dealer._id}-${index}`}>
+                      <DealerCard dealer={dealer} />
+                    </div>
+                  ))}
+                </div>
 
-) : dealers.length === 0 ? (
-
-  <div className="text-center text-gray-600 py-14 font-semibold">
-    No Dealers Found in {formattedLocation}
-  </div>
-
-) : (
-
-  <>
-    <div className="grid grid-cols-1 gap-6">
-      {dealers.map((dealer) => (
-        <DealerCard key={dealer._id} dealer={dealer} />
-      ))}
-    </div>
-
-    {totalPages > 1 && (
-      <div className="mt-10 flex justify-center">
-        <Pagination
-          page={page}
-          setPage={handlePageChange}
-          totalPages={totalPages}
-        />
-      </div>
-    )}
-  </>
-)}
+                {/* PAGINATION */}
+                <div className="mt-10 flex justify-center">
+                  <Pagination
+                    page={page}
+                    setPage={handlePageChange}
+                    totalPages={totalPages}
+                  />
+                </div>
+              </>
+            )}
 
           </div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT */}
           <div className="hidden md:block">
             <div className="sticky top-24">
               <QueryForm />
@@ -185,6 +181,7 @@ const location = slug
           </div>
 
         </div>
+
       </div>
     </div>
   );

@@ -11,98 +11,30 @@ import CityButtonsFilter from "./CityButtonsFilter";
 
 export default function DealersSection({ domain }) {
 
-  const { dealers, loading, page, setPage, totalPages, setDomain } = useDealers();
-
-  const [filtered, setFiltered] = useState([]);
-  const [selectedCity, setSelectedCity] = useState(""); // ✅ ADDED
+  const { dealers, loading, page, setPage, totalPages, setDomain, setSearch, search } = useDealers();
 
   const listTopRef = useRef(null);
 
-  /* ================= DOMAIN SET ================= */
-
+  // ✅ DOMAIN SET FIXED
   useEffect(() => {
-    setDomain("propertydealerindelhi.com");
+  if (typeof window === "undefined") return;
 
-    if (
-      domain &&
-      (domain === 
-        domain === "localhost")
-    ) {
-      setDomain("propertydealerindelhi.com");
-    }
-  }, [domain ,setDomain]);
+  const hostname = window.location.hostname;
 
-  /* ================= INITIAL LOAD ================= */
+  let finalDomain = hostname;
 
-  useEffect(() => {
-    setFiltered(dealers);
-  }, [dealers]);
+  if (
+    hostname === "localhost" ||
+    hostname.includes("vercel.app")
+  ) {
+    finalDomain = "www.propertydealerindelhi.com";
+  }
 
-  /* ================= APPLY CITY FILTER ================= */
+  setDomain(finalDomain);
 
-  useEffect(() => {
-    applyFilters();
-  }, [selectedCity, dealers]);
+}, []); // ❌ domain dependency hata di
 
-  const applyFilters = () => {
-    let result = [...dealers];
-
-    if (selectedCity) {
-      result = result.filter(
-        (d) => d.city?.toLowerCase() === selectedCity.toLowerCase()
-      );
-    }
-
-    setFiltered(result);
-  };
-
-  /* ================= CITY FILTER ================= */
-
-  const handleCityFilter = (city) => {
-    setSelectedCity(city);
-    setPage(1);
-    scrollToList();
-  };
-
-  /* ================= SEARCH ================= */
-
-  const handleSearch = (query) => {
-
-    const q = query.toLowerCase().trim();
-
-    if (!q) {
-      applyFilters();
-      setPage(1);
-      scrollToList();
-      return;
-    }
-
-    const words = q.split(/\s+/);
-
-    let result = dealers.filter((d) => {
-      const text = `
-        ${d.name || ""}
-        ${d.city || ""}
-        ${d.address || ""}
-      `.toLowerCase();
-
-      return words.every((w) => text.includes(w));
-    });
-
-    // City filter combine
-    if (selectedCity) {
-      result = result.filter(
-        (d) => d.city?.toLowerCase() === selectedCity.toLowerCase()
-      );
-    }
-
-    setFiltered(result);
-    setPage(1);
-    scrollToList();
-  };
-
-  /* ================= SCROLL FIX ================= */
-
+  // ✅ SCROLL FUNCTION
   const scrollToList = () => {
     requestAnimationFrame(() => {
       const element = listTopRef.current;
@@ -119,6 +51,19 @@ export default function DealersSection({ domain }) {
         behavior: "smooth",
       });
     });
+  };
+ const handleCityFilter = (city) => {
+  setSearch(`city:${city.toLowerCase()}`); // 🔥 tag based search
+  setPage(1);
+  scrollToList();
+};
+
+  // ✅ SEARCH → API CALL
+  const handleSearch = (query) => {
+    const cleanQuery = query.trim(); 
+    setSearch(cleanQuery); // 🔥 backend me jayega
+    setPage(1);
+    scrollToList();
   };
 
   return (
@@ -159,7 +104,7 @@ export default function DealersSection({ domain }) {
                 </div>
               </div>
 
-            ) : filtered.length === 0 ? (
+            ) : dealers.length === 0 ? (
 
               <div className="py-20 text-center border border-dashed border-red-300 rounded-xl bg-white">
                 <p className="text-red-600 font-medium">
@@ -170,7 +115,7 @@ export default function DealersSection({ domain }) {
             ) : (
 
               <div className="space-y-5 -mt-10">
-                {filtered.map((dealer) => (
+                {dealers.map((dealer) => (
                   <DealerCard key={dealer._id} dealer={dealer} />
                 ))}
               </div>
