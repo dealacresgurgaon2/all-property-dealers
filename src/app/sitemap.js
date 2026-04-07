@@ -107,7 +107,7 @@ export default async function sitemap() {
 
   try {
     const res = await fetch(
-      `http://localhost:5000/api/slugs?domain=${cleanHost}`
+      `https://deal-acres-backend.onrender.com/api/slugs?domain=${cleanHost}`
     );
 
     const data = await res.json();
