@@ -57,7 +57,7 @@ export default function LocationDealersPage() {
 
       const url = `${API_BASE}/api/get/getDealers/${domain}?${params.toString()}`;
 
-      console.log("API:", url);
+   
 
       const res = await axios.get(url);
 
@@ -65,7 +65,7 @@ export default function LocationDealersPage() {
       setTotalPages(res?.data?.pagination?.totalPages ?? 1);
 
     } catch (err) {
-      console.error("API Error:", err);
+     ;
 
       setError(
         err?.response?.status === 403
