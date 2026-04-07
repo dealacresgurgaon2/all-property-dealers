@@ -29,8 +29,8 @@ export default function Navbar() {
             flex items-center gap-2
           "
         >
-          <span className="text-indigo-600">Property</span>
-          <span> Dealer Haryana</span>
+          <span className="text-indigo-600">DA</span>
+          
         </Link>
 
         {/* DESKTOP NAV */}

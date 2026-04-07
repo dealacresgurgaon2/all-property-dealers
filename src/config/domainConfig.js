@@ -26,7 +26,7 @@ export const DOMAIN_LAYOUT_MAP = {
     "https://projectwallah.live/":"hisar",
   "property-dealer-in-hisar-2.vercel.app": "hisar",
   "all-property-dealers.vercel.app": "hisar",
-"localhost:3000": "delhi",
+"localhost:3000": "hisar",
 };
 
 export const DEFAULT_LAYOUT = "chandigarh"

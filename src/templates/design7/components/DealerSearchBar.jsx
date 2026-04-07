@@ -25,7 +25,7 @@ export default function DealerSearchBar({ onSearch }) {
           hover:shadow-xl
           transition-all
           p-2 sm:p-3
-          overflow-hidden
+          overflow-hidden 
         "
       >
         <div className="flex items-center gap-2 sm:gap-3">
@@ -37,7 +37,7 @@ export default function DealerSearchBar({ onSearch }) {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              viewBox="0 0 24 24"
+              viewBox="0 0 24 24 cursor-pointer"
             >
               <path
                 strokeLinecap="round"

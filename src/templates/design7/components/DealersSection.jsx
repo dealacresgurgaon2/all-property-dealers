@@ -19,48 +19,59 @@ export default function DealersSection() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // ✅ Default Faridabad
   const [selectedCity, setSelectedCity] = useState("Faridabad");
+
+  // ✅ SEARCH STATE
+  const [search, setSearch] = useState("");
 
   const listTopRef = useRef(null);
 
   // ================= API CALL =================
   useEffect(() => {
 
-
     const fetchDealers = async () => {
-      
       try {
         setLoading(true);
 
         let url = `${API_BASE}/api/get/state/Haryana?page=${page}&limit=100`;
 
-        // ✅ Send city to backend
-        if (selectedCity) {
-          url += `&city=${selectedCity}`;
-        }
-console.log("Selected City =>", selectedCity);
-console.log("API URL =>", url);
+if (selectedCity) {
+  url += `&city=${selectedCity}`;
+}
 
+// ✅ CLEAN SEARCH
+const cleanSearch = search
+  .replace(/property dealer in/i, "")
+  .trim();
+
+// ✅ APPLY SEARCH
+if (cleanSearch) {
+  url += `&search=${cleanSearch}`;
+}
+
+console.log("FINAL URL =>", url);
+console.log("SEARCH =>", search);
         const res = await fetch(url);
         const data = await res.json();
 
         if (data.success) {
           setDealers(data.data);
           setTotalPages(data.totalPages || 1);
+        } else {
+          setDealers([]);
         }
-
-        setLoading(false);
 
       } catch (err) {
         console.log("Error fetching dealers:", err);
+        setDealers([]);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchDealers();
 
-  }, [page, selectedCity]);
+  }, [page, selectedCity, search]);
 
   // ===========================================
 
@@ -71,8 +82,9 @@ console.log("API URL =>", url);
   };
 
   const handleSearch = (query) => {
-    // Optional: backend search bana sakte ho
-    console.log(query);
+    setSearch(query);
+    setPage(1);
+    scrollToList();
   };
 
   const scrollToList = () => {
@@ -81,7 +93,10 @@ console.log("API URL =>", url);
       if (!element) return;
 
       const yOffset = -100;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const y =
+        element.getBoundingClientRect().top +
+        window.pageYOffset +
+        yOffset;
 
       window.scrollTo({
         top: y,
@@ -112,6 +127,7 @@ console.log("API URL =>", url);
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
+          {/* LEFT SIDE */}
           <div className="lg:col-span-2">
 
             <div className="sticky top-[72px] z-30 pb-4">
@@ -147,7 +163,6 @@ console.log("API URL =>", url);
 
             )}
 
-            {/* ✅ Pagination Working */}
             {!loading && totalPages > 1 && (
               <div className="mt-8">
                 <Pagination
@@ -163,6 +178,7 @@ console.log("API URL =>", url);
 
           </div>
 
+          {/* RIGHT SIDE */}
           <div className="space-y-6">
             <div className="sticky top-[72px]">
               <QueryForm />
