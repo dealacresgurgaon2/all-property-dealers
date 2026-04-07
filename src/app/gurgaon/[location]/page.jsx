@@ -36,7 +36,7 @@ export default function LocationDealersPage() {
   const getDomain = () => {
     if (typeof window === "undefined") return "";
 
-    const host = window.location.hostname.replace("www.", "");
+    const host = window.location.hostname
 
     if (host === "localhost" || host.includes("vercel")) {
       return "www.propertydealeringurgaon.com";
