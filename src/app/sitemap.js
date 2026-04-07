@@ -92,14 +92,73 @@ export default async function sitemap() {
   // ================= LOCATION (DYNAMIC) =================
   const locations = LOCATION_MAP[city] || [];
 
-  const locationUrls = locations.map((loc) => {
-    const slug = createSlug(loc);
+   let locationUrls = [];
+  let zoneUrls = [];
+  let zoneLocationUrls = [];
 
-    return {
-      url: `${baseUrl}/${slug}`,
+  if (city === "delhi") {
+    const delhiData = LOCATION_MAP.delhi || {};
+
+    const zones = [
+      { key: "central", slug: "central-delhi" },
+      { key: "north", slug: "north-delhi" },
+      { key: "south", slug: "south-delhi" },
+      { key: "east", slug: "east-delhi" },
+      { key: "west", slug: "west-delhi" },
+    ];
+
+    // 🔥 ZONES
+    zoneUrls = zones.map((zone) => ({
+      url: `${baseUrl}/zone/${zone.slug}`,
       lastModified: new Date(),
-    };
-  });
+    }));
+
+    // 🔥 LOCATIONS
+    Object.values(delhiData).forEach((arr) => {
+      if (!Array.isArray(arr)) return;
+
+      arr.forEach((loc) => {
+        if (!loc) return;
+
+        const slug = createSlug(loc);
+
+        locationUrls.push({
+          url: `${baseUrl}/delhi/${slug}`,
+          lastModified: new Date(),
+        });
+      });
+    });
+
+    // 🔥 ZONE + LOCATION
+    zones.forEach((zone) => {
+      const locArr = delhiData[zone.key] || [];
+
+      if (!Array.isArray(locArr)) return;
+
+      locArr.forEach((loc) => {
+        if (!loc) return;
+
+        const slug = createSlug(loc);
+
+        zoneLocationUrls.push({
+          url: `${baseUrl}/zone/${zone.slug}/${slug}`,
+          lastModified: new Date(),
+        });
+      });
+    });
+
+  } else {
+    const locations = LOCATION_MAP[city] || [];
+
+    if (Array.isArray(locations)) {
+      locationUrls = locations
+        .filter((loc) => loc)
+        .map((loc) => ({
+          url: `${baseUrl}/${city}/${createSlug(loc)}`,
+          lastModified: new Date(),
+        }));
+    }
+  }
 
 
   // ================= DEALERS =================
@@ -152,11 +211,16 @@ try {
 } catch (e) {
   console.log("Blog API error:", e);
 }
+
+
+
   // ================= FINAL =================
   return [
-    ...staticUrls,
-    ...locationUrls,
-    ...dealerUrls,
-    ...blogUrls,
-  ];
+  ...staticUrls,
+  ...zoneUrls,
+  ...locationUrls,
+  ...zoneLocationUrls,
+  ...dealerUrls,
+  ...blogUrls,
+];
 }

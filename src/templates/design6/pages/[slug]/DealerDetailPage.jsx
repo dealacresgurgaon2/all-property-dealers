@@ -23,7 +23,7 @@ export default function DealerDetailPage({ slug }) {
 
     setLoading(true);
 
-    axios.get(`http://localhost:5000/api/dealer-basic/${slug}`, {
+    axios.get(`https://propertydealerbackend.onrender.com/api/dealer-basic/${slug}`, {
   headers: {
     domain: "www.propertydealerinnoida.com", // ✅ static domain
   },
