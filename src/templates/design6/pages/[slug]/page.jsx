@@ -1,9 +1,14 @@
-"use client";
 
 import DealerDetailPage from "./DealerDetailPage";
 import QueryForm from "../../components/QueryForm";
 import FourBlogs from "../../components/FourBlogs";
-export default function BlogPage() {
+export default async function BlogPage({ params }) {
+  const resolvedParams = await params;   // ✅ FIX
+  const slug = resolvedParams.slug;
+
+  if (!slug) {
+    return <div>Slug missing 😅</div>;
+  }
   return (
     <main className="bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
@@ -27,7 +32,7 @@ export default function BlogPage() {
           {/* LEFT SIDE – DEALER DETAILS */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl border border-green-200 shadow-sm p-2">
-              <DealerDetailPage />
+              <DealerDetailPage slug={slug} />
             </div>
           </div>
 

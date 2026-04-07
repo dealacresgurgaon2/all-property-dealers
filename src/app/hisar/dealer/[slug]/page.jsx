@@ -1,5 +1,5 @@
-import DealerPage from "@/templates/design3/pages/[slug]/page";
+import BlogPage from "@/templates/design3/pages/[slug]/page";
 
-export default function Page() {
-  return <DealerPage />;
+export default function Page({ params }) {
+  return <BlogPage params={params} />;
 }

@@ -1,19 +1,81 @@
 "use client";
 
-import { useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function DealerDetailPage() {
-  const { slug } = useParams();
+export default function DealerDetailPage({ slug }) {
+  const [dealer, setDealer] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [openFaq, setOpenFaq] = useState(null);
-  const searchParams = useSearchParams();
-
-  const dealerName = searchParams.get("name") || "Trusted Dealer";
-  const dealerCity = searchParams.get("city") || "Chandigarh";
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
   };
+
+  useEffect(() => {
+    if (!slug) {
+      setError("Slug missing ❌");
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+
+    axios.get(`http://localhost:5000/api/dealer-basic/${slug}`, {
+  headers: {
+    domain: "www.propertydealerinchandigarh.com", // ✅ static domain
+  },
+})
+      .then((res) => {
+        setDealer(res.data.data);
+        setError(null);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError("Dealer data load nahi ho paaya ❌");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [slug]);
+
+  // 🔄 LOADING UI
+  if (loading) {
+    return (
+      <div className="p-6 text-center animate-pulse">
+        <div className="h-6 bg-gray-200 rounded w-1/2 mx-auto mb-4"></div>
+        <div className="h-4 bg-gray-200 rounded w-1/3 mx-auto"></div>
+        <p className="mt-4 text-gray-500 text-sm">Loading dealer details...</p>
+      </div>
+    );
+  }
+
+  // ❌ ERROR UI
+  if (error) {
+    return (
+      <div className="p-6 text-center">
+        <p className="text-red-500 font-semibold">{error}</p>
+
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-3 px-4 py-2 bg-[#5E23DC] text-white rounded-md"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
+  // ❌ SAFETY
+  if (!dealer) {
+    return <div className="text-center p-6">No Dealer Found</div>;
+  }
+
+  // ✅ DATA
+  const dealerName = dealer.name;
+  const dealerCity = dealer.city;
 
   const card =
     "bg-white rounded-2xl p-6 border border-[#f3c6d1] shadow-md";

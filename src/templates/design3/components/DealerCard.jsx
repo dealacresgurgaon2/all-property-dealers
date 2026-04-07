@@ -135,13 +135,7 @@ export default function DealerCard({ dealer }) {
           </button>
 
           <Link
-            href={{
-              pathname: `/dealer/${dealer.slug}`,
-              query: {
-                name: dealer.name,
-                city: dealer.city,
-              },
-            }}
+            href={`/dealer/${dealer.slug}`}
             className="px-4 py-1.5 rounded-md border border-[#5E23DC] text-[#5E23DC] text-sm font-semibold hover:bg-[#5E23DC] hover:text-white transition"
           >
             View Details
