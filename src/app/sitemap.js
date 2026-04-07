@@ -96,7 +96,7 @@ export default async function sitemap() {
     const slug = createSlug(loc);
 
     return {
-      url: `${baseUrl}/${city}/${slug}`,
+      url: `${baseUrl}/${slug}`,
       lastModified: new Date(),
     };
   });
@@ -115,19 +115,48 @@ export default async function sitemap() {
     dealerUrls = (data?.data || [])
       .filter((d) => d.slug)
       .map((d) => ({
-        url: `${baseUrl}/${city}/dealer/${encodeURIComponent(d.slug)}`,
+        url: `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
         lastModified: new Date(),
       }));
 
   } catch (e) {
     console.log("Dealer API error:", e);
   }
+  // ================= BLOG =================
+let blogUrls = [];
 
+try {
+  // 🔥 DOMAIN AUTO (IMPORTANT)
+  const domain = cleanHost.startsWith("www.")
+    ? cleanHost
+    : `www.${cleanHost}`;
 
+  const API_URL = `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${domain}`;
+
+  console.log("BLOG API:", API_URL);
+
+  const res = await fetch(API_URL, {
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+
+  blogUrls = (data?.data || []).map((slug) => ({
+    url: `${baseUrl}/blog/${encodeURIComponent(slug)}`,
+    lastModified: new Date(),
+  }));
+
+} catch (e) {
+  console.log("Blog API error:", e);
+}
   // ================= FINAL =================
   return [
     ...staticUrls,
     ...locationUrls,
     ...dealerUrls,
+    ...blogUrls,
   ];
 }
