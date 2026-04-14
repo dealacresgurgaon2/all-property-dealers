@@ -71,7 +71,7 @@ useEffect(() => {
         return (
           <Link
             key={index}
-            href={`/noida/${slug}`}
+            href={`/noida/property-dealer-in-${slug}`}
             className="text-black hover:text-green-600 transition text-sm truncate"
           >
             Property Dealer in {loc}
@@ -133,7 +133,7 @@ useEffect(() => {
                   return (
                     <Link
                       key={index}
-                      href={`/noida/${slug}`}
+                      href={`/noida/property-dealer-in-${slug}`}
                       className="text-white/80 hover:text-green-500 transition text-sm truncate"
                     >
                       Property Dealer in {loc}

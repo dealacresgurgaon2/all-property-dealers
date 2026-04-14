@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 export default function ZonePage() {
   const params = useParams();
-  const zone = params?.city;
+ const zone = params?.zone;
   
 const [isMobile, setIsMobile] = useState(false);
 const [showAll, setShowAll] = useState(false);
@@ -1181,14 +1181,13 @@ useEffect(() => {
   : locations
 ).map((location, index) => (
         <li key={index}>
-          <Link
-            href={`/delhi/${createSlug(location)}`}
-            className="transition font-medium hover:text-red-600 hover:font-bold hover:underline"
-
-          >
-            Property Dealer in {location}
-          </Link>
-        </li>
+  <Link
+href={`/delhi/property-dealer-in-${createSlug(location)}`}
+    className="transition font-medium hover:text-red-600 hover:font-bold hover:underline"
+  >
+    Property Dealer in {location}
+  </Link>
+</li>
       ))}
 
     </ul>

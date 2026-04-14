@@ -1,21 +1,23 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Pagination from "../../components/Pagination";
+
 import BlogList from "./Bloglist";
+import { useBlogs } from "../../../../context/design7api/blogcontext";
 
-// 🔥 30 BLOGS PER PAGE
-const ITEMS_PER_PAGE = 30;
-
-export default function BlogPage() {
-  const [page, setPage] = useState(1);
-  const [totalBlogs, setTotalBlogs] = useState(0);
+export default function BlogPage({domain}) {
 
   const listRef = useRef(null);
 
-  const totalPages = Math.ceil(totalBlogs / ITEMS_PER_PAGE);
+  // CONTEXT se data lo
+  const { page, setPage, totalPages,setDomain } = useBlogs();
+  useEffect(()=>{
+    if (domain)
+      setDomain(domain);
+    
+  },[domain])
 
-  // Smooth Scroll Function
   const scrollToList = () => {
     listRef.current?.scrollIntoView({
       behavior: "smooth",
@@ -23,32 +25,26 @@ export default function BlogPage() {
     });
   };
 
+  const handlePageChange = (p) => {
+    setPage(p);
+    scrollToList();
+  };
+
   return (
-    <main className="bg-slate-50 pb-10">
+    <main>
+      <div ref={listRef} className="bg-white">
 
-      {/* Blog List Section */}
-      <div ref={listRef}>
-        <BlogList
-          page={page}
-          itemsPerPage={ITEMS_PER_PAGE}
-          setTotalBlogs={setTotalBlogs}
-        />
-      </div>
+        <BlogList />
 
-      {/* Pagination - Sirf tab dikhe jab pages > 1 ho */}
-      {totalPages > 1 && (
-        <div className="mt-10">
+        <div className="py-5 border-t border-[#5E23DC]/20">
           <Pagination
             page={page}
             totalPages={totalPages}
-            setPage={(p) => {
-              setPage(p);
-              scrollToList();
-            }}
+            setPage={handlePageChange}
           />
         </div>
-      )}
 
+      </div>
     </main>
   );
 }

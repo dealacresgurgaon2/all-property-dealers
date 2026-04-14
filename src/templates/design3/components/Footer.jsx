@@ -113,7 +113,7 @@ useEffect(() => {
         return (
           <Link
             key={index}
-            href={`/hisar/${slug}`}
+            href={`/hisar/property-dealer-in-${slug}`}
             title={`Property Dealer in ${loc}`}
             className="
               text-black
@@ -196,7 +196,7 @@ useEffect(() => {
                         return (
                           <Link
                             key={index}
-                             href={`/hisar/${slug}`}
+                             href={`/hisar/property-dealer-in-${slug}`}
                             title={`Property Dealer in ${loc}`}
                             className="
                               text-white/80

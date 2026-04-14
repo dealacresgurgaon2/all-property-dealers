@@ -97,7 +97,7 @@ const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
         return (
           <Link
             key={index}
-            href={`/gurgaon/${slug}`}
+            href={`/gurgaon/property-dealer-in-${slug}`}
             className="text-[#1e40af] hover:text-[#0b1f33] transition text-sm truncate"
           >
             Property Dealer in {loc}
@@ -157,7 +157,7 @@ const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
                   return (
                     <Link
                       key={index}
-href={`/gurgaon/${slug}`}                      className="text-white/80 hover:text-[#38bdf8] transition text-sm truncate"
+href={`/gurgaon/property-dealer-in-${slug}`}                      className="text-white/80 hover:text-[#38bdf8] transition text-sm truncate"
                     >
                       Property Dealer in {loc}
                     </Link>

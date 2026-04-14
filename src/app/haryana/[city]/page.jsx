@@ -10,9 +10,18 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DealersPage() {
   const params = useParams();
-  const urlCity = params?.city;
+ const rawCity = params?.city;
+const urlCity = cleanCitySlug(rawCity);
   return <CityDealers key={urlCity} urlCity={urlCity} />;
 }
+const cleanCitySlug = (slug) => {
+  if (!slug) return "";
+
+  return slug
+    .toLowerCase()
+    .replace("property-dealer-in-", "")
+    .trim();
+};
 
 function CityDealers({ urlCity }) {
   const { setCity } = useCity();
