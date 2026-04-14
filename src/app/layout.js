@@ -23,10 +23,8 @@ export async function generateMetadata() {
   const domain = h.get("host") || "localhost";
 
   return {
-    title:
-      "Property Dealer | Buy & Sell Residential and Commercial Properties",
-    description:
-      "Trusted property dealer offering residential and commercial properties for sale and rent.",
+    title: "Top Rated Property Dealers Near You | Buy, Sell & Rent Homes & Commercial Properties",
+    description: "Looking for trusted property dealers near you? Discover verified real estate agents for buying, selling, and renting homes, flats, plots, and commercial properties with best prices and expert guidance.",
     alternates: {
       canonical: `https://${domain}`,
     },
