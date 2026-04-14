@@ -1,5 +1,5 @@
 export const GOOGLE_VERIFICATION = {
-    "www.propertydealerinfaridabad.com": "",
+    "www.propertydealerinfaridabad.com": "NLk5juh0Ka5_aaJGl_Ej0o5UG35y_KRDMyL-YewaUY8",
     "www.propertydealerindelhi.com": "",
     "www.propertydealerinhisar.com": "gr6NsimW1httUNsFmquvSjrPvDZk-t-IRjM_EsI3deA",
     "www.propertydealerinnoida.com": "",
