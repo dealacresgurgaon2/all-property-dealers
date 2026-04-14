@@ -1,5 +1,5 @@
 export const GA_TARGET_DOMAINS ={
-    "www.propertydealerindelhi.com":"",
+    "www.propertydealerindelhi.com":"G-6T20SR2ZDW",
      "www.propertydealerinfaridabad.com": "G-BLVG9GT2EH",
     "www.propertydealerinhisar.com": "G-415KNEWBS1",
     "www.propertydealerinnoida.com": "",

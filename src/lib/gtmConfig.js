@@ -1,5 +1,5 @@
 export const GTM_IDS = {
-    "www.propertydealerindelhi.com": "",
+    "www.propertydealerindelhi.com": "GTM-NNQ4F6T4",
      "www.propertydealerinfaridabad.com": "GTM-KFT5D88K",
         "www.propertydealerinhisar.com": "GTM-MNT3HSMR",
     "www.propertydealerinnoida.com": "",
