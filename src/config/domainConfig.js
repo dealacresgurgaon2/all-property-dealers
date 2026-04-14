@@ -4,7 +4,7 @@ export const DOMAIN_LAYOUT_MAP = {
   "propertydeler-gold-frontend-lp3d.vercel.app": "hisar",
   "propertydeler-gold-frontend-xkw9.vercel.app": "noida",
   "propertydeler-gold-frontend-k2da.vercel.app": "delhi",
-  "propertydeler-gold-frontend-w423.vercel.app": "chandigarh",
+  "localhost:3000": "chandigarh",
   "https://propertydealerinhisar.com":"hisar",
   "www.propertydealerinhisar.com":"hisar",
   "www.propertydealerinhisar.com/":"hisar",
@@ -18,15 +18,11 @@ export const DOMAIN_LAYOUT_MAP = {
   "www.propertydealerindelhi.com":"delhi",
   "propertyforsalenearme.in":"haryana",
   "www.propertyforsalenearme.in":"haryana",
-    "projectwallah.live":"hisar",
-    "www.projectwallah.live":"hisar",
-    "https://www.projectwallah.live":"hisar",
-    "https://projectwallah.live":"hisar",
-    "https://www.projectwallah.live/":"hisar",
-    "https://projectwallah.live/":"hisar",
-  "property-dealer-in-hisar-2.vercel.app": "hisar",
-  "all-property-dealers.vercel.app": "hisar",
-"localhost:3000": "faridabad",
+  
+   
+    
+ 
+"localhost:3000": "delhi",
 };
 
 export const DEFAULT_LAYOUT = "chandigarh"

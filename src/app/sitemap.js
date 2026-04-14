@@ -1,59 +1,4 @@
-// import { headers } from "next/headers";
 
-// export default async function sitemap() {
-
-//   let host = "localhost:3000";
-
-//   try {
-//     const headersList = await headers();
-//     host = headersList.get("host") || host;
-//   } catch {}
-
-//   let cleanHost = host.trim();
-
-//   // 🔥 LOCAL ONLY (production me auto ho jayega)
-//   if (cleanHost.includes("localhost")) {
-//     cleanHost = "www.propertydealeringurgaon.com";
-//   }
-
-//   const baseUrl = `https://${cleanHost}`;
-
-//   // ================= STATIC =================
-//   const staticPages = ["", "/about", "/contact", "/blog"];
-
-//   const staticUrls = staticPages.map((path) => ({
-//     url: `${baseUrl}${path}`,
-//     lastModified: new Date(),
-//   }));
-
-
-//   // ================= DEALER =================
-//   let dealerUrls = [];
-
-//   try {
-//     const res = await fetch(
-//       `http://localhost:5000/api/slugs?domain=${cleanHost}`
-//     );
-
-//     const data = await res.json();
-
-//     dealerUrls = (data?.data || [])
-//   .filter((d) => d.slug)
-//   .map((d) => ({
-//     url: `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
-//     lastModified: new Date(),
-//   }));
-
-//   } catch (e) {
-//     console.log("Dealer API error:", e);
-//   }
-
-//   // ✅ FINAL RETURN (ONLY ARRAY)
-//   return [
-//     ...staticUrls,
-//     ...dealerUrls,
-//   ];
-// }
 import { headers } from "next/headers";
 import { DOMAIN_LAYOUT_MAP, DEFAULT_LAYOUT } from "@/config/domainConfig";
 import { LOCATION_MAP } from "@/data/location";
@@ -66,33 +11,42 @@ const createSlug = (text) => {
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-");
 };
-
+export const dynamic = "force-dynamic";
 export default async function sitemap() {
 
   // ================= DOMAIN =================
   const headersList = await headers();
   const host = headersList.get("host") || "localhost:3000";
 
-  const cleanHost = host.trim();
+  // ✅ NORMALIZE HOST
+  const normalizeHost = (host) => {
+    return host
+      .replace(/^https?:\/\//, "")
+      .replace(/\/$/, "")
+      .trim();
+  };
 
-  // 🔥 DOMAIN → CITY
-  const city = DOMAIN_LAYOUT_MAP[cleanHost] || DEFAULT_LAYOUT;
+  const cleanHost = normalizeHost(host);
+
+  // ✅ CITY DETECT (SMART)
+  const city =
+    DOMAIN_LAYOUT_MAP[cleanHost] ||
+    DOMAIN_LAYOUT_MAP[cleanHost.replace(/^www\./, "")] ||
+    DOMAIN_LAYOUT_MAP[`www.${cleanHost}`] ||
+    DEFAULT_LAYOUT;
 
   const baseUrl = `https://${cleanHost}`;
 
   // ================= STATIC =================
-  const staticPages = ["", "/about", "/contact", "/blog"];
+  const staticPages = ["", "/about", "/contactus", "/blogs"];
 
   const staticUrls = staticPages.map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: new Date(),
   }));
 
-
-  // ================= LOCATION (DYNAMIC) =================
-  const locations = LOCATION_MAP[city] || [];
-
-   let locationUrls = [];
+  // ================= LOCATION =================
+  let locationUrls = [];
   let zoneUrls = [];
   let zoneLocationUrls = [];
 
@@ -107,29 +61,24 @@ export default async function sitemap() {
       { key: "west", slug: "west-delhi" },
     ];
 
-    // 🔥 ZONES
     zoneUrls = zones.map((zone) => ({
       url: `${baseUrl}/zone/${zone.slug}`,
       lastModified: new Date(),
     }));
 
-    // 🔥 LOCATIONS
     Object.values(delhiData).forEach((arr) => {
       if (!Array.isArray(arr)) return;
 
       arr.forEach((loc) => {
         if (!loc) return;
 
-        const slug = createSlug(loc);
-
         locationUrls.push({
-          url: `${baseUrl}/delhi/${slug}`,
+          url: `${baseUrl}/delhi/property-dealer-in-${createSlug(loc)}`,
           lastModified: new Date(),
         });
       });
     });
 
-    // 🔥 ZONE + LOCATION
     zones.forEach((zone) => {
       const locArr = delhiData[zone.key] || [];
 
@@ -138,10 +87,8 @@ export default async function sitemap() {
       locArr.forEach((loc) => {
         if (!loc) return;
 
-        const slug = createSlug(loc);
-
         zoneLocationUrls.push({
-          url: `${baseUrl}/zone/${zone.slug}/${slug}`,
+          url: `${baseUrl}/zone/${zone.slug}/${createSlug(loc)}`,
           lastModified: new Date(),
         });
       });
@@ -152,75 +99,168 @@ export default async function sitemap() {
 
     if (Array.isArray(locations)) {
       locationUrls = locations
-        .filter((loc) => loc)
+        .filter(Boolean)
         .map((loc) => ({
-          url: `${baseUrl}/${city}/${createSlug(loc)}`,
+          url: `${baseUrl}/${city}/property-dealer-in-${createSlug(loc)}`,
           lastModified: new Date(),
         }));
     }
   }
 
+  // ================= DOMAIN FOR API =================
+  const domainForApi =
+    cleanHost === "localhost:3000"
+      ? "www.propertydealerinnoida.com" // 🔥 local testing fix
+      : cleanHost.startsWith("www.")
+      ? cleanHost
+      : `www.${cleanHost}`;
 
   // ================= DEALERS =================
-  let dealerUrls = [];
+  // let dealerUrls = [];
 
-  try {
-    const res = await fetch(
-      `https://propertydealerbackend.onrender.com/api/slugs?domain=${cleanHost}`
-    );
+  // try {
+  //   const res = await fetch(
+  //     `https://propertydealerbackend.onrender.com/api/slugs?domain=${domainForApi}`,
+  //     { cache: "no-store" }
+  //   );
 
-    const data = await res.json();
+  //   const data = await res.json();
 
-    dealerUrls = (data?.data || [])
-      .filter((d) => d.slug)
-      .map((d) => ({
-        url: `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
-        lastModified: new Date(),
-      }));
+  //   console.log("DEALER DOMAIN:", domainForApi);
+  //   console.log("DEALER COUNT:", data?.count);
 
-  } catch (e) {
-    console.log("Dealer API error:", e);
-  }
-  // ================= BLOG =================
-let blogUrls = [];
+  //   dealerUrls = (data?.data || []).map((d) => ({
+  //     url: `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
+  //     lastModified: new Date(),
+  //   }));
+
+  // } catch (e) {
+  //   console.error("❌ Dealer API error:", e?.message);
+  // }
+
+  // // ================= BLOG =================
+  let blogUrls = [];
 
 try {
-  // 🔥 DOMAIN AUTO (IMPORTANT)
-  const domain = cleanHost.startsWith("www.")
-    ? cleanHost
-    : `www.${cleanHost}`;
 
-  const API_URL = `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${domain}`;
+  const isHaryanaDesign = city === "haryana";
 
-  console.log("BLOG API:", API_URL);
+  // ✅ Haryana me fixed domain use hoga
+  const blogDomain = isHaryanaDesign
+    ? "www.propertyforsalenearme.in"
+    : domainForApi;
 
-  const res = await fetch(API_URL, {
-    cache: "no-store",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const API_URL = `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${blogDomain}`;
 
+  console.log("BLOG DOMAIN:", blogDomain);
+
+  const res = await fetch(API_URL, { cache: "no-store" });
   const data = await res.json();
 
   blogUrls = (data?.data || []).map((slug) => ({
-    url: `${baseUrl}/blog/${encodeURIComponent(slug)}`,
+    url: `${baseUrl}/blogs/${encodeURIComponent(slug)}`,
     lastModified: new Date(),
   }));
 
 } catch (e) {
-  console.log("Blog API error:", e);
+  console.error("❌ Blog API error:", e?.message);
 }
+//======================haryana============
+const haryanaCities = [
+  "ambala","bhiwani","charkhi-dadri","faridabad","fatehabad",
+  "gurgaon","hisar","jhajjar","jind","kaithal","karnal",
+  "kurukshetra","mahendergarh","palwal","panchkula",
+  "panipat","rewari","rohtak","sirsa","sonipat","yamunanagar"
+];
+if (city === "haryana") {
+
+  locationUrls = haryanaCities.map((c) => ({
+    url: `${baseUrl}/property-dealer-in-${c}`,
+    lastModified: new Date(),
+  }));
+
+} else {
+  const locations = LOCATION_MAP[city] || [];
+
+  if (Array.isArray(locations)) {
+    locationUrls = locations.map((loc) => ({
+      url: `${baseUrl}/${city}/property-dealer-in-${createSlug(loc)}`,
+      lastModified: new Date(),
+    }));
+  }
+}
+
+// ================= DEALERS FINAL =================
+let dealerUrls = [];
+
+try {
+
+  const isHaryanaDesign = city === "haryana";
+
+  let apiUrl = "";
+
+  if (isHaryanaDesign) {
+    // ✅ Haryana → ALL DATA
+    apiUrl = "https://propertydealerbackend.onrender.com/api/all-dealer-slugs?city=Haryana";
+  } else {
+    // ✅ Other → domain based
+    apiUrl = `https://propertydealerbackend.onrender.com/api/slugs?domain=${domainForApi}`;
+  }
+
+  const res = await fetch(apiUrl, { cache: "no-store" });
+  const data = await res.json();
+
+  const formatCity = (c) =>
+    c.toLowerCase().replace(/\s+/g, "-");
+
+  dealerUrls = (data?.data || []).map((d) => ({
+    url: isHaryanaDesign
+      ? `${baseUrl}/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`
+      : `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
+    lastModified: new Date(),
+  }));
+
+} catch (e) {
+  console.error("❌ Dealer Sitemap error:", e?.message);
+}
+
+
+//   let dealerAllUrls = [];
+
+
+
+// try {
+
+//   const res = await fetch(
+//     "https://propertydealerbackend.onrender.com/api/all-dealer-slugs?city=Haryana",
+//     { cache: "no-store" }
+//   );
+
+//   const data = await res.json();
+
+//   const formatCity = (city) =>
+//     city.toLowerCase().replace(/\s+/g, "-");
+
+//   dealerAllUrls = (data?.data || []).map((d) => ({
+//     url: `${baseUrl}/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`,
+//     lastModified: new Date(),
+//   }));
+
+// } catch (e) {
+//   console.error("❌ Haryana Sitemap API error:", e?.message);
+// }
 
 
 
   // ================= FINAL =================
   return [
-  ...staticUrls,
-  ...zoneUrls,
-  ...locationUrls,
-  ...zoneLocationUrls,
-  ...dealerUrls,
-  ...blogUrls,
-];
+    ...staticUrls,
+    ...zoneUrls,
+    ...locationUrls,
+    ...zoneLocationUrls,
+    ...dealerUrls,
+    ...blogUrls,
+// ...cityUrls,
+// ...dealerAllUrls 
+]
 }

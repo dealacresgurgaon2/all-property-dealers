@@ -5,15 +5,17 @@ import Footer from "@/templates/design7/components/Footer";
 import { CityProvider } from "@/context/design7api/CityContext";
 import ScrollToTop from "@/templates/design7/components/ScrollToTop";
 import GlobalScrollFix from "@/templates/design7/components/GlobalScrollFix";
-import { BlogProvider } from "@/context/blogcontext/BlogContext";
+import { BlogProvider } from "@/context/design7api/blogcontext";
 export default function Layout({ children }) {
   return (
     <CityProvider>
+      <BlogProvider>
       <Navbar />
       <GlobalScrollFix />
       {children}
       <ScrollToTop />
       <Footer />
+      </BlogProvider>
     </CityProvider>
   );
 }

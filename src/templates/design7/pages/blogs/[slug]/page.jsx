@@ -3,14 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
-import axios from "axios";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
-const MAX_BLOGS = 8;
+import { useEffect, useState } from "react";
+import { useBlogs } from "@/context/blogcontext/BlogContext";
 
 const formatDate = (date) => {
-  if (!date) return "";
   const d = new Date(date);
   return `${d.getDate().toString().padStart(2, "0")}-${(d.getMonth() + 1)
     .toString()
@@ -20,198 +16,219 @@ const formatDate = (date) => {
 export default function SingleBlogPage() {
   const { slug } = useParams();
 
-  const [blogs, setBlogs] = useState([]);
-  const [blogStack, setBlogStack] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [nextLoading, setNextLoading] = useState(false);
+  const {
+    singleBlog,
+    fetchSingleBlog,
+    recentBlogs,
+    singleLoading,
+    singleError,
+    setPage,
+    clearSingleBlog,
+  } = useBlogs();
 
-  const bottomRef = useRef(null);
-  const isFetchingRef = useRef(false);
+  const [activeFAQ, setActiveFAQ] = useState(null);
 
-  // 🔹 Fetch All Blogs
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await axios.get(
-          `${API_BASE}/api/blogs/getBlogsByFixedDomains/blogs`
-        );
-
-        const allBlogs = res.data.data;
-        setBlogs(allBlogs);
-
-        const firstBlog = allBlogs.find((b) => b.slug === slug);
-        if (firstBlog) {
-          setBlogStack([firstBlog]);
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.log("Error fetching blog:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchBlogs();
+    if (slug) {
+      clearSingleBlog();
+      fetchSingleBlog(slug);
+      setPage(1);
+      window.scrollTo(0, 0);
+    }
   }, [slug]);
 
-  // 🔥 Infinite Scroll
-  useEffect(() => {
-    if (!bottomRef.current) return;
-    if (blogStack.length === 0) return;
-    if (blogStack.length >= MAX_BLOGS) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting) return;
-        if (isFetchingRef.current) return;
-
-        isFetchingRef.current = true;
-        setNextLoading(true);
-
-        const lastBlog = blogStack[blogStack.length - 1];
-        const currentIndex = blogs.findIndex(
-          (b) => b.slug === lastBlog.slug
-        );
-
-        const nextBlog = blogs[currentIndex + 1];
-
-        if (nextBlog) {
-          setBlogStack((prev) => [...prev, nextBlog]);
-
-          window.history.replaceState(
-            null,
-            "",
-            `/blogs/${nextBlog.slug}`
-          );
-        }
-
-        setNextLoading(false);
-        isFetchingRef.current = false;
-      },
-      { rootMargin: "300px" }
-    );
-
-    observer.observe(bottomRef.current);
-    return () => observer.disconnect();
-  }, [blogStack, blogs]);
-
-  if (loading) {
+  // 🔥 LOADER
+  if (singleLoading || !singleBlog) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-purple-50">
-        <div className="flex flex-col items-center gap-6 p-10 bg-white shadow-2xl rounded-3xl border border-indigo-100">
-          <div className="relative">
-            <div className="w-20 h-20 border-4 border-indigo-200 rounded-full"></div>
-            <div className="absolute top-0 left-0 w-20 h-20 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
-          </div>
-          <h2 className="text-xl font-semibold text-indigo-700">
-            Loading Blog...
-          </h2>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="w-16 h-16 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  // 🔥 ERROR
+  if (singleError) {
+    return (
+      <div className="py-32 text-center text-xl text-red-600 bg-slate-50">
+        {singleError}
       </div>
     );
   }
 
   return (
     <section className="bg-slate-50 py-16">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
 
-          {/* ================= MAIN STACK ================= */}
-          <div className="lg:col-span-2">
+        {/* MAIN */}
+        <div className="lg:col-span-2">
 
-            {blogStack.map((blog, index) => (
-              <div key={`${blog._id}-${index}`} className="mb-10">
+          <article className="space-y-10 mb-20">
 
-                {/* 🔥 Simple Border Between Blogs */}
-                {index !== 0 && (
-                  <div className="mb-10">
-                    <div className="border-t border-2 border-gray-300"></div>
-                  </div>
-                )}
+            {/* HERO */}
+            <div>
+              <div className="w-full h-[260px] md:h-[480px] rounded-3xl overflow-hidden shadow-lg">
+                <Image
+                  src={
+                    typeof singleBlog?.HeroImg === "string"
+                      ? singleBlog?.HeroImg
+                      : singleBlog?.HeroImg?.url || "/placeholder.jpg"
+                  }
+                  alt={singleBlog?.Title}
+                  width={1200}
+                  height={800}
+                  unoptimized
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-                {/* Title */}
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight mb-3">
-                  {blog.title?.rendered}
+              <div className="mt-6">
+                <h1 className="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-transparent bg-clip-text">
+                  {singleBlog?.Title}
                 </h1>
 
-                {/* Date */}
-                <span className="text-sm text-gray-500">
-                  Published on {formatDate(blog.date)}
-                </span>
+                <p className="text-sm text-gray-500 mt-2">
+                  {new Date(singleBlog?.Date).toDateString()}
+                </p>
+              </div>
+            </div>
 
-                {/* HERO IMAGE */}
-                <div className="relative w-full h-[420px] mt-8 rounded-3xl overflow-hidden shadow-xl">
-                  <Image
-                    src={blog.heroImg}
-                    alt={blog.title?.rendered}
-                    fill
-                    priority={index === 0}
-                    className="object-cover"
+            {/* CONTENT */}
+            <div className="max-w-3xl mx-auto space-y-8">
+
+              {singleBlog?.Content?.map((section) => (
+                <div key={section?._id}>
+                  <div
+                    className="ql-editor !p-0 text-gray-800 leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: section?.content }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+
+                  {section?.img?.url && (
+                    <div className="my-6">
+                      <Image
+                        src={section.img.url}
+                        alt="Blog"
+                        width={900}
+                        height={600}
+                        unoptimized
+                        className="rounded-2xl shadow-md"
+                      />
+                    </div>
+                  )}
                 </div>
+              ))}
 
-                {/* Content */}
-                <div
-                  className="space-y-6 text-gray-700 leading-8 text-lg mt-8"
-                  dangerouslySetInnerHTML={{
-                    __html: blog.content?.rendered || "",
-                  }}
-                />
+              {/* FAQ */}
+              {singleBlog?.FAQs?.length > 0 && (
+                <div className="mt-16">
 
-              </div>
-            ))}
+                  <h2 className="text-2xl md:text-3xl font-bold mb-8 text-indigo-700">
+                    Frequently Asked Questions
+                  </h2>
 
-            {/* Loader */}
-            {nextLoading && (
-              <div className="text-center py-10 text-indigo-600 font-semibold">
-                Loading next blog...
-              </div>
-            )}
+                  <div className="space-y-4">
+                    {singleBlog.FAQs.map((faq, i) => {
+                      const isOpen = activeFAQ === i;
 
-            {blogStack.length < MAX_BLOGS && (
-              <div ref={bottomRef} className="h-20"></div>
-            )}
+                      return (
+                        <div
+                          key={i}
+                          className={`rounded-2xl border transition-all duration-300 
+                          ${
+                            isOpen
+                              ? "bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border-indigo-200 shadow-md"
+                              : "bg-white border-gray-200 hover:shadow-sm"
+                          }`}
+                        >
+                          <button
+                            onClick={() => setActiveFAQ(isOpen ? null : i)}
+                            className="w-full flex justify-between items-center p-5 text-left"
+                          >
+                            <span className="font-semibold text-gray-800">
+                              {faq.Q}
+                            </span>
 
-          </div>
+                            <span
+                              className={`text-lg font-bold transition-all duration-300 
+                              ${
+                                isOpen
+                                  ? "rotate-180 text-indigo-600"
+                                  : "text-gray-400"
+                              }`}
+                            >
+                              ⌄
+                            </span>
+                          </button>
 
-          {/* ================= SIDEBAR ================= */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-24">
-              <h3 className="text-xl font-semibold text-gray-800 mb-6">
+                          <div
+                            className={`px-5 transition-all duration-300 overflow-hidden ${
+                              isOpen
+                                ? "max-h-[300px] pb-5 opacity-100"
+                                : "max-h-0 opacity-0"
+                            }`}
+                          >
+                            <p className="text-gray-600 leading-relaxed">
+                              {faq.A}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+          </article>
+        </div>
+
+        {/* SIDEBAR */}
+        <div>
+          <div className="sticky top-24">
+
+            <div className="bg-white border border-indigo-100 rounded-2xl p-5 shadow-sm">
+              <h3 className="text-xl font-bold text-indigo-700 mb-4 border-b pb-2">
                 Recent Blogs
               </h3>
 
               <div className="space-y-4">
-                {blogs.slice(0, 5).map((b) => (
-                  <Link
-                    key={b._id}
-                    href={`/blogs/${b.slug}`}
-                    className="flex gap-4 p-3 rounded-xl bg-white border border-indigo-200 hover:shadow-lg transition"
-                  >
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
-                      <Image
-                        src={b.heroImg || "/images/download.jpeg"}
-                        alt={b.title?.rendered}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-500 mb-1">
-                        {formatDate(b.date)}
-                      </p>
-                      <h4 className="text-sm font-semibold text-gray-800 line-clamp-2 hover:text-indigo-700 transition">
-                        {b.title?.rendered}
-                      </h4>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </aside>
+                {[...(recentBlogs || [])]
+                  .sort((a, b) => new Date(b?.Date) - new Date(a?.Date))
+                  .slice(0, 5)
+                  .map((b, i) => (
+                    <Link
+                      key={i}
+                      href={`/blogs/${b?.Slug}`}
+                      className="group flex gap-3 p-3 border rounded-xl hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 transition"
+                    >
+                      <div className="relative w-20 h-20 overflow-hidden rounded-lg">
+                        <Image
+                          src={b?.HeroImg?.url || "/placeholder.jpg"}
+                          alt={b?.Title}
+                          fill
+                          unoptimized
+                          className="object-cover"
+                        />
+                      </div>
 
+                      <div>
+                        <p className="text-xs text-gray-500 group-hover:text-white">
+                          {formatDate(b?.Date)}
+                        </p>
+
+                        <h4 className="text-sm font-semibold text-gray-800 group-hover:text-white line-clamp-2">
+                          {b?.Title}
+                        </h4>
+                      </div>
+                    </Link>
+                  ))}
+              </div>
+
+            </div>
+
+          </div>
         </div>
+
       </div>
     </section>
   );

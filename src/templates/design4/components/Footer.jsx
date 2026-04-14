@@ -85,7 +85,7 @@ export default function Footer() {
               return (
                 <Link
                   key={index}
-                  href={`/chandigarh/${slug}`}
+                  href={`/chandigarh/property-dealer-in-${slug}`}
                   className="text-gray-700 hover:text-[#D02752] transition text-sm truncate hover:translate-x-1"
                 >
                   Property Dealer in {loc}
@@ -143,7 +143,7 @@ export default function Footer() {
                   return (
                     <Link
                       key={index}
-                      href={`/chandigarh/${slug}`}
+                      href={`/chandigarh/property-dealer-in-${slug}`}
                       className="text-white/80 hover:text-white transition text-sm hover:translate-x-1"
                     >
                       Property Dealer in {loc}
