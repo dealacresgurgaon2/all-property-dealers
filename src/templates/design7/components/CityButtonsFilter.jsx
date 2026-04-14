@@ -33,15 +33,15 @@ export default function CityButtonsFilter({ onCitySelect }) {
               flex items-center justify-between
               p-4
               rounded-2xl
-              bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100
-              hover:from-indigo-200 hover:via-purple-200 hover:to-pink-200
+              bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600
+              hover:from-pink-600 hover:via-indigo-700 hover:to-purple-700
               transition-all duration-300
               shadow-sm hover:shadow-lg
             "
           >
 
             {/* TEXT */}
-            <span className="text-sm font-semibold text-gray-800 leading-snug">
+            <span className="text-sm font-semibold text-white leading-snug">
               Real Estate Agents {city}
             </span>
 

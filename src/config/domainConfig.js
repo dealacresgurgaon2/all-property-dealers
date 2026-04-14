@@ -22,7 +22,7 @@ export const DOMAIN_LAYOUT_MAP = {
    
     
  
-"localhost:3000": "delhi",
+"localhost:3000": "hisar",
 };
 
 export const DEFAULT_LAYOUT = "chandigarh"
