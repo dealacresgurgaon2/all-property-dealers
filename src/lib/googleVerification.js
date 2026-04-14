@@ -3,7 +3,7 @@ export const GOOGLE_VERIFICATION = {
     "www.propertydealerindelhi.com": "4treNWtmsiWxyOQH7cp67di5i3zpkfbHDjOPFi_bdQI",
     "www.propertydealerinhisar.com": "gr6NsimW1httUNsFmquvSjrPvDZk-t-IRjM_EsI3deA",
     "www.propertydealerinnoida.com": "H_TqtEDVeG3whyVskORQmU_0bSbGGI_XEcqJ4eyzXFk",
-    "www.propertydealeringurgaon.com": "",
+    "www.propertydealeringurgaon.com": "kcjsBwPuIWEwwtneALHmhXOfJpdRGHKPqANdcp0jwY8",
 
   "localhost": "GSC_CODE_DEFAULT",
 }
