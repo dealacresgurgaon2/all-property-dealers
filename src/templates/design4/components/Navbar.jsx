@@ -14,9 +14,9 @@ export default function Navbar() {
         {/* LOGO */}
         <Link href="/" className="text-2xl font-bold flex items-center gap-2">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D02752] to-[#8A244B]">
-            Property
+           
           </span>
-          <span className="text-[#8A244B]">Dealer Chandigarh</span>
+          <span className="text-[#8A244B]">DA</span>
         </Link>
 
         {/* DESKTOP */}
