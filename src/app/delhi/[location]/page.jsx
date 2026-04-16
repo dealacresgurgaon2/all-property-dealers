@@ -109,7 +109,7 @@ export default function LocationDealersPage() {
           </span> */}
 
           <h2 className="text-3xl md:text-4xl font-extrabold mb-3 capitalize text-black">
-            Property Dealers in {formattedLocation}
+           {formattedLocation}
           </h2>
 
           <p className="text-gray-500">

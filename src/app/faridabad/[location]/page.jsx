@@ -103,7 +103,7 @@ export default function LocationDealersPage() {
         {/* HEADER */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-black">
-            Dealers in {formattedLocation}
+             {formattedLocation}
           </h1>
         </div>
 

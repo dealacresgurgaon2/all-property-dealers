@@ -57,9 +57,9 @@ export default function LocationPage() {
         setLoading(true);
 
         // 🔥 TOP LOCATION
-       const res1 = await fetch(
-  `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(location)}`
-);
+        const res1 = await fetch(
+          `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(location)}`
+        );
         const data1 = await res1.json();
         setTopDealers(data1?.data || []);
 
@@ -80,28 +80,28 @@ export default function LocationPage() {
     fetchData();
   }, [mappedCity, location]);
 
- if (loading) {
-  return (
-    <section className="bg-white min-h-screen flex items-center justify-center">
-      
-      <div className="flex flex-col items-center">
+  if (loading) {
+    return (
+      <section className="bg-white min-h-screen flex items-center justify-center">
 
-        {/* Spinner */}
-        <div className="relative">
-          <div className="w-14 h-14 border-4 border-gray-200 rounded-full"></div>
-          <div className="w-14 h-14 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
+        <div className="flex flex-col items-center">
+
+          {/* Spinner */}
+          <div className="relative">
+            <div className="w-14 h-14 border-4 border-gray-200 rounded-full"></div>
+            <div className="w-14 h-14 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
+          </div>
+
+          {/* Text */}
+          <p className="mt-4 text-gray-700 font-semibold">
+            Fetching Best Dealers...
+          </p>
+
         </div>
 
-        {/* Text */}
-        <p className="mt-4 text-gray-700 font-semibold">
-          Fetching Best Dealers...
-        </p>
-
-      </div>
-
-    </section>
-  );
-}
+      </section>
+    );
+  }
 
   return (
     <section className="bg-white min-h-screen py-10">
@@ -109,7 +109,7 @@ export default function LocationPage() {
 
         {/* HEADER */}
         <h1 className="text-2xl md:text-3xl font-bold mb-6 capitalize text-gray-900">
-          Property Dealer in {location}
+          {location}
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -146,10 +146,10 @@ export default function LocationPage() {
 
           {/* RIGHT SIDE FORM */}
           <div className="hidden lg:block">
-  <div className="sticky top-24">
-    <QueryForm />
-  </div>
-</div>
+            <div className="sticky top-24">
+              <QueryForm />
+            </div>
+          </div>
 
         </div>
       </div>

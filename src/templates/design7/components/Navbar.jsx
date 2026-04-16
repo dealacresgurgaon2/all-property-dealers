@@ -19,19 +19,18 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
 
-        {/* LEFT: LOGO */}
-        <Link
-          href="/"
-          className="
-            text-2xl font-bold
-            text-black
-            tracking-wide
-            flex items-center gap-2
-          "
-        >
-          <span className="text-indigo-600">DA</span>
-          
-        </Link>
+    <Link
+  href="/"
+  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+  className="
+    text-2xl font-bold
+    text-black
+    tracking-wide
+    flex items-center gap-2
+  "
+>
+  <span className="text-indigo-600">DA</span>
+</Link>
 
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-8">

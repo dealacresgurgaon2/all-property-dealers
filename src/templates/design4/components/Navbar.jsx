@@ -12,7 +12,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
 
         {/* LOGO */}
-        <Link href="/" className="text-2xl font-bold flex items-center gap-2">
+        <Link href="/" 
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        className="text-2xl font-bold flex items-center gap-2">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D02752] to-[#8A244B]">
            
           </span>

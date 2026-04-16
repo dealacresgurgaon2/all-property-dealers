@@ -157,13 +157,27 @@ useEffect(() => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
 
             {/* BRAND SECTION */}
-            <div className="md:col-span-3">
-              <h3 className="text-xl font-bold mb-2 tracking-wide">
-                Property <span className="text-white/80"> Dealer Hisar</span>
-              </h3>
+           {/* BRAND SECTION */}
+<div className="md:col-span-3">
+  <h3 className="text-xl font-bold mb-3 tracking-wide">
+    Property <span className="text-white/80"> Dealer Hisar</span>
+  </h3>
 
-             
-            </div>
+  {/* 🔥 NEW NAV LINKS */}
+  <div className="grid grid-rows-5 gap-1 mt-4 ">
+    
+    <Link href="/" className="footerBtn">Home</Link>
+    
+    <Link href="/about" className="footerBtn">About</Link>
+    
+    <Link href="/blogs" className="footerBtn">Blog</Link>
+    
+    <Link href="/how-it-works" className="footerBtn">How It Works</Link>
+    
+    <Link href="/contactus" className="footerBtn">Contact Us</Link>
+
+  </div>
+</div>
 
             {/* HISAR LOCATIONS – ONLY 21 LOCATIONS */}
             <div className="md:col-span-9 w-full">

@@ -131,11 +131,29 @@ const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
 
             {/* BRAND ONLY */}
-            <div>
-              <h3 className="text-1xl font-bold mb-3">
-                Property<span className="text-[#38bdf8]"> Dealer Gurgaon</span>
-              </h3>
-            </div>
+            {/* BRAND ONLY */}
+<div>
+  <h3 className="text-1xl font-bold mb-3">
+    Property<span className="text-[#38bdf8]"> Dealer Gurgaon</span>
+  </h3>
+
+  {/* 🔥 NAV BUTTONS */}
+  <div className="grid grid-cols-5 gap-1 mt-4">
+    
+    <Link href="/" className="footerBtnBlue">Home</Link>
+    
+    <Link href="/about" className="footerBtnBlue">About</Link>
+    
+    <Link href="/blogs" className="footerBtnBlue">Blog</Link>
+    
+    <Link href="/how-it-works" className="footerBtnBlue">How It Works</Link>
+    
+    <Link href="/contactus" className="footerBtnBlue highlightBtn">
+      Contact Us
+    </Link>
+
+  </div>
+</div>
 
             {/* POPULAR LOCATIONS */}
             <div className="lg:col-span-3">
@@ -157,7 +175,8 @@ const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
                   return (
                     <Link
                       key={index}
-href={`/gurgaon/property-dealer-in-${slug}`}                      className="text-white/80 hover:text-[#38bdf8] transition text-sm truncate"
+href={`/gurgaon/property-dealer-in-${slug}`}            
+          className="text-white/80 hover:text-[#38bdf8] transition text-sm truncate"
                     >
                       Property Dealer in {loc}
                     </Link>

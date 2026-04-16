@@ -67,7 +67,7 @@ export default function CityButtonsFilter({ onCitySelect }) {
       href="/all-property-dealer"
       className="flex items-center gap-2 text-indigo-600 font-semibold text-sm hover:underline group"
     >
-      View All Cities
+      View All
       <span className="transform group-hover:translate-x-1 transition">
         →
       </span>

@@ -10,8 +10,8 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DealersPage() {
   const params = useParams();
- const rawCity = params?.city;
-const urlCity = cleanCitySlug(rawCity);
+  const rawCity = params?.city;
+  const urlCity = cleanCitySlug(rawCity);
   return <CityDealers key={urlCity} urlCity={urlCity} />;
 }
 const cleanCitySlug = (slug) => {
@@ -19,7 +19,7 @@ const cleanCitySlug = (slug) => {
 
   return slug
     .toLowerCase()
-    .replace("property-dealer-in-", "")
+    .replace(/^property-dealer-in-/, "") // 👈 better
     .trim();
 };
 
@@ -36,42 +36,42 @@ function CityDealers({ urlCity }) {
 
   const [activeLocation, setActiveLocation] = useState(null);
   const [showAllLocations, setShowAllLocations] = useState(false);
-const [isMobile, setIsMobile] = useState(false);
-const [topDealers, setTopDealers] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [topDealers, setTopDealers] = useState([]);
   // ================= Helpers =================
 
-const getCityForDealersAPI = (city) => {
-  if (!city) return city;
+  const getCityForDealersAPI = (city) => {
+    if (!city) return city;
 
-  const map = {
-    "central-delhi": "Central Delhi",
-    "north-delhi": "North Delhi",
-    "south-delhi": "South Delhi",
-    "east-delhi": "East Delhi",
-    "west-delhi": "West Delhi",
+    const map = {
+      "central-delhi": "Central Delhi",
+      "north-delhi": "North Delhi",
+      "south-delhi": "South Delhi",
+      "east-delhi": "East Delhi",
+      "west-delhi": "West Delhi",
 
-    gurugram: "gurgaon",
+      gurugram: "gurgaon",
+    };
+
+    return map[city.toLowerCase()] || city;
   };
-
-  return map[city.toLowerCase()] || city;
-};
 
 
   const getCityForSearchAPI = (city) => {
-  if (!city) return city;
+    if (!city) return city;
 
-  const map = {
-    "central-delhi": "Central Delhi",
-    "north-delhi": "North Delhi",
-    "south-delhi": "South Delhi",
-    "east-delhi": "East Delhi",
-    "west-delhi": "West Delhi",
+    const map = {
+      "central-delhi": "Central Delhi",
+      "north-delhi": "North Delhi",
+      "south-delhi": "South Delhi",
+      "east-delhi": "East Delhi",
+      "west-delhi": "West Delhi",
 
-    gurgaon: "gurugram",
+      gurgaon: "gurugram",
+    };
+
+    return map[city.toLowerCase()] || city;
   };
-
-  return map[city.toLowerCase()] || city;
-};
 
   // const getCityForSearchAPI = (city) => {
   //   if (!city) return city;
@@ -106,14 +106,14 @@ const getCityForDealersAPI = (city) => {
         const finalData = Array.isArray(data)
           ? data
           : Array.isArray(data.data)
-          ? data.data
-          : [];
+            ? data.data
+            : [];
 
         setDealers(finalData);
         setAllDealers(finalData);
         setCity(urlCity);
       } catch (err) {
-        
+
         setDealers([]);
         setAllDealers([]);
       } finally {
@@ -144,12 +144,12 @@ const getCityForDealersAPI = (city) => {
         const finalLocations = Array.isArray(data)
           ? data
           : Array.isArray(data.data)
-          ? data.data
-          : [];
+            ? data.data
+            : [];
 
         setLocations(finalLocations);
       } catch (error) {
-        
+
         setLocations([]);
       } finally {
         setLoadingLocations(false);
@@ -197,71 +197,71 @@ const getCityForDealersAPI = (city) => {
   // };
 
 
-const handleLocationClick = async (locationName) => {
-  try {
-    setActiveLocation(locationName);
-    setLoading(true);
+  const handleLocationClick = async (locationName) => {
+    try {
+      setActiveLocation(locationName);
+      setLoading(true);
 
-    const mappedCity = getCityForDealersAPI(urlCity);
+      const mappedCity = getCityForDealersAPI(urlCity);
 
-    // 🔥 Location specific
-    const res = await fetch(
-      `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
-    );
+      // 🔥 Location specific
+      const res = await fetch(
+        `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
+      );
 
-    const data = await res.json();
+      const data = await res.json();
 
-    const filteredData = Array.isArray(data)
-      ? data
-      : Array.isArray(data.data)
-      ? data.data
-      : [];
+      const filteredData = Array.isArray(data)
+        ? data
+        : Array.isArray(data.data)
+          ? data.data
+          : [];
 
-    // 🔥 Top dealers
-    setTopDealers(filteredData);
+      // 🔥 Top dealers
+      setTopDealers(filteredData);
 
-    // 🔥 बाकी city वाले
-    const remaining = allDealers.filter(
-      (d) => d.area !== locationName
-    );
+      // 🔥 बाकी city वाले
+      const remaining = allDealers.filter(
+        (d) => d.area !== locationName
+      );
 
-    setDealers(remaining);
+      setDealers(remaining);
 
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setLoading(false);
-    setTimeout(scrollToDealers, 150);
-  }
-};
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+      setTimeout(scrollToDealers, 150);
+    }
+  };
 
-const createSlug = (name) => {
-  return name
-    .toLowerCase()
-    .replace(/,/g, "")       // ❌ comma हटाओ
-    .replace(/\s+/g, "-")    // space → dash
-    .replace(/-+/g, "-");    // multiple dash fix
-};
+  const createSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/,/g, "")       // ❌ comma हटाओ
+      .replace(/\s+/g, "-")    // space → dash
+      .replace(/-+/g, "-");    // multiple dash fix
+  };
 
 
   useEffect(() => {
-  const checkScreen = () => {
-    setIsMobile(window.innerWidth < 640);
-  };
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
 
-  checkScreen();
-  window.addEventListener("resize", checkScreen);
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
 
-  return () => window.removeEventListener("resize", checkScreen);
-}, []);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
 
 
   // ================= Mobile Only Limit =================
 
- const visibleLocations =
-  isMobile && !showAllLocations
-    ? locations.slice(0, 20)
-    : locations;
+  const visibleLocations =
+    isMobile && !showAllLocations
+      ? locations.slice(0, 20)
+      : locations;
 
 
 
@@ -318,16 +318,15 @@ const createSlug = (name) => {
                 {visibleLocations.map((loc) => (
                   <li key={loc.slug}>
                     <button
-                    
- onClick={() =>
-  router.push(`/${urlCity}/${createSlug(loc.location)}`)
-}
 
-                      className={`text-base transition-colors duration-200 cursor-pointer ${
-                        activeLocation === loc.location
+                      onClick={() =>
+                        router.push(`/${urlCity}/property-dealer-in-${createSlug(loc.location)}`)
+                      }
+
+                      className={`text-base transition-colors duration-200 cursor-pointer ${activeLocation === loc.location
                           ? "text-indigo-600 font-semibold"
                           : "text-gray-700 hover:text-indigo-600"
-                      }`}
+                        }`}
                     >
                       Property Dealer in {loc.location}
                     </button>

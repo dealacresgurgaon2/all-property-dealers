@@ -31,20 +31,40 @@ export default function DealerThemePopup({ isOpen, onClose }) {
 
     setFormData({ ...formData, [name]: value });
   };
+  const website =
+  typeof window !== "undefined"
+    ? window.location.hostname.replace("www.", "")
+    : "";
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (formData.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
-      return;
-    }
+  if (formData.phone.length !== 10) {
+    alert("Phone number must be 10 digits");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+  try {
+    const res = await fetch("/api/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        option: formData.option,
+        message: formData.description, // ✅ mapping
+        website,
+      }),
+    });
 
+    const result = await res.json();
+
+    if (result.success) {
       alert("Message Sent Successfully!");
 
       setFormData({
@@ -56,13 +76,17 @@ export default function DealerThemePopup({ isOpen, onClose }) {
       });
 
       onClose();
-    } catch (err) {
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    } else {
+      alert("Something went wrong.");
     }
-  };
 
+  } catch (err) {
+    console.log(err);
+    alert("Server error. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center px-3 sm:px-4">
 

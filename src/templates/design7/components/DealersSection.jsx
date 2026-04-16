@@ -117,7 +117,7 @@ if (!cleanSearch) {
           </h2>
 
           <p className="text-sm text-gray-500 mt-2">
-            Verified agents & trusted property consultants
+            Real Estate agents & trusted property consultants
           </p>
 
           <div className="w-16 h-1 bg-indigo-600 mt-3 rounded-full"></div>

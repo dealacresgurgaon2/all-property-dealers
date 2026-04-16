@@ -48,12 +48,12 @@ export default function BlogList() {
     <section className="px-4 lg:px-0 bg-slate-50 py-10">
 
       {/* 🔥 HEADER */}
-      <div className="max-w-7xl mx-auto text-center mb-12">
+      <div className="max-w-7xl mx-auto  mb-12">
         <h1 className="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-transparent bg-clip-text mb-3">
           Latest Blogs
         </h1>
 
-        <p className="text-gray-500 max-w-xl mx-auto">
+        <p className="text-gray-500 max-w-xl">
           Explore latest real estate insights, guides & expert tips
         </p>
       </div>
@@ -110,9 +110,14 @@ export default function BlogList() {
               </Link>
             ))
         ) : (
-          <p className="text-center col-span-3 text-gray-500">
-            No Blogs Found
-          </p>
+         <div className="col-span-3 text-center py-10">
+  <h3 className="text-xl font-semibold text-gray-800 mb-2">
+    ✨ Coming Soon
+  </h3>
+  <p className="text-gray-500 text-sm">
+    We’re working on amazing blogs for you. Stay tuned for updates, tips & insights!
+  </p>
+</div>
         )}
       </div>
     </section>
