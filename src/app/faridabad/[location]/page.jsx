@@ -101,7 +101,7 @@ export default function LocationDealersPage() {
       <div className="max-w-7xl mx-auto px-5">
 
         {/* HEADER */}
-        <div className="mb-8 text-center">
+        <div className="mb-8">
           <h1 className="text-3xl font-bold text-black">
              {formattedLocation}
           </h1>

@@ -103,7 +103,7 @@ export default function LocationDealersPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* HEADER */}
-        <div className="mb-10 text-center">
+        <div className="mb-10 ">
           {/* <span className="inline-block bg-red-50 text-red-700 text-sm font-semibold px-5 py-2 rounded-full mb-4 border border-red-200 capitalize">
             {formattedLocation}
           </span> */}

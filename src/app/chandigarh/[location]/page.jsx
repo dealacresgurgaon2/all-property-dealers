@@ -108,9 +108,9 @@ const location = slug
       <div className="max-w-7xl mx-auto px-5">
 
         {/* HEADER */}
-        <div className="mb-8 text-center">
+        <div className="mb-8 ">
           <h1 className="text-3xl font-bold text-[#8A244B]">
-            Dealers in {formattedLocation}
+            {formattedLocation}
           </h1>
 
           <p className="text-sm text-gray-500 mt-2">
