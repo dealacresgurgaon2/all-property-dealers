@@ -17,7 +17,11 @@ export default function DealerDetailPage() {
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
   };
-
+const formatCityForAPI = (city = "") => {
+  return city
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (l) => l.toUpperCase());
+};
   useEffect(() => {
     if (!cityParam || !slugParam) return;
 
@@ -25,9 +29,11 @@ export default function DealerDetailPage() {
       try {
         setLoading(true);
 
-        const res = await fetch(
-          `${API_BASE}/api/get/city/${cityParam}`
-        );
+        const formattedCity = formatCityForAPI(cityParam);
+
+const res = await fetch(
+  `${API_BASE}/api/get/city/${formattedCity}`
+);
 
         const data = await res.json();
 

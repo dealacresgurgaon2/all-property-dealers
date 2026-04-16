@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useCity } from "@/context/design7api/CityContext";
 import DealerCard from "@/templates/design7/components/DealerCard";
 import QueryForm from "@/templates/design7/components/QueryForm";
-
+import { useRouter } from "next/navigation";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DealersPage() {
@@ -24,6 +24,7 @@ const cleanCitySlug = (slug) => {
 };
 
 function CityDealers({ urlCity }) {
+  const router = useRouter();
   const { setCity } = useCity();
 
   const [dealers, setDealers] = useState([]);
@@ -36,22 +37,48 @@ function CityDealers({ urlCity }) {
   const [activeLocation, setActiveLocation] = useState(null);
   const [showAllLocations, setShowAllLocations] = useState(false);
 const [isMobile, setIsMobile] = useState(false);
-
+const [topDealers, setTopDealers] = useState([]);
   // ================= Helpers =================
 
-  const getCityForDealersAPI = (city) => {
-    if (!city) return city;
-    const lower = city.toLowerCase().trim();
-    if (lower === "gurugram") return "gurgaon";
-    return lower;
+const getCityForDealersAPI = (city) => {
+  if (!city) return city;
+
+  const map = {
+    "central-delhi": "Central Delhi",
+    "north-delhi": "North Delhi",
+    "south-delhi": "South Delhi",
+    "east-delhi": "East Delhi",
+    "west-delhi": "West Delhi",
+
+    gurugram: "gurgaon",
   };
 
+  return map[city.toLowerCase()] || city;
+};
+
+
   const getCityForSearchAPI = (city) => {
-    if (!city) return city;
-    const lower = city.toLowerCase().trim();
-    if (lower === "gurgaon") return "gurugram";
-    return lower;
+  if (!city) return city;
+
+  const map = {
+    "central-delhi": "Central Delhi",
+    "north-delhi": "North Delhi",
+    "south-delhi": "South Delhi",
+    "east-delhi": "East Delhi",
+    "west-delhi": "West Delhi",
+
+    gurgaon: "gurugram",
   };
+
+  return map[city.toLowerCase()] || city;
+};
+
+  // const getCityForSearchAPI = (city) => {
+  //   if (!city) return city;
+  //   const lower = city.toLowerCase().trim();
+  //   if (lower === "gurgaon") return "gurugram";
+  //   return lower;
+  // };
 
   const scrollToDealers = () => {
     const section = document.getElementById("dealers-section");
@@ -134,40 +161,89 @@ const [isMobile, setIsMobile] = useState(false);
 
   // ================= Location Filter =================
 
-  const handleLocationClick = async (locationName) => {
-    try {
-      setActiveLocation(locationName);
-      setLoading(true);
+  // const handleLocationClick = async (locationName) => {
+  //   try {
+  //     setActiveLocation(locationName);
+  //     setLoading(true);
 
-      const mappedCity = getCityForDealersAPI(urlCity);
+  //     const mappedCity = getCityForDealersAPI(urlCity);
 
-      const res = await fetch(
-        `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
-      );
+  //     const res = await fetch(
+  //       `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
+  //     );
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      const filteredData = Array.isArray(data)
-        ? data
-        : Array.isArray(data.data)
-        ? data.data
-        : [];
+  //     const filteredData = Array.isArray(data)
+  //       ? data
+  //       : Array.isArray(data.data)
+  //       ? data.data
+  //       : [];
 
-      if (filteredData.length === 0 && allDealers.length > 0) {
-        const shuffled = [...allDealers].sort(() => 0.5 - Math.random());
-        setDealers(shuffled.slice(0, 30));
-      } else {
-        setDealers(filteredData);
-      }
-    } catch (error) {
-      console.log("Location filter error:", error);
-    } finally {
-      setLoading(false);
-      setTimeout(() => {
-        scrollToDealers();
-      }, 150);
-    }
-  };
+  //     if (filteredData.length === 0 && allDealers.length > 0) {
+  //       const shuffled = [...allDealers].sort(() => 0.5 - Math.random());
+  //       setDealers(shuffled.slice(0, 30));
+  //     } else {
+  //       setDealers(filteredData);
+  //     }
+  //   } catch (error) {
+  //     console.log("Location filter error:", error);
+  //   } finally {
+  //     setLoading(false);
+  //     setTimeout(() => {
+  //       scrollToDealers();
+  //     }, 150);
+  //   }
+  // };
+
+
+const handleLocationClick = async (locationName) => {
+  try {
+    setActiveLocation(locationName);
+    setLoading(true);
+
+    const mappedCity = getCityForDealersAPI(urlCity);
+
+    // 🔥 Location specific
+    const res = await fetch(
+      `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
+    );
+
+    const data = await res.json();
+
+    const filteredData = Array.isArray(data)
+      ? data
+      : Array.isArray(data.data)
+      ? data.data
+      : [];
+
+    // 🔥 Top dealers
+    setTopDealers(filteredData);
+
+    // 🔥 बाकी city वाले
+    const remaining = allDealers.filter(
+      (d) => d.area !== locationName
+    );
+
+    setDealers(remaining);
+
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+    setTimeout(scrollToDealers, 150);
+  }
+};
+
+const createSlug = (name) => {
+  return name
+    .toLowerCase()
+    .replace(/,/g, "")       // ❌ comma हटाओ
+    .replace(/\s+/g, "-")    // space → dash
+    .replace(/-+/g, "-");    // multiple dash fix
+};
+
+
   useEffect(() => {
   const checkScreen = () => {
     setIsMobile(window.innerWidth < 640);
@@ -238,12 +314,16 @@ const [isMobile, setIsMobile] = useState(false);
             <div className="text-gray-500">Loading locations...</div>
           ) : (
             <>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-y-4">
                 {visibleLocations.map((loc) => (
                   <li key={loc.slug}>
                     <button
-                      onClick={() => handleLocationClick(loc.location)}
-                      className={`text-base transition-colors duration-200 ${
+                    
+ onClick={() =>
+  router.push(`/${urlCity}/${createSlug(loc.location)}`)
+}
+
+                      className={`text-base transition-colors duration-200 cursor-pointer ${
                         activeLocation === loc.location
                           ? "text-indigo-600 font-semibold"
                           : "text-gray-700 hover:text-indigo-600"

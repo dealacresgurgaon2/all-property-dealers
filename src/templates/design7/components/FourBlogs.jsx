@@ -2,14 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+import { useBlogs } from "@/context/design7api/blogcontext";
 
 const formatDate = (date) => {
-  if (!date) return "";
-
+  if (!date) return "N/A";
   const d = new Date(date);
   return `${d.getDate().toString().padStart(2, "0")}-${(d.getMonth() + 1)
     .toString()
@@ -17,26 +13,7 @@ const formatDate = (date) => {
 };
 
 export default function FourBlogs() {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await axios.get(
-          `${API_BASE}/api/blogs/getBlogsByFixedDomains/blogs`
-        );
-
-        setBlogs(res.data.data || []);
-      } catch (error) {
-        console.log("Error fetching blogs:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBlogs();
-  }, []);
+  const { blogs = [], loading } = useBlogs(); // ❌ setDomain हटाया
 
   if (loading) {
     return (

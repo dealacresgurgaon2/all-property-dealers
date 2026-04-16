@@ -5,12 +5,13 @@ import { useState } from "react";
 export default function QueryForm() {
   const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    message: "",
-    lookingFor: "",
-  });
+ const [form, setForm] = useState({
+  name: "",
+  phone: "",
+  email: "",        // ✅ add
+  message: "",
+  lookingFor: "",
+});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +24,10 @@ export default function QueryForm() {
 
     setForm({ ...form, [name]: value });
   };
-
+const website =
+  typeof window !== "undefined"
+    ? window.location.hostname.replace("www.", "")
+    : "";
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,12 +44,19 @@ export default function QueryForm() {
     setLoading(true);
 
     try {
-      // 🔥 Future API Ready
-      // await fetch("/api/query", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(form),
-      // });
+      
+      await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+  name: form.name,
+  phone: form.phone,
+  email: form.email,
+  option: form.lookingFor,   // ✅ mapping fix
+  message: form.message,
+  website,
+})
+      });
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -54,8 +65,10 @@ export default function QueryForm() {
       setForm({
         name: "",
         phone: "",
+        email:"",
         message: "",
         lookingFor: "",
+        
       });
 
     } catch (error) {
@@ -82,7 +95,7 @@ export default function QueryForm() {
         </p>
 
         <div className="flex gap-2 mt-3 text-xs">
-          <span className="bg-white/20 px-3 py-1 rounded-full">Verified Agents</span>
+          <span className="bg-white/20 px-3 py-1 rounded-full">Real Estate Agents</span>
           <span className="bg-white/20 px-3 py-1 rounded-full">Quick Response</span>
         </div>
       </div>
@@ -99,7 +112,7 @@ export default function QueryForm() {
               type="text"
               name="name"
               required
-              value={form.name}
+              value={form.name || ""}
               onChange={handleChange}
               placeholder="Your Name"
               className="flex-1 outline-none bg-transparent text-base text-gray-800"
@@ -114,19 +127,31 @@ export default function QueryForm() {
               name="phone"
               inputMode="numeric"
               required
-              value={form.phone}
+              value={form.phone || ""}
               onChange={handleChange}
               placeholder="Mobile Number"
               className="flex-1 outline-none bg-transparent text-base text-gray-800"
             />
           </div>
+          <div className={inputWrapper}>
+  <span>📧</span>
+  <input
+    type="email"
+    name="email"
+    required
+   value={form.email || ""}
+    onChange={handleChange}
+    placeholder="Email Address"
+    className="flex-1 outline-none bg-transparent text-base text-gray-800"
+  />
+</div>
 
           {/* LOOKING FOR */}
           <div className={inputWrapper}>
             <span>🏠</span>
             <select
               name="lookingFor"
-              value={form.lookingFor}
+              value={form.lookingFor || ""}
               onChange={handleChange}
               className="flex-1 outline-none bg-transparent text-base text-gray-800"
             >
@@ -142,7 +167,7 @@ export default function QueryForm() {
             <textarea
               name="message"
               rows="3"
-              value={form.message}
+              value={form.message || ""}
               onChange={handleChange}
               placeholder="Describe your requirement..."
               className="w-full outline-none bg-transparent resize-none text-base text-gray-800"
@@ -158,7 +183,7 @@ export default function QueryForm() {
               bg-gradient-to-r from-indigo-600 to-purple-600
               text-white font-semibold
               hover:opacity-90 transition
-              disabled:opacity-60
+              disabled:opacity-60 cursor-pointer
             "
           >
             {loading ? "Submitting..." : "Get Free Consultation"}

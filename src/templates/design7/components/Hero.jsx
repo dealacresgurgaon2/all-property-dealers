@@ -17,6 +17,7 @@ export default function Hero() {
     firstName: "",
     lastName: "",
     phone: "",
+    email:"",
     requirement: "",
     message: "",
   });
@@ -40,7 +41,10 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
-
+const website =
+  typeof window !== "undefined"
+    ? window.location.hostname.replace("www.", "")
+    : "";
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -67,32 +71,48 @@ export default function Hero() {
 
     setLoading(true);
 
-    try {
-      // 🔥 API Ready
-      // await fetch("/api/query", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(form),
-      // });
-
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      alert("Request submitted successfully!");
-
-      setForm({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        requirement: "",
-        message: "",
+   try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+       body: JSON.stringify({
+  name: `${form.firstName} ${form.lastName}`, // ✅ FIX
+  phone: form.phone,
+  email: form.email,                          // ✅ IMPORTANT
+  option: form.requirement,                   // ✅ FIX
+  message: form.message,
+  website,
+})
       });
 
-    } catch (err) {
-      alert("Something went wrong.");
+
+      const result = await res.json();
+
+      if (result.success) {
+        alert("Your enquiry has been submitted!");
+
+        setForm({
+  firstName: "",
+  lastName: "",
+  phone: "",
+  email: "",
+  requirement: "",
+  message: "",
+
+        });
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.log("Hero form error:", error);
+      alert("Server error. Please try later.");
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <section className="relative min-h-[70vh] w-full overflow-hidden bg-black text-white">
@@ -189,6 +209,15 @@ export default function Hero() {
                   className="w-full bg-white/90 text-black px-4 py-2 rounded-lg outline-none"
                   placeholder="Mobile Number"
                 />
+                <input
+  type="email"
+  name="email"
+  required
+  value={form.email}
+  onChange={handleChange}
+  placeholder="Email Address"
+  className="w-full border border-white/40 bg-white rounded-md px-4 py-2 text-[#5E23DC] outline-none"
+/>
 
                 <select
                   name="requirement"
