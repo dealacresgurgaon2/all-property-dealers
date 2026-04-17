@@ -328,7 +328,7 @@ function CityDealers({ urlCity }) {
                           : "text-gray-700 hover:text-indigo-600"
                         }`}
                     >
-                      Property Dealer in {loc.location}
+                      Property Dealers in {loc.location}
                     </button>
                   </li>
                 ))}

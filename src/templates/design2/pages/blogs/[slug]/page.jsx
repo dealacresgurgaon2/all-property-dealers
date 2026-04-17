@@ -280,12 +280,31 @@ export default function SingleBlogPage() {
             <div className="space-y-8 text-black/80">
               {singleBlog?.Content?.map((section) => (
                 <div key={section?._id}>
-                  <div
-                    className="ql-editor !p-0 leading-relaxed"
-                    dangerouslySetInnerHTML={{
-                      __html: section?.content,
-                    }}
-                  />
+                  <div className="quill-content">
+              <div
+                className="
+                ql-editor !p-0 text-gray-700 text-[17px] leading-8
+
+                [&_h1]:text-3xl [&_h1]:font-bold [&_h1]:text-gray-900 [&_h1]:mt-6 [&_h1]:mb-3
+                [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-gray-900 [&_h2]:mt-5 [&_h2]:mb-2
+                [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-gray-800 [&_h3]:mt-4 [&_h3]:mb-2
+
+                [&_p]:mb-4 [&_p]:text-gray-700
+
+                [&_ul]:pl-6 [&_ul]:list-disc [&_ul]:mb-4
+                [&_ol]:pl-6 [&_ol]:list-decimal [&_ol]:mb-4
+                [&_li]:mb-2
+
+                [&_a]:text-[#d4af37] [&_a]:underline
+
+                [&_blockquote]:border-l-4 [&_blockquote]:border-[#d4af37]
+                [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-600 [&_blockquote]:my-4
+
+                [&_img]:rounded-xl [&_img]:my-6
+                "
+                dangerouslySetInnerHTML={{ __html: section?.content }}
+              />
+            </div>
 
                   {section?.img?.url && (
                     <div className="my-6">

@@ -25,7 +25,7 @@ export default function HaryanaPage() {
         {/* Heading */}
         <div className=" mb-10">
           <h1 className="text-3xl md:text-4xl font-extrabold text-indigo-600">
-            Select District in Haryana
+            Explore Property Dealers in Haryana Districts
           </h1>
           <p className="text-gray-500 mt-2 text-sm">
             Explore property dealers district-wise across Haryana
@@ -34,7 +34,7 @@ export default function HaryanaPage() {
         </div>
 
         {/* GRID */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-5">
 
           {districts.map((dist, i) => (
             <div
@@ -65,7 +65,7 @@ export default function HaryanaPage() {
     rounded-xl
     bg-gradient-to-br from-indigo-500 to-purple-600
     text-white
-    shadow-[0_8px_25px_rgba(99,102,241,0.4)]
+    shadow-[0_4px_15px_rgba(99,102,241,0.4)]
     group-hover:scale-110
     transition-all duration-300
   "
@@ -88,11 +88,11 @@ export default function HaryanaPage() {
               {/* TEXT */}
               <div>
                 <h3 className="text-gray-900 font-semibold text-sm leading-tight">
-                  {dist}
+                 Real Estate Agent {dist}
                 </h3>
-                <p className="text-gray-500 text-xs">
+                {/* <p className="text-gray-500 text-xs">
                   Explore Dealers
-                </p>
+                </p> */}
               </div>
 
             </div>

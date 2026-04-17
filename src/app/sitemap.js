@@ -41,7 +41,7 @@ export default async function sitemap() {
   const isHaryana = city === "haryana";
 
 const staticPages = isHaryana
-  ? ["", "/about", "/contactus", "/blogs", "/all-property-dealer"]
+  ? ["", "/about", "/contactus", "/blogs", "/all-property-dealer","/explore-property-dealers-in-delhi","/explore-property-dealers-in-haryana-districts","/property-dealer-in-noida"]
   : ["", "/about", "/contactus", "/blogs","/how-it-works"];
 
   const staticUrls = staticPages.map((path) => ({

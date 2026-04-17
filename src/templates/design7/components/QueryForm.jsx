@@ -79,7 +79,7 @@ const website =
   };
 
   const inputWrapper =
-    "flex items-center gap-3 bg-white border border-indigo-200 rounded-xl px-3 py-2 focus-within:border-indigo-600 transition";
+    "flex items-center gap-2 bg-white border border-indigo-200 rounded-xl px-3 py-1 focus-within:border-indigo-600 transition";
 
   return (
     <div className="rounded-2xl shadow-xl border border-indigo-200 overflow-hidden bg-white">
@@ -103,7 +103,7 @@ const website =
       {/* FORM BODY */}
       <div className="p-5">
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-2">
 
           {/* NAME */}
           <div className={inputWrapper}>

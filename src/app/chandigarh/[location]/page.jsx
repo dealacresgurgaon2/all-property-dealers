@@ -117,7 +117,7 @@ const location = slug
             Showing trusted property dealers from this location
           </p>
 
-          <div className="w-16 h-1 bg-gradient-to-r from-[#D02752] to-[#8A244B] mx-auto mt-3 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-[#D02752] to-[#8A244B] mt-3 rounded-full"></div>
         </div>
 
         {/* GRID */}

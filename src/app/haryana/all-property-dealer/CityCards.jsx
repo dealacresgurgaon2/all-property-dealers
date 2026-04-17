@@ -8,7 +8,7 @@ export default function CityCards() {
   const cities = [
     {
       name: "Delhi",
-      link: "/delhi-zone",
+      link: "/explore-property-dealers-in-delhi",
       image:
         "https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=1200",
     },
@@ -20,7 +20,7 @@ export default function CityCards() {
     },
     {
       name: "Haryana",
-      link: "/district",
+      link: "/explore-property-dealers-in-haryana-districts",
       image:
         "https://images.unsplash.com/photo-1599423300746-b62533397364?q=80&w=1200",
     },
@@ -35,10 +35,18 @@ export default function CityCards() {
 
       <div className="grid md:grid-cols-3 gap-8">
 
-        {cities.map((city, index) => (
-          <div
-            key={index}
-            onClick={() => router.push(city.link)}
+       {cities.map((city, index) => (
+  <div
+    key={index}
+    onClick={() => {
+  if (city.name === "Delhi") {
+    router.push("/explore-property-dealers-in-delhi");
+  } else if (city.name === "Haryana") {
+    router.push("/explore-property-dealers-in-haryana-districts");
+  } else {
+    router.push(`/property-dealer-in-${city.name.toLowerCase()}`);
+  }
+}}
             className="
               group cursor-pointer
               rounded-3xl

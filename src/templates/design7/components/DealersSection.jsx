@@ -184,7 +184,7 @@ if (!cleanSearch) {
           <div className="space-y-6">
             <div className="sticky top-[72px]">
               <QueryForm />
-              <CityDropdown onCitySelect={handleCityFilter} />
+              {/* <CityDropdown onCitySelect={handleCityFilter} /> */}
             </div>
           </div>
 

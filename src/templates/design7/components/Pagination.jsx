@@ -29,7 +29,7 @@ export default function Pagination({ page, setPage, totalPages }) {
             hover:bg-indigo-50
             disabled:opacity-40
             disabled:hover:bg-transparent
-            transition
+            transition cursor-pointer
           "
         >
           ← Prev
@@ -46,7 +46,7 @@ export default function Pagination({ page, setPage, totalPages }) {
                 ${
                   p === page
                     ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow"
-                    : "text-gray-700 hover:bg-indigo-50"
+                    : "text-gray-700 hover:bg-indigo-50 cursor-pointer"
                 }
               `}
             >
@@ -65,7 +65,7 @@ export default function Pagination({ page, setPage, totalPages }) {
             hover:bg-indigo-50
             disabled:opacity-40
             disabled:hover:bg-transparent
-            transition
+            transition cursor-pointer
           "
         >
           Next →
@@ -85,7 +85,7 @@ export default function Pagination({ page, setPage, totalPages }) {
 
         <button
           onClick={() => setPage(totalPages)}
-          className="px-3 py-1 rounded-full bg-pink-50 text-pink-700 border border-pink-200 hover:bg-pink-100 transition"
+          className="px-3 py-1 rounded-full bg-pink-50 text-pink-700 border border-pink-200 hover:bg-pink-100 transition cursor-pointer"
         >
           Last Page
         </button>
