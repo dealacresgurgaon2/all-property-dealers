@@ -138,7 +138,7 @@ const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
   </h3>
 
   {/* 🔥 NAV BUTTONS */}
-  <div className="grid grid-cols-5 gap-1 mt-4">
+  <div className="grid grid-rows-5 gap-1 mt-4">
     
     <Link href="/" className="footerBtnBlue">Home</Link>
     

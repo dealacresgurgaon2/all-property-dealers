@@ -90,6 +90,7 @@ export default function SingleBlogPage() {
                   ? singleBlog?.HeroImg
                   : singleBlog?.HeroImg?.url || "/placeholder.jpg"
               }
+              unoptimized
               alt={singleBlog?.Title}
               fill
               className="object-cover"
@@ -128,6 +129,7 @@ export default function SingleBlogPage() {
                 {section?.img?.url && (
                   <Image
                     src={section.img.url}
+                    unoptimized
                     alt="blog"
                     width={800}
                     height={500}
@@ -202,6 +204,7 @@ export default function SingleBlogPage() {
                     <Image
                       src={b?.HeroImg?.url || "/placeholder.jpg"}
                       alt={b?.Title}
+                      unoptimized
                       fill
                       className="object-cover"
                     />

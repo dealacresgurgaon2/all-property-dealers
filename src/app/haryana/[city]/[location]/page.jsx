@@ -80,6 +80,7 @@ export default function LocationPage() {
     fetchData();
   }, [mappedCity, location]);
 
+  
   if (loading) {
     return (
       <section className="bg-white min-h-screen flex items-center justify-center">
@@ -152,6 +153,7 @@ export default function LocationPage() {
           </div>
 
         </div>
+        
       </div>
     </section>
   );

@@ -115,6 +115,7 @@ export default function BlogList() {
                   src={imageUrl}
                   alt={titleText}
                   fill
+                  unoptimized
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition" />

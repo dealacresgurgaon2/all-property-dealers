@@ -138,6 +138,7 @@ export default function BlogList() {
                   <Image
                     src={imageUrl}
                     alt={titleText}
+                    unoptimized
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />

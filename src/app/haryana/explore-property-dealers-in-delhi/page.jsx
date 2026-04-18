@@ -23,7 +23,7 @@ export default function DelhiPage() {
     <div className="bg-white min-h-screen">
 
       <div className="max-w-7xl mx-auto px-4 py-12">
- <div className="mb-10 ">
+        <div className="mb-10 ">
           <h1 className="text-3xl md:text-4xl font-extrabold text-indigo-600">
             Explore Property Dealers in Delhi
           </h1>
@@ -36,18 +36,18 @@ export default function DelhiPage() {
         <div className="grid md:grid-cols-2 gap-8 mb-12 items-center">
 
           {/* LEFT IMAGE */}
-         <div className="w-full overflow-hidden rounded-2xl shadow-md group">
-  <img
-    src="/images/ghj.png"
-    alt="property"
-    className="
+          <div className="w-full overflow-hidden rounded-2xl shadow-md group">
+            <img
+              src="https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=1200"
+              alt="property"
+              className="
       w-full h-[400px] 
       object-contain
       transition-transform duration-500
       group-hover:scale-105
     "
-  />
-</div>
+            />
+          </div>
 
           {/* RIGHT FORM */}
           <div className="">
@@ -56,11 +56,11 @@ export default function DelhiPage() {
 
         </div>
 
-        {/* 🔥 HEADING */}
-       
+
+
 
         {/* 🔥 GRID (5 COLUMN) */}
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {zones.map((zone, i) => (
             <div
               key={i}

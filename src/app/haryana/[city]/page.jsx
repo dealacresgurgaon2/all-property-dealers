@@ -6,6 +6,7 @@ import { useCity } from "@/context/design7api/CityContext";
 import DealerCard from "@/templates/design7/components/DealerCard";
 import QueryForm from "@/templates/design7/components/QueryForm";
 import { useRouter } from "next/navigation";
+import { MapPin } from "lucide-react";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DealersPage() {
@@ -259,8 +260,8 @@ function CityDealers({ urlCity }) {
   // ================= Mobile Only Limit =================
 
   const visibleLocations =
-    isMobile && !showAllLocations
-      ? locations.slice(0, 20)
+    !showAllLocations
+      ? locations.slice(0, isMobile ? 20 : 30)
       : locations;
 
 
@@ -272,7 +273,7 @@ function CityDealers({ urlCity }) {
         {/* HEADER */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 capitalize">
-            Top Real Estate Broker in {urlCity}
+            Property Dealers in {urlCity}
           </h1>
 
           {activeLocation && (
@@ -305,7 +306,7 @@ function CityDealers({ urlCity }) {
         </div>
 
         {/* LOCATION SECTION */}
-        <div className="mt-20 border-t pt-10">
+        <div  id="locations-section"  className="mt-20 border-t pt-10">
           <h2 className="text-xl font-semibold mb-8 text-black capitalize">
             Search Real Agent in Local Area of {urlCity}
           </h2>
@@ -314,30 +315,41 @@ function CityDealers({ urlCity }) {
             <div className="text-gray-500">Loading locations...</div>
           ) : (
             <>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-y-4">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {visibleLocations.map((loc) => (
                   <li key={loc.slug}>
                     <button
+  onClick={() =>
+    router.push(`/${urlCity}/property-dealer-in-${createSlug(loc.location)}`)
+  }
+  className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${
+    activeLocation === loc.location
+      ? "bg-indigo-50 border-indigo-500 text-indigo-600 font-semibold"
+      : "bg-white border-gray-200 text-gray-700 hover:bg-indigo-50 hover:border-indigo-400"
+  }`}
+>
+  {/* ICON */}
+  <MapPin
+    size={18}
+    className={`shrink-0 ${
+      activeLocation === loc.location
+        ? "text-indigo-600"
+        : "text-gray-500 group-hover:text-indigo-500"
+    }`}
+  />
 
-                      onClick={() =>
-                        router.push(`/${urlCity}/property-dealer-in-${createSlug(loc.location)}`)
-                      }
-
-                      className={`text-base transition-colors duration-200 cursor-pointer ${activeLocation === loc.location
-                          ? "text-indigo-600 font-semibold"
-                          : "text-gray-700 hover:text-indigo-600"
-                        }`}
-                    >
-                      Property Dealers in {loc.location}
-                    </button>
+  {/* TEXT */}
+  <span className="leading-tight">
+    Property Dealers in {loc.location}
+  </span>
+</button>
                   </li>
                 ))}
               </ul>
 
               {/* 🔥 Read More Text (Mobile Only) */}
-              {isMobile && locations.length > 20 && !showAllLocations && (
-
-                <div className="mt-4 sm:hidden">
+              {locations.length > 20 && !showAllLocations && (
+                <div className="mt-4">
                   <span
                     onClick={() => setShowAllLocations(true)}
                     className="text-indigo-600 cursor-pointer text-sm font-medium hover:underline"

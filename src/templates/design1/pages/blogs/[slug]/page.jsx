@@ -77,6 +77,7 @@ export default function SingleBlogPage() {
                     ? singleBlog?.HeroImg
                     : singleBlog?.HeroImg?.url || "/placeholder.jpg"
                 }
+                
                 alt={singleBlog?.Title}
                 width={1200}
                 height={700}
