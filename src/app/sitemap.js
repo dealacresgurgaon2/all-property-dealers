@@ -38,7 +38,11 @@ export default async function sitemap() {
   const baseUrl = `https://${cleanHost}`;
 
   // ================= STATIC =================
-  const staticPages = ["", "/about", "/contactus", "/blogs"];
+  const isHaryana = city === "haryana";
+
+const staticPages = isHaryana
+  ? ["", "/about", "/contactus", "/blogs", "/all-property-dealer","/explore-property-dealers-in-delhi","/explore-property-dealers-in-haryana-districts","/property-dealer-in-noida"]
+  : ["", "/about", "/contactus", "/blogs","/how-it-works"];
 
   const staticUrls = staticPages.map((path) => ({
     url: `${baseUrl}${path}`,
@@ -170,16 +174,42 @@ const haryanaCities = [
   "ambala","bhiwani","charkhi-dadri","faridabad","fatehabad",
   "gurgaon","hisar","jhajjar","jind","kaithal","karnal",
   "kurukshetra","mahendergarh","palwal","panchkula",
-  "panipat","rewari","rohtak","sirsa","sonipat","yamunanagar"
+  "panipat","rewari","rohtak","sirsa","sonipat","yamunanagar","hansi"
 ];
+
 if (city === "haryana") {
 
-  locationUrls = haryanaCities.map((c) => ({
-    url: `${baseUrl}/property-dealer-in-${c}`,
-    lastModified: new Date(),
-  }));
+  locationUrls = [];
+
+  // ✅ 1. City URLs (UPDATED)
+  haryanaCities.forEach((c) => {
+    locationUrls.push({
+      url: `${baseUrl}/property-dealer-in-${c}`,   // 🔥 FIX: city path
+      lastModified: new Date(),
+    });
+  });
+
+  // ✅ 2. Location URLs (UPDATED)
+  Object.entries(LOCATION_MAP).forEach(([cityName, locations]) => {
+
+    if (!haryanaCities.includes(cityName)) return;
+
+    if (Array.isArray(locations)) {
+      locations.forEach((loc) => {
+        if (!loc) return;
+
+        locationUrls.push({
+          // 🔥 FIX: city + location
+          url: `${baseUrl}/${cityName}/property-dealer-in-${createSlug(loc)}`,
+          lastModified: new Date(),
+        });
+      });
+    }
+
+  });
 
 } else {
+
   const locations = LOCATION_MAP[city] || [];
 
   if (Array.isArray(locations)) {
@@ -188,8 +218,8 @@ if (city === "haryana") {
       lastModified: new Date(),
     }));
   }
-}
 
+}
 // ================= DEALERS FINAL =================
 let dealerUrls = [];
 
@@ -215,7 +245,7 @@ try {
 
   dealerUrls = (data?.data || []).map((d) => ({
     url: isHaryanaDesign
-      ? `${baseUrl}/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`
+      ? `${baseUrl}/dealer/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`
       : `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
     lastModified: new Date(),
   }));

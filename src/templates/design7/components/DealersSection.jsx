@@ -35,22 +35,24 @@ export default function DealersSection() {
 
         let url = `${API_BASE}/api/get/state/Haryana?page=${page}&limit=100`;
 
-if (selectedCity) {
-  url += `&city=${selectedCity}`;
-}
-
-// ✅ CLEAN SEARCH
 const cleanSearch = search
   .replace(/property dealer in/i, "")
   .trim();
 
-// ✅ APPLY SEARCH
-if (cleanSearch) {
-  url += `&search=${cleanSearch}`;
+// 🔥 FINAL LOGIC
+if (!cleanSearch) {
+  // ✅ dropdown city ya default Faridabad
+  url += `&city=${selectedCity || "Faridabad"}`;
+} else {
+  // ✅ search + city (agar select hai)
+  if (selectedCity) {
+    url += `&city=${selectedCity}`;
+  }
+
+  url += `&search=${encodeURIComponent(cleanSearch)}`;
 }
 
-console.log("FINAL URL =>", url);
-console.log("SEARCH =>", search);
+
         const res = await fetch(url);
         const data = await res.json();
 
@@ -107,7 +109,7 @@ console.log("SEARCH =>", search);
 
   return (
     <section className="bg-slate-50 py-12">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-3">
 
         <div className="mb-10">
           <h2 className="text-3xl font-extrabold text-gray-800">
@@ -115,7 +117,7 @@ console.log("SEARCH =>", search);
           </h2>
 
           <p className="text-sm text-gray-500 mt-2">
-            Verified agents & trusted property consultants
+            Real Estate agents & trusted property consultants
           </p>
 
           <div className="w-16 h-1 bg-indigo-600 mt-3 rounded-full"></div>
@@ -182,7 +184,7 @@ console.log("SEARCH =>", search);
           <div className="space-y-6">
             <div className="sticky top-[72px]">
               <QueryForm />
-              <CityDropdown onCitySelect={handleCityFilter} />
+              {/* <CityDropdown onCitySelect={handleCityFilter} /> */}
             </div>
           </div>
 

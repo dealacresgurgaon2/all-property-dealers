@@ -108,16 +108,16 @@ const location = slug
       <div className="max-w-7xl mx-auto px-5">
 
         {/* HEADER */}
-        <div className="mb-8 text-center">
+        <div className="mb-8 ">
           <h1 className="text-3xl font-bold text-[#8A244B]">
-            Dealers in {formattedLocation}
+            {formattedLocation}
           </h1>
 
           <p className="text-sm text-gray-500 mt-2">
             Showing trusted property dealers from this location
           </p>
 
-          <div className="w-16 h-1 bg-gradient-to-r from-[#D02752] to-[#8A244B] mx-auto mt-3 rounded-full"></div>
+          <div className="w-16 h-1 bg-gradient-to-r from-[#D02752] to-[#8A244B] mt-3 rounded-full"></div>
         </div>
 
         {/* GRID */}

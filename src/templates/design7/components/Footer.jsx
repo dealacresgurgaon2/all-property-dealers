@@ -16,7 +16,7 @@ export default function Footer() {
     "Ambala","Bhiwani","Charkhi-Dadri","Faridabad","Fatehabad",
     "Gurgaon","Hisar","Jhajjar","Jind","Kaithal","Karnal",
     "Kurukshetra","Mahendergarh","Palwal","Panchkula",
-    "Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamunanagar",
+    "Panipat","Rewari","Rohtak","Sirsa","Sonipat","Yamunanagar", "Hansi",
   ];
 
   const handleCityClick = async (district) => {
@@ -49,18 +49,7 @@ export default function Footer() {
 
         {/* TOP BRAND */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-12">
-          {/* <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 text-transparent bg-clip-text">
-            Property Dealer Haryana
-          </h2> */}
-
-          {/* <div className="flex gap-3">
-            <span className="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm">
-              Verified Listings
-            </span>
-            <span className="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm">
-              Trusted Dealers
-            </span>
-          </div> */}
+         
         </div>
 
         {/* LOCATION SECTION */}
@@ -102,7 +91,7 @@ export default function Footer() {
                 ...
                 <button
                   onClick={() => setShowDisclaimer(true)}
-                  className="ml-2 text-indigo-400 hover:text-indigo-300 underline transition"
+                  className="ml-2 text-indigo-400 hover:text-indigo-300 underline transition cursor-pointer"
                 >
                   Learn More
                 </button>
@@ -119,7 +108,7 @@ export default function Footer() {
                 from dealings with listed dealers.
                 <button
                   onClick={() => setShowDisclaimer(false)}
-                  className="ml-2 text-indigo-400 hover:text-indigo-300 underline transition"
+                  className="ml-2 text-indigo-400 hover:text-indigo-300 underline transition cursor-pointer"
                 >
                   Show Less
                 </button>

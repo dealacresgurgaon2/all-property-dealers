@@ -15,14 +15,14 @@ export default function ContactNoida() {
         <div className="max-w-7xl mx-auto px-4 relative z-10">
 
           {/* ===== TOP CENTER CONTENT ===== */}
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-black mb-6 leading-tight">
+          <div className=" mb-20">
+            <h2 className="text-2xl md:text-4xl font-bold text-black mb-6 leading-tight">
               Connect With <span className="text-green-600">Trusted</span> Property Dealers
               <br />
               in Noida
             </h2>
 
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p className="text-gray-600 max-w-2xl  text-lg">
               Buy, sell or rent with confidence. We connect you directly with verified
               property dealers across Noida – fast, transparent and secure.
             </p>

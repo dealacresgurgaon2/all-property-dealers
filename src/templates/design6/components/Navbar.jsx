@@ -22,6 +22,7 @@ export default function Navbar() {
         {/* LEFT: LOGO */}
         <Link
           href="/"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="
             text-2xl font-bold
             text-black
@@ -35,7 +36,23 @@ export default function Navbar() {
 
         {/* DESKTOP NAV LINKS */}
         <nav className="hidden md:flex items-center gap-8">
-
+<Link
+            href="/how-it-works"
+            className="
+              relative
+              text-black/80
+              font-medium
+              transition
+              after:absolute after:left-0 after:-bottom-1
+              after:h-[2px] after:w-0
+              after:bg-green-600
+              after:transition-all
+              hover:text-black
+              hover:after:w-full
+            "
+          >
+            How It's Work
+          </Link>
           <Link
             href="/about"
             className="
@@ -124,7 +141,13 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden bg-white border-t border-green-500/30">
           <div className="flex flex-col py-4 px-4 gap-4">
-
+<Link
+              href="/how-it-works"
+              onClick={() => setOpen(false)}
+              className="text-black/80 font-medium hover:text-green-600 transition"
+            >
+              How It's Work
+            </Link>
             <Link
               href="/about"
               onClick={() => setOpen(false)}

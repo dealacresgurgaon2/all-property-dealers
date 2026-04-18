@@ -13,7 +13,7 @@ export default function DealerSearchBar({ onSearch }) {
   };
 
   return (
-    <div className="mb-10 max-w-[900px] mx-auto px-3">
+    <div className="mb-10 max-w-[900px] mx-auto">
 
       <div
         className="
@@ -81,7 +81,7 @@ export default function DealerSearchBar({ onSearch }) {
               hover:opacity-90
               transition
               flex items-center gap-1 sm:gap-2
-              whitespace-nowrap
+              whitespace-nowrap cursor-pointer
             "
           >
             Search

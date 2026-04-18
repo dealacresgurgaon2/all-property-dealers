@@ -125,11 +125,29 @@ useEffect(() => {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
 
             {/* LEFT BRAND ONLY */}
-            <div>
-              <h3 className="text-1xl font-bold text-[#d4af37]">
-                Propertyv Dealer Faridabad
-              </h3>
-            </div>
+           {/* LEFT BRAND ONLY */}
+<div>
+  <h3 className="text-1xl font-bold text-[#d4af37]">
+    Property Dealer Faridabad
+  </h3>
+
+  {/* 🔥 NAV BUTTONS */}
+  <div className="grid grid-rows-5 gap-1 mt-4">
+    
+    <Link href="/" className="footerBtnGold">Home</Link>
+    
+    <Link href="/about" className="footerBtnGold">About</Link>
+    
+    <Link href="/blogs" className="footerBtnGold">Blog</Link>
+    
+    <Link href="/how-it-works" className="footerBtnGold">How It Works</Link>
+    
+    <Link href="/contactus" className="footerBtnGold highlightGold">
+      Contact Us
+    </Link>
+
+  </div>
+</div>
 
             {/* RIGHT LOCATIONS */}
             <div className="lg:col-span-3">
