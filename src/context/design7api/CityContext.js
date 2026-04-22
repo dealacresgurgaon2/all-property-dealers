@@ -8,7 +8,7 @@ export const CityProvider = ({ children }) => {
   const [dealers, setDealers] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_BASE;
+  const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
   useEffect(() => {
     if (!city) return;

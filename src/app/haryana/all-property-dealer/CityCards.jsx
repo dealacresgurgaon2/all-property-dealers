@@ -29,8 +29,8 @@ export default function CityCards() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       
-      <h2 className="text-3xl font-bold text-center mb-10 text-gray-800">
-        Choose Your Location
+      <h2 className="text-3xl font-bold  mb-10 text-gray-800">
+        All Property Dealers
       </h2>
 
       <div className="grid md:grid-cols-3 gap-8">

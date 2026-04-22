@@ -52,7 +52,7 @@ const website =
   name: form.name,
   phone: form.phone,
   email: form.email,
-  option: form.lookingFor,   // ✅ mapping fix
+  option: form.lookingFor,  
   message: form.message,
   website,
 })

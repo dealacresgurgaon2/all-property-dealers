@@ -73,6 +73,7 @@ export default function BlogList() {
                   src={post?.HeroImg?.url || "/placeholder.jpg"}
                   alt={post?.Title || "Blog Image"}
                   fill
+                  unoptimized
                   className="object-cover group-hover:scale-105 transition duration-300"
                 />
               </div>

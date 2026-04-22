@@ -19,7 +19,7 @@ export const DOMAIN_LAYOUT_MAP = {
   "propertyforsalenearme.in":"haryana",
   "www.propertyforsalenearme.in":"haryana",
   
-"localhost:3000": "haryana",
+"localhost:3000": "gurgaon",
 };
 
 export const DEFAULT_LAYOUT = "haryana"
