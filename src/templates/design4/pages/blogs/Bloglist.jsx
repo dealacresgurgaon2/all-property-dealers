@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useBlogs } from "../../../../context/blogcontext/BlogContext";
+import Breadcrumb from "../../components/Breadcrumb";
 
 const formatDate = (date) => {
   if (!date) return "N/A";
@@ -85,6 +86,9 @@ export default function BlogList() {
 
         {/* HEADER */}
         <div className="text-center mb-12">
+          <div>
+            <Breadcrumb/>
+          </div>
           <span className="inline-block bg-[#fde6ec] text-[#D02752] text-sm font-semibold px-5 py-2 rounded-full mb-4">
             Knowledge Hub
           </span>

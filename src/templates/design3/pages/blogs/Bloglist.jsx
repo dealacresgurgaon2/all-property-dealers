@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useBlogs } from "../../../../context/blogcontext/BlogContext";
+import Breadcrumb from "../../components/Breadcrumb";
 
 const formatDate = (date) => {
   if (!date) return "";
@@ -51,6 +52,9 @@ export default function BlogList() {
 
       {/* HEADER */}
       <section className="max-w-7xl mx-auto px-4 py-6">
+        <div className="py-5">
+          <Breadcrumb/>
+        </div>
         <h1 className="text-3xl font-bold text-[#5E23DC] mb-2">
           Latest Blogs
         </h1>

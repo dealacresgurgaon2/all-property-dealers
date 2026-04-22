@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useBlogs } from "../../../../context/design7api/blogcontext";
+import Breadcrumb from "../../components/Breadcrumb";
 
 const formatDate = (date) => {
   if (!date) return "";
@@ -49,6 +50,9 @@ export default function BlogList() {
 
       {/* 🔥 HEADER */}
       <div className="max-w-7xl mx-auto  mb-12">
+        <div className="mb-5"> 
+          <Breadcrumb/>
+        </div>
         <h1 className="text-2xl md:text-4xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-transparent bg-clip-text mb-3">
           Latest Blogs
         </h1>
@@ -77,6 +81,7 @@ export default function BlogList() {
                     src={post?.HeroImg?.url || "/placeholder.jpg"}
                     alt={post?.Title || "Blog Image"}
                     fill
+                    unoptimized
                     className="object-cover transition duration-500 group-hover:scale-110"
                   />
 

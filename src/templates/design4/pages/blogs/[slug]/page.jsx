@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useBlogs } from "@/context/blogcontext/BlogContext";
+import Breadcrumb from "@/templates/design4/components/Breadcrumb";
 
 const formatDate = (date) => {
   if (!date) return "";
@@ -70,6 +71,9 @@ export default function SingleBlogPage() {
 
         {/* MAIN */}
         <div className="lg:col-span-2">
+          <div>
+            <Breadcrumb/>
+          </div>
 
           {/* TITLE */}
           <div className="mb-6">

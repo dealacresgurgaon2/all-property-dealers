@@ -7,6 +7,7 @@ import DealerCard from "@/templates/design7/components/DealerCard";
 import QueryForm from "@/templates/design7/components/QueryForm";
 import { useRouter } from "next/navigation";
 import { MapPin } from "lucide-react";
+import Breadcrumb from "@/templates/design7/components/Breadcrumb";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DealersPage() {
@@ -269,7 +270,9 @@ function CityDealers({ urlCity }) {
   return (
     <section className="bg-slate-50 min-h-screen py-12">
       <div id="dealers-section" className="max-w-7xl mx-auto px-4 sm:px-6">
-
+      <div className="mb-5">
+        <Breadcrumb/>
+      </div>
         {/* HEADER */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 capitalize">

@@ -186,6 +186,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useBlogs } from "@/context/blogcontext/BlogContext";
+import Breadcrumb from "@/templates/design1/components/Breadcrumb";
 
 const formatDate = (date) => {
   if (!date) return "N/A";
@@ -246,9 +247,21 @@ export default function SingleBlogPage() {
 
         {/* MAIN */}
         <div className="lg:col-span-2">
-
+<div className="py-5">
+  <Breadcrumb/>
+</div>
           <article className="space-y-10">
 
+            {/* TITLE */}
+            <div>
+              <h1 className="text-2xl md:text-4xl font-bold text-black leading-tight mt-5">
+                {singleBlog?.Title}
+              </h1>
+
+              <p className="text-sm text-black/60 mt-3">
+                Published on {formatDate(singleBlog?.Date)}
+              </p>
+            </div>
             {/* HERO */}
             <div className="rounded-2xl overflow-hidden shadow-md border border-[#d4af37]/20">
               <Image
@@ -265,16 +278,6 @@ export default function SingleBlogPage() {
               />
             </div>
 
-            {/* TITLE */}
-            <div>
-              <h1 className="text-3xl md:text-5xl font-bold text-black leading-tight mt-5">
-                {singleBlog?.Title}
-              </h1>
-
-              <p className="text-sm text-black/60 mt-3">
-                Published on {formatDate(singleBlog?.Date)}
-              </p>
-            </div>
 
             {/* CONTENT */}
             <div className="space-y-8 text-black/80">
@@ -406,6 +409,7 @@ export default function SingleBlogPage() {
                           alt={b?.Title}
                           fill
                           className="object-cover"
+                           unoptimized 
                         />
                       </div>
 

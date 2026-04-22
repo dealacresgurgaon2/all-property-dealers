@@ -56,6 +56,7 @@ export default function FourBlogs() {
                     src={post.heroImg}
                     alt={titleText}
                     fill
+                    unoptimized
                     className="object-cover group-hover:scale-110 transition"
                   />
                 </div>

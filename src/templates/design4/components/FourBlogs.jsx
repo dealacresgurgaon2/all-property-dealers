@@ -122,6 +122,7 @@ export default function FourBlogs() {
                     src={imageUrl}
                     alt={titleText}
                     fill
+                     unoptimized 
                     className="object-cover group-hover:scale-110 transition duration-300"
                   />
                 </div>

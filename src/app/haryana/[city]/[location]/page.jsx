@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import DealerCard from "@/templates/design7/components/DealerCard";
 import QueryForm from "@/templates/design7/components/QueryForm";
+import Breadcrumb from "@/templates/design7/components/Breadcrumb";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
@@ -107,7 +108,9 @@ export default function LocationPage() {
   return (
     <section className="bg-white min-h-screen py-10">
       <div className="max-w-7xl mx-auto px-4">
-
+        <div className="mb-5">
+          <Breadcrumb/>
+        </div>
         {/* HEADER */}
         <h1 className="text-2xl md:text-3xl font-bold mb-6 capitalize text-gray-900">
           {location}

@@ -119,29 +119,6 @@ const staticPages = isHaryana
       ? cleanHost
       : `www.${cleanHost}`;
 
-  // ================= DEALERS =================
-  // let dealerUrls = [];
-
-  // try {
-  //   const res = await fetch(
-  //     `https://propertydealerbackend.onrender.com/api/slugs?domain=${domainForApi}`,
-  //     { cache: "no-store" }
-  //   );
-
-  //   const data = await res.json();
-
-  //   console.log("DEALER DOMAIN:", domainForApi);
-  //   console.log("DEALER COUNT:", data?.count);
-
-  //   dealerUrls = (data?.data || []).map((d) => ({
-  //     url: `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
-  //     lastModified: new Date(),
-  //   }));
-
-  // } catch (e) {
-  //   console.error("❌ Dealer API error:", e?.message);
-  // }
-
   // // ================= BLOG =================
   let blogUrls = [];
 
@@ -245,43 +222,14 @@ try {
 
   dealerUrls = (data?.data || []).map((d) => ({
     url: isHaryanaDesign
-      ? `${baseUrl}/dealer/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`
-      : `${baseUrl}/dealer/${encodeURIComponent(d.slug)}`,
+      ? `${baseUrl}/estate-agent/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`
+      : `${baseUrl}/estate-agent/${encodeURIComponent(d.slug)}`,
     lastModified: new Date(),
   }));
 
 } catch (e) {
   console.error("❌ Dealer Sitemap error:", e?.message);
 }
-
-
-//   let dealerAllUrls = [];
-
-
-
-// try {
-
-//   const res = await fetch(
-//     "https://propertydealerbackend.onrender.com/api/all-dealer-slugs?city=Haryana",
-//     { cache: "no-store" }
-//   );
-
-//   const data = await res.json();
-
-//   const formatCity = (city) =>
-//     city.toLowerCase().replace(/\s+/g, "-");
-
-//   dealerAllUrls = (data?.data || []).map((d) => ({
-//     url: `${baseUrl}/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`,
-//     lastModified: new Date(),
-//   }));
-
-// } catch (e) {
-//   console.error("❌ Haryana Sitemap API error:", e?.message);
-// }
-
-
-
   // ================= FINAL =================
   return [
     ...staticUrls,
@@ -290,7 +238,6 @@ try {
     ...zoneLocationUrls,
     ...dealerUrls,
     ...blogUrls,
-// ...cityUrls,
-// ...dealerAllUrls 
+
 ]
 }

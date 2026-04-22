@@ -107,12 +107,12 @@ const res = await fetch(
   return (
     <section className="bg-gray-50 py-14 flex justify-start">
       <div className="max-w-5xl px-4">
-
+       
         {/* HEADER */}
         <div className="mb-10 bg-white rounded-3xl p-6 border border-blue-200 shadow-sm">
-          <span className="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full mb-2 border border-blue-200">
+          {/* <span className="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full mb-2 border border-blue-200">
             Verified Property Dealer
-          </span>
+          </span> */}
 
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
             {dealer.name} - Trusted Property Dealer in {dealer.city}

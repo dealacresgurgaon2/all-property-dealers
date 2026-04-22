@@ -2,6 +2,7 @@
 import DealerDetailPage from "./DealerDetailPage";
 import QueryForm from "../../components/QueryForm";
 import FourBlogs from "../../components/FourBlogs";
+import Breadcrumb from "../../components/Breadcrumb";
 export default async function BlogPage({ params }) {
   const resolvedParams = await params;   // ✅ FIX
   const slug = resolvedParams.slug;
@@ -12,7 +13,9 @@ export default async function BlogPage({ params }) {
   return (
     <main className="bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
-
+            <div className="py-5">
+              <Breadcrumb/>
+            </div>
         {/* PAGE HEADER */}
         <div className="mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-green-600">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useBlogs } from "../../../../context/blogcontext/BlogContext";
+import Breadcrumb from "../../components/Breadcrumb";
 
 // 📅 Date formatter
 const formatDate = (date) => {
@@ -63,18 +64,20 @@ export default function BlogList() {
   return (
     <section className="bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4">
-
+        <div className="py-5">
+          <Breadcrumb/>
+        </div>
         {/* HEADER */}
-        <div className="text-center mb-12">
+        <div className=" mb-12">
           <span className="inline-block bg-green-100 text-green-700 text-sm font-semibold px-5 py-2 rounded-full mb-4">
             Knowledge Hub
           </span>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-black mb-3">
+          <h1 className="text-2xl md:text-4xl font-bold text-black mb-3">
             Latest Real Estate Insights
           </h1>
 
-          <p className="text-black/70 max-w-2xl mx-auto">
+          <p className="text-black/70 max-w-2xl ">
             Tips, guides and expert articles to help you make smarter real estate decisions.
           </p>
         </div>
@@ -122,6 +125,7 @@ export default function BlogList() {
                     src={imageUrl}
                     alt={titleText}
                     fill
+                    unoptimized
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
