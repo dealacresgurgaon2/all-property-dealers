@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 import { useBlogs } from "@/context/blogcontext/BlogContext";
 import ContactPopup from "@/templates/design5/components/ContactPopup";
+import Breadcrumb from "@/templates/design5/components/Breadcrumb";
 
 const formatDate = (date) => {
   if (!date) return "";
@@ -68,7 +69,9 @@ export default function SingleBlogPage() {
 
         {/* ===== MAIN ===== */}
         <div className="lg:col-span-2">
-
+<div className="py-5">
+  <Breadcrumb/>
+</div>
           {/* TITLE */}
           <div className="mb-6">
             <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
@@ -90,6 +93,7 @@ export default function SingleBlogPage() {
               }
               alt={singleBlog?.Title}
               fill
+              unoptimized
               className="object-cover"
             />
           </div>
@@ -130,6 +134,7 @@ export default function SingleBlogPage() {
                     alt="blog"
                     width={900}
                     height={600}
+                    unoptimized
                     className="rounded-xl mt-4"
                   />
                 )}
@@ -217,6 +222,7 @@ export default function SingleBlogPage() {
                           alt={b?.Title}
                           fill
                           className="object-cover"
+                          unoptimized
                         />
                       </div>
 

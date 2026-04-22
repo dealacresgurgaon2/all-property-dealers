@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useBlogs } from "@/context/blogcontext/BlogContext";
-
+import Breadcrumb from "@/templates/design1/components/Breadcrumb";
 const formatDate = (date) => {
   if (!date) return "N/A";
   const d = new Date(date);
@@ -63,12 +63,23 @@ export default function SingleBlogPage() {
   return (
     <section className="bg-white py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
-
         {/* ================= MAIN ================= */}
         <div className="lg:col-span-2">
+       <div className="py-5">
+        <Breadcrumb/>
+       </div>
 
           <article className="space-y-10">
+{/* TITLE */}
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+                {singleBlog?.Title}
+              </h1>
 
+              <p className="text-sm text-gray-500 mt-3">
+                {formatDate(singleBlog?.Date)}
+              </p>
+            </div>
             {/* HERO */}
             <div className="rounded-2xl overflow-hidden shadow-md">
               <Image
@@ -86,16 +97,7 @@ export default function SingleBlogPage() {
               />
             </div>
 
-            {/* TITLE */}
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                {singleBlog?.Title}
-              </h1>
-
-              <p className="text-sm text-gray-500 mt-3">
-                {formatDate(singleBlog?.Date)}
-              </p>
-            </div>
+            
 
             {/* CONTENT */}
             <div className="space-y-8">
@@ -222,6 +224,7 @@ export default function SingleBlogPage() {
                         src={b?.HeroImg?.url || "/placeholder.jpg"}
                         alt={b?.Title}
                         fill
+                        unoptimized 
                         className="object-cover"
                       />
                     </div>

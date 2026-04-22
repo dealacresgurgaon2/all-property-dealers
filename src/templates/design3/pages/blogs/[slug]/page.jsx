@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useBlogs } from "@/context/blogcontext/BlogContext";
+import Breadcrumb from "@/templates/design1/components/Breadcrumb";
 
 const formatDate = (date) => {
   const d = new Date(date);
@@ -59,12 +60,23 @@ export default function SingleBlogPage() {
   return (
     <section className="bg-white py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 px-4">
-
         {/* MAIN */}
         <div className="lg:col-span-2">
+      <div className="py-5">
+        <Breadcrumb/> 
+      </div>
 
           <article className="space-y-10 mb-20">
 
+              <div className="mt-6">
+                <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
+                  {singleBlog?.Title}
+                </h1>
+
+                <p className="text-sm text-gray-500 mt-2">
+                  {new Date(singleBlog?.Date).toDateString()}
+                </p>
+              </div>
             {/* HERO */}
             <div>
               <div className="w-full h-[260px] md:h-[480px] rounded-2xl overflow-hidden shadow-sm">
@@ -82,15 +94,6 @@ export default function SingleBlogPage() {
                 />
               </div>
 
-              <div className="mt-6">
-                <h1 className="text-2xl md:text-4xl font-bold text-gray-900">
-                  {singleBlog?.Title}
-                </h1>
-
-                <p className="text-sm text-gray-500 mt-2">
-                  {new Date(singleBlog?.Date).toDateString()}
-                </p>
-              </div>
             </div>
 
             {/* CONTENT */}
@@ -122,6 +125,7 @@ export default function SingleBlogPage() {
                 "
                 dangerouslySetInnerHTML={{ __html: section?.content }}
               />
+              
             </div>
 
                   {section?.img?.url && (

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function DealerDetailPage({ slug }) {
   const [dealer, setDealer] = useState(null);
@@ -82,8 +83,10 @@ export default function DealerDetailPage({ slug }) {
       <div className="max-w-4xl mx-auto px-4">
 
         {/* ================= HEADER ================= */}
+<div className="py-5">
+  <Breadcrumb/>
+</div>
         <div className="mb-10 bg-white rounded-2xl p-6 border border-red-200 shadow-sm">
-
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
             <div>
@@ -91,7 +94,7 @@ export default function DealerDetailPage({ slug }) {
                 Verified Property Dealer
               </span> */}
 
-              <h1 className="text-3xl md:text-4xl font-extrabold text-black leading-tight">
+              <h1 className="text-2xl md:text-4xl font-extrabold text-black leading-tight">
                 {dealerName} – Professional Property Dealer in {dealerCity}
               </h1>
 

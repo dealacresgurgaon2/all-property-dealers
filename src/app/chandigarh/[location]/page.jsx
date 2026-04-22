@@ -7,6 +7,7 @@ import Pagination from "@/templates/design4/components/Pagination";
 import QueryForm from "@/templates/design4/components/QueryForm";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import Breadcrumb from "@/templates/design4/components/Breadcrumb";
 
 export default function LocationDealersPage() {
 
@@ -106,7 +107,9 @@ const location = slug
     <div className="min-h-screen bg-gradient-to-br from-[#fff0f4] via-white to-[#fde6ec] py-12">
 
       <div className="max-w-7xl mx-auto px-5">
-
+        <div className="py-5">
+          <Breadcrumb/>
+        </div>
         {/* HEADER */}
         <div className="mb-8 ">
           <h1 className="text-3xl font-bold text-[#8A244B]">

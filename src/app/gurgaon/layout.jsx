@@ -5,7 +5,6 @@ import Footer from "@/templates/design1/components/Footer";
 import { BlogProvider } from "@/context/blogcontext/BlogContext";
 import { DealerProvider } from "@/context/propertydealercontext/DealerContext";
 import ScrollToTop from "@/templates/design1/components/ScrollToTop";
-import GlobalScrollFix from "@/templates/design1/components/GlobalScrollFix";
 export default function Layout({ children }) {
 
   const domain =
@@ -16,7 +15,6 @@ export default function Layout({ children }) {
   return (
     <DealerProvider>
       <BlogProvider>
-     {/* <GlobalScrollFix /> */}
         <Navbar />
 
         <ScrollToTop>

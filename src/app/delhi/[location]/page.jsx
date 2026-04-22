@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import DealerCard from "@/templates/design5/components/DealerCard";
 import QueryForm from "@/templates/design5/components/QueryForm";
+import Breadcrumb from "@/templates/design5/components/Breadcrumb";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
@@ -99,9 +100,11 @@ export default function LocationDealersPage() {
   }
 
   return (
-    <section className="bg-slate-50 py-16">
+    <section className="bg-slate-50 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-
+          <div className="mb-5">
+            <Breadcrumb/>
+          </div>
         {/* HEADER */}
         <div className="mb-10 ">
           {/* <span className="inline-block bg-red-50 text-red-700 text-sm font-semibold px-5 py-2 rounded-full mb-4 border border-red-200 capitalize">

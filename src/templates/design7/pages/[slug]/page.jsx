@@ -3,11 +3,14 @@
 import DealerDetailPage from "./DealerDetailPage";
 import QueryForm from "../../components/QueryForm";
 import FourBlogs from "../../components/FourBlogs";
+import Breadcrumb from "../../components/Breadcrumb";
 export default function BlogPage() {
   return (
     <main className="bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4">
-
+<div className="mb-5">
+         <Breadcrumb/>
+        </div>
         {/* PAGE HEADER - NEW STYLE */}
         {/* <div className="mb-10 bg-white rounded-3xl border border-indigo-200 p-6 shadow-sm">
 

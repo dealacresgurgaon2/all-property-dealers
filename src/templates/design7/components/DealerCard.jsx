@@ -109,7 +109,7 @@ export default function DealerCard({ dealer }) {
           </button>
 
           <Link
-            href={`/dealer/${formatCity(dealer.city)}/${dealer.slug}`}
+            href={`/estate-agent/${formatCity(dealer.city)}/${dealer.slug}`}
             className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition"
           >
             View Details

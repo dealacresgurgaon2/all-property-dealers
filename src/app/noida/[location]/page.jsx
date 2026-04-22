@@ -7,6 +7,7 @@ import Pagination from "@/templates/design6/components/Pagination";
 import QueryForm from "@/templates/design6/components/QueryForm";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import Breadcrumb from "@/templates/design6/components/Breadcrumb";
 
 export default function LocationDealersPage() {
 
@@ -105,11 +106,14 @@ const location = slug
     <div className="min-h-screen bg-white py-12">
 
       <div className="max-w-7xl mx-auto px-5">
-
+<div className="py-5">
+  <Breadcrumb/>
+</div>
         {/* HEADER */}
-        <div className="mb-8 text-center">
+        <div className="mb-8">
+
           <h1 className="text-3xl font-bold text-green-700">
-            Dealers in {formattedLocation}
+          {formattedLocation}
           </h1>
 
           <p className="text-sm text-gray-600 mt-2">

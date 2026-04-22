@@ -6,6 +6,7 @@ import Pagination from "@/templates/design2/components/Pagination";
 import QueryForm from "@/templates/design2/components/QueryForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Breadcrumb from "@/templates/design1/components/Breadcrumb";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
@@ -99,7 +100,9 @@ export default function LocationDealersPage() {
     <div className="min-h-screen bg-white py-12">
 
       <div className="max-w-7xl mx-auto px-5">
-
+            <div className="py-5">
+              <Breadcrumb/>
+            </div>
         {/* HEADER */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-black">

@@ -3,6 +3,8 @@
 import DealerDetailPage from "./DealerDetailPage";
 import QueryForm from "../../components/QueryForm";
 import FourBlogs from "../../components/FourBlogs";
+import Breadcrumb from "../../components/Breadcrumb";
+
 export default async function BlogPage({ params }) {
   const resolvedParams = await params;   // ✅ FIX
   const slug = resolvedParams.slug;
@@ -13,7 +15,9 @@ export default async function BlogPage({ params }) {
   return (
     <main className="bg-[#faf8f2] py-10">
       <div className="max-w-7xl mx-auto px-4">
-
+<div className="py-5">
+        <Breadcrumb/> 
+       </div>
         {/* TWO COLUMN LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 

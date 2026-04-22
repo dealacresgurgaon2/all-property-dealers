@@ -95,7 +95,7 @@ export default function DealerCard({ dealer }) {
         </button>
 
         <Link
-          href={`/dealer/${dealer.slug}`}
+          href={`/estate-agent/${dealer.slug}`}
           className="flex-1 text-center py-2 md:py-2.5 rounded-lg border border-[#D02752] text-[#D02752] text-xs md:text-sm font-semibold"
         >
           Details

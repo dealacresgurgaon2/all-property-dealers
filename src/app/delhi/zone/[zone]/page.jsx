@@ -1,5 +1,6 @@
 "use client";
 
+import Breadcrumb from "@/templates/design5/components/Breadcrumb";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -1159,15 +1160,17 @@ useEffect(() => {
   return (
    <section className="min-h-screen bg-white py-16">
   <div className="max-w-7xl mx-auto px-6">
-
+   <div className="py-5">
+    <Breadcrumb/>
+   </div>
     {/* HEADER */}
-    <div className="text-center mb-12">
+    <div className=" mb-12">
 
-      <h1 className="text-3xl md:text-4xl font-bold text-red-600 mb-4">
+      <h1 className="text-2xl md:text-4xl font-bold text-red-600 mb-4">
         Real Estate in {formattedZone}
       </h1>
 
-      <p className="text-gray-600 max-w-2xl mx-auto">
+      <p className="text-gray-600 max-w-2xl">
         Browse verified property dealers across {formattedZone}.
       </p>
 
