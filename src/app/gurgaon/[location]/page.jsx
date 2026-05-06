@@ -1,187 +1,77 @@
-"use client";
+import LocationDealersPage from "./LocationDealersPage";
 
-import { useSearchParams, usePathname } from "next/navigation";
-import DealerCard from "@/templates/design1/components/DealerCard";
-import Pagination from "@/templates/design1/components/Pagination";
-import QueryForm from "@/templates/design1/components/QueryForm";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Breadcrumb from "@/templates/design1/components/Breadcrumb";
+export const metadata = {
+  title:
+    "Find Property Dealers by Location | Trusted Real Estate Agents",
 
-export default function LocationDealersPage() {
+  description:
+    "Search trusted property dealers, builders, and real estate agents by location for buying, selling, and renting residential & commercial properties.",
 
-  const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+  keywords: [
+    "Property Dealers by Location",
+    "Real Estate Agents Near Me",
+    "Location Wise Property Dealers",
+    "Property Consultants",
+    "Buy Sell Rent Properties",
+    "Residential Property Dealers",
+    "Commercial Property Dealers",
+    "Trusted Real Estate Agents",
+    "Property Dealers India",
+    "Find Property Dealers",
+  ],
 
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  alternates: {
+    canonical:
+      "https://www.propertydealerinfaridabad.com/location-dealers",
+  },
 
-  // ✅ SUPPORT BOTH (query + slug)
-  const queryLocation = searchParams.get("location");
+  openGraph: {
+    title:
+      "Find Property Dealers by Location",
 
-  const slug = pathname.split("/").pop();
+    description:
+      "Explore verified property dealers and real estate agents near your location.",
 
-  const location =
-    queryLocation ||
-    slug?.replace(/-/g, " ")?.replace(/\b\w/g, (c) => c.toUpperCase());
+    url:
+      "https://www.propertydealerinfaridabad.com/location-dealers",
 
-  const [dealers, setDealers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+    siteName: "Property Dealer Faridabad",
 
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Location Wise Property Dealers",
+      },
+    ],
 
-  const ITEMS_PER_PAGE = 70;
+    locale: "en_IN",
+    type: "website",
+  },
 
-  // ✅ DOMAIN DETECT
-  const getDomain = () => {
-    if (typeof window === "undefined") return "";
+  twitter: {
+    card: "summary_large_image",
 
-    const host = window.location.hostname
+    title:
+      "Find Property Dealers by Location",
 
-    if (host === "localhost" || host.includes("vercel")) {
-      return "www.propertydealeringurgaon.com";
-    }
+    description:
+      "Search trusted property dealers and real estate agents near you.",
 
-    return host;
-  };
+    images: ["/og-image.jpg"],
+  },
 
-  // 🔥 API CALL
-  const fetchDealers = async () => {
-    try {
-      setLoading(true);
-      setError("");
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
-      const domain = getDomain();
-
-      const params = new URLSearchParams({
-        page: page.toString(),
-        limit: ITEMS_PER_PAGE.toString(),
-      });
-
-      if (location) {
-        params.append("search", location.toLowerCase());
-      }
-
-      const url = `${API_BASE}/api/get/getDealers/${domain}?${params.toString()}`;
-
-      console.log("API:", url);
-
-      const res = await axios.get(url);
-
-      setDealers(res?.data?.data || []);
-      setTotalPages(res?.data?.pagination?.totalPages ?? 1);
-
-    } catch (err) {
-      console.error("API Error:", err);
-
-      setError(
-        err?.response?.status === 403
-          ? "Access denied. Please try again later."
-          : "Something went wrong. Please refresh the page."
-      );
-
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 🔁 CALL
-  useEffect(() => {
-    fetchDealers();
-  }, [page, location]);
-
-  // 🔁 PAGE CHANGE
-  const handlePageChange = (p) => {
-    setPage(p);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
+export default function Page() {
   return (
-    <div className="min-h-screen bg-white py-12">
-
-      <div className="max-w-7xl mx-auto px-5">
-          <div className="py-5">
-            <Breadcrumb/>
-          </div>
-        {/* HEADER */}
-        <div className="mb-8 ">
-          <h1 className="text-3xl font-bold text-[#1e40af]">
-            {location || "Location"}
-          </h1>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-          {/* LEFT */}
-          <div className="md:col-span-2">
-
-            {/* 🔄 LOADING */}
-            {loading && (
-              <div className="flex flex-col items-center justify-center py-24">
-                <div className="w-14 h-14 border-4 border-gray-300 border-t-[#1e40af] rounded-full animate-spin"></div>
-                <p className="mt-4 text-gray-600 font-medium">
-                  Loading Dealers...
-                </p>
-              </div>
-            )}
-
-            {/* ❌ ERROR */}
-            {!loading && error && (
-              <div className="text-center py-16">
-                <p className="text-red-600 font-semibold">{error}</p>
-
-                <button
-                  onClick={() => window.location.reload()}
-                  className="mt-4 px-6 py-2 bg-[#1e40af] text-white rounded-lg"
-                >
-                  Retry
-                </button>
-              </div>
-            )}
-
-            {/* ❌ NO DATA */}
-            {!loading && !error && dealers.length === 0 && (
-              <div className="text-center text-gray-500 py-14 font-semibold">
-                No Dealers Found in {location}
-              </div>
-            )}
-
-            {/* ✅ DATA */}
-            {!loading && !error && dealers.length > 0 && (
-              <>
-                <div className="grid gap-6">
-                  {dealers.map((dealer) => (
-                    <DealerCard key={dealer._id} dealer={dealer} />
-                  ))}
-                </div>
-
-                {/* PAGINATION */}
-                {totalPages > 1 && (
-                  <div className="mt-10 flex justify-center">
-                    <Pagination
-                      page={page}
-                      totalPages={totalPages}
-                      setPage={handlePageChange}
-                    />
-                  </div>
-                )}
-              </>
-            )}
-
-          </div>
-
-          {/* RIGHT */}
-          <div className="hidden md:block">
-            <div className="sticky top-24">
-              <QueryForm />
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
+    <main>
+      <LocationDealersPage />
+    </main>
   );
 }

@@ -159,9 +159,9 @@ export default function Hero() {
 
           {/* RIGHT FORM (DESIGN SAME) */}
           <div className="bg-white/15 backdrop-blur-xl border border-red-500/40 rounded-2xl shadow-2xl p-5 md:p-6 max-w-sm ml-auto w-full">
-            <h3 className="text-lg font-bold mb-4 text-white text-center">
+            <h2 className="text-lg font-bold mb-4 text-white text-center">
               Get Free Consultation
-            </h3>
+            </h2>
 
             <form onSubmit={handleSubmit} className="space-y-3">
 

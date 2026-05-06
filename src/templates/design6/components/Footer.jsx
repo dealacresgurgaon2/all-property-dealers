@@ -50,9 +50,9 @@ useEffect(() => {
 <section className="bg-white py-10">
   <div className="max-w-7xl mx-auto px-4">
 
-    <h3 className="text-xl font-bold text-black mb-6">
+    <h2 className="text-xl font-bold text-black mb-6">
       Property Dealers Across Noida
-    </h3>
+    </h2>
 
     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
       {(isMobile && !showAllMobileLocations
@@ -108,9 +108,9 @@ useEffect(() => {
             {/* BRAND ONLY */}
             {/* BRAND ONLY */}
 <div>
-  <h3 className="text-2xl font-bold text-green-500">
+  <h2 className="text-2xl font-bold text-green-500">
     Property Dealer Noida
-  </h3>
+  </h2>
 
   {/* 🔥 NEW NAV BUTTONS */}
   <div className="grid grid-rows-5 gap-1 mt-5 ">
@@ -131,9 +131,9 @@ useEffect(() => {
             {/* POPULAR LOCATIONS */}
             <div className="lg:col-span-3">
 
-              <h4 className="text-xl font-semibold mb-6 text-green-500">
+              <h3 className="text-xl font-semibold mb-6 text-green-500">
                 Real Estate Agents in Popular Locations Noida
-              </h4>
+              </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3">
                 {footerLocations.map((loc, index) => {

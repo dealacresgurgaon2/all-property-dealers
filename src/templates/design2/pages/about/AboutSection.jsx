@@ -24,7 +24,7 @@ export default function AboutSection() {
 
             {/* FLOATING EXPERIENCE BOX */}
             <div className="absolute bottom-8 right-8 bg-white/90 backdrop-blur-lg rounded-2xl p-5 shadow-xl border border-[#d4af37]/30">
-              <h4 className="text-3xl font-bold text-[#d4af37]">10+</h4>
+              <h2 className="text-3xl font-bold text-[#d4af37]">10+</h2>
               <p className="text-sm text-black/70">Years of Excellence</p>
             </div>
           </div>
@@ -35,10 +35,10 @@ export default function AboutSection() {
               Who We Are
             </span>
 
-            <h2 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-6">
               Every Property Dealer in <br />
               <span className="text-[#d4af37]"> Faridabad - One Website</span>
-            </h2>
+            </h1>
 
             <p className="text-black/70 leading-8 mb-6 text-lg">
              Tired of searching for property dealers everywhere? We've listed all Faridabad property dealers in one place.
@@ -76,9 +76,9 @@ export default function AboutSection() {
                 ✓
               </div>
 
-              <h4 className="text-xl font-semibold mb-3 text-black">
+              <h3 className="text-xl font-semibold mb-3 text-black">
                 {item.title}
-              </h4>
+              </h3>
 
               <p className="text-black/70 leading-7">
                 {item.desc}

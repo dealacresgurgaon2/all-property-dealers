@@ -197,9 +197,9 @@ export default function SingleBlogPage() {
           <div className="sticky top-24 space-y-6">
 
             <div className="bg-white border border-red-600/20 rounded-2xl p-5">
-              <h3 className="text-xl font-bold text-red-600 mb-4 border-b pb-2">
+              <h2 className="text-xl font-bold text-red-600 mb-4 border-b pb-2">
                 Recent Blogs
-              </h3>
+              </h2>
 
               {listError && (
                 <p className="text-red-600 text-sm mb-3">
@@ -230,9 +230,9 @@ export default function SingleBlogPage() {
                         <p className="text-xs text-gray-500">
                           {formatDate(b?.Date)}
                         </p>
-                        <h4 className="text-sm font-semibold text-red-600 line-clamp-2">
+                        <h3 className="text-sm font-semibold text-red-600 line-clamp-2">
                           {b?.Title}
-                        </h4>
+                        </h3>
                       </div>
                     </Link>
                   ))}
@@ -241,9 +241,9 @@ export default function SingleBlogPage() {
 
             {/* CTA */}
             <div className="bg-red-600 text-white rounded-2xl p-6 text-center">
-              <h4 className="text-lg font-semibold mb-2">
+              <h2 className="text-lg font-semibold mb-2">
                 Need Property Help?
-              </h4>
+              </h2>
               <p className="text-sm mb-4">
                 Get expert guidance for buying, selling or investing.
               </p>

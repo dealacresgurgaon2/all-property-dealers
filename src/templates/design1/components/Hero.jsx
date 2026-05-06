@@ -110,9 +110,9 @@ export default function Hero() {
 
           {/* RIGHT FORM */}
           <div className="max-w-sm ml-auto w-full bg-white rounded shadow-xl p-5">
-            <h3 className="text-lg font-semibold text-[#0b1f33] text-center">
+            <h2 className="text-lg font-semibold text-[#0b1f33] text-center">
               Get Expert Advice
-            </h3>
+            </h2>
             <p className="text-xs text-gray-500 text-center mb-4">
               We will contact you shortly
             </p>

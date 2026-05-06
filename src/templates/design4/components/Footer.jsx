@@ -70,9 +70,9 @@ export default function Footer() {
 
         <div className="relative max-w-7xl mx-auto px-4">
 
-          <h3 className="text-xl font-bold text-[#8A244B] mb-6">
+          <h2 className="text-xl font-bold text-[#8A244B] mb-6">
             Property Dealers in Chandigarh Locations
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
             {(isMobile && !showAllMobileLocations

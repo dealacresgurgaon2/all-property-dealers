@@ -13,9 +13,9 @@ export default function AboutSection() {
             About Us
           </span>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
+          <h1 className="text-2xl md:text-4xl font-bold text-black mb-4">
             Your Trusted Real Estate Partner
-          </h2>
+          </h1>
 
           <p className="text-black/70 max-w-3xl mx-auto text-lg">
             We help people find the right property dealers in Delhi. All in one place. Fast and simple. Transparent and trusted.
@@ -34,9 +34,9 @@ export default function AboutSection() {
               key={i}
               className="bg-gray-50 rounded-2xl p-8 text-center border border-red-100 hover:shadow-lg transition"
             >
-              <h4 className="text-4xl font-bold text-red-600 mb-2">
+              <h2 className="text-4xl font-bold text-red-600 mb-2">
                 {item.v}
-              </h4>
+              </h2>
               <p className="text-black/70">{item.l}</p>
             </div>
           ))}
@@ -44,9 +44,9 @@ export default function AboutSection() {
 
         {/* ===== WHY CHOOSE US ===== */}
         <div className="mb-24">
-          <h3 className="text-3xl font-bold text-black mb-10 text-center">
+          <h2 className="text-3xl font-bold text-black mb-10 text-center">
             Why Choose Us
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -83,9 +83,9 @@ export default function AboutSection() {
                   {i + 1}
                 </div>
 
-                <h4 className="text-xl font-semibold text-black mb-2">
+                <h2 className="text-xl font-semibold text-black mb-2">
                   {item.title}
-                </h4>
+                </h2>
 
                 <p className="text-black/70 leading-7">
                   {item.desc}
@@ -97,9 +97,9 @@ export default function AboutSection() {
 
         {/* ===== HOW WE WORK ===== */}
         <div className="mb-24 bg-gray-50 rounded-3xl p-10">
-          <h3 className="text-3xl font-bold text-black text-center mb-12">
+          <h2 className="text-3xl font-bold text-black text-center mb-12">
             How We Work
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
@@ -128,9 +128,9 @@ export default function AboutSection() {
                   0{i + 1}
                 </div>
 
-                <h4 className="font-semibold text-black mb-2">
+                <h2 className="font-semibold text-black mb-2">
                   {step.title}
-                </h4>
+                </h2>
 
                 <p className="text-black/70 text-sm">
                   {step.desc}
@@ -142,9 +142,9 @@ export default function AboutSection() {
 
         {/* ===== CORE VALUES ===== */}
         <div className="mb-24">
-          <h3 className="text-3xl font-bold text-black text-center mb-10">
+          <h2 className="text-3xl font-bold text-black text-center mb-10">
             Our Core Values
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -165,9 +165,9 @@ export default function AboutSection() {
                 key={i}
                 className="p-8 bg-white border border-red-200 rounded-2xl text-center"
               >
-                <h4 className="text-xl font-semibold text-black mb-3">
+                <h3 className="text-xl font-semibold text-black mb-3">
                   {item.title}
-                </h4>
+                </h3>
 
                 <p className="text-black/70">
                   {item.desc}

@@ -76,9 +76,9 @@ export default function QueryForm() {
     <div className="bg-white border border-gray-200 rounded shadow-lg p-6">
 
       {/* HEADER */}
-      <h3 className="text-lg font-bold text-[#0b1f33]">
+      <h2 className="text-lg font-bold text-[#0b1f33]">
         Get Best Property Deals
-      </h3>
+      </h2>
       <p className="text-sm text-gray-500 mb-5">
         Fill the form & our expert will contact you shortly
       </p>

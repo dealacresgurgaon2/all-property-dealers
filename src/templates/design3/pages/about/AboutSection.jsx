@@ -23,9 +23,9 @@ export default function AboutSection() {
             About Us
           </span>
 
-          <h2 className="text-3xl md:text-4xl font-bold text-[#5E23DC] leading-tight mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#5E23DC] leading-tight mb-4">
             Your Trusted Partner in Real Estate Solutions
-          </h2>
+          </h1>
 
           <p className="text-gray-600 text-lg">
             We help people make confident property decisions through local
@@ -38,9 +38,9 @@ export default function AboutSection() {
 
           {/* LEFT CONTENT */}
           <div>
-            <h3 className="text-2xl font-semibold text-[#5E23DC] mb-4">
+            <h2 className="text-2xl font-semibold text-[#5E23DC] mb-4">
               Who We Are
-            </h3>
+            </h2>
 
             <p className="text-gray-700 leading-8 mb-6">
               We are a professional real estate platform focused on connecting
@@ -72,9 +72,9 @@ export default function AboutSection() {
                     p-5
                   "
                 >
-                  <h4 className="text-2xl font-bold text-[#5E23DC]">
+                  <h3 className="text-2xl font-bold text-[#5E23DC]">
                     {item.value}
-                  </h4>
+                  </h3>
                   <p className="text-sm text-gray-600">
                     {item.label}
                   </p>
@@ -112,9 +112,9 @@ export default function AboutSection() {
                 max-w-xs
               "
             >
-              <h4 className="font-semibold text-[#5E23DC] mb-2">
+              <h2 className="font-semibold text-[#5E23DC] mb-2">
                 Why Choose Us?
-              </h4>
+              </h2>
 
               <ul className="text-sm text-gray-600 space-y-2">
                 <li>✔ Verified & genuine listings</li>
@@ -129,9 +129,9 @@ export default function AboutSection() {
 
         {/* ================= HOW WE WORK ================= */}
         <div className="mt-20">
-          <h3 className="text-2xl font-semibold text-[#5E23DC] text-center mb-12">
+          <h2 className="text-2xl font-semibold text-[#5E23DC] text-center mb-12">
             How We Work
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
@@ -154,9 +154,9 @@ export default function AboutSection() {
                 <div className="text-3xl font-bold text-[#5E23DC] mb-3">
                   {item.step}
                 </div>
-                <h4 className="font-semibold text-[#5E23DC]">
+                <h3 className="font-semibold text-[#5E23DC]">
                   {item.title}
-                </h4>
+                </h3>
               </div>
             ))}
           </div>

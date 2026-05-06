@@ -1,149 +1,77 @@
-"use client";
+import LocationDealersPage from "./LocationDealersPage";
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+export const metadata = {
+  title:
+    "Find Property Dealers by Location | Trusted Real Estate Agents",
 
-import DealerCard from "@/templates/design5/components/DealerCard";
-import QueryForm from "@/templates/design5/components/QueryForm";
-import Breadcrumb from "@/templates/design5/components/Breadcrumb";
+  description:
+    "Search trusted property dealers, real estate agents, and builders by location. Explore verified residential and commercial property consultants near you.",
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL;
+  keywords: [
+    "Property Dealers by Location",
+    "Real Estate Agents Near Me",
+    "Find Property Dealers",
+    "Location Wise Property Dealers",
+    "Property Consultants",
+    "Residential Property Agents",
+    "Commercial Property Dealers",
+    "Trusted Real Estate Agents",
+    "Buy Sell Rent Properties",
+    "Local Property Dealers",
+  ],
 
-export default function LocationDealersPage() {
+  alternates: {
+    canonical:
+      "https://www.propertydealerindelhi.com/location-dealers",
+  },
 
-  const [dealers, setDealers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [error, setError] = useState(null);
+  openGraph: {
+    title:
+      "Find Property Dealers by Location",
 
-  const pathname = usePathname();
+    description:
+      "Explore verified property dealers and real estate agents near your location.",
 
-  const slug = pathname.split("/").pop();
+    url:
+      "https://www.propertydealerindelhi.com/location-dealers",
 
-  const location = slug
-    ?.replace(/-/g, " ")
-    ?.replace(/\b\w/g, (c) => c.toUpperCase());
+    siteName: "Property Dealer India",
 
-  const ITEMS_PER_PAGE = 100;
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Location Wise Property Dealers",
+      },
+    ],
 
-  // ✅ API CALL
-  useEffect(() => {
-    if (typeof window === "undefined") return;
+    locale: "en_IN",
+    type: "website",
+  },
 
-    const fetchDealers = async () => {
-      try {
-        setLoading(true);
-        setError(null);
+  twitter: {
+    card: "summary_large_image",
 
-        const hostname = window.location.hostname;
+    title:
+      "Find Property Dealers by Location",
 
-        const domain =
-          hostname === "localhost"
-            ? "www.propertydealerindelhi.com"
-            : hostname;
+    description:
+      "Search trusted property dealers and real estate agents near you.",
 
-        const cleanLocation = location?.toLowerCase().trim();
+    images: ["/og-image.jpg"],
+  },
 
-        const params = new URLSearchParams({
-          page: page.toString(),
-          limit: ITEMS_PER_PAGE.toString(),
-        });
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
-        if (cleanLocation) {
-          params.append("search", cleanLocation);
-        }
-
-        const url = `${API_BASE}/api/get/getDealers/${domain}?${params.toString()}`;
-
-        const res = await fetch(url);
-
-        if (!res.ok) throw new Error("Failed to fetch");
-
-        const data = await res.json();
-
-        setDealers(data?.data || []);
-        setTotalPages(data?.pagination?.totalPages ?? 1);
-
-      } catch (err) {
-        console.error(err);
-        setError("Something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDealers();
-
-  }, [page, location]);
-
-  const formattedLocation = location;
-
-  // ✅ LOADING
-  if (loading) {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center bg-slate-50">
-        <div className="px-6 py-3 rounded-xl bg-red-50 border border-red-200 text-red-700 font-medium">
-          Loading dealers for {formattedLocation}...
-        </div>
-      </div>
-    );
-  }
-
-  // ✅ ERROR
-  if (error) {
-    return (
-      <div className="text-center py-20 text-red-600">
-        {error}
-      </div>
-    );
-  }
-
+export default function Page() {
   return (
-    <section className="bg-slate-50 py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="mb-5">
-            <Breadcrumb/>
-          </div>
-        {/* HEADER */}
-        <div className="mb-10 ">
-          {/* <span className="inline-block bg-red-50 text-red-700 text-sm font-semibold px-5 py-2 rounded-full mb-4 border border-red-200 capitalize">
-            {formattedLocation}
-          </span> */}
-
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-3 capitalize text-black">
-           {formattedLocation}
-          </h2>
-
-          <p className="text-gray-500">
-            Showing all available dealers
-          </p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-10">
-
-          {/* LEFT */}
-          <div className="flex-1 space-y-6">
-            {dealers.length === 0 ? (
-              <p className="text-center text-gray-500">
-                No dealers found
-              </p>
-            ) : (
-              dealers.map((dealer, index) => (
-                <DealerCard key={dealer._id + index} dealer={dealer} />
-              ))
-            )}
-          </div>
-
-          {/* RIGHT */}
-          <div className="w-full lg:w-[350px]">
-            <div className="sticky top-24">
-              <QueryForm />
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
+    <main>
+      <LocationDealersPage />
+    </main>
   );
 }

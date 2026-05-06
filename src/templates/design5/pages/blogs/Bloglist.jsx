@@ -121,9 +121,9 @@ export default function BlogList() {
                 {/* CONTENT */}
                 <div className="p-5 flex flex-col flex-grow">
 
-                  <h3 className="text-lg font-semibold text-black mb-2 group-hover:text-red-600 transition line-clamp-2">
+                  <h2 className="text-lg font-semibold text-black mb-2 group-hover:text-red-600 transition line-clamp-2">
                     {titleText}
-                  </h3>
+                  </h2>
 
                   <p className="text-sm text-gray-500 mb-4">
                     Published on {formatDate(post?.date || post?.Date)}
@@ -146,9 +146,9 @@ export default function BlogList() {
         {/* EMPTY */}
         {blogs.length === 0 && (
           <div className="text-center py-20">
-            <h3 className="text-xl font-semibold text-gray-700">
+            <h2 className="text-xl font-semibold text-gray-700">
               No Blogs Found
-            </h3>
+            </h2>
             <p className="text-gray-500 mt-2">
               Please check back later for new updates.
             </p>

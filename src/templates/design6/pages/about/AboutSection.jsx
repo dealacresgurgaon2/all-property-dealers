@@ -13,9 +13,9 @@ export default function AboutSection() {
             About Us
           </span>
 
-          <h2 className="text-4xl md:text-5xl font-extrabold text-black mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-black mb-4">
             Building Trust in Real Estate
-          </h2>
+          </h1>
 
           <p className="text-black/70 max-w-3xl mx-auto text-lg">
             We help people find honest, reliable and experienced real estate dealers. Transparency and expert guidance.
@@ -35,9 +35,9 @@ export default function AboutSection() {
               key={i}
               className="bg-white rounded-2xl p-8 text-center border border-green-200 hover:shadow-xl transition"
             >
-              <h4 className="text-4xl font-bold text-green-700 mb-2">
+              <h2 className="text-4xl font-bold text-green-700 mb-2">
                 {item.v}
-              </h4>
+              </h2>
               <p className="text-black/70">{item.l}</p>
             </div>
           ))}
@@ -68,9 +68,9 @@ export default function AboutSection() {
 
           {/* Right Box */}
           <div className="bg-green-50 p-10 rounded-3xl border border-green-200">
-            <h4 className="text-2xl font-bold text-green-700 mb-4">
+            <h3 className="text-2xl font-bold text-green-700 mb-4">
               Our Mission
-            </h4>
+            </h3>
 
             <p className="text-black/80 leading-7 mb-4">
               To become India's most trusted real estate platform by delivering transparency, accuracy, and genuine property solutions.
@@ -174,9 +174,9 @@ export default function AboutSection() {
                   0{i + 1}
                 </div>
 
-                <h4 className="font-semibold text-black mb-2">
+                <h3 className="font-semibold text-black mb-2">
                   {step.title}
-                </h4>
+                </h3>
 
                 <p className="text-black/70 text-sm">
                   {step.desc}
@@ -213,9 +213,9 @@ export default function AboutSection() {
                 key={i}
                 className="p-8 bg-white border border-green-200 rounded-2xl text-center"
               >
-                <h4 className="text-xl font-semibold text-green-700 mb-3">
+                <h3 className="text-xl font-semibold text-green-700 mb-3">
                   {item.title}
-                </h4>
+                </h3>
 
                 <p className="text-black/70">
                   {item.desc}

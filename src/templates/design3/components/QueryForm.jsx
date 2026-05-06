@@ -102,9 +102,9 @@ export default function QueryForm() {
         p-6
       "
     >
-      <h3 className="text-xl font-bold text-[#5E23DC] mb-2">
+      <h2 className="text-xl font-bold text-[#5E23DC] mb-2">
         For Best Property Deals Contact Us
-      </h3>
+      </h2>
 
       <p className="text-sm text-gray-600 mb-4">
         Our Real Estate experts will contact you shortly.
