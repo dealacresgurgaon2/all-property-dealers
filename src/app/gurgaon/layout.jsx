@@ -1,29 +1,13 @@
-"use client";
+// app/delhi/layout.jsx
 
-import Navbar from "@/templates/design1/components/Navbar";
-import Footer from "@/templates/design1/components/Footer";
-import { BlogProvider } from "@/context/blogcontext/BlogContext";
-import { DealerProvider } from "@/context/propertydealercontext/DealerContext";
-import ScrollToTop from "@/templates/design1/components/ScrollToTop";
+import ClientLayout from "./ClientLayout";
+
+export const metadata = {
+  title: "Property Dealers in Gurgaon",
+  description:
+    "Find top property dealers and real estate agents in Gurgaon.",
+};
+
 export default function Layout({ children }) {
-
-  const domain =
-    typeof window !== "undefined"
-      ? window.location.hostname
-      : "";
-
-  return (
-    <DealerProvider>
-      <BlogProvider>
-        <Navbar />
-
-        <ScrollToTop>
-          {children}
-        </ScrollToTop>
-
-        <Footer domain={domain} />
-
-      </BlogProvider>
-    </DealerProvider>
-  );
+  return <ClientLayout>{children}</ClientLayout>;
 }

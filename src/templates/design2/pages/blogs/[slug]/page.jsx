@@ -388,9 +388,9 @@ export default function SingleBlogPage() {
           <div className="sticky top-24">
 
             <div className="bg-white border border-[#d4af37]/30 rounded-2xl p-5 shadow-md">
-              <h3 className="text-xl font-bold text-black mb-4 border-b pb-2">
+              <h2 className="text-xl font-bold text-black mb-4 border-b pb-2">
                 Recent <span className="text-[#d4af37]">Blogs</span>
-              </h3>
+              </h2>
 
               <div className="space-y-4">
                 {recentBlogs
@@ -418,9 +418,9 @@ export default function SingleBlogPage() {
                           {formatDate(b?.Date)}
                         </p>
 
-                        <h4 className="text-sm font-semibold text-black group-hover:text-white line-clamp-2">
+                        <h3 className="text-sm font-semibold text-black group-hover:text-white line-clamp-2">
                           {b?.Title}
-                        </h4>
+                        </h3>
                       </div>
                     </Link>
                   ))}

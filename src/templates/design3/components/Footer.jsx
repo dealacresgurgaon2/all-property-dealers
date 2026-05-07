@@ -95,9 +95,9 @@ useEffect(() => {
       <section className="bg-white py-10">
   <div className="max-w-7xl mx-auto px-4">
 
-    <h3 className="text-xl font-bold text-[#5E23DC] mb-6">
+    <h2 className="text-xl font-bold text-[#5E23DC] mb-6">
       Property Dealers Across Hisar
-    </h3>
+    </h2>
 
     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
       {(isMobile && !showAllMobileLocations
@@ -182,9 +182,9 @@ useEffect(() => {
             {/* HISAR LOCATIONS – ONLY 21 LOCATIONS */}
             <div className="md:col-span-9 w-full">
 
-              <h4 className="font-semibold text-base mb-4">
+              <h3 className="font-semibold text-base mb-4">
                Real Estate Agents in Popular Locations Hisar
-              </h4>
+              </h3>
 
               {/* 3 COLUMN FOOTER */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3 text-[13px] w-full">

@@ -83,9 +83,9 @@ export default function DealerCard({ dealer }) {
         {/* Content */}
         <div className="flex-1 flex flex-col">
 
-          <h3 className="text-sm sm:text-base font-bold text-[#0b1f33]">
+          <h2 className="text-sm sm:text-base font-bold text-[#0b1f33]">
             {dealer.name}
-          </h3>
+          </h2>
 
           {/* Address */}
           <p className="text-xs text-gray-600 mt-1 flex items-start gap-2 leading-snug">

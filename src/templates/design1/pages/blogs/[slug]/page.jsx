@@ -208,9 +208,9 @@ export default function SingleBlogPage() {
           <div className="sticky top-24">
 
             <div className="bg-white border border-[#5E23DC]/20 rounded-2xl p-5 shadow-sm">
-              <h3 className="text-xl font-bold text-[#5E23DC] mb-4 border-b pb-2">
+              <h2 className="text-xl font-bold text-[#5E23DC] mb-4 border-b pb-2">
                 Recent Blogs
-              </h3>
+              </h2>
 
               <div className="space-y-4">
                 {recentBlogs?.slice(0, 5).map((b, i) => (

@@ -196,9 +196,9 @@ export default function SingleBlogPage() {
         <aside className="hidden lg:block">
           <div className="sticky top-24">
 
-            <h3 className="text-xl font-semibold mb-6 text-gray-900">
+            <h2 className="text-xl font-semibold mb-6 text-gray-900">
               Recent <span className="text-green-700">Blogs</span>
-            </h3>
+            </h2>
 
             <div className="space-y-4">
               {recentBlogs

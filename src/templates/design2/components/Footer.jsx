@@ -70,9 +70,9 @@ useEffect(() => {
        <section className="bg-white py-8">
   <div className="max-w-7xl mx-auto px-4">
 
-    <h3 className="text-xl font-bold text-black mb-6">
+    <h2 className="text-xl font-bold text-black mb-6">
       Property Dealers Across Faridabad
-    </h3>
+    </h2>
 
     <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4">
       {(isMobile && !showAllMobileLocations
@@ -151,9 +151,9 @@ useEffect(() => {
 
             {/* RIGHT LOCATIONS */}
             <div className="lg:col-span-3">
-              <h4 className="text-xl font-semibold text-[#d4af37] mb-6">
+              <h3 className="text-xl font-semibold text-[#d4af37] mb-6">
                 Real Estate Agents in Popular Locations Faridabad
-              </h4>
+              </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-8">
                 {footerLocations.map((loc, index) => {

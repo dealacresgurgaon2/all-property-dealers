@@ -78,9 +78,9 @@ export default function QueryForm() {
 
       {/* HEADER */}
       <div className="bg-gradient-to-r from-green-600 to-green-700 px-6 py-5">
-        <h3 className="text-xl font-bold text-white">
+        <h2 className="text-xl font-bold text-white">
           Get Best Property Deals
-        </h3>
+        </h2>
 
         <p className="text-sm text-white/90 mt-1">
           Fill the form and our expert will contact you shortly.

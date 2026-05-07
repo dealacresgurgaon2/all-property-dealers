@@ -1,29 +1,13 @@
-"use client";
+// app/delhi/layout.jsx
 
-import Navbar from "@/templates/design3/components/Navbar";
-import Footer from "@/templates/design3/components/Footer";
-import { BlogProvider } from "@/context/blogcontext/BlogContext";
-import { DealerProvider } from "@/context/propertydealercontext/DealerContext";
-import ScrollToTop from "@/templates/design3/components/ScrollToTop";
-import GlobalScrollFix from "@/templates/design3/components/GlobalScrollFix";
-import { SearchProvider } from "@/context/SearchContext/SearchContext";
+import ClientLayout from "./ClientLayout";
+
+export const metadata = {
+  title: "Property Dealers in hisar",
+  description:
+    "Find top property dealers and real estate agents in hisar.",
+};
+
 export default function Layout({ children }) {
-
-  const domain = typeof window !== "undefined"
-    ? window.location.hostname
-    : "";
-
-  return (
-      <DealerProvider>
-    <BlogProvider>
-      <SearchProvider>
-        <Navbar />
-        <GlobalScrollFix />
-        {children}
-        <ScrollToTop />
-        <Footer domain={domain} />
-        </SearchProvider>
-    </BlogProvider>
-      </DealerProvider>
-  );
+  return <ClientLayout>{children}</ClientLayout>;
 }

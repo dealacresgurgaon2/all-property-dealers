@@ -14,9 +14,9 @@ export default function AboutSection() {
             About Us
           </span>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#0b1f33] leading-tight mb-4">
+          <h1 className="text-3xl md:text-4xl font-extrabold text-[#0b1f33] leading-tight mb-4">
             Your Trusted Partner in Real Estate Solutions
-          </h2>
+          </h1>
 
           <p className="text-gray-500 text-lg">
             We help people make confident property decisions through local expertise, verified listings, and transparent processes.
@@ -28,9 +28,9 @@ export default function AboutSection() {
 
           {/* LEFT CONTENT */}
           <div>
-            <h3 className="text-2xl font-semibold text-[#0b1f33] mb-4">
+            <h2 className="text-2xl font-semibold text-[#0b1f33] mb-4">
               Who We Are
-            </h3>
+            </h2>
 
             <p className="text-gray-600 leading-8 mb-6">
               Finding property in Gurgaon is confusing. So many dealers, so many properties — where do you even start?
@@ -79,9 +79,9 @@ export default function AboutSection() {
 
             {/* FLOATING CARD */}
             <div className="absolute -bottom-8 -left-6 bg-white border border-gray-200 rounded-xl shadow-lg p-6 max-w-xs">
-              <h4 className="font-semibold text-[#0b1f33] mb-2">
+              <h2 className="font-semibold text-[#0b1f33] mb-2">
                 Why Choose Us?
-              </h4>
+              </h2>
 
               <ul className="text-sm text-gray-600 space-y-2">
                 <li>✓ All dealers in one place</li>
@@ -95,9 +95,9 @@ export default function AboutSection() {
 
         {/* ================= HOW WE WORK ================= */}
         <div className="mt-24">
-          <h3 className="text-2xl font-semibold text-[#0b1f33] text-center mb-12">
+          <h2 className="text-2xl font-semibold text-[#0b1f33] text-center mb-12">
             How We Work
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
@@ -142,9 +142,9 @@ export default function AboutSection() {
 
         {/* ================= VALUES ================= */}
         <div className="mt-24">
-          <h3 className="text-2xl font-semibold text-[#0b1f33] text-center mb-12">
+          <h2 className="text-2xl font-semibold text-[#0b1f33] text-center mb-12">
             Our Core Values
-          </h3>
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -165,9 +165,9 @@ export default function AboutSection() {
                 key={i}
                 className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 text-center transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <h4 className="text-lg font-semibold text-[#0b1f33] mb-3">
+                <h3 className="text-lg font-semibold text-[#0b1f33] mb-3">
                   {item.title}
-                </h4>
+                </h3>
                 <p className="text-gray-500 leading-7">
                   {item.desc}
                 </p>

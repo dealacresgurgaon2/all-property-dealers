@@ -77,9 +77,9 @@ export default function QueryForm() {
     <div className="bg-white border border-red-500/30 rounded-2xl shadow-xl p-6">
       
       {/* HEADING */}
-      <h3 className="text-xl font-bold text-black mb-2">
+      <h2 className="text-xl font-bold text-black mb-2">
         Get <span className="text-red-600">Best Property Deals</span>
-      </h3>
+      </h2>
 
       <p className="text-sm text-black/70 mb-5">
         Fill the form and our expert will contact you shortly.

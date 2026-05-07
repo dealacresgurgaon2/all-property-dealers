@@ -62,9 +62,9 @@ export default function Hero() {
           <div className="absolute -inset-0.5 bg-gradient-to-r from-[#D02752] to-[#8A244B] rounded-2xl blur opacity-30 group-hover:opacity-60 transition" />
 
           <div className="relative bg-white border border-[#f3c6d1] rounded-2xl p-6 shadow-2xl">
-            <h3 className="text-xl font-bold text-[#8A244B] text-center mb-5">
+            <p className="text-xl font-bold text-[#8A244B] text-center mb-5">
               Premium Property Experts
-            </h3>
+            </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
 

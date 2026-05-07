@@ -111,9 +111,9 @@ export default function BlogList() {
       </div>
 
       {/* TITLE */}
-      <h3 className="text-lg font-semibold mb-2 text-blue-900 group-hover:text-[#1e40af] transition line-clamp-2">
+      <h2 className="text-lg font-semibold mb-2 text-blue-900 group-hover:text-[#1e40af] transition line-clamp-2">
         {titleText}
-      </h3>
+      </h2>
 
       {/* DATE */}
       <p className="text-sm text-gray-500">
