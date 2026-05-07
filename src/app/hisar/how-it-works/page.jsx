@@ -3,23 +3,22 @@ import HisarSectionTwo from "./HisarSectionTwo";
 
 export const metadata = {
   title:
-    "Top Property Dealers in Hisar | Buy Sell Rent Properties",
+    "How It Works | Find Best Property Dealer in Hisar Easily",
 
   description:
-    "Find trusted property dealers and real estate agents in Hisar for buying, selling, and renting residential & commercial properties.",
+    "Learn how to connect with verified property dealers & real estate agents in Hisar. Simple steps to buy, sell or rent property in Hisar through trusted brokers & consultants.",
 
   keywords: [
-    "Property Dealers Hisar",
-    "Real Estate Hisar",
-    "Buy Property in Hisar",
-    "Sell Property in Hisar",
-    "Rent Property in Hisar",
-    "Commercial Property Hisar",
-    "Residential Property Hisar",
-    "Property Consultants Hisar",
-    "Luxury Property Hisar",
-    "Real Estate Agents Hisar",
-  ],
+  "how to find property dealer in hisar",
+  "real estate agent hisar",
+  "property broker hisar",
+  "buy sell rent property hisar",
+  "property consultant in hisar",
+  "verified property dealers hisar",
+  "property dealing process hisar",
+  "best real estate agent hisar",
+  "property agent near me hisar"
+],
 
   alternates: {
     canonical:

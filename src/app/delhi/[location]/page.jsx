@@ -1,72 +1,80 @@
 import LocationDealersPage from "./LocationDealersPage";
 
-export const metadata = {
-  title:
-    "Find Property Dealers by Location | Trusted Real Estate Agents",
+export async function generateMetadata({ params }) {
 
-  description:
-    "Search trusted property dealers, real estate agents, and builders by location. Explore verified residential and commercial property consultants near you.",
+  const { location } = await params;
 
-  keywords: [
-    "Property Dealers by Location",
-    "Real Estate Agents Near Me",
-    "Find Property Dealers",
-    "Location Wise Property Dealers",
-    "Property Consultants",
-    "Residential Property Agents",
-    "Commercial Property Dealers",
-    "Trusted Real Estate Agents",
-    "Buy Sell Rent Properties",
-    "Local Property Dealers",
-  ],
+  const formattedLocation = location
+    ?.replace(/-/g, " ")
+    ?.replace(/\b\w/g, (char) => char.toUpperCase());
 
-  alternates: {
-    canonical:
-      "https://www.propertydealerindelhi.com/location-dealers",
-  },
-
-  openGraph: {
+  return {
     title:
-      "Find Property Dealers by Location",
+      ` ${formattedLocation} | Buy Sell Rent Properties`,
 
     description:
-      "Explore verified property dealers and real estate agents near your location.",
+      `Find trusted property dealers, real estate agents, and builders in ${formattedLocation}. Explore verified residential and commercial property consultants near you.`,
 
-    url:
-      "https://www.propertydealerindelhi.com/location-dealers",
-
-    siteName: "Property Dealer India",
-
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Location Wise Property Dealers",
-      },
+    keywords: [
+      ` ${formattedLocation}`,
+      `Real Estate ${formattedLocation}`,
+      `Buy Property in ${formattedLocation}`,
+      `Sell Property in ${formattedLocation}`,
+      `Rent Property in ${formattedLocation}`,
+      `Commercial Property ${formattedLocation}`,
+      `Residential Property ${formattedLocation}`,
+      `Property Consultants ${formattedLocation}`,
+      `Real Estate Agents ${formattedLocation}`,
     ],
 
-    locale: "en_IN",
-    type: "website",
-  },
+    alternates: {
+      canonical:
+        `https://www.propertydealerindelhi.com/location-dealers/${location}`,
+    },
 
-  twitter: {
-    card: "summary_large_image",
+    openGraph: {
+      title:
+        `Property Dealers in ${formattedLocation}`,
 
-    title:
-      "Find Property Dealers by Location",
+      description:
+        `Explore verified property dealers and real estate agents in ${formattedLocation}.`,
 
-    description:
-      "Search trusted property dealers and real estate agents near you.",
+      url:
+        `https://www.propertydealerindelhi.com/location-dealers/${location}`,
 
-    images: ["/og-image.jpg"],
-  },
+      siteName: "Property Dealer India",
 
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+      images: [
+        {
+          url: "/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: `Property Dealers in ${formattedLocation}`,
+        },
+      ],
+
+      locale: "en_IN",
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+
+      title:
+        `Property Dealers in ${formattedLocation}`,
+
+      description:
+        `Find trusted property dealers and real estate agents in ${formattedLocation}.`,
+
+      images: ["/og-image.jpg"],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default function Page() {
   return (

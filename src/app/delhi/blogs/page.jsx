@@ -2,23 +2,27 @@ import Blogs from "@/templates/design5/pages/blogs/page";
 
 export const metadata = {
   title:
-    "Real Estate Blogs & Property News | Property Dealer India",
+    " Property Dealer Blog Delhi | Real Estate Tips, News & Market Updates",
 
   description:
-    "Read the latest real estate blogs, property investment tips, market trends, buying guides, and property news across Delhi, Gurgaon, Noida, Faridabad, and Haryana.",
+    "Read latest blogs on property dealing in Delhi. Get expert real estate tips, market updates, investment advice & zone-wise locality guides from top property consultants & agents in Delhi.",
 
   keywords: [
-    "Real Estate Blogs",
-    "Property News",
-    "Property Investment Tips",
-    "Real Estate Market Trends",
-    "Buy Property Guide",
-    "Property Dealer Blog",
-    "Delhi Property News",
-    "Gurgaon Real Estate",
-    "Noida Property Market",
-    "Haryana Property Updates",
-  ],
+  "property blog delhi",
+  "real estate blog delhi",
+  "property tips delhi",
+  "real estate news delhi",
+  "delhi property market",
+  "property investment delhi",
+  "property advice delhi",
+  "south delhi real estate news",
+  "north delhi property guide",
+  "buy sell property tips delhi",
+  "luxury property delhi guide",
+  "delhi property market update 2025",
+  "property rates delhi",
+  "commercial property delhi blog"
+],
 
   alternates: {
     canonical: "https://www.propertydealerindelhi.com/blogs",

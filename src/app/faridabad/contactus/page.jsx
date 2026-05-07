@@ -2,23 +2,24 @@ import ContactFaridabad from "./ContactFaridabad";
 
 export const metadata = {
   title:
-    "Contact Property Dealers in Faridabad | Real Estate Support",
+    "Contact Us | Property Dealer in Faridabad | Real Estate Agent Faridabad",
 
   description:
-    "Get in touch with trusted property dealers and real estate experts in Faridabad for buying, selling, renting, and property consultation services.",
+    "Contact the best property dealers & real estate agents in Faridabad. Get free expert consultation for buying, selling or renting property in Faridabad. Call or enquire now!",
 
   keywords: [
-    "Contact Property Dealers Faridabad",
-    "Faridabad Real Estate Contact",
-    "Property Consultants Faridabad",
-    "Buy Property Faridabad",
-    "Sell Property Faridabad",
-    "Rent Property Faridabad",
-    "Real Estate Support",
-    "Faridabad Property Agents",
-    "Commercial Property Faridabad",
-    "Residential Property Faridabad",
-  ],
+  "contact property dealer faridabad",
+  "property dealer contact faridabad",
+  "real estate agent contact faridabad",
+  "property enquiry faridabad",
+  "buy property faridabad contact",
+  "sell property faridabad",
+  "rent property faridabad contact",
+  "property consultant contact faridabad",
+  "free property consultation faridabad",
+  "greater faridabad property enquiry",
+  "neharpar property contact"
+],
 
   alternates: {
     canonical:

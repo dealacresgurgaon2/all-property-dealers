@@ -2,23 +2,25 @@ import Blogs from "@/templates/design6/pages/blogs/page";
 
 export const metadata = {
   title:
-    "Real Estate Blogs & Property News | Property Dealer Noida",
+    "Property Dealer Blog Noida | Real Estate Tips, News & Market Updates",
 
   description:
-    "Read the latest real estate blogs, property investment tips, buying guides, market trends, and property news in Noida and across India.",
+    "Read latest blogs on property dealing in Noida. Get expert real estate tips, market updates, investment advice & sector-wise guides from top property consultants & agents in Noida.",
 
   keywords: [
-    "Real Estate Blogs",
-    "Property News",
-    "Noida Property News",
-    "Property Investment Tips",
-    "Real Estate Market Trends",
-    "Buy Property Guide",
-    "Sell Property Tips",
-    "Noida Real Estate",
-    "Property Dealer Blog",
-    "Property Updates India",
-  ],
+  "property blog noida",
+  "real estate blog noida",
+  "property tips noida",
+  "real estate news noida",
+  "noida property market",
+  "property investment noida",
+  "property advice noida",
+  "noida expressway real estate news",
+  "sector 150 noida property guide",
+  "buy sell property tips noida",
+  "luxury apartment noida guide",
+  "noida property market update 2025"
+],
 
   alternates: {
     canonical:

@@ -3,23 +3,26 @@ import PropertyGuideSection from "./PropertyGuideSection";
 
 export const metadata = {
   title:
-    "Best Property Dealers in Gurgaon | Buy Sell Rent Properties",
+    "How It Works | Find Verified Property Dealer in Delhi Easily",
 
   description:
-    "Find trusted property dealers in Gurgaon for buying, selling, and renting residential & commercial properties. Explore verified real estate agents and builders in Gurgaon.",
+    "Learn how to connect with verified property dealers & real estate agents in Delhi. Simple steps to buy, sell or rent property across South Delhi, North Delhi, East, West & Central Delhi zones.",
 
   keywords: [
-    "Property Dealers Gurgaon",
-    "Real Estate Gurgaon",
-    "Buy Property in Gurgaon",
-    "Sell Property in Gurgaon",
-    "Rent Property in Gurgaon",
-    "Commercial Property Gurgaon",
-    "Residential Property Gurgaon",
-    "Builders in Gurgaon",
-    "Real Estate Agents Gurgaon",
-    "Luxury Property Gurgaon",
-  ],
+  "how to find property dealer in delhi",
+  "verified property dealer delhi",
+  "real estate agent delhi",
+  "property broker delhi",
+  "buy sell rent property delhi",
+  "property consultant in delhi",
+  "property dealing process delhi",
+  "trusted real estate agent delhi",
+  "property agent near me delhi",
+  "south delhi property agent",
+  "north delhi property dealer",
+  "how to buy property in delhi",
+  "rent flat in delhi agent"
+],
 
   alternates: {
     canonical: "https://yourdomain.com/gurgaon",

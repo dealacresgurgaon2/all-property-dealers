@@ -2,27 +2,28 @@ import About from "@/templates/design6/pages/about/page";
 
 export const metadata = {
   title:
-    "About Us | Trusted Property Dealers & Real Estate Experts",
+    "About Us | Property Dealer Directory in Noida | Real Estate Agents Noida",
 
   description:
-    "Learn more about our trusted real estate platform offering property buying, selling, renting, and dealer services across Haryana and India.",
+    "We are Noida's leading property dealer directory connecting buyers, sellers & tenants with verified real estate agents, brokers & property consultants across all sectors & prime locations in Noida.",
 
   keywords: [
-    "About Property Dealers",
-    "Real Estate Company",
-    "Property Consultants",
-    "Trusted Property Dealers",
-    "Real Estate Experts",
-    "Haryana Property Dealers",
-    "Property Buying Services",
-    "Property Selling Services",
-    "Commercial Property Consultants",
-    "Residential Property Experts",
-  ],
+  "about property dealer noida",
+  "property dealer directory noida",
+  "real estate directory noida",
+  "property consultant noida",
+  "trusted property broker noida",
+  "best property dealer in noida",
+  "top real estate agents noida",
+  "property agent noida",
+  "real estate company noida",
+  "noida expressway property directory",
+  "luxury property consultant noida"
+],
 
   alternates: {
     canonical:
-      "https://www.propertydealerinharyana.com/about",
+      "https://www.propertydealerinnoida.com/about",
   },
 
   openGraph: {
@@ -33,7 +34,7 @@ export const metadata = {
       "Know more about our trusted real estate services and expert property consultants.",
 
     url:
-      "https://www.propertydealerinharyana.com/about",
+      "https://www.propertydealerinnoida.com/about",
 
     siteName: "Property Dealer Haryana",
 

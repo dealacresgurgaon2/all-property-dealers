@@ -174,7 +174,7 @@ useEffect(() => {
     
     <Link href="/how-it-works" className="footerBtn">How It Works</Link>
     
-    <Link href="/contactus" className="footerBtn">Contact Us</Link>
+    <Link href="/contact-us" className="footerBtn">Contact Us</Link>
 
   </div>
 </div>

@@ -2,27 +2,26 @@ import About from "@/templates/design1/pages/about/page";
 
 export const metadata = {
   title:
-    "About Us | Trusted Property Dealers & Real Estate Experts",
+    "About Us | Property Dealer Directory in Gurgaon | Real Estate Agents Gurugram",
 
   description:
-    "Learn more about our trusted real estate platform offering property buying, selling, renting, and dealer services across Delhi, Gurgaon, Noida, and Haryana.",
+    "We are Gurgaon's leading property dealer directory connecting buyers, sellers & tenants with verified real estate agents, brokers & consultants across all sectors & localities in Gurgaon.",
 
   keywords: [
-    "About Property Dealers",
-    "Real Estate Company",
-    "Property Consultants",
-    "Trusted Property Dealers",
-    "Real Estate Experts",
-    "Delhi Property Dealers",
-    "Gurgaon Property Consultants",
-    "Noida Real Estate",
-    "Haryana Property Dealers",
-    "Buy Sell Rent Property",
-  ],
+  "about property dealer gurgaon",
+  "property dealer directory gurgaon",
+  "real estate directory gurgaon",
+  "property consultant gurgaon",
+  "trusted property broker gurgaon",
+  "best property dealer in gurgaon",
+  "top real estate agents gurgaon",
+  "property agent gurugram",
+  "real estate company gurgaon"
+],
 
   alternates: {
     canonical:
-      "https://www.propertydealerindelhi.com/about",
+      "https://www.propertydealeringurgaon.com/about",
   },
 
   openGraph: {
@@ -33,7 +32,7 @@ export const metadata = {
       "Know more about our trusted real estate services and expert property consultants.",
 
     url:
-      "https://www.propertydealerindelhi.com/about",
+      "https://www.propertydealeringurgaon.com/about",
 
     siteName: "Property Dealer India",
 

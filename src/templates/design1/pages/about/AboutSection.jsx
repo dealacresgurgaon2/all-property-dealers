@@ -2,14 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function AboutSection() {
   return (
     <section className="bg-[#f8fafc] py-14">
       <div className="max-w-7xl mx-auto px-4">
-
+         <div className="py-5">
+          <Breadcrumb/>
+         </div>
         {/* ================= HEADER ================= */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className=" max-w-7xl mx-auto mb-16">
           <span className="inline-block bg-[#1e40af]/10 text-[#1e40af] text-sm font-semibold px-4 py-1 rounded-full mb-4">
             About Us
           </span>

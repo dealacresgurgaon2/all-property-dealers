@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import QueryForm from "@/templates/design1/components/QueryForm";
+import Breadcrumb from "@/templates/design1/components/Breadcrumb";
 
 export default function ContactGurgaon() {
   return (
@@ -13,7 +14,9 @@ export default function ContactGurgaon() {
         <div className="absolute -top-32 -right-32 w-[400px] h-[400px] bg-blue-100 rounded-full blur-3xl opacity-30"></div>
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
-
+         <div className="py-5">
+          <Breadcrumb/>
+         </div>
           {/* ===== TOP CENTER CONTENT ===== */}
           <div className="mb-16">
             <h1 className="text-2xl md:text-4xl font-bold text-black mb-6 leading-tight">

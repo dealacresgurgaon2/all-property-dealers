@@ -2,23 +2,21 @@ import Blogs from "@/templates/design3/pages/blogs/page";
 
 export const metadata = {
   title:
-    "Real Estate Blogs & Property News | Property Dealer Hisar",
+    "Property Dealer Blog Hisar | Real Estate Tips & News Hisar",
 
   description:
-    "Read the latest real estate blogs, property investment tips, buying guides, market trends, and property news in Hisar and across India.",
+    "Read latest blogs on property dealing in Hisar. Get expert real estate tips, market updates & advice from top property consultants & agents in Hisar.",
 
   keywords: [
-    "Real Estate Blogs",
-    "Property News",
-    "Hisar Property News",
-    "Property Investment Tips",
-    "Real Estate Market Trends",
-    "Buy Property Guide",
-    "Sell Property Tips",
-    "Hisar Real Estate",
-    "Property Dealer Blog",
-    "Property Updates India",
-  ],
+  "property blog hisar",
+  "real estate blog hisar",
+  "property tips hisar",
+  "real estate news hisar",
+  "property market hisar",
+  "property advice hisar",
+  "property consultant blog hisar",
+  "buy sell property tips hisar"
+],
 
   alternates: {
     canonical:

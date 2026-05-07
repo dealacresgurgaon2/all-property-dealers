@@ -1,9 +1,13 @@
+import Breadcrumb from "@/templates/design1/components/Breadcrumb";
+
 export default function GurgaonHeroSection() {
   return (
     <section className="w-full bg-[#f8fafc] py-6 px-2 md:px-12">
       
       <div className="max-w-7xl mx-auto">
-        
+        <div className="py-5">
+          <Breadcrumb/>
+        </div>
         {/* Heading */}
         <h1 className="text-2xl md:text-4xl font-bold text-blue-600 leading-tight">
           Property Dealer in Gurgaon – Complete Guide to Find the Best Real Estate Agents, Buy, Sell & Invest in Gurgaon Property

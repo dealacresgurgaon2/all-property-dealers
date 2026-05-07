@@ -4,26 +4,44 @@ import ClientLayout from "./ClientLayout";
 
 export const metadata = {
   title:
-    "Top Property Dealers in Delhi | Buy Sell Rent Properties",
+    "Property Dealer in Delhi | Top Real Estate Agents & Brokers Delhi",
 
   description:
-    "Find trusted property dealers, real estate agents, builders, and property consultants in Delhi for buying, selling, and renting residential & commercial properties.",
+    "Find trusted property dealers in Delhi. Connect with top real estate agents, brokers & consultants across South Delhi, North Delhi, East, West & Central Delhi. Buy, sell or rent property now!",
 
   keywords: [
-    "Property Dealers Delhi",
-    "Real Estate Delhi",
-    "Delhi Property Dealers",
-    "Buy Property in Delhi",
-    "Sell Property in Delhi",
-    "Rent Property in Delhi",
-    "Commercial Property Delhi",
-    "Residential Property Delhi",
-    "Builders in Delhi",
-    "Real Estate Agents Delhi",
-  ],
+  "property dealer in delhi",
+  "property dealers in delhi",
+  "real estate agent in delhi",
+  "real estate agents in delhi",
+  "property consultant delhi",
+  "property broker delhi",
+  "property dealer delhi",
+  "real estate broker delhi",
+  "property agent delhi",
+  "buy property in delhi",
+  "sell property delhi",
+  "rent property delhi",
+  "best property dealer delhi",
+  "top property dealer delhi",
+  "property dealer near me delhi",
+  "south delhi property dealer",
+  "north delhi property dealer",
+  "east delhi property dealer",
+  "west delhi property dealer",
+  "central delhi property dealer",
+  "residential property dealer delhi",
+  "commercial property dealer delhi",
+  "flat dealer delhi",
+  "plot dealer delhi",
+  "apartment dealer delhi",
+  "luxury property dealer delhi",
+  "independent house dealer delhi",
+  "property dealer in new delhi"
+],
 
   alternates: {
-    canonical: "https://yourdomain.com/delhi",
+    canonical: "https://www.propertydealerindelhi.com/delhi",
   },
 
   openGraph: {
@@ -33,7 +51,7 @@ export const metadata = {
     description:
       "Explore verified property dealers and real estate agents in Delhi.",
 
-    url: "https://yourdomain.com/delhi",
+    url: "https://www.propertydealerindelhi.com/delhi",
 
     siteName: "Property Dealer",
 
