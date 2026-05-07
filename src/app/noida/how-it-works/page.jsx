@@ -3,23 +3,25 @@ import NoidaSectionTwo from "./NoidaSectionTwo";
 
 export const metadata = {
   title:
-    "Top Property Dealers in Noida | Buy Sell Rent Properties",
+    "How It Works | Find Verified Property Dealer in Noida Easily",
 
   description:
-    "Find trusted property dealers and real estate agents in Noida for buying, selling, and renting residential & commercial properties.",
+    "Learn how to connect with verified property dealers & real estate agents in Noida. Simple steps to buy, sell or rent property across all Noida sectors & Expressway areas through trusted brokers.",
 
   keywords: [
-    "Property Dealers Noida",
-    "Real Estate Noida",
-    "Buy Property in Noida",
-    "Sell Property in Noida",
-    "Rent Property in Noida",
-    "Commercial Property Noida",
-    "Residential Property Noida",
-    "Property Consultants Noida",
-    "Luxury Property Noida",
-    "Real Estate Agents Noida",
-  ],
+  "how to find property dealer in noida",
+  "verified property dealer noida",
+  "real estate agent noida",
+  "property broker noida",
+  "buy sell rent property noida",
+  "property consultant in noida",
+  "property dealing process noida",
+  "trusted real estate agent noida",
+  "property agent near me noida",
+  "noida expressway property agent",
+  "sector 150 noida property dealer",
+  "how to buy property in noida"
+],
 
   alternates: {
     canonical:

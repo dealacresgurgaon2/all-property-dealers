@@ -2,23 +2,24 @@ import Blogs from "@/templates/design2/pages/blogs/page";
 
 export const metadata = {
   title:
-    "Real Estate Blogs & Property News | Property Dealer Faridabad",
+    "Property Dealer Blog Faridabad | Real Estate Tips, News & Market Updates",
 
   description:
-    "Read the latest real estate blogs, property investment tips, buying guides, market trends, and property news in Faridabad and across India.",
+    "Read latest blogs on property dealing in Faridabad. Get expert real estate tips, market updates, investment advice & locality guides for NIT, Neharpar, Sectors & Greater Faridabad.",
 
   keywords: [
-    "Real Estate Blogs",
-    "Property News",
-    "Faridabad Property News",
-    "Property Investment Tips",
-    "Real Estate Market Trends",
-    "Buy Property Guide",
-    "Sell Property Tips",
-    "Faridabad Real Estate",
-    "Property Dealer Blog",
-    "Property Updates India",
-  ],
+  "property blog faridabad",
+  "real estate blog faridabad",
+  "property tips faridabad",
+  "real estate news faridabad",
+  "faridabad property market",
+  "property investment faridabad",
+  "property advice faridabad",
+  "neharpar property news",
+  "greater faridabad real estate updates",
+  "buy sell property tips faridabad",
+  "NIT faridabad property guide"
+],
 
   alternates: {
     canonical:

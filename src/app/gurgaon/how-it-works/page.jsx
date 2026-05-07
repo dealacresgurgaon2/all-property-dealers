@@ -3,23 +3,23 @@ import GurgaonSectionTwo from "./GurgaonSectionTwo";
 
 export const metadata = {
   title:
-    "Top Property Dealers in Gurgaon | Buy Sell Rent Properties",
+    "How It Works | Find Verified Property Dealer in Gurgaon Easily",
 
   description:
-    "Find trusted property dealers and real estate agents in Gurgaon for buying, selling, and renting residential & commercial properties.",
+    "Learn how to connect with verified property dealers & real estate agents in Gurgaon. Simple steps to buy, sell or rent property in Gurgaon sectors, DLF & Sohna Road areas.",
 
   keywords: [
-    "Property Dealers Gurgaon",
-    "Real Estate Gurgaon",
-    "Buy Property in Gurgaon",
-    "Sell Property in Gurgaon",
-    "Rent Property in Gurgaon",
-    "Commercial Property Gurgaon",
-    "Residential Property Gurgaon",
-    "Property Consultants Gurgaon",
-    "Luxury Property Gurgaon",
-    "Real Estate Agents Gurgaon",
-  ],
+  "how to find property dealer in gurgaon",
+  "verified property dealer gurgaon",
+  "real estate agent gurgaon",
+  "property broker gurgaon",
+  "buy sell rent property gurgaon",
+  "property consultant in gurgaon",
+  "property dealing process gurgaon",
+  "trusted real estate agent gurgaon",
+  "property agent near me gurgaon",
+  "gurugram property dealer"
+],
 
   alternates: {
     canonical:

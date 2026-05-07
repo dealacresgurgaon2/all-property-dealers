@@ -3,21 +3,24 @@ import FaridabadSectionTwo from "./FaridabadSectionTwo";
 
 export const metadata = {
   title:
-    "Top Property Dealers in Faridabad | Buy, Sell & Rent Properties",
+    "How It Works | Find Verified Property Dealer in Faridabad Easily",
 
   description:
-    "Find trusted property dealers in Faridabad for buying, selling, and renting residential & commercial properties. Explore verified real estate agents near you.",
+    " Learn how to connect with verified property dealers & real estate agents in Faridabad. Simple steps to buy, sell or rent property in Faridabad sectors, NIT, Neharpar & Greater Faridabad.",
 
   keywords: [
-    "Property Dealers Faridabad",
-    "Real Estate Faridabad",
-    "Buy Property in Faridabad",
-    "Sell Property in Faridabad",
-    "Rent Property in Faridabad",
-    "Faridabad Property Agents",
-    "Commercial Property Faridabad",
-    "Residential Property Faridabad",
-  ],
+  "how to find property dealer in faridabad",
+  "verified property dealer faridabad",
+  "real estate agent faridabad",
+  "property broker faridabad",
+  "buy sell rent property faridabad",
+  "property consultant in faridabad",
+  "property dealing process faridabad",
+  "trusted real estate agent faridabad",
+  "property agent near me faridabad",
+  "neharpar property dealer",
+  "NIT faridabad real estate agent"
+],
 
   alternates: {
     canonical: "https://yourdomain.com/faridabad",

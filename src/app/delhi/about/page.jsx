@@ -2,23 +2,25 @@ import About from "@/templates/design5/pages/about/page";
 
 export const metadata = {
   title:
-    "About Us | Trusted Property Dealers & Real Estate Experts",
+    "About Us | Property Dealer Directory in Delhi | Real Estate Agents Delhi",
 
   description:
-    "Learn about Property Dealer India, a trusted platform for buying, selling, and renting residential & commercial properties across Delhi, Gurgaon, Noida, Faridabad, and Haryana.",
+    "We are Delhi's leading property dealer directory connecting buyers, sellers & tenants with verified real estate agents, brokers & consultants across all zones of Delhi including South, North, East, West & Central.",
 
   keywords: [
-    "About Property Dealer",
-    "Real Estate Company",
-    "Property Dealers India",
-    "Trusted Property Consultants",
-    "Real Estate Experts",
-    "Delhi Property Dealers",
-    "Gurgaon Property Consultants",
-    "Noida Real Estate",
-    "Faridabad Property Agents",
-    "Haryana Property Dealers",
-  ],
+  "about property dealer delhi",
+  "property dealer directory delhi",
+  "real estate directory delhi",
+  "property consultant delhi",
+  "trusted property broker delhi",
+  "best property dealer in delhi",
+  "top real estate agents delhi",
+  "property agent delhi",
+  "real estate company delhi",
+  "south delhi property directory",
+  "north delhi property directory",
+  "delhi property listing directory"
+],
 
   alternates: {
     canonical: "https://www.propertydealerindelhi.com/about",

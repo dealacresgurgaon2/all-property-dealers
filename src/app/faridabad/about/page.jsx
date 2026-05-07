@@ -2,27 +2,27 @@ import About from "@/templates/design2/pages/about/page";
 
 export const metadata = {
   title:
-    "About Us | Trusted Real Estate & Property Dealers",
+    "About Us | Property Dealer Directory in Faridabad | Real Estate Agents Faridabad",
 
   description:
-    "Learn more about our trusted real estate platform offering property buying, selling, renting, and dealer services across Delhi NCR and Haryana.",
+    "We are Faridabad's leading property dealer directory connecting buyers, sellers & tenants with verified real estate agents, brokers & consultants across all sectors, NIT, Neharpar & Greater Faridabad.",
 
   keywords: [
-    "About Property Dealers",
-    "Real Estate Company",
-    "Property Consultants",
-    "Trusted Property Dealers",
-    "Real Estate Experts",
-    "Delhi NCR Property",
-    "Haryana Property Dealers",
-    "Buy Sell Rent Property",
-    "Property Agents",
-    "Real Estate Services",
-  ],
+  "about property dealer faridabad",
+  "property dealer directory faridabad",
+  "real estate directory faridabad",
+  "property consultant faridabad",
+  "trusted property broker faridabad",
+  "best property dealer in faridabad",
+  "top real estate agents faridabad",
+  "property agent faridabad",
+  "real estate company faridabad",
+  "greater faridabad property directory"
+],
 
   alternates: {
     canonical:
-      "https://www.propertydealerindelhi.com/about",
+      "https://www.propertydealerinfaridabad.com/about",
   },
 
   openGraph: {
@@ -33,7 +33,7 @@ export const metadata = {
       "Know more about our trusted real estate services and expert property consultants.",
 
     url:
-      "https://www.propertydealerindelhi.com/about",
+      "https://www.propertydealerinfaridabad.com/about",
 
     siteName: "Property Dealer India",
 

@@ -2,23 +2,22 @@ import ContactUsPage from "./ContactUsPage";
 
 export const metadata = {
   title:
-    "Contact Us | Trusted Property Dealers & Real Estate Experts",
+    "Contact Us | Property Dealer in Hisar | Real Estate Agent Hisar",
 
   description:
-    "Get in touch with trusted property dealers and real estate experts for buying, selling, renting, and property consultation services across India.",
+    "Contact the best property dealers & real estate agents in Hisar. Get free consultation for buying, selling or renting property in Hisar. Call or enquire now!",
 
   keywords: [
-    "Contact Property Dealers",
-    "Real Estate Contact",
-    "Property Consultants",
-    "Buy Property",
-    "Sell Property",
-    "Rent Property",
-    "Real Estate Support",
-    "Property Agents",
-    "Commercial Property Dealers",
-    "Residential Property Consultants",
-  ],
+  "contact property dealer hisar",
+  "property dealer contact hisar",
+  "real estate agent contact hisar",
+  "property enquiry hisar",
+  "buy property hisar contact",
+  "sell property hisar contact",
+  "rent property hisar contact",
+  "property consultant contact hisar",
+  "free property consultation hisar"
+],
 
   alternates: {
     canonical:

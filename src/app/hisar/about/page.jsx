@@ -2,27 +2,25 @@ import About from "@/templates/design3/pages/about/page";
 
 export const metadata = {
   title:
-    "About Us | Trusted Property Dealers & Real Estate Experts",
+    "About Us | Property Dealer Directory in Hisar | Real Estate Agents Hisar",
 
   description:
-    "Learn more about our trusted real estate platform offering property buying, selling, renting, and dealer services across India.",
+    "We are Hisar's leading property dealer directory connecting buyers, sellers & tenants with the best real estate agents, brokers & property consultants across all areas of Hisar.",
 
   keywords: [
-    "About Property Dealers",
-    "Real Estate Company",
-    "Property Consultants",
-    "Trusted Property Dealers",
-    "Real Estate Experts",
-    "Property Buying Services",
-    "Property Selling Services",
-    "Commercial Property Consultants",
-    "Residential Property Experts",
-    "Real Estate Services",
-  ],
+  "about property dealer hisar",
+  "property dealer directory hisar",
+  "real estate directory hisar",
+  "property consultant hisar",
+  "trusted property broker hisar",
+  "property agent hisar",
+  "best property dealer in hisar",
+  "top real estate agents hisar"
+],
 
   alternates: {
     canonical:
-      "https://www.propertydealerindia.com/about",
+      "https://www.propertydealerinhisar.com/about",
   },
 
   openGraph: {
@@ -33,7 +31,7 @@ export const metadata = {
       "Know more about our trusted real estate services and expert property consultants.",
 
     url:
-      "https://www.propertydealerindia.com/about",
+      "https://www.propertydealerinhisar.com/about",
 
     siteName: "Property Dealer India",
 

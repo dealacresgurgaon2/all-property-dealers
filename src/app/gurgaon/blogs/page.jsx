@@ -2,23 +2,23 @@ import Blogs from "@/templates/design1/pages/blogs/page";
 
 export const metadata = {
   title:
-    "Real Estate Blogs & Property News | Property Dealer Gurgaon",
+    "Property Dealer Blog Gurgaon | Real Estate Tips, News & Market Updates",
 
   description:
-    "Read the latest real estate blogs, property investment tips, buying guides, market trends, and property news in Gurgaon and across India.",
+    "Read latest blogs on property dealing in Gurgaon. Get expert real estate tips, market updates, investment advice & area guides from top property consultants in Gurgaon.",
 
   keywords: [
-    "Real Estate Blogs",
-    "Property News",
-    "Gurgaon Property News",
-    "Property Investment Tips",
-    "Real Estate Market Trends",
-    "Buy Property Guide",
-    "Sell Property Tips",
-    "Gurgaon Real Estate",
-    "Property Dealer Blog",
-    "Property Updates India",
-  ],
+  "property blog gurgaon",
+  "real estate blog gurgaon",
+  "property tips gurgaon",
+  "real estate news gurgaon",
+  "gurgaon property market",
+  "property investment gurgaon",
+  "property advice gurgaon",
+  "DLF property news",
+  "gurugram real estate updates",
+  "buy sell property tips gurgaon"
+],
 
   alternates: {
     canonical:

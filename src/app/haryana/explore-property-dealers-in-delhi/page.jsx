@@ -1,131 +1,87 @@
-"use client";
+import DelhiPage from "./DelhiPage";
 
-import { useRouter } from "next/navigation";
-import QueryForm from "@/templates/design7/components/QueryForm";
-import { Building2 } from "lucide-react";
+export async function generateMetadata({ params }) {
 
-export default function DelhiPage() {
-  const router = useRouter();
+  const { zone } = await params;
 
-  const zones = [
-    "Central Delhi",
-    "North Delhi",
-    "South Delhi",
-    "East Delhi",
-    "West Delhi",
-  ];
+  const formattedZone = zone
+    ?.replace(/-/g, " ")
+    ?.replace(/\b\w/g, (char) => char.toUpperCase());
 
-  const createSlug = (name) => {
-    return name.toLowerCase().replace(/\s+/g, "-");
+  return {
+    title:
+      `${formattedZone} | Buy Sell Rent Properties`,
+
+    description:
+      `Find trusted property dealers, builders, and real estate agents in ${formattedZone}, Delhi for buying, selling, and renting residential & commercial properties.`,
+
+    keywords: [
+      formattedZone,
+      `Property Dealers ${formattedZone}`,
+      `Real Estate ${formattedZone}`,
+      `Buy Property in ${formattedZone}`,
+      `Sell Property in ${formattedZone}`,
+      `Rent Property in ${formattedZone}`,
+      `Commercial Property ${formattedZone}`,
+      `Residential Property ${formattedZone}`,
+      `Property Consultants ${formattedZone}`,
+      `Real Estate Agents ${formattedZone}`,
+      "Delhi Property Dealers",
+    ],
+
+    alternates: {
+      canonical:
+        `https://www.propertydealerindelhi.com/${zone}`,
+    },
+
+    openGraph: {
+      title:
+        `${formattedZone} | Buy Sell Rent Properties`,
+
+      description:
+        `Explore verified property dealers and real estate agents in ${formattedZone}, Delhi.`,
+
+      url:
+        `https://www.propertydealerindelhi.com/${zone}`,
+
+      siteName: "Property Dealer Delhi",
+
+      images: [
+        {
+          url: "/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: formattedZone,
+        },
+      ],
+
+      locale: "en_IN",
+      type: "website",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+
+      title:
+        `${formattedZone} | Buy Sell Rent Properties`,
+
+      description:
+        `Find trusted property dealers and real estate agents in ${formattedZone}, Delhi.`,
+
+      images: ["/og-image.jpg"],
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+    },
   };
+}
 
+export default function HomePage() {
   return (
-    <div className="bg-white min-h-screen">
-
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="mb-10 ">
-          <h1 className="text-3xl md:text-4xl font-extrabold text-indigo-600">
-            Explore Property Dealers in Delhi
-          </h1>
-          <p className="text-gray-500 mt-2 text-sm">
-            Choose your preferred area to find trusted property dealers
-          </p>
-          <div className="w-20 h-1 bg-gradient-to-r from-indigo-600 to-purple-500 mt-3 rounded-full"></div>
-        </div>
-        {/* 🔥 TOP SECTION (IMAGE + FORM) */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12 items-center">
-
-          {/* LEFT IMAGE */}
-          <div className="w-full overflow-hidden rounded-2xl shadow-md group">
-            <img
-              src="https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=1200"
-              alt="property"
-              className="
-      w-full h-[400px] 
-      object-contain
-      transition-transform duration-500
-      group-hover:scale-105
-    "
-            />
-          </div>
-
-          {/* RIGHT FORM */}
-          <div className="">
-            <QueryForm />
-          </div>
-
-        </div>
-
-
-
-
-        {/* 🔥 GRID (5 COLUMN) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {zones.map((zone, i) => (
-            <div
-              key={i}
-              onClick={() =>
-                router.push(`/property-dealer-in-${createSlug(zone)}`)
-              }
-              className="
-    group cursor-pointer
-    p-6 rounded-2xl
-    bg-white
-    border border-gray-100
-    shadow-sm
-    hover:shadow-xl
-    transition-all duration-300
-    flex flex-col justify-between
-    text-center
-  "
-            >
-
-              {/* ICON CENTER */}
-              <div className="flex justify-center mb-4">
-                <div className="
-      w-14 h-14 flex items-center justify-center
-      rounded-full
-      bg-gradient-to-br from-indigo-100 to-purple-100
-      text-indigo-600
-      group-hover:scale-110 transition
-    ">
-                  <Building2 size={26} />
-                </div>
-              </div>
-
-              {/* TITLE */}
-              <h3 className="text-lg font-bold text-gray-800 mb-2">
-                {zone}
-              </h3>
-
-              {/* DESC */}
-              <p className="text-sm text-gray-500 mb-5">
-                Find trusted property dealers & agents
-              </p>
-
-              {/* BUTTON */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  router.push(`/property-dealer-in-${createSlug(zone)}`);
-                }}
-                className="
-      w-full py-2.5 rounded-full
-      bg-gradient-to-r from-indigo-600 to-purple-600
-      text-white text-sm font-semibold
-      shadow-md hover:shadow-lg
-      transition
-    "
-              >
-                Explore →
-              </button>
-
-            </div>
-          ))}
-
-        </div>
-
-      </div>
-    </div>
+    <main>
+      <DelhiPage />
+    </main>
   );
 }
