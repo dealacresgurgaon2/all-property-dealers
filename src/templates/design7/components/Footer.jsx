@@ -123,7 +123,21 @@ export default function Footer() {
         {/* BOTTOM */}
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-white/60">
           <p>© {new Date().getFullYear()} Property Dealer Haryana. All rights reserved.</p>
+            
 
+              <div className="grid grid-cols-5 gap-1  ">
+    
+    <Link href="/" className="footerBtn hover:text-indigo-500">Home</Link>
+    
+    <Link href="/about" className="footerBtn hover:text-indigo-500">About</Link>
+    
+    <Link href="/blogs" className="footerBtn hover:text-indigo-500">Blog</Link>
+    
+    <Link href="/how-it-works" className="footerBtn hover:text-indigo-500">How It Works</Link>
+    
+   
+
+  </div>
           <div className="mt-2">
                    <p>
   Designed by :{" "}

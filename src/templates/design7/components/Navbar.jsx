@@ -70,6 +70,24 @@ export default function Navbar() {
           >
             Blog
           </Link>
+          <Link
+              href="/how-it-works"
+              onClick={() => setOpen(false)}
+              className="
+              relative
+              text-gray-700
+              font-medium
+              transition
+              after:absolute after:left-0 after:-bottom-1
+              after:h-[2px] after:w-0
+              after:bg-indigo-600
+              after:transition-all
+              hover:text-black
+              hover:after:w-full
+            "
+            >
+              How It Works
+            </Link>
 
           {/* ===== CONTACT BUTTON ===== */}
           <Link
@@ -165,6 +183,21 @@ export default function Navbar() {
               "
             >
               Blog
+            </Link>
+             <Link
+              href="/how-it-works"
+              onClick={() => setOpen(false)}
+              className="
+                text-gray-700
+                font-medium
+                py-2 px-3
+                rounded-lg
+                hover:bg-indigo-50
+                hover:text-indigo-700
+                transition
+              "
+            >
+              How It Works
             </Link>
 
             {/* ===== CONTACT MOBILE ===== */}
