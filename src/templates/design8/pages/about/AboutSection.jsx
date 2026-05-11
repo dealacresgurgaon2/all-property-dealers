@@ -1,5 +1,7 @@
 "use client";
 
+import BreadcrumbWrapper from "../../components/Breadcrumb";
+
 export default function AboutSection() {
   const sections = [
     {
@@ -138,9 +140,23 @@ Because the agent seems trustworthy. Even excellent agents make errors under pre
   ];
 
   return (
-    <section className="bg-gradient-to-br from-[#FFF8FA] via-white to-[#FFF3F7] py-16">
+    <section className="bg-gradient-to-br from-[#FFF8FA] via-white to-[#FFF3F7] py-6">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
-        
+           <BreadcrumbWrapper
+  className="
+    max-w-6xl
+    mx-auto
+    px-3
+    md:px-0
+    pt-6
+    pb-2
+  "
+  items={[
+    {
+      label: "About Us",
+    },
+  ]}
+  />
         {/* Hero Section */}
         <div className="mb-16 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
