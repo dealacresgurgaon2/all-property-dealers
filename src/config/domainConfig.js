@@ -19,7 +19,9 @@ export const DOMAIN_LAYOUT_MAP = {
   "www.propertydealerindelhi.com":"delhi",
   "propertydealersnearme.com":"haryana",
   "www.propertydealersnearme.com":"haryana",
-  
+  "www.realestateagentsnearme.in":"realestate",
+  "realestateagentsnearme.in":"realestate",
+
 "localhost:3000": "realestate",
 };
 
