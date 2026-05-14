@@ -22,7 +22,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealerinharyana.com/blogs",
+      "https://www.propertydealersnearme.comblogs",
   },
 
   openGraph: {
@@ -33,7 +33,7 @@ export const metadata = {
       "Explore the latest property blogs, investment tips, and real estate updates across Haryana.",
 
     url:
-      "https://www.propertydealerinharyana.com/blogs",
+      "https://www.propertydealersnearme.com/blogs",
 
     siteName: "Property Dealer Haryana",
 

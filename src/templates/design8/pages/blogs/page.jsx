@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import Pagination from "../../components/Pagination";
 
 import BlogList from "./Bloglist";
-import { useBlogs } from "../../../../context/design7api/blogcontext";
+import { useBlogs } from "../../../../context/design8api/blogcontext";
 
 export default function BlogPage({domain}) {
 

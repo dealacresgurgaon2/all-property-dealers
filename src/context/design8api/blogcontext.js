@@ -7,7 +7,7 @@ const BlogContext = createContext();
 const API_BASE = "https://deal-acres-backend.onrender.com";
 
 // ✅ STATIC DOMAIN
-const STATIC_DOMAIN = "www.propertydealersnearme.com";
+const STATIC_DOMAIN = "www.realestateagentsnearme.in";
 
 export const BlogProvider = ({ children }) => {
 
