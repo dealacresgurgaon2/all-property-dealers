@@ -17,8 +17,8 @@ export const DOMAIN_LAYOUT_MAP = {
   "www.propertydealeringurgaon.com":"gurgaon",
   "propertydealerindelhi.com":"delhi",
   "www.propertydealerindelhi.com":"delhi",
-  "propertyforsalenearme.com":"haryana",
-  "www.propertyforsalenearme.com":"haryana",
+  "propertydealersnearme.com":"haryana",
+  "www.propertydealersnearme.com":"haryana",
   
 "localhost:3000": "realestate",
 };
