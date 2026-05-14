@@ -17,14 +17,22 @@ export default function Navbar() {
         shadow-[0_4px_20px_rgba(118,21,60,0.06)]
       "
     >
-
       {/* SOFT TOP LIGHT */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#FFF7FA] via-white to-[#FFF3F7] opacity-90" />
+      <div
+        className="
+          absolute inset-0
+          bg-gradient-to-r
+          from-[#FFF7FA]
+          via-white
+          to-[#FFF3F7]
+          opacity-90
+          pointer-events-none
+          z-0
+        "
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4">
-
         <div className="h-16 flex items-center justify-between">
-
           {/* LOGO */}
           <Link
             href="/"
@@ -36,7 +44,6 @@ export default function Navbar() {
             }
             className="flex items-center gap-2"
           >
-
             <div
               className="
                 w-10 h-10
@@ -55,7 +62,6 @@ export default function Navbar() {
             </div>
 
             <div className="leading-tight">
-
               <h2 className="text-lg font-bold text-[#2A0E18]">
                 Dealer Agency
               </h2>
@@ -63,14 +69,11 @@ export default function Navbar() {
               <p className="text-[11px] text-gray-500 -mt-[2px]">
                 Trusted Property Platform
               </p>
-
             </div>
-
           </Link>
 
           {/* DESKTOP MENU */}
           <nav className="hidden md:flex items-center gap-8">
-
             <NavLink href="/about" label="About" />
 
             <NavLink href="/blogs" label="Blogs" />
@@ -94,7 +97,6 @@ export default function Navbar() {
             >
               Contact Us
             </Link>
-
           </nav>
 
           {/* MOBILE BUTTON */}
@@ -108,9 +110,9 @@ export default function Navbar() {
               bg-[#FFF7FA]
               flex items-center justify-center
               text-[#76153C]
+              relative z-30
             "
           >
-
             {open ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -142,27 +144,23 @@ export default function Navbar() {
                 />
               </svg>
             )}
-
           </button>
-
         </div>
-
       </div>
 
       {/* MOBILE MENU */}
       {open && (
-
         <div
           className="
             md:hidden
             border-t border-[#F3D9E3]
             bg-white
             shadow-xl
+            relative
+            z-20
           "
         >
-
           <nav className="px-4 py-5 flex flex-col gap-3">
-
             <MobileLink
               href="/about"
               label="About"
@@ -192,13 +190,9 @@ export default function Navbar() {
             >
               Contact Us
             </Link>
-
           </nav>
-
         </div>
-
       )}
-
     </header>
   );
 }
