@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useBlogs } from "@/context/design7api/blogcontext";
+import { useBlogs } from "@/context/design8api/blogcontext";
 import Breadcrumb from "@/templates/design8/components/Breadcrumb";
 
 const formatDate = (date) => {
