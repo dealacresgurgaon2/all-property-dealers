@@ -62,21 +62,20 @@ export default function Hero() {
 
           {/* LEFT SIDE */}
           <div className="text-white">
-            <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 border border-white/20 text-sm">
+            {/* <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 border border-white/20 text-sm">
               <span className="w-2 h-2 rounded-full bg-[#d4af37]" />
               Trusted
-            </span>
+            </span> */}
 
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
               Find Your{" "}
               <span className="text-[#d4af37]">Dream Property</span>
-              <br />
+             
               At Best Price <span className="text-[#d4af37]">With Us</span>
             </h1>
 
             <p className="text-lg text-white/85 mb-8 max-w-xl">
-              Buy, sell & rent luxury properties in prime locations.
-              Real Estste Agents listings with trusted property dealers.
+              Looking for the best property dealer in Faridabad to buy, sell, or rent your dream home? You have come to the right place. We are a team of experienced and certified real estate agents in Faridabad, offering end-to-end property solutions across all major sectors, colonies, and localities. Whether you need a trusted property broker in Faridabad for residential plots, independent floors, builder floors, or commercial spaces, our verified network of real estate brokers in Faridabad ensures a smooth and transparent transaction every time. We specialise in NIT Faridabad, Neharpar Greater Faridabad, Ashoka Enclave, Sainik Colony, Sector 15, 16, 21, and all Sectors 70–90 in Greater Faridabad. As the most reliable real estate broker in Faridabad, we help you get the best market price with zero hidden charges. Thousands of satisfied buyers, sellers, and tenants trust us for honest advice, local expertise, and quick closings. Connect with Faridabad's most recommended property dealers today — your property journey starts here.
             </p>
 
             <button
@@ -87,11 +86,11 @@ export default function Hero() {
             </button>
 
             {/* STATS */}
-            <div className="grid grid-cols-3 gap-4 max-w-md mt-10">
+            {/* <div className="grid grid-cols-3 gap-4 max-w-md mt-10">
               <Stat value={`${counts.listings.toLocaleString()}+`} label=" Listings" />
               
               <Stat value={`${counts.years}+`} label="Years Experience" />
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT FORM */}
