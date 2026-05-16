@@ -1,72 +1,110 @@
+import HisarMarketOverview from "./HisarMarketOverview";
 import LocationDealersPage from "./LocationDealersPage";
 
-export async function generateMetadata({ params }) {
+// ✅ GET SEO DATA
 
-  const { location } = await params;
+async function getDealerMeta(
+  location
+) {
+  try {
+    const res =
+      await fetch(
+        `https://propertydealerbackend.onrender.com/api/add/get-dealer-meta/${location}`,
+        {
+          cache: "no-store",
+        }
+      );
 
-  const formattedLocation = location
-    ?.replace(/-/g, " ")
-    ?.replace(/\b\w/g, (char) => char.toUpperCase());
+    if (!res.ok)
+      return null;
+
+    const data =
+      await res.json();
+
+    return (
+      data?.data || null
+    );
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+// ✅ CLEAN LOCATION FUNCTION
+
+function cleanLocation(
+  location
+) {
+  return location
+    ?.replace(
+      "-property-dealer-in",
+      ""
+    )
+    ?.replace(
+      "property-dealer-in-",
+      ""
+    )
+    ?.replace(
+      "property-dealer-in",
+      ""
+    )
+    ?.trim();
+}
+
+export async function generateMetadata({
+  params,
+}) {
+
+  // ✅ RECEIVE PARAMS
+
+  const { location } =
+    await params;
+
+  // ✅ CLEAN LOCATION
+
+  const apiLocation =
+    cleanLocation(
+      location
+    );
+
+  // ✅ FORMATTED LOCATION
+
+  const formattedLocation =
+    apiLocation
+      ?.replace(/-/g, " ")
+      ?.replace(
+        /\b\w/g,
+        (char) =>
+          char.toUpperCase()
+      );
+
+  // ✅ API CALL
+
+  const seoData =
+    await getDealerMeta(
+      apiLocation
+    );
+
+  // ✅ FALLBACK META
+
+  const fallbackTitle =
+    `${formattedLocation} | Buy Sell Rent Properties`;
+
+  const fallbackDescription =
+    `Find trusted property dealers, builders, and real estate agents in ${formattedLocation} for buying, selling, and renting residential & commercial properties.`;
 
   return {
     title:
-      `${formattedLocation} | Buy Sell Rent Properties`,
+      seoData?.metaTitle ||
+      fallbackTitle,
 
     description:
-      `Find trusted property dealers, builders, and real estate agents in ${formattedLocation} for buying, selling, and renting residential & commercial properties.`,
-
-    keywords: [
-      `${formattedLocation}`,
-      `Real Estate ${formattedLocation}`,
-      `Buy Property in ${formattedLocation}`,
-      `Sell Property in ${formattedLocation}`,
-      `Rent Property in ${formattedLocation}`,
-      `Commercial Property ${formattedLocation}`,
-      `Residential Property ${formattedLocation}`,
-      `Property Consultants ${formattedLocation}`,
-      `Real Estate Agents ${formattedLocation}`,
-    ],
+      seoData?.metaDescription ||
+      fallbackDescription,
 
     alternates: {
       canonical:
-        `https://www.propertydealerindelhi.com/location-dealers/${location}`,
-    },
-
-    openGraph: {
-      title:
-        `${formattedLocation} | Buy Sell Rent Properties`,
-
-      description:
-        `Explore verified property dealers and real estate agents in ${formattedLocation}.`,
-
-      url:
-        `https://www.propertydealerindelhi.com/location-dealers/${location}`,
-
-      siteName: "Property Dealer India",
-
-      images: [
-        {
-          url: "/og-image.jpg",
-          width: 1200,
-          height: 630,
-          alt: formattedLocation,
-        },
-      ],
-
-      locale: "en_IN",
-      type: "website",
-    },
-
-    twitter: {
-      card: "summary_large_image",
-
-      title:
-        `${formattedLocation} | Buy Sell Rent Properties`,
-
-      description:
-        `Find trusted property dealers and real estate agents in ${formattedLocation}.`,
-
-      images: ["/og-image.jpg"],
+        `https://www.propertydealerinhisar.com/location-dealers/${location}`,
     },
 
     robots: {
@@ -76,10 +114,38 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function Page() {
+export default async function Page(
+  { params }
+) {
+
+  // ✅ RECEIVE PARAMS
+
+  const { location } =
+    await params;
+
+  // ✅ CLEAN LOCATION
+
+  const apiLocation =
+    cleanLocation(
+      location
+    );
+
+  // ✅ API CALL
+
+  const seoData =
+    await getDealerMeta(
+      apiLocation
+    );
+
   return (
     <main>
       <LocationDealersPage />
+
+      <HisarMarketOverview
+        pageContent={
+          seoData?.pageContent
+        }
+      />
     </main>
   );
 }
