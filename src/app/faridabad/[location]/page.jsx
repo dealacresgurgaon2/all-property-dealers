@@ -104,7 +104,7 @@ export async function generateMetadata({
 
     alternates: {
       canonical:
-        `https://www.propertydealerinhisar.com/location-dealers/${location}`,
+        `https://www.propertydealerinfaridabad.com/location-dealers/${location}`,
     },
 
     robots: {
