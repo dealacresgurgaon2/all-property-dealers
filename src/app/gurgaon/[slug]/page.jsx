@@ -4,12 +4,12 @@ import LocationDealersPage from "./LocationDealersPage";
 // ✅ GET SEO DATA
 
 async function getDealerMeta(
-  location
+  slug
 ) {
   try {
     const res =
       await fetch(
-        `https://property-dealer-xa5g.onrender.com/api/add/get-dealer-meta/${location}`,
+        `https://property-dealer-xa5g.onrender.com/api/add/get-dealer-meta/${slug}`,
         {
           cache: "no-store",
         }
@@ -33,9 +33,9 @@ async function getDealerMeta(
 // ✅ CLEAN LOCATION FUNCTION
 
 function cleanLocation(
-  location
+  slug
 ) {
-  return location
+  return slug
     ?.replace(
       "-property-dealer-in",
       ""
@@ -57,14 +57,14 @@ export async function generateMetadata({
 
   // ✅ RECEIVE PARAMS
 
-  const { location } =
+  const { slug } =
     await params;
 
   // ✅ CLEAN LOCATION
 
   const apiLocation =
     cleanLocation(
-      location
+      slug
     );
 
   // ✅ FORMATTED LOCATION
@@ -104,7 +104,7 @@ export async function generateMetadata({
 
     alternates: {
       canonical:
-        `https://www.propertydealerinfaridabad.com/location-dealers/${location}`,
+        `https://www.propertydealeringurgaon.com/location-dealers/${slug}`,
     },
 
     robots: {
@@ -120,14 +120,14 @@ export default async function Page(
 
   // ✅ RECEIVE PARAMS
 
-  const { location } =
+  const { slug } =
     await params;
 
   // ✅ CLEAN LOCATION
 
   const apiLocation =
     cleanLocation(
-      location
+     slug
     );
 
   // ✅ API CALL

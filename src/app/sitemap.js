@@ -208,10 +208,10 @@ try {
 
   if (isHaryanaDesign) {
     // ✅ Haryana → ALL DATA
-    apiUrl = "https://propertydealerbackend.onrender.com/api/all-dealer-slugs?city=Haryana";
+    apiUrl = "https://property-dealer-xa5g.onrender.com/api/all-dealer-slugs?city=Haryana";
   } else {
     // ✅ Other → domain based
-    apiUrl = `https://propertydealerbackend.onrender.com/api/slugs?domain=${domainForApi}`;
+    apiUrl = `https://property-dealer-xa5g.onrender.com/api/slugs?domain=${domainForApi}`;
   }
 
   const res = await fetch(apiUrl, { cache: "no-store" });

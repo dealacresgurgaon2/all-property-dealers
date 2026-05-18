@@ -179,19 +179,18 @@ export default function Hero() {
               Trusted • Premium
             </span>
 
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
               Find Your{" "}
               <span className="relative text-green-400">
                 Dream Property
                 <span className="absolute left-0 -bottom-1 h-[3px] w-full bg-gradient-to-r from-transparent via-green-400 to-transparent opacity-80" />
               </span>
-              <br />
+              
               At Best Price
             </h1>
 
-            <p className="text-lg text-white/85 mb-8 max-w-xl">
-              Buy, sell & rent premium properties in prime locations.
-              Real Estate Agents listings with trusted property dealers.
+            <p className="text-xm text-white/85 mb-8">
+              Best Property Dealer in Noida | Trusted Real Estate Agents & Brokers  Are you looking for the best property dealer in Noida to help you buy, sell, or rent your dream home? You have come to the right place. We are Noida's most trusted network of verified real estate agents in Noida, connecting thousands of buyers, sellers, and tenants with the right property at the right price every year. Whether you need a reliable property broker in Noida for a premium apartment on the Noida Expressway, a residential plot in a developed sector, or a commercial space for your business, our expert team is here to guide you every step of the way. Our experienced real estate brokers in Noida cover all major sectors, localities, and micro-markets across Noida, Greater Noida, and the Expressway corridor. With in-depth market knowledge, transparent dealings, and a client-first approach, we ensure that your real estate journey is smooth, secure, and rewarding. From RERA-verified listings and legal due diligence to home loan facilitation and post-sale support, our best real estate agents in Noida handle it all so you don't have to. Explore our directory of top property consultants and take the first step towards your ideal property today.
             </p>
 
             <div className="flex gap-4 flex-wrap mb-8">
@@ -203,11 +202,11 @@ export default function Hero() {
               </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 max-w-md">
+            {/* <div className="grid grid-cols-3 gap-4 max-w-md">
               <Stat value={`${counts.listings.toLocaleString()}+`} label=" Listings" />
              
               <Stat value={`${counts.years}+`} label="Years Experience" />
-            </div>
+            </div> */}
           </div>
 
         </div>

@@ -88,14 +88,13 @@ export default function Hero() {
 
           {/* LEFT CONTENT */}
           <div className="text-white">
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-5">
-              Smart & Trusted <br />
+            <h1 className="text-2xl md:text-4xl font-extrabold leading-tight mb-5">
+              Smart & Trusted 
               <span className="text-[#38bdf8]">Property Solutions</span>
             </h1>
 
             <p className="text-base md:text-lg text-white/75 mb-7 max-w-xl">
-             Property listings, expert consultants and transparent deals
-              for buying, selling and renting properties.
+            Looking for the best property dealer in Gurgaon who understands your needs and delivers results you can trust? You've come to the right place. PropertyDealerInGurgaon.com is your gateway to the most reliable real estate agents in Gurgaon, verified property brokers, and experienced real estate consultants across every sector, colony and commercial zone in Gurugram. Whether you are planning to buy your dream home, sell an existing property at the best market price, or rent a residential or commercial space, our network of top-rated property brokers in Gurgaon covers every micro-market — from Golf Course Road and DLF Phases to Sohna Road, Dwarka Expressway, MG Road, Palam Vihar and New Gurgaon. Every real estate broker in Gurgaon on our platform is vetted for transparency, local expertise, and professional conduct. We make property transactions simpler, faster, and fully stress-free. Connect with the best real estate agent in Gurgaon today and take the first step towards your property goals.
             </p>
 
             <div className="flex gap-4 flex-wrap">
