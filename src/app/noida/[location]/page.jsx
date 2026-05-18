@@ -9,7 +9,7 @@ async function getDealerMeta(
   try {
     const res =
       await fetch(
-        `https://propertydealerbackend.onrender.com/api/add/get-dealer-meta/${location}`,
+        `https://property-dealer-xa5g.onrender.com/api/add/get-dealer-meta/${location}`,
         {
           cache: "no-store",
         }
