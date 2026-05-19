@@ -121,24 +121,23 @@ export default function Hero() {
 
           {/* LEFT CONTENT */}
           <div className="text-white">
-            <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/20 text-sm">
+            {/* <span className="inline-flex items-center gap-2 mb-4 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/20 text-sm">
               <span className="w-2 h-2 rounded-full bg-red-500" />
               Trusted • Premium
-            </span>
+            </span> */}
 
-            <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
               Find Your{" "}
               <span className="relative text-red-500">
                 Dream Property
                 <span className="absolute left-0 -bottom-1 h-[3px] w-full bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-80" />
               </span>
-              <br />
+           
               At Best Price
             </h1>
 
-            <p className="text-lg text-white/85 mb-8 max-w-xl">
-              Buy, sell & rent premium properties in prime locations.
-              real Estate Agents listings with trusted property dealers.
+            <p className="text-sm text-white/85 mb-8 max-w-xl">
+              Are you searching for the best property dealer in Delhi to help you buy, sell, or rent a property at the right price? Welcome to PropertyDealerInDelhi.com — Delhi’s most trusted real estate platform connecting buyers, sellers, and tenants with verified property brokers and real estate agents across all major localities. Whether you need a seasoned real estate broker in South Delhi’s premium enclaves like Defence Colony and Greater Kailash, or a reliable property broker in North Delhi’s planned colonies like Rohini and Pitampura, we have the right expert for you. Our network of professional real estate agents in Delhi covers 200+ localities spanning all five zones — South, North, East, West, and Central Delhi. From luxury independent houses and DDA flats to commercial shops and office spaces, our best real estate agents in Delhi offer end-to-end assistance, transparent dealings, and market-driven valuations. Start your property journey today with Delhi’s most comprehensive property dealer directory.
             </p>
 
             <div className="flex gap-4 flex-wrap mb-8">
@@ -150,11 +149,11 @@ export default function Hero() {
               </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 max-w-md">
+            {/* <div className="grid grid-cols-3 gap-4 max-w-md">
               <Stat value={`${counts.listings.toLocaleString()}+`} label=" Listings" />
               
               <Stat value={`${counts.years}+`} label="Years Experience" />
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT FORM (DESIGN SAME) */}
