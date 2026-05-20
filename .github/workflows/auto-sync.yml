@@ -25,3 +25,9 @@ jobs:
           git remote remove second || true
           git remote add second https://x-access-token:${{ secrets.PROPERTY_DEALERS_TOKEN }}@github.com/propertydealerhisar/All_Property_Dealers.git
           git push second HEAD:main --force
+
+      - name: Sync to Delhi Repo
+  run: |
+    git remote remove delhi || true
+    git remote add delhi https://x-access-token:${{ secrets.DELHI_TOKEN }}@github.com/dealacresDelhi/all-property-dealers.git
+    git push delhi HEAD:main --force
