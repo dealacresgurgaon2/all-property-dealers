@@ -27,7 +27,7 @@ jobs:
           git push second HEAD:main --force
 
       - name: Sync to Delhi Repo
-        run: |
-          git remote remove delhi || true
-          git remote add delhi https://x-access-token:${{ secrets.DELHI_TOKEN }}@github.com/dealacresDelhi/all-property-dealers.git
-          git push delhi HEAD:main --force
+  run: |
+    git remote remove delhi || true
+    git remote add delhi https://x-access-token:${{ secrets.DELHI_TOKEN }}@github.com/dealacresDelhi/all-property-dealers.git
+    git push delhi HEAD:main --force
