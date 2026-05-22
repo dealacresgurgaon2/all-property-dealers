@@ -110,7 +110,7 @@ export default function DealerCard({ dealer }) {
 
           <Link
             href={`/estate-agent/${formatCity(dealer.city)}/${dealer.slug}`}
-            className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition"
+            className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition pointer-events-none"
           >
             View Details
           </Link>
