@@ -2,18 +2,20 @@ import DealersPage from "./DealersPage";
 
 export async function generateMetadata({ params }) {
 
-  const { location } = await params;
+  const { city } = await params;
 
-  const formattedLocation = location
+  console.log("CITY:", city);
+ 
+
+  const formattedLocation = city
     ?.replace(/-/g, " ")
     ?.replace(/\b\w/g, (char) => char.toUpperCase());
 
   return {
-    title:
-      `${formattedLocation} | Buy Sell Rent Properties`,
+    title: `${formattedLocation} | Buy Sell Rent Properties`,
 
-    description:
-      `Find trusted property dealers, builders, and real estate agents in ${formattedLocation}, Haryana for buying, selling, and renting residential & commercial properties.`,
+
+    description: `Find trusted property dealers, builders, and real estate agents in ${formattedLocation}, Haryana for buying, selling, and renting residential & commercial properties.`,
 
     keywords: [
       `${formattedLocation}`,
@@ -30,19 +32,15 @@ export async function generateMetadata({ params }) {
     ],
 
     alternates: {
-      canonical:
-        `https://www.propertydealerinharyana.com/location-dealers/${location}`,
+      canonical: `https://www.propertydealerinharyana.com/location-dealers/${city}`,
     },
 
     openGraph: {
-      title:
-        `${formattedLocation} | Buy Sell Rent Properties`,
+      title: `${formattedLocation} | Buy Sell Rent Properties`,
 
-      description:
-        `Explore verified property dealers and real estate agents in ${formattedLocation}, Haryana.`,
+      description: `Explore verified property dealers and real estate agents in ${formattedLocation}, Haryana.`,
 
-      url:
-        `https://www.propertydealerinharyana.com/location-dealers/${location}`,
+      url: `https://www.propertydealerinharyana.com/location-dealers/${city}`,
 
       siteName: "Property Dealer Haryana",
 
@@ -62,11 +60,9 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: "summary_large_image",
 
-      title:
-        `${formattedLocation} | Buy Sell Rent Properties`,
+      title: `${formattedLocation} | Buy Sell Rent Properties`,
 
-      description:
-        `Find trusted property dealers and real estate agents in ${formattedLocation}, Haryana.`,
+      description: `Find trusted property dealers and real estate agents in ${formattedLocation}, Haryana.`,
 
       images: ["/og-image.jpg"],
     },

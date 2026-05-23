@@ -323,7 +323,9 @@ function CityDealers({ urlCity }) {
                   <li key={loc.slug}>
                     <button
   onClick={() =>
-    router.push(`/${urlCity}/property-dealer-in-${createSlug(loc.location)}`)
+    router.push(
+  `/haryana/${urlCity}/property-dealer-in-${createSlug(loc.location)}`
+)
   }
   className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${
     activeLocation === loc.location
