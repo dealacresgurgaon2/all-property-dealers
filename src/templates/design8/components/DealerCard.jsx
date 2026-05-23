@@ -176,7 +176,7 @@ export default function DealerCard({ dealer }) {
               transition
               text-[#76153C]
               font-semibold
-              flex items-center justify-center
+              flex items-center justify-center pointer-events-none
             "
           >
             View Details
