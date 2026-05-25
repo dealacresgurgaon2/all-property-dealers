@@ -456,7 +456,7 @@ export default function Footer() {
     "Kaithal",
     "Karnal",
     "Kurukshetra",
-    "Mahendergarh",
+    "Mahendragarh",
     "Palwal",
     "Panchkula",
     "Panipat",
