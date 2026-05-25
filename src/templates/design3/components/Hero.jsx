@@ -83,28 +83,28 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#5E23DC]/90 via-[#5E23DC]/75 to-[#5E23DC]/60"></div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_420px] gap-20 items-center">
 
           {/* LEFT CONTENT */}
           <div className="text-white">
             <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-6">
-              Find Best Property 
+              Find Best Property
               <span className="text-white/90">in Hisar</span>
             </h1>
 
-          <p
-  className="
+            <p
+              className="
     text-sm
     md:text-base
     
     text-white/80
     mb-8
     w-full
-    max-w-none
+    max-3-none
     leading-8
   "
->
-             Looking for the best property dealer in Hisar? You have come to the right place. PropertyDealerInHisar.com is Hisar's most trusted online platform connecting buyers, sellers, and tenants with verified, experienced real estate professionals across every locality in the city. Whether you need a best real estate agent in Hisar to help you purchase your dream home, a reliable property broker in Hisar to get you the best price for your property, or a skilled real estate broker in Hisar to negotiate the perfect rental deal — our network has you covered. We connect you with top-rated property consultants in Defence Colony, Model Town, Urban Estate, Sector 13, Sector 14, Rajguru Market, and 40+ prime localities across Hisar. From residential plots and builder floors to commercial shops and industrial land, our registered agents handle all property types with full transparency. Get a free consultation today and make your next property deal the smartest one yet.
+            >
+              Looking for the best property dealer in Hisar? You have come to the right place. PropertyDealerInHisar.com is Hisar's most trusted online platform connecting buyers, sellers, and tenants with verified, experienced real estate professionals across every locality in the city. Whether you need a best real estate agent in Hisar to help you purchase your dream home, a reliable property broker in Hisar to get you the best price for your property, or a skilled real estate broker in Hisar to negotiate the perfect rental deal — our network has you covered. We connect you with top-rated property consultants in Defence Colony, Model Town, Urban Estate, Sector 13, Sector 14, Rajguru Market, and 40+ prime localities across Hisar. From residential plots and builder floors to commercial shops and industrial land, our registered agents handle all property types with full transparency. Get a free consultation today and make your next property deal the smartest one yet.
             </p>
 
             <button

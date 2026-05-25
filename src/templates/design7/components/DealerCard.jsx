@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import DealerThemePopup from "./DealerThemePopup";
-
+import NearbyLocations from "./NearbyLocations";
 export default function DealerCard({ dealer }) {
 
   const [popupOpen, setPopupOpen] = useState(false);
@@ -110,7 +110,7 @@ export default function DealerCard({ dealer }) {
 
           <Link
             href={`/estate-agent/${formatCity(dealer.city)}/${dealer.slug}`}
-            className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition pointer-events-none"
+            className="flex-1 py-2.5 text-center text-sm font-semibold rounded-lg border border-indigo-600 text-indigo-700 hover:bg-indigo-50 transition cursor-pointer"
           >
             View Details
           </Link>

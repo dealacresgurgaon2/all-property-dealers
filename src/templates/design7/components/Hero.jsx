@@ -162,11 +162,11 @@ const website =
               </button>
             </div>
 
-            <div className="grid grid-cols-3 gap-4 pt-6">
+            {/* <div className="grid grid-cols-3 gap-4 pt-6">
               <ModernStat value={`${counts.listings}+`} label="Listings" />
               <ModernStat value={`${counts.cities}+`} label="Cities" />
               <ModernStat value={`${counts.years}+`} label="Experience" />
-            </div>
+            </div> */}
           </div>
 
           {/* RIGHT FORM - DESIGN SAME */}

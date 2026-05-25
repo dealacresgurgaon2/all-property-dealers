@@ -50,7 +50,7 @@ export default function DealersSection({ domain }) {
 
   // ✅ SEARCH → API CALL
   const handleSearch = (query) => {
-    const cleanQuery = query.trim(); 
+    const cleanQuery = query.trim();
     setSearch(cleanQuery); // 🔥 backend me jayega
     setPage(1);
     scrollToList();
@@ -102,16 +102,16 @@ export default function DealersSection({ domain }) {
             ) : (
 
               <>
-               {[...dealers]
-  .sort((a, b) => {
-    if (!search || search.trim() === "") {
-      return (Number(b.subscription) || 0) - (Number(a.subscription) || 0);
-    }
-    return 0;
-  })
-  .map((dealer) => (
-    <DealerCard key={dealer._id} dealer={dealer} />
-))}
+                {[...dealers]
+                  .sort((a, b) => {
+                    if (!search || search.trim() === "") {
+                      return (Number(b.subscription) || 0) - (Number(a.subscription) || 0);
+                    }
+                    return 0;
+                  })
+                  .map((dealer) => (
+                    <DealerCard key={dealer._id} dealer={dealer} />
+                  ))}
 
                 {/* PAGINATION */}
                 {totalPages > 1 && (

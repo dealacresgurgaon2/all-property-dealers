@@ -8,11 +8,15 @@ import QueryForm from "./QueryForm";
 import Pagination from "./Pagination";
 import CityDropdown from "./CityDropdown";
 import CityButtonsFilter from "./CityButtonsFilter";
+import NearbyLocations from "./NearbyLocations";
+import { useParams } from "next/navigation";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DealersSection() {
+  const params = useParams();
 
+  const city = params?.city || "faridabad";
   const [dealers, setDealers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,30 +39,38 @@ export default function DealersSection() {
 
         let url = `${API_BASE}/api/get/state/Haryana?page=${page}&limit=100`;
 
-const cleanSearch = search
-  .replace(/property dealer in/i, "")
-  .trim();
+        const cleanSearch = search
+          .replace(/property dealer in/i, "")
+          .trim();
 
-// 🔥 FINAL LOGIC
-if (!cleanSearch) {
-  // ✅ dropdown city ya default Faridabad
-  url += `&city=${selectedCity || "Faridabad"}`;
-} else {
-  // ✅ search + city (agar select hai)
-  if (selectedCity) {
-    url += `&city=${selectedCity}`;
-  }
+        // 🔥 FINAL LOGIC
+        if (!cleanSearch) {
+          // ✅ dropdown city ya default Faridabad
+          url += `&city=${selectedCity || "Faridabad"}`;
+        } else {
+          // ✅ search + city (agar select hai)
+          if (selectedCity) {
+            url += `&city=${selectedCity}`;
+          }
 
-  url += `&search=${encodeURIComponent(cleanSearch)}`;
-}
+          url += `&search=${encodeURIComponent(cleanSearch)}`;
+        }
 
 
         const res = await fetch(url);
         const data = await res.json();
 
         if (data.success) {
-          setDealers(data.data);
+
+          // 🔥 RANDOM DEALERS EVERY REFRESH
+          const shuffledDealers = [...data.data].sort(
+            () => Math.random() - 0.5
+          );
+
+          setDealers(shuffledDealers);
+
           setTotalPages(data.totalPages || 1);
+
         } else {
           setDealers([]);
         }
@@ -123,10 +135,12 @@ if (!cleanSearch) {
           <div className="w-16 h-1 bg-indigo-600 mt-3 rounded-full"></div>
         </div>
 
-        <div className="mb-10">
-          <CityButtonsFilter onCitySelect={handleCityFilter}/>
-        </div>
-
+        {/* <div className="mb-10">
+          <CityButtonsFilter onCitySelect={handleCityFilter} />
+        </div> */}
+        {/* <div className="mb-5">
+          <CityCards/>
+        </div> */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
           {/* LEFT SIDE */}
@@ -158,10 +172,24 @@ if (!cleanSearch) {
             ) : (
 
               <div className="space-y-5">
-                {dealers.map((dealer) => (
-                  <DealerCard key={dealer._id} dealer={dealer} />
+                {dealers?.map((dealer, index) => (
+                  <div key={dealer._id || index}>
+
+                    <DealerCard dealer={dealer} />
+
+                    {(index + 1) % 10 === 0 && (
+                      <div className="mt-5">
+                        <NearbyLocations
+                          city={city}
+                          startIndex={index - 9}
+                        />
+                      </div>
+                    )}
+
+                  </div>
                 ))}
               </div>
+
 
             )}
 

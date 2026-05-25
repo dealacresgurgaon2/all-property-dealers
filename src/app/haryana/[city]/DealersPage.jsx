@@ -8,6 +8,7 @@ import QueryForm from "@/templates/design7/components/QueryForm";
 import { useRouter } from "next/navigation";
 import { MapPin } from "lucide-react";
 import Breadcrumb from "@/templates/design7/components/Breadcrumb";
+import NearbyLocations from "@/templates/design7/components/NearbyLocations";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export default function DealersPage() {
@@ -138,7 +139,7 @@ function CityDealers({ urlCity }) {
         const mappedCity = getCityForSearchAPI(urlCity);
 
         const res = await fetch(
-          `https://deal-acres-backend.onrender.com/api/searchByCity/${mappedCity}`
+          `https://property-dealer-xa5g.onrender.com/api/area/locations/${mappedCity}`
         );
 
         const data = await res.json();
@@ -160,45 +161,6 @@ function CityDealers({ urlCity }) {
 
     fetchLocations();
   }, [urlCity]);
-
-  // ================= Location Filter =================
-
-  // const handleLocationClick = async (locationName) => {
-  //   try {
-  //     setActiveLocation(locationName);
-  //     setLoading(true);
-
-  //     const mappedCity = getCityForDealersAPI(urlCity);
-
-  //     const res = await fetch(
-  //       `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
-  //     );
-
-  //     const data = await res.json();
-
-  //     const filteredData = Array.isArray(data)
-  //       ? data
-  //       : Array.isArray(data.data)
-  //       ? data.data
-  //       : [];
-
-  //     if (filteredData.length === 0 && allDealers.length > 0) {
-  //       const shuffled = [...allDealers].sort(() => 0.5 - Math.random());
-  //       setDealers(shuffled.slice(0, 30));
-  //     } else {
-  //       setDealers(filteredData);
-  //     }
-  //   } catch (error) {
-  //     console.log("Location filter error:", error);
-  //   } finally {
-  //     setLoading(false);
-  //     setTimeout(() => {
-  //       scrollToDealers();
-  //     }, 150);
-  //   }
-  // };
-
-
   const handleLocationClick = async (locationName) => {
     try {
       setActiveLocation(locationName);
@@ -270,9 +232,9 @@ function CityDealers({ urlCity }) {
   return (
     <section className="bg-slate-50 min-h-screen py-12">
       <div id="dealers-section" className="max-w-7xl mx-auto px-4 sm:px-6">
-      <div className="mb-5">
-        <Breadcrumb/>
-      </div>
+        <div className="mb-5">
+          <Breadcrumb />
+        </div>
         {/* HEADER */}
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 capitalize">
@@ -295,9 +257,24 @@ function CityDealers({ urlCity }) {
                 Loading dealers...
               </div>
             ) : (
-              dealers.map((dealer) => (
-                <DealerCard key={dealer._id} dealer={dealer} />
-              ))
+              <div className="space-y-5">
+                {dealers?.map((dealer, index) => (
+                  <div key={dealer._id || index}>
+
+                    {/* DEALER CARD */}
+                    <DealerCard dealer={dealer} />
+
+                    {/* EVERY 10 CARDS */}
+                    {(index + 1) % 10 === 0 && (
+                      <NearbyLocations
+                        city={urlCity}
+                        startIndex={index - 9}
+                      />
+                    )}
+
+                  </div>
+                ))}
+              </div>
             )}
           </div>
 
@@ -309,7 +286,7 @@ function CityDealers({ urlCity }) {
         </div>
 
         {/* LOCATION SECTION */}
-        <div  id="locations-section"  className="mt-20 border-t pt-10">
+        <div id="locations-section" className="mt-20 border-t pt-10">
           <h2 className="text-xl font-semibold mb-8 text-black capitalize">
             Search Real Agent in Local Area of {urlCity}
           </h2>
@@ -322,32 +299,30 @@ function CityDealers({ urlCity }) {
                 {visibleLocations.map((loc) => (
                   <li key={loc.slug}>
                     <button
-  onClick={() =>
-    router.push(
-  `/haryana/${urlCity}/property-dealer-in-${createSlug(loc.location)}`
-)
-  }
-  className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${
-    activeLocation === loc.location
-      ? "bg-indigo-50 border-indigo-500 text-indigo-600 font-semibold"
-      : "bg-white border-gray-200 text-gray-700 hover:bg-indigo-50 hover:border-indigo-400"
-  }`}
->
-  {/* ICON */}
-  <MapPin
-    size={18}
-    className={`shrink-0 ${
-      activeLocation === loc.location
-        ? "text-indigo-600"
-        : "text-gray-500 group-hover:text-indigo-500"
-    }`}
-  />
+                      onClick={() =>
+                        router.push(
+                          `/haryana/${urlCity}/property-dealer-in-${createSlug(loc.location)}`
+                        )
+                      }
+                      className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${activeLocation === loc.location
+                          ? "bg-indigo-50 border-indigo-500 text-indigo-600 font-semibold"
+                          : "bg-white border-gray-200 text-gray-700 hover:bg-indigo-50 hover:border-indigo-400"
+                        }`}
+                    >
+                      {/* ICON */}
+                      <MapPin
+                        size={18}
+                        className={`shrink-0 ${activeLocation === loc.location
+                            ? "text-indigo-600"
+                            : "text-gray-500 group-hover:text-indigo-500"
+                          }`}
+                      />
 
-  {/* TEXT */}
-  <span className="leading-tight">
-    Property Dealers in {loc.location}
-  </span>
-</button>
+                      {/* TEXT */}
+                      <span className="leading-tight">
+                        Property Dealers in {loc.location}
+                      </span>
+                    </button>
                   </li>
                 ))}
               </ul>

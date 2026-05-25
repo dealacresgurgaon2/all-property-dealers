@@ -109,7 +109,7 @@ export default function Hero() {
       <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-white/10 blur-3xl rounded-full" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-16 items-center">
 
           {/* ===== LEFT SIDE - WORKING FORM (DESIGN SAME) ===== */}
           <div className="bg-white/15 backdrop-blur-xl border border-green-500/40 rounded-2xl shadow-2xl p-5 md:p-6 max-w-sm w-full">
