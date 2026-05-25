@@ -189,7 +189,7 @@ export default function Footer() {
     "Rohtak",
     "Sirsa",
     "Sonipat",
-    "Yamunanagar",
+    "Yamuna Nagar",
     "Hansi",
   ];
 
