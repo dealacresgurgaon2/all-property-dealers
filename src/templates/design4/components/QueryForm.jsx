@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import CustomAlert from "./CustomAlert";
 
 export default function QueryForm() {
   const [loading, setLoading] = useState(false);
@@ -11,6 +12,12 @@ export default function QueryForm() {
     email: "",
     message: "",
     lookingFor: "",
+  });
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  const [alertData, setAlertData] = useState({
+    type: "success",
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -25,38 +32,112 @@ export default function QueryForm() {
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+
+      setAlertData({
+        type: "error",
+        message: "Phone number must be 10 digits",
+      });
+
+      setAlertOpen(true);
+
       return;
     }
 
     if (!form.lookingFor) {
-      alert("Please select what you're looking for");
+
+      setAlertData({
+        type: "error",
+        message: "Please select what you're looking for",
+      });
+
+      setAlertOpen(true);
+
       return;
     }
 
     setLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("Expert will contact you!");
+      const website =
+        typeof window !== "undefined"
+          ? window.location.hostname.replace("www.", "")
+          : "";
 
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        message: "",
-        lookingFor: "",
+      const res = await fetch("/api/submit", {
+
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          email: form.email,
+          option: form.lookingFor,
+          message: form.message,
+          website,
+        }),
+
       });
 
+      const result = await res.json();
+
+      console.log("QUERY FORM RESULT =>", result);
+
+      if (res.ok) {
+
+        setAlertData({
+          type: "success",
+          message: "Expert will contact you soon!",
+        });
+
+        setAlertOpen(true);
+
+        setForm({
+          name: "",
+          phone: "",
+          email: "",
+          message: "",
+          lookingFor: "",
+        });
+
+      } else {
+
+        setAlertData({
+          type: "error",
+          message:
+            result?.error ||
+            "Something went wrong. Please try again.",
+        });
+
+        setAlertOpen(true);
+
+      }
+
     } catch (error) {
-      alert("Something went wrong. Please try again.");
+
+      console.log("Query form error:", error);
+
+      setAlertData({
+        type: "error",
+        message: "Server error. Please try again.",
+      });
+
+      setAlertOpen(true);
+
     } finally {
+
       setLoading(false);
+
     }
+
   };
 
   // 💎 PREMIUM INPUT STYLE
@@ -86,12 +167,12 @@ export default function QueryForm() {
         </div>
 
         {/* FORM */}
-        <div className="p-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="p-3">
+          <form onSubmit={handleSubmit} className="space-y-1">
 
             {/* NAME */}
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
+              <label className="block text-sm font-medium text-gray-700">
                 👤 Your Name
               </label>
               <input
@@ -107,7 +188,7 @@ export default function QueryForm() {
 
             {/* PHONE */}
             <div>
-              <label className="block text-sm font-medium mb-1 text-gray-700">
+              <label className="block text-sm font-medium text-gray-700">
                 📞 Phone Number
               </label>
               <input
@@ -118,6 +199,21 @@ export default function QueryForm() {
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="Enter your phone"
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1 text-gray-700">
+                📧 Email Address
+              </label>
+
+              <input
+                type="email"
+                name="email"
+                required
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
                 className={inputClass}
               />
             </div>
@@ -178,6 +274,12 @@ export default function QueryForm() {
         </div>
 
       </div>
+      <CustomAlert
+        open={alertOpen}
+        type={alertData.type}
+        message={alertData.message}
+        onClose={() => setAlertOpen(false)}
+      />
     </div>
   );
 }

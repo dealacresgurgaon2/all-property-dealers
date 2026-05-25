@@ -42,7 +42,7 @@ export default function DealerCard({ dealer }) {
           hover:bg-red-600
           hover:text-white
           transition
-          z-10
+          z-0
         "
         title="Save dealer"
       >

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
+import CustomAlert from "./CustomAlert";
 
 export default function ContactPopup({ isOpen, onClose }) {
   const [mounted, setMounted] = useState(false);
@@ -18,8 +19,14 @@ export default function ContactPopup({ isOpen, onClose }) {
     option: "Buy Property",
     description: "",
   });
+  const [alertOpen, setAlertOpen] = useState(false);
 
-  if (!isOpen || !mounted) return null;
+  const [alertData, setAlertData] = useState({
+    type: "success",
+    message: "",
+  });
+
+if (!mounted) return null;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +43,12 @@ export default function ContactPopup({ isOpen, onClose }) {
     e.preventDefault();
 
     if (formData.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+        type: "error",
+        message: "Phone number must be 10 digits",
+      });
+
+      setAlertOpen(true);
       return;
     }
 
@@ -45,7 +57,12 @@ export default function ContactPopup({ isOpen, onClose }) {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("Message Sent Successfully!");
+      setAlertData({
+        type: "success",
+        message: "Query submitted successfully!",
+      });
+
+      setAlertOpen(true);
 
       setFormData({
         name: "",
@@ -55,7 +72,7 @@ export default function ContactPopup({ isOpen, onClose }) {
         description: "",
       });
 
-      onClose();
+
     } catch (err) {
       alert("Something went wrong.");
     } finally {
@@ -63,18 +80,21 @@ export default function ContactPopup({ isOpen, onClose }) {
     }
   };
 
-  return ReactDOM.createPortal(
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center px-3 sm:px-4">
+  return (
+    <>
+      {isOpen &&
+        ReactDOM.createPortal(
+          <div className="fixed inset-0 z-[9999] flex items-center justify-center px-3 sm:px-4">
 
-      {/* BACKDROP */}
-      <div
-        onClick={onClose}
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-      />
+            {/* BACKDROP */}
+            <div
+              onClick={onClose}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            />
 
-      {/* MODAL BOX */}
-      <div
-        className="
+            {/* MODAL BOX */}
+            <div
+              className="
         relative z-[10000]
         w-full max-w-md
         bg-white rounded-2xl shadow-2xl
@@ -82,102 +102,117 @@ export default function ContactPopup({ isOpen, onClose }) {
         p-4 sm:p-6
         max-h-[95vh] overflow-y-auto
       "
-      >
-        {/* HEADER */}
-        <div className="flex justify-between items-start mb-4 border-b border-red-500/30 pb-3">
-          <h2 className="text-base sm:text-lg font-extrabold text-black leading-snug pr-4">
-            Contact Form
-          </h2>
+            >
+              {/* HEADER */}
+              <div className="flex justify-between items-start mb-4 border-b border-red-500/30 pb-3">
+                <h2 className="text-base sm:text-lg font-extrabold text-black leading-snug pr-4">
+                  Contact Form
+                </h2>
 
-          <button
-            onClick={onClose}
-            className="text-red-600 text-xl sm:text-2xl hover:scale-110 transition"
-          >
-            ✕
-          </button>
-        </div>
+                <button
+                  onClick={onClose}
+                  className="text-red-600 text-xl sm:text-2xl hover:scale-110 transition"
+                >
+                  ✕
+                </button>
+              </div>
 
-        {/* FORM */}
-        <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+              {/* FORM */}
+              <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
 
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            placeholder="Full Name"
-            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Full Name"
+                  className="w-full border border-red-500/40 rounded-xl p-3 text-black 
                        focus:outline-none focus:ring-2 focus:ring-red-500/50 
                        transition text-sm"
-          />
+                />
 
-          <input
-            type="text"
-            name="phone"
-            inputMode="numeric"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-            placeholder="Phone Number"
-            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                <input
+                  type="text"
+                  name="phone"
+                  inputMode="numeric"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  placeholder="Phone Number"
+                  className="w-full border border-red-500/40 rounded-xl p-3 text-black 
                        focus:outline-none focus:ring-2 focus:ring-red-500/50 
                        transition text-sm"
-          />
+                />
 
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            placeholder="Email Address"
-            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="Email Address"
+                  className="w-full border border-red-500/40 rounded-xl p-3 text-black 
                        focus:outline-none focus:ring-2 focus:ring-red-500/50 
                        transition text-sm"
-          />
+                />
 
-          <select
-            name="option"
-            value={formData.option}
-            onChange={handleChange}
-            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                <select
+                  name="option"
+                  value={formData.option}
+                  onChange={handleChange}
+                  className="w-full border border-red-500/40 rounded-xl p-3 text-black 
                        focus:outline-none focus:ring-2 focus:ring-red-500/50 
                        transition text-sm"
-          >
-            <option>Buy Property</option>
-            <option>Sell Property</option>
-            <option>Rent Property</option>
-          </select>
+                >
+                  <option>Buy Property</option>
+                  <option>Sell Property</option>
+                  <option>Rent Property</option>
+                </select>
 
-          <textarea
-            name="description"
-            rows="3"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Describe your requirement..."
-            className="w-full border border-red-500/40 rounded-xl p-3 text-black 
+                <textarea
+                  name="description"
+                  rows="3"
+                  value={formData.description}
+                  onChange={handleChange}
+                  placeholder="Describe your requirement..."
+                  className="w-full border border-red-500/40 rounded-xl p-3 text-black 
                        focus:outline-none focus:ring-2 focus:ring-red-500/50 
                        transition text-sm resize-none"
-          />
+                />
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-red-600 text-white py-3 rounded-xl font-semibold 
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-red-600 text-white py-3 rounded-xl font-semibold 
                        hover:bg-red-700 transition-all shadow-md 
                        disabled:opacity-60 text-sm"
-          >
-            {loading ? "Sending..." : "Send Message"}
-          </button>
+                >
+                  {loading ? "Sending..." : "Send Message"}
+                </button>
 
-        </form>
+              </form>
 
-        <p className="text-[11px] text-gray-600 text-center mt-4">
-          Your information is safe with us. We never share your details.
-        </p>
-      </div>
-    </div>,
-    document.body
+              <p className="text-[11px] text-gray-600 text-center mt-4">
+                Your information is safe with us. We never share your details.
+              </p>
+            </div>
+
+
+          </div>,
+          document.body
+        )}
+
+      <CustomAlert
+        open={alertOpen}
+        type={alertData.type}
+        message={alertData.message}
+        onClose={() => {
+          setAlertOpen(false);
+          onClose();
+        }}
+      />
+    </>
+
   );
 }

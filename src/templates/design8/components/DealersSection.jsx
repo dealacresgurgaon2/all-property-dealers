@@ -139,9 +139,9 @@ export default function DealersSection() {
               to-[#5A0E24] mt-3 rounded-full"></div>
         </div>
 
-        <div className="mb-10">
+        {/* <div className="mb-10">
           <CityButtonsFilter onCitySelect={handleCityFilter} />
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 

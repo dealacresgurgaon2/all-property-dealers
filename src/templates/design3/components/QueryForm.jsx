@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import CustomAlert from "./CustomAlert";
 
 export default function QueryForm() {
   const [loading, setLoading] = useState(false);
@@ -12,7 +13,12 @@ export default function QueryForm() {
     option: "Buy Property",
     message: "",
   });
+const [alertOpen, setAlertOpen] = useState(false);
 
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
   const website =
     typeof window !== "undefined"
       ? window.location.hostname.replace("www.", "")
@@ -34,7 +40,12 @@ export default function QueryForm() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
+
+setAlertOpen(true);
       return;
     }
 
@@ -58,18 +69,28 @@ export default function QueryForm() {
 
       const result = await res.json();
 
-      if (result.success) {
-        alert("Your enquiry has been submitted successfully!");
+    if (result.success) {
 
-        setForm({
-          name: "",
-          phone: "",
-          email: "",
-          option: "Buy Property",
-          message: "",
-        });
+  setAlertData({
+    type: "success",
+    message: "Query submitted successfully!",
+  });
+
+  setAlertOpen(true);
+
+  setForm({
+    name: "",
+    phone: "",
+    option: "Buy Property",
+    message: "",
+  });
       } else {
-        alert("Something went wrong. Please try again.");
+        setAlertData({
+  type: "error",
+  message: "Something went wrong. Please try again.",
+});
+
+setAlertOpen(true);
       }
     } catch (error) {
       console.log("Query form error:", error);
@@ -222,10 +243,17 @@ export default function QueryForm() {
         </button>
 
       </form>
-
+         
       <p className="text-xs text-gray-500 mt-3 text-center">
         🔒 Your details are safe with us. No spam.
       </p>
+
+        <CustomAlert
+  open={alertOpen}
+  type={alertData.type}
+  message={alertData.message}
+  onClose={() => setAlertOpen(false)}
+/>
     </div>
   );
 }

@@ -1,18 +1,25 @@
 "use client";
 import { useState } from "react";
 import PurpleContactPopup from "./PurpleContactPopup";
+import CustomAlert from "./CustomAlert";
 
 export default function Hero() {
   const [popupOpen, setPopupOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    option: "Buy Property",
-    message: "",
-  });
+ const [form, setForm] = useState({
+  name: "",
+  phone: "",
+  email: "",
+  option: "Buy Property",
+  message: "",
+});
+   const [alertOpen, setAlertOpen] = useState(false);
 
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
   const website =
     typeof window !== "undefined"
       ? window.location.hostname.replace("www.", "")
@@ -33,7 +40,12 @@ export default function Hero() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
+
+setAlertOpen(true);
       return;
     }
 
@@ -45,32 +57,48 @@ export default function Hero() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: form.name,
-          phone: form.phone,
-          option: form.option,
-          message: form.message,
-          website,
-        }),
+      body: JSON.stringify({
+  name: form.name,
+  phone: form.phone,
+  email: form.email,
+  option: form.option,
+  message: form.message,
+  website,
+}),
       });
 
       const result = await res.json();
 
-      if (result.success) {
-        alert("Your enquiry has been submitted!");
+console.log("API RESULT =>", result);
 
-        setForm({
-          name: "",
-          phone: "",
-          option: "Buy Property",
-          message: "",
-        });
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.log("Hero form error:", error);
-      alert("Server error. Please try later.");
+if (res.ok) {
+
+  setAlertData({
+    type: "success",
+    message: "Query submitted successfully!",
+  });
+
+  setAlertOpen(true);
+
+  setForm({
+  name: "",
+  phone: "",
+  email: "",
+  option: "Buy Property",
+  message: "",
+});
+
+} else {
+
+  setAlertData({
+    type: "error",
+    message: "Something went wrong. Please try again.",
+  });
+
+  setAlertOpen(true);
+}
+
+setAlertOpen(true);
     } finally {
       setLoading(false);
     }
@@ -133,7 +161,15 @@ export default function Hero() {
                 placeholder="Your Name"
                 className="w-full border border-white/40 bg-white rounded-md px-4 py-2 text-[#5E23DC] placeholder-[#5E23DC] outline-none"
               />
-
+               <input
+  type="email"
+  name="email"
+  required
+  value={form.email}
+  onChange={handleChange}
+  placeholder="Email Address"
+  className="w-full border border-white/40 bg-white rounded-md px-4 py-2 text-[#5E23DC] placeholder-[#5E23DC] outline-none"
+/>
               <input
                 type="text"
                 name="phone"
@@ -182,6 +218,12 @@ export default function Hero() {
       <PurpleContactPopup
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
+      />
+        <CustomAlert
+        open={alertOpen}
+        type={alertData.type}
+        message={alertData.message}
+        onClose={() => setAlertOpen(false)}
       />
     </section>
   );

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import GoldContactPopup from "./GoldContactPopup";
+import CustomAlert from "./CustomAlert";
 
 export default function Hero() {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -10,7 +11,12 @@ export default function Hero() {
     cities: 0,
     years: 0,
   });
+   const [alertOpen, setAlertOpen] = useState(false);
 
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
   useEffect(() => {
     const targets = { listings:1000 , cities: 25, years: 20 };
     const duration = 2000;
@@ -98,7 +104,10 @@ export default function Hero() {
             <h2 className="text-lg font-bold mb-4 text-white text-center">
               Get Free Consultation
             </h2>
-            <HeroForm />
+            <HeroForm
+  setAlertOpen={setAlertOpen}
+  setAlertData={setAlertData}
+/>
           </div>
 
         </div>
@@ -108,12 +117,21 @@ export default function Hero() {
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />
+      <CustomAlert
+  open={alertOpen}
+  type={alertData.type}
+  message={alertData.message}
+  onClose={() => setAlertOpen(false)}
+/>
     </section>
   );
 }
 
 /* FORM */
-function HeroForm() {
+function HeroForm({
+  setAlertOpen,
+  setAlertData,
+}) {
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
@@ -139,7 +157,12 @@ function HeroForm() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
+
+setAlertOpen(true);
       return;
     }
 
@@ -147,7 +170,12 @@ function HeroForm() {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    alert("Query submitted successfully!");
+     setAlertData({
+  type: "success",
+  message: "Query submitted successfully!",
+});
+
+setAlertOpen(true);
 
     setForm({
       name: "",
@@ -181,7 +209,7 @@ function HeroForm() {
     </form>
   );
 }
-
+   
 /* STAT */
 function Stat({ value, label }) {
   return (

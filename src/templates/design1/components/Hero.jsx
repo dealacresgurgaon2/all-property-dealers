@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ContactPopup from "./ContactPopup";
+import CustomAlert from "./CustomAlert";
 
 export default function Hero() {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -12,7 +13,12 @@ export default function Hero() {
     phone: "",
     requirement: "",
     message: "",
-  });
+  });const [alertOpen, setAlertOpen] = useState(false);
+
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,12 +36,22 @@ export default function Hero() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
+
+setAlertOpen(true);
       return;
     }
 
     if (!form.requirement) {
-      alert("Please select what you're looking for");
+      setAlertData({
+  type: "error",
+  message: "Please select what you're looking for",
+});
+
+setAlertOpen(true);
       return;
     }
 
@@ -51,7 +67,12 @@ export default function Hero() {
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("Request submitted successfully!");
+      setAlertData({
+  type: "success",
+  message: "Query submitted successfully!",
+});
+
+setAlertOpen(true);
 
       // Reset form
       setForm({
@@ -178,7 +199,12 @@ export default function Hero() {
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />
-
+            <CustomAlert
+  open={alertOpen}
+  type={alertData.type}
+  message={alertData.message}
+  onClose={() => setAlertOpen(false)}
+/>
     </section>
   );
 }

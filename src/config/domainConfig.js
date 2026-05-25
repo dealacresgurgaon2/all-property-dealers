@@ -22,7 +22,7 @@ export const DOMAIN_LAYOUT_MAP = {
   "www.realestateagentsnearme.in":"realestate",
   "realestateagentsnearme.in":"realestate",
 
-"localhost:3000": "delhi", // ✅ LOCALHOST FIX
+"localhost:3000": "realestate", // ✅ LOCALHOST FIX
 };
 
 export const DEFAULT_LAYOUT = "haryana"
