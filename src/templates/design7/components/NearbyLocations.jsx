@@ -1,22 +1,14 @@
 "use client";
 
 import axios from "axios";
-import {
-  MapPin,
-  Navigation,
-  ChevronRight,
-  ChevronLeft,
-} from "lucide-react";
-
-import { useEffect, useRef, useState } from "react";
+import { MapPin, Navigation } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function NearbyLocations({
   city,
   startIndex = 0,
 }) {
   const [locations, setLocations] = useState([]);
-
-  const scrollRef = useRef(null);
 
   useEffect(() => {
     if (!city) return;
@@ -30,158 +22,190 @@ export default function NearbyLocations({
         `https://property-dealer-xa5g.onrender.com/api/area/locations/${city}`
       );
 
-      console.log("API RESPONSE =>", res.data);
-
       setLocations(res.data.data || []);
     } catch (error) {
       console.log("LOCATION API ERROR =>", error);
     }
   };
 
-  const scrollLeft = () => {
-    scrollRef.current?.scrollBy({
-      left: -250,
-      behavior: "smooth",
-    });
-  };
-
-  const scrollRight = () => {
-    scrollRef.current?.scrollBy({
-      left: 250,
-      behavior: "smooth",
-    });
-  };
-
-  // 🔥 NEXT 10 LOCATIONS
+  // 🔥 SHOW 12 LOCATIONS
   const visibleLocations = locations.slice(
     startIndex,
-    startIndex + 10
+    startIndex + 12
   );
 
-  // 🔥 AGAR LOCATIONS NHI HAI TO RENDER MAT KARO
   if (visibleLocations.length === 0) return null;
 
   return (
-    <section className="w-full py-5">
-      <div className="bg-indigo-600 border border-gray-200 rounded-[22px] p-5">
-        <div className="bg-[#fafafa] border border-gray-200 rounded-2xl px-4 py-5">
+    <section className="w-full py-6">
+      <div
+        className="
+          relative
+          overflow-hidden
+          rounded-[32px]
+          border border-[#E8EAFD]
+          bg-gradient-to-br
+          from-[#EEF2FF]
+          via-[#FFFFFF]
+          to-[#F7F5FF]
+          shadow-[0_15px_40px_rgba(79,70,229,0.10)]
+        "
+      >
+        {/* TOP BLUR */}
+        <div className="absolute top-0 right-0 w-52 h-52 bg-indigo-200/30 blur-3xl rounded-full" />
+        <div className="absolute bottom-0 left-0 w-52 h-52 bg-purple-200/30 blur-3xl rounded-full" />
 
-          {/* HEADING */}
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
-              <MapPin className="w-5 h-5 text-indigo-600" />
+        <div className="relative z-10 p-5 sm:p-7">
+          
+          {/* HEADER */}
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-7">
+            
+            <div className="flex items-center gap-4">
+              
+              <div
+                className="
+                  w-14 h-14
+                  rounded-3xl
+                  bg-gradient-to-br
+                  from-indigo-600
+                  to-purple-600
+                  flex items-center justify-center
+                  shadow-[0_10px_25px_rgba(79,70,229,0.25)]
+                "
+              >
+                <MapPin className="w-7 h-7 text-white" />
+              </div>
+
+              <div>
+                <h2
+                  className="
+                    text-[18px]
+                    sm:text-[18px]
+                    font-black
+                    text-gray-900
+                    capitalize
+                    leading-tight
+                  "
+                >
+                  Nearby Locations In {city}
+                </h2>
+
+                <p className="text-sm text-gray-500 mt-1">
+                  Explore top nearby property dealer areas
+                </p>
+              </div>
             </div>
 
-            <h2 className="text-[18px] sm:text-[20px] font-bold text-[#222] capitalize">
-              Nearby Locations In {city}
-            </h2>
-          </div>
-
-          {/* MAIN ROW */}
-          <div className="flex items-center gap-3">
-
-            {/* BUTTON */}
+            {/* LOCATION BUTTON */}
             <button
               className="
-                shrink-0
-                flex items-center gap-2
-                px-5 py-3
-                rounded-xl
-                bg-gradient-to-r from-indigo-600 to-purple-600
+                flex items-center justify-center gap-1
+                px-6 py-2
+                rounded-2xl
+                bg-gradient-to-r
+                from-indigo-600
+                to-purple-600
                 text-white
-                font-medium
+                font-semibold
                 text-sm
-                shadow-sm
-                hover:opacity-90
-                transition
+                shadow-[0_10px_25px_rgba(79,70,229,0.22)]
+                hover:scale-[1.03]
+                active:scale-[0.98]
+                transition-all duration-300
               "
             >
               <Navigation className="w-4 h-4" />
               Use Precise Location
             </button>
+          </div>
 
-            {/* LEFT */}
-            <button
-              onClick={scrollLeft}
-              className="
-                shrink-0
-                w-11 h-11
-                rounded-xl
-                bg-white
-                border border-gray-300
-                flex items-center justify-center
-                text-gray-700
-                hover:bg-indigo-50
-                hover:border-indigo-400
-                hover:text-indigo-600
-                transition
-              "
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
-            {/* SCROLLABLE */}
-            <div
-              ref={scrollRef}
-              className="
-                flex items-center gap-3
-                overflow-x-auto
-                scroll-smooth
-                flex-1
-                [-ms-overflow-style:none]
-                [scrollbar-width:none]
-                [&::-webkit-scrollbar]:hidden
-              "
-            >
-              {visibleLocations.map((item, index) => (
-                <button
-                  key={index}
-                  onClick={() =>
-                    window.open(
-                      `https://www.dealacres.com/${city.toLowerCase()}/property-dealer`,
-                      "_blank"
-                    )
-                  }
+          {/* LOCATION LIST */}
+          <div className="flex flex-wrap gap-2">
+            {visibleLocations.map((item, index) => (
+              <button
+                key={index}
+                onClick={() =>
+                  window.open(
+                    `https://www.dealacres.com/${city.toLowerCase()}/property-dealer`,
+                    "_blank"
+                  )
+                }
+                className="
+group
+relative
+overflow-hidden
+flex items-center gap-1
+px-5 py-2
+rounded-2xl
+border border-[#E4E7FF]
+bg-white/90
+backdrop-blur-sm
+hover:bg-white
+hover:border-indigo-400
+hover:-translate-y-1
+hover:scale-[1.02]
+hover:shadow-[0_12px_30px_rgba(79,70,229,0.14)]
+transition-all duration-300
+cursor-pointer
+"
+              >
+                {/* HOVER BG */}
+                <div
                   className="
-                    shrink-0
-                    px-6 py-3
+                    absolute inset-0
+                    opacity-0
+                    group-hover:opacity-100
+                    transition duration-300
+                    bg-gradient-to-r
+                    from-indigo-50
+                    to-purple-50
+                  "
+                />
+
+                {/* ICON */}
+                <div
+                  className="
+                    relative z-10
+                    w-5 h-5
                     rounded-xl
-                    bg-[#f5f5f5]
-                    border border-gray-300
-                    text-gray-700
-                    text-sm
-                    font-medium
-                    hover:bg-indigo-50
-                    hover:border-indigo-400
-                    hover:text-indigo-600
-                    transition-all duration-200
-                    cursor-pointer
+                    bg-indigo-100
+                    flex items-center justify-center
+                    group-hover:bg-gradient-to-br
+                    group-hover:from-indigo-600
+                    group-hover:to-purple-600
+                    transition-all duration-300
                   "
                 >
-                  {item.location}
-                </button>
-              ))}
-            </div>
+                  <MapPin
+                    className="
+                      w-5 h-5
+                      text-indigo-600
+                      group-hover:text-white
+                      transition-all duration-300
+                    "
+                  />
+                </div>
 
-            {/* RIGHT */}
-            <button
-              onClick={scrollRight}
-              className="
-                shrink-0
-                w-11 h-11
-                rounded-xl
-                bg-white
-                border border-gray-300
-                flex items-center justify-center
-                text-gray-700
-                hover:bg-indigo-50
-                hover:border-indigo-400
-                hover:text-indigo-600
-                transition
-              "
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
+                {/* TEXT */}
+                <div className="relative z-10">
+                  <h3
+                    className="
+                      text-sm
+                      font-bold
+                      text-gray-800
+                      capitalize
+                      whitespace-nowrap
+                      group-hover:text-indigo-700
+                      transition
+                    "
+                  >
+                    {item.location}
+                  </h3>
+
+               
+                </div>
+              </button>
+            ))}
           </div>
         </div>
       </div>
