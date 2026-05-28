@@ -1,4 +1,4 @@
-name: Auto Sync to Property Dealers 
+name: Auto Sync
 
 on:
   push:
@@ -9,19 +9,53 @@ jobs:
   sync:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Configure git
+      - name: Configure Git
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions"
 
+      # =========================================
+      # Property Dealers Repo
+      # =========================================
       - name: Sync to Property Dealers Repo
+        continue-on-error: true
         run: |
           git remote remove second || true
+
           git remote add second https://x-access-token:${{ secrets.PROPERTY_DEALERS_TOKEN }}@github.com/propertydealerhisar/All_Property_Dealers.git
+
           git push second HEAD:main --force
+
+      # =========================================
+      # Delhi Repo
+      # =========================================
+      - name: Sync to Delhi Repo
+        continue-on-error: true
+        run: |
+          git remote remove delhi || true
+
+          git remote add delhi https://x-access-token:${{ secrets.DELHI_TOKEN }}@github.com/dealacresDelhi/all-property-dealers.git
+
+          git push delhi HEAD:main --force
+
+      # =========================================
+      # Mukesh Gold Frontend Repo
+      # =========================================
+      - name: Sync to Mukesh Gold Frontend Repo
+        continue-on-error: true
+        run: |
+          git remote remove gold || true
+
+          git remote add gold https://x-access-token:${{ secrets.MUKESH_PROJECTS_ACCESS_TOKEN }}@github.com/mukeshkumar44/propertydelerGoldFrontend.git
+
+          git push gold HEAD:main --force

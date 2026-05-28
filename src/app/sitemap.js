@@ -127,7 +127,7 @@ if (
   try {
 
     const res = await fetch(
-      "http://localhost:5000/api/area/sitemap-locations",
+      "https://property-dealer-xa5g.onrender.com/api/area/sitemap-locations",
       {
         cache: "no-store",
       }
