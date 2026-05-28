@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useCity } from "@/context/design7api/CityContext";
 import DealerCard from "@/templates/design7/components/DealerCard";
 import QueryForm from "@/templates/design7/components/QueryForm";
@@ -298,12 +299,13 @@ function CityDealers({ urlCity }) {
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {visibleLocations.map((loc) => (
                   <li key={loc.slug}>
-                    <button
-                      onClick={() =>
-                        router.push(
-                          `/haryana/${urlCity}/property-dealer-in-${createSlug(loc.location)}`
-                        )
-                      }
+                    <Link
+                    href={`${urlCity}/property-dealer-in-${createSlug(loc.location)}`}
+                      // onClick={() =>
+                      //   router.push(
+                      //     `${urlCity}/property-dealer-in-${createSlug(loc.location)}`
+                      //   )
+                      // }
                       className={`group w-full flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${activeLocation === loc.location
                           ? "bg-indigo-50 border-indigo-500 text-indigo-600 font-semibold"
                           : "bg-white border-gray-200 text-gray-700 hover:bg-indigo-50 hover:border-indigo-400"
@@ -322,7 +324,7 @@ function CityDealers({ urlCity }) {
                       <span className="leading-tight">
                         Property Dealers in {loc.location}
                       </span>
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>
