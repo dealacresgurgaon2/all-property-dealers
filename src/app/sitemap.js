@@ -378,7 +378,7 @@ try {
 
     // ✅ SAME ALL DATA
     apiUrl =
-      "https://property-dealer-xa5g.onrender.com/api/all-dealer-slugs?city=Haryana";
+      "https://property-dealer-xa5g.onrender.com/api/all-dealer-slugs";
 
   } else {
 
