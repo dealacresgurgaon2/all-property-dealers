@@ -190,102 +190,15 @@
 // // };
 
 
-
 import { NextResponse } from "next/server";
 import {
   DOMAIN_LAYOUT_MAP,
   DEFAULT_LAYOUT,
 } from "./config/domainConfig";
 
-let cachedPaths = null;
-let lastFetch = 0;
-
-// ✅ GET ALL SITEMAP PATHS
-async function getSitemapPaths(request) {
-  const now = Date.now();
-
-  // 1 Hour Cache
-  if (
-    cachedPaths &&
-    now - lastFetch < 60 * 60 * 1000
-  ) {
-    return cachedPaths;
-  }
-
-  try {
-    const sitemapUrl = `${request.nextUrl.origin}/sitemap.xml`;
-
-    const res = await fetch(sitemapUrl, {
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      console.log(
-        "Sitemap fetch failed:",
-        res.status
-      );
-      return [];
-    }
-
-    const xml = await res.text();
-
-    const matches = [
-      ...xml.matchAll(
-        /<loc>(.*?)<\/loc>/g
-      ),
-    ];
-
-    cachedPaths = matches
-      .map((m) => {
-        try {
-          const loc = m[1]?.trim();
-
-          if (
-            !loc ||
-            loc.includes("undefined")
-          ) {
-            return null;
-          }
-
-          const url = new URL(loc);
-
-          return (
-            url.pathname.replace(
-              /\/$/,
-              ""
-            ) || "/"
-          );
-        } catch {
-          return null;
-        }
-      })
-      .filter(Boolean);
-
-    lastFetch = now;
-
-    console.log(
-      "✅ Sitemap Paths:",
-      cachedPaths.length
-    );
-
-    return cachedPaths;
-  } catch (err) {
-    console.log(
-      "❌ Sitemap Error:",
-      err
-    );
-
-    return [];
-  }
-}
-
-// ✅ MAIN MIDDLEWARE
-export async function middleware(
-  request
-) {
+export function middleware(request) {
   const hostname =
-    request.headers.get("host") ||
-    "";
+    request.headers.get("host") || "";
 
   const layoutFolder =
     DOMAIN_LAYOUT_MAP[hostname] ||
@@ -301,7 +214,7 @@ export async function middleware(
     url.pathname.replace(/\/$/, "") ||
     "/";
 
-  // ✅ Ignore Static Files
+  // ✅ Ignore Next.js files
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
@@ -317,21 +230,7 @@ export async function middleware(
     return NextResponse.rewrite(url);
   }
 
-  // ✅ Check Sitemap URL Exists
-  const paths =
-    await getSitemapPaths(request);
-
-  // ❌ Invalid URL => Home Page
-  if (
-    paths.length > 0 &&
-    !paths.includes(pathname)
-  ) {
-    return NextResponse.redirect(
-      new URL("/", request.url)
-    );
-  }
-
-  // ✅ Already Rewritten
+  // ✅ Already rewritten
   if (
     pathname.startsWith(
       `/${layoutFolder}`
@@ -340,7 +239,7 @@ export async function middleware(
     return NextResponse.next();
   }
 
-  // ✅ Rewrite Valid URL
+  // ✅ Rewrite all valid routes
   url.pathname =
     `/${layoutFolder}${pathname}`;
 
