@@ -197,33 +197,36 @@ import {
   DEFAULT_LAYOUT,
 } from "./config/domainConfig";
 
-let cachedPaths = null;
-let lastFetch = 0;
+// ✅ DOMAIN WISE CACHE
+let sitemapCache = {};
 
 // ✅ GET ALL SITEMAP PATHS
 async function getSitemapPaths(request) {
+  const host =
+    request.headers.get("host") || "";
+
   const now = Date.now();
 
-  // 1 Hour Cache
   if (
-    cachedPaths &&
-    now - lastFetch < 60 * 60 * 1000
+    sitemapCache[host] &&
+    now - sitemapCache[host].time <
+      60 * 60 * 1000
   ) {
-    return cachedPaths;
+    return sitemapCache[host].paths;
   }
 
   try {
-    const sitemapUrl = `${request.nextUrl.origin}/sitemap.xml`;
+    const sitemapUrl =
+      `${request.nextUrl.origin}/sitemap.xml`;
 
-    const res = await fetch(sitemapUrl, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      sitemapUrl,
+      {
+        cache: "no-store",
+      }
+    );
 
     if (!res.ok) {
-      console.log(
-        "Sitemap fetch failed:",
-        res.status
-      );
       return [];
     }
 
@@ -235,19 +238,12 @@ async function getSitemapPaths(request) {
       ),
     ];
 
-    cachedPaths = matches
+    const paths = matches
       .map((m) => {
         try {
-          const loc = m[1]?.trim();
-
-          if (
-            !loc ||
-            loc.includes("undefined")
-          ) {
-            return null;
-          }
-
-          const url = new URL(loc);
+          const url = new URL(
+            m[1].trim()
+          );
 
           return (
             url.pathname.replace(
@@ -261,20 +257,13 @@ async function getSitemapPaths(request) {
       })
       .filter(Boolean);
 
-    lastFetch = now;
+    sitemapCache[host] = {
+      paths,
+      time: now,
+    };
 
-    console.log(
-      "✅ Sitemap Paths:",
-      cachedPaths.length
-    );
-
-    return cachedPaths;
-  } catch (err) {
-    console.log(
-      "❌ Sitemap Error:",
-      err
-    );
-
+    return paths;
+  } catch {
     return [];
   }
 }
@@ -300,6 +289,21 @@ export async function middleware(
   const pathname =
     url.pathname.replace(/\/$/, "") ||
     "/";
+     // 👇 YAHAN LAGAO
+  console.log(
+    "HOST:",
+    hostname
+  );
+
+  console.log(
+    "LAYOUT:",
+    layoutFolder
+  );
+
+  console.log(
+    "PATH:",
+    pathname
+  );
 
   // ✅ Ignore Static Files
   if (
@@ -313,6 +317,7 @@ export async function middleware(
   // ✅ Homepage
   if (pathname === "/") {
     url.pathname = `/${layoutFolder}`;
+    
 
     return NextResponse.rewrite(url);
   }
@@ -321,11 +326,25 @@ export async function middleware(
 // ✅ Check Sitemap URL Exists
 const paths = await getSitemapPaths(request);
 
-// sitemap fetch fail ho gaya to block mat karo
 if (paths.length > 0) {
-  const exists = paths.includes(pathname);
+ const cleanPath =
+  pathname.replace(/\/$/, "") || "/";
+
+const exists = paths.some(
+  (p) =>
+    (p.replace(/\/$/, "") || "/") ===
+    cleanPath
+);
+
+  console.log("CHECK PATH:", pathname);
+  console.log("EXISTS:", exists);
 
   if (!exists) {
+    console.log(
+      "REDIRECTING HOME:",
+      pathname
+    );
+
     return NextResponse.redirect(
       new URL("/", request.url)
     );

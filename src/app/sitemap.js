@@ -280,7 +280,7 @@ apiLocationUrls.push({
   // ================= DOMAIN FOR API =================
   const domainForApi =
     cleanHost === "localhost:3000"
-      ? "www.propertydealerindelhi.com" // 🔥 local testing fix
+      ? "www.propertydealeringurgaon.com" // 🔥 local testing fix
       : cleanHost.startsWith("www.")
       ? cleanHost
       : `www.${cleanHost}`;
