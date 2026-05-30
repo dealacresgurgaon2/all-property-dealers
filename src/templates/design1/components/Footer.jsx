@@ -48,7 +48,7 @@ const [showAllMobileLocations, setShowAllMobileLocations] = useState(false);
     "Sector 6, Gurgaon","Sector 62, Gurgaon","Sector 54, Gurgaon",
     "Sector 31, Gurgaon","Sector 113, Gurgaon","Sector 87, Gurgaon",
     "Sushant Lok Phase 3, Gurgaon","Sector 38, Gurgaon",
-    "Sector 106, Gurgaon","New Gurgaon, Gurgaon","MG Road, Gurgaon",
+    "Sector 106, Gurgaon","New, Gurgaon","MG Road, Gurgaon",
     "Civil Lines, Gurgaon","Sohna Road, Gurgaon",
     "Sector 47, Gurgaon","Sector 46, Gurgaon","Sector 3A, Gurgaon"
   ];
