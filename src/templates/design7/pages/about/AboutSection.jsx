@@ -7,7 +7,7 @@ export default function AboutSection() {
     <section className="bg-slate-50">
 
       {/* ===== HERO STYLE HEADER – SAME HERO COLORS ===== */}
-      <div className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white py-28">
+      <div className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white py-28">       
         <div className="max-w-6xl mx-auto px-4 text-center">
 
           <p className="text-indigo-200 font-semibold tracking-widest mb-3">
