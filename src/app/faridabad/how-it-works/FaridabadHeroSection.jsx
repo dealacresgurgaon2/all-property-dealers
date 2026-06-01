@@ -1,8 +1,13 @@
+import Breadcrumb from "@/templates/design2/components/Breadcrumb";
+
 export default function FaridabadHeroSection() {
   return (
     <section className="w-full bg-[#fafafa] py-6 px-2 md:px-12">
       
       <div className="max-w-7xl mx-auto">
+        <div className="mb-4">
+          <Breadcrumb />
+        </div>
         
         {/* Heading */}
         <h1 className="text-2xl md:text-4xl font-bold text-[#d4af37] leading-tight">

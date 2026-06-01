@@ -1,14 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function AboutSection() {
   return (
-    <section className="bg-gray-50 py-24">
+    <section className="bg-gray-50 py-10">
       <div className="max-w-7xl mx-auto px-4">
+          <div className="py-4 px-2">
+            <Breadcrumb/>
+          </div>
+
 
         {/* ===== HERO HEADER ===== */}
-        <div className="text-center mb-16">
+        <div className=" mb-16">
           <span className="inline-block px-5 py-2 rounded-full bg-green-100 text-green-700 font-semibold mb-4">
             About Us
           </span>
@@ -17,7 +22,7 @@ export default function AboutSection() {
             Building Trust in Real Estate
           </h1>
 
-          <p className="text-black/70 max-w-3xl mx-auto text-lg">
+          <p className="text-black/70 max-w-7xl mx-auto text-lg">
             We help people find honest, reliable and experienced real estate dealers. Transparency and expert guidance.
           </p>
         </div>

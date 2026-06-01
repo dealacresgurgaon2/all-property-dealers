@@ -1,8 +1,13 @@
+import Breadcrumb from "@/templates/design5/components/Breadcrumb";
+
 export default function HeroSection() {
   return (
     <section className="w-full bg-white py-8 px-4 md:px-12">
       
       <div className="max-w-7xl mx-auto">
+        <div className="mb-3">
+          <Breadcrumb/>
+        </div>
         
         {/* Heading */}
         <h1 className="text-2xl md:text-4xl font-bold text-gray-900 leading-tight text-left">

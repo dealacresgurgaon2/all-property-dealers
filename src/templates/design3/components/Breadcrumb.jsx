@@ -111,14 +111,14 @@ if (pathname.startsWith("/estate-agent")) {
 
       <Link href="/" className={baseClass}>Home</Link>
 
-      {city && (
+      {/* {city && (
         <>
           <span>›</span>
           <Link href={`/${city}`} className={baseClass}>
             {formatTitle(city)}
           </Link>
         </>
-      )}
+      )} */}
 
       {title && (
         <>

@@ -1,14 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function AboutSection() {
   return (
     <section className="bg-white py-10">
       <div className="max-w-7xl mx-auto px-4">
+        <div className="mb-6 text-center ">
+          <Breadcrumb/>
+        </div>
 
         {/* ================= HEADER ================= */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className=" max-w-7xl mx-auto mb-16">
           <span
             className="
               inline-block
