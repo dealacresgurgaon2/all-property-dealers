@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Building2 } from "lucide-react";
+import Breadcrumb from "@/templates/design7/components/Breadcrumb";
 
 export default function HaryanaPage() {
   const router = useRouter();
@@ -19,8 +20,11 @@ export default function HaryanaPage() {
   };
 
   return (
-    <section className="bg-white min-h-screen py-12">
+    <section className="bg-white min-h-screen py-8">
       <div className="max-w-7xl mx-auto px-4">
+        <div className="py-4 px-2">
+          <Breadcrumb/>
+        </div>
 
         {/* Heading */}
         <div className=" mb-10">

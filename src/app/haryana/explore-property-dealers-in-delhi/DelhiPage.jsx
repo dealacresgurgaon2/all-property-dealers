@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import QueryForm from "@/templates/design7/components/QueryForm";
 import { Building2 } from "lucide-react";
 import Link from "next/link";
+import Breadcrumb from "@/templates/design7/components/Breadcrumb";
 
 export default function DelhiPage() {
   const router = useRouter();
@@ -23,8 +24,13 @@ export default function DelhiPage() {
   return (
     <div className="bg-white min-h-screen">
 
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="mb-10 ">
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="py-4 px-2">
+          <Breadcrumb/>
+        </div>
+         <div className="mb-6 ">
+        </div>
+        <div className="mb-6 ">
           <h1 className="text-3xl md:text-4xl font-extrabold text-indigo-600">
             Explore Property Dealers in Delhi
           </h1>

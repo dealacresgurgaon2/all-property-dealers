@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import QueryForm from "@/templates/design7/components/QueryForm";
+import Breadcrumb from "@/templates/design7/components/Breadcrumb";
 
 export default function ContactHaryana() {
   return (
@@ -13,6 +14,9 @@ export default function ContactHaryana() {
         <div className="absolute -top-32 -right-32 w-[420px] h-[420px] bg-green-200 rounded-full blur-3xl opacity-30"></div>
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="py-4 px-2">
+            <Breadcrumb/>
+          </div>
 
           {/* ===== TOP CENTER CONTENT ===== */}
           <div className=" mb-20">

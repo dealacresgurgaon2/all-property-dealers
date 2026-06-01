@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function AboutSection() {
   return (
     <section className="bg-slate-50">
 
       {/* ===== HERO STYLE HEADER – SAME HERO COLORS ===== */}
-      <div className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white py-28">       
+      <div className="bg-gradient-to-r from-indigo-700 via-purple-700 to-pink-600 text-white py-12">       
         <div className="max-w-6xl mx-auto px-4 text-center">
+          
 
           <p className="text-indigo-200 font-semibold tracking-widest mb-3">
             KNOW ABOUT US
@@ -27,14 +29,17 @@ export default function AboutSection() {
       </div>
 
       {/* ===== NEW REPLACEMENT SECTION ===== */}
-      <div className="py-24 bg-white">
+      <div className="py-10 bg-white">
         <div className="max-w-6xl mx-auto px-4">
+          <div className=" py-4 px-2">
+            <Breadcrumb/>
+          </div>
 
-          <h2 className="text-2xl font-bold text-center mb-4 text-indigo-700">
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700">
             Platform Highlights
           </h2>
 
-          <p className="text-center text-gray-500 max-w-2xl mx-auto mb-12">
+          <p className=" text-gray-500 max-w-6xl  mb-12">
             Everything you need for a smooth, secure and smart real estate experience.
           </p>
 
