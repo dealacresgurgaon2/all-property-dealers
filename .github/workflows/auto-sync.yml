@@ -48,9 +48,7 @@ jobs:
 
           git push delhi HEAD:main --force
 
-      # =========================================
-      # Mukesh Gold Frontend Repo
-      # =========================================
+      
       - name: Sync to Mukesh Gold Frontend Repo
         continue-on-error: true
         run: |
