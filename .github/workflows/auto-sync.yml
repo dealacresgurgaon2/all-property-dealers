@@ -24,9 +24,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "github-actions"
 
-      # =========================================
       # Property Dealers Repo
-      # =========================================
       - name: Sync to Property Dealers Repo
         continue-on-error: true
         run: |
@@ -36,9 +34,7 @@ jobs:
 
           git push second HEAD:main --force
 
-      # =========================================
       # Delhi Repo
-      # =========================================
       - name: Sync to Delhi Repo
         continue-on-error: true
         run: |
@@ -48,7 +44,7 @@ jobs:
 
           git push delhi HEAD:main --force
 
-      
+      # Mukesh Gold Frontend Repo
       - name: Sync to Mukesh Gold Frontend Repo
         continue-on-error: true
         run: |
@@ -57,3 +53,4 @@ jobs:
           git remote add gold https://x-access-token:${{ secrets.MUKESH_PROJECTS_ACCESS_TOKEN }}@github.com/mukeshkumar44/propertydelerGoldFrontend.git
 
           git push gold HEAD:main --force
+
