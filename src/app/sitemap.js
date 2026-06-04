@@ -291,7 +291,7 @@ let blogUrls = [];
 try {
 
   const API_URL =
-    `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${domainForApi}`;
+    `https://property-dealer-xa5g.onrender.com/blogs/getSlugsByDomain/${domainForApi}`;
 
   console.log(
     "BLOG DOMAIN:",
