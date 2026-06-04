@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const BlogContext = createContext();
 
-const API_BASE = "https://deal-acres-backend.onrender.com";
+const API_BASE = "https://property-dealer-xa5g.onrender.com";
 
 export const BlogProvider = ({ children }) => {
 
@@ -51,7 +51,7 @@ export const BlogProvider = ({ children }) => {
       setListError(null);
 
       const res = await fetch(
-        `${API_BASE}/admin/blog/fetchBlogs?domain=${domain}&page=${pageNumber}&limit=30`
+        `${API_BASE}/blogs/fetchBlogs?domain=${domain}&page=${pageNumber}&limit=30`
       );
 
       if (!res.ok) throw new Error("Failed to fetch blogs");
@@ -81,7 +81,7 @@ export const BlogProvider = ({ children }) => {
       if (!domain) return;
 
       const res = await fetch(
-        `${API_BASE}/admin/blog/getBlogBySlug/${slug}?domain=${domain}`
+        `${API_BASE}/blogs/getBlogBySlug/${slug}?domain=${domain}`
       );
 
       if (!res.ok) throw new Error("Failed to fetch blog");
