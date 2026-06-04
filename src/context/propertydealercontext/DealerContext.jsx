@@ -44,10 +44,15 @@ export function DealerProvider({ children }) {
 
       const res = await axios.get(url);
 
-      // ✅ CORRECT DATA SET
-      setDealers(res?.data?.data || []);
+      // 🔥 RANDOM DEALERS
+      const shuffledDealers = [...(res?.data?.data || [])].sort(
+        () => Math.random() - 0.5
+      );
 
-      // 🔥 MAIN FIX (IMPORTANT)
+      // ✅ RANDOM DATA SET
+      setDealers(shuffledDealers);
+
+      // 🔥 TOTAL PAGES
       setTotalPages(res?.data?.pagination?.totalPages ?? 1);
 
     } catch (err) {

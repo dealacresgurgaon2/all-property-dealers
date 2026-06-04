@@ -1,82 +1,72 @@
 import DelhiPage from "./DelhiPage";
 
-export async function generateMetadata({ params }) {
+export const metadata = {
+  title:
+    "Property Dealers in Delhi | Buy Sell Rent Properties",
 
-  const { zone } = await params;
+  description:
+    "Find trusted property dealers, builders, and real estate agents in Delhi for buying, selling, and renting residential & commercial properties.",
 
-  const formattedZone = zone
-    ?.replace(/-/g, " ")
-    ?.replace(/\b\w/g, (char) => char.toUpperCase());
+  keywords: [
+    "Property Dealers Delhi",
+    "Real Estate Delhi",
+    "Buy Property in Delhi",
+    "Sell Property in Delhi",
+    "Rent Property in Delhi",
+    "Commercial Property Delhi",
+    "Residential Property Delhi",
+    "Property Consultants Delhi",
+    "Real Estate Agents Delhi",
+  ],
 
-  return {
+  alternates: {
+    canonical:
+      "https://www.propertydealerindelhi.com/explore-property-dealers-in-delhi",
+  },
+
+  openGraph: {
     title:
-      `${formattedZone} | Buy Sell Rent Properties`,
+      "Property Dealers in Delhi | Buy Sell Rent Properties",
 
     description:
-      `Find trusted property dealers, builders, and real estate agents in ${formattedZone}, Delhi for buying, selling, and renting residential & commercial properties.`,
+      "Explore verified property dealers and real estate agents in Delhi.",
 
-    keywords: [
-      formattedZone,
-      `Property Dealers ${formattedZone}`,
-      `Real Estate ${formattedZone}`,
-      `Buy Property in ${formattedZone}`,
-      `Sell Property in ${formattedZone}`,
-      `Rent Property in ${formattedZone}`,
-      `Commercial Property ${formattedZone}`,
-      `Residential Property ${formattedZone}`,
-      `Property Consultants ${formattedZone}`,
-      `Real Estate Agents ${formattedZone}`,
-      "Delhi Property Dealers",
+    url:
+      "https://www.propertydealerindelhi.com",
+
+    siteName:
+      "Property Dealer Delhi",
+
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Delhi Property Dealers",
+      },
     ],
 
-    alternates: {
-      canonical:
-        `https://www.propertydealerindelhi.com/${zone}`,
-    },
+    locale: "en_IN",
+    type: "website",
+  },
 
-    openGraph: {
-      title:
-        `${formattedZone} | Buy Sell Rent Properties`,
+  twitter: {
+    card: "summary_large_image",
 
-      description:
-        `Explore verified property dealers and real estate agents in ${formattedZone}, Delhi.`,
+    title:
+      "Property Dealers in Delhi | Buy Sell Rent Properties",
 
-      url:
-        `https://www.propertydealerindelhi.com/${zone}`,
+    description:
+      "Find trusted property dealers and real estate agents in Delhi.",
 
-      siteName: "Property Dealer Delhi",
+    images: ["/og-image.jpg"],
+  },
 
-      images: [
-        {
-          url: "/og-image.jpg",
-          width: 1200,
-          height: 630,
-          alt: formattedZone,
-        },
-      ],
-
-      locale: "en_IN",
-      type: "website",
-    },
-
-    twitter: {
-      card: "summary_large_image",
-
-      title:
-        `${formattedZone} | Buy Sell Rent Properties`,
-
-      description:
-        `Find trusted property dealers and real estate agents in ${formattedZone}, Delhi.`,
-
-      images: ["/og-image.jpg"],
-    },
-
-    robots: {
-      index: true,
-      follow: true,
-    },
-  };
-}
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default function HomePage() {
   return (

@@ -1,8 +1,13 @@
+import Breadcrumb from "@/templates/design3/components/Breadcrumb";
+
 export default function HisarHeroSection() {
   return (
     <section className="w-full bg-white py-8 px-4 md:px-12">
       
       <div className="max-w-7xl mx-auto">
+        <div className="mb-3">
+          <Breadcrumb/>
+        </div>
         
         {/* Heading */}
         <h1 className="text-2xl md:text-4xl font-bold text-[#5E23DC] leading-tight">

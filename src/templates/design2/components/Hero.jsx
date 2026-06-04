@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import GoldContactPopup from "./GoldContactPopup";
+import CustomAlert from "./CustomAlert";
 
 export default function Hero() {
   const [popupOpen, setPopupOpen] = useState(false);
@@ -10,7 +11,12 @@ export default function Hero() {
     cities: 0,
     years: 0,
   });
+   const [alertOpen, setAlertOpen] = useState(false);
 
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
   useEffect(() => {
     const targets = { listings:1000 , cities: 25, years: 20 };
     const duration = 2000;
@@ -42,7 +48,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative w-full py-6 md:py-6 overflow-hidden"
+      className="relative w-full min-h-[82vh] flex items-center overflow-hidden py-4"
       style={{
         backgroundImage: "url('/images/you.jpeg')",
         backgroundSize: "cover",
@@ -58,7 +64,7 @@ export default function Hero() {
 
       {/* CONTENT */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_420px] gap-20 items-center">
 
           {/* LEFT SIDE */}
           <div className="text-white">
@@ -74,7 +80,7 @@ export default function Hero() {
               At Best Price <span className="text-[#d4af37]">With Us</span>
             </h1>
 
-            <p className="text-lg text-white/85 mb-8 max-w-xl">
+            <p className="text-lg text-white/85 mb-8 max-3-xl">
               Looking for the best property dealer in Faridabad to buy, sell, or rent your dream home? You have come to the right place. We are a team of experienced and certified real estate agents in Faridabad, offering end-to-end property solutions across all major sectors, colonies, and localities. Whether you need a trusted property broker in Faridabad for residential plots, independent floors, builder floors, or commercial spaces, our verified network of real estate brokers in Faridabad ensures a smooth and transparent transaction every time. We specialise in NIT Faridabad, Neharpar Greater Faridabad, Ashoka Enclave, Sainik Colony, Sector 15, 16, 21, and all Sectors 70–90 in Greater Faridabad. As the most reliable real estate broker in Faridabad, we help you get the best market price with zero hidden charges. Thousands of satisfied buyers, sellers, and tenants trust us for honest advice, local expertise, and quick closings. Connect with Faridabad's most recommended property dealers today — your property journey starts here.
             </p>
 
@@ -98,7 +104,10 @@ export default function Hero() {
             <h2 className="text-lg font-bold mb-4 text-white text-center">
               Get Free Consultation
             </h2>
-            <HeroForm />
+            <HeroForm
+  setAlertOpen={setAlertOpen}
+  setAlertData={setAlertData}
+/>
           </div>
 
         </div>
@@ -108,12 +117,21 @@ export default function Hero() {
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />
+      <CustomAlert
+  open={alertOpen}
+  type={alertData.type}
+  message={alertData.message}
+  onClose={() => setAlertOpen(false)}
+/>
     </section>
   );
 }
 
 /* FORM */
-function HeroForm() {
+function HeroForm({
+  setAlertOpen,
+  setAlertData,
+}) {
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
@@ -139,7 +157,12 @@ function HeroForm() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
+
+setAlertOpen(true);
       return;
     }
 
@@ -147,7 +170,12 @@ function HeroForm() {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    alert("Query submitted successfully!");
+     setAlertData({
+  type: "success",
+  message: "Query submitted successfully!",
+});
+
+setAlertOpen(true);
 
     setForm({
       name: "",
@@ -181,7 +209,7 @@ function HeroForm() {
     </form>
   );
 }
-
+   
 /* STAT */
 function Stat({ value, label }) {
   return (

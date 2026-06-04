@@ -2,17 +2,24 @@
 
 import { useEffect, useState } from "react";
 import ContactPopup from "./ContactPopup";
+import CustomAlert from "./CustomAlert";
 
 export default function Hero() {
   const [popupOpen, setPopupOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
+   const [form, setForm] = useState({
     name: "",
     phone: "",
     lookingFor: "",
     message: "",
   });
+const [alertOpen, setAlertOpen] = useState(false);
+
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
 
   const [counts, setCounts] = useState({
     listings: 0,
@@ -64,14 +71,20 @@ export default function Hero() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
-      return;
-    }
+    setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
 
-    if (!form.lookingFor) {
-      alert("Please select what you're looking for");
-      return;
+setAlertOpen(true);
     }
+    if (!form.lookingFor) {
+    setAlertData({
+  type: "error",
+  message: "Please select what you're looking for",
+});
+
+setAlertOpen(true);}
 
     setLoading(true);
 
@@ -85,7 +98,12 @@ export default function Hero() {
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("Query submitted successfully!");
+      setAlertData({
+  type: "success",
+  message: "Query submitted successfully!",
+});
+
+setAlertOpen(true);
 
       setForm({
         name: "",
@@ -117,7 +135,7 @@ export default function Hero() {
       <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-white/10 blur-3xl rounded-full" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_420px] gap-20 items-center">
 
           {/* LEFT CONTENT */}
           <div className="text-white">
@@ -136,7 +154,7 @@ export default function Hero() {
               At Best Price
             </h1>
 
-            <p className="text-sm text-white/85 mb-8 max-w-xl">
+            <p className="text-lg text-white/85 mb-8 max-4-xl">
               Are you searching for the best property dealer in Delhi to help you buy, sell, or rent a property at the right price? Welcome to PropertyDealerInDelhi.com — Delhi’s most trusted real estate platform connecting buyers, sellers, and tenants with verified property brokers and real estate agents across all major localities. Whether you need a seasoned real estate broker in South Delhi’s premium enclaves like Defence Colony and Greater Kailash, or a reliable property broker in North Delhi’s planned colonies like Rohini and Pitampura, we have the right expert for you. Our network of professional real estate agents in Delhi covers 200+ localities spanning all five zones — South, North, East, West, and Central Delhi. From luxury independent houses and DDA flats to commercial shops and office spaces, our best real estate agents in Delhi offer end-to-end assistance, transparent dealings, and market-driven valuations. Start your property journey today with Delhi’s most comprehensive property dealer directory.
             </p>
 
@@ -224,6 +242,12 @@ export default function Hero() {
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />
+      <CustomAlert
+  open={alertOpen}
+  type={alertData.type}
+  message={alertData.message}
+  onClose={() => setAlertOpen(false)}
+/>
     </section>
   );
 }

@@ -1193,7 +1193,7 @@ useEffect(() => {
         <li key={index}>
   <Link
 href={`/delhi/property-dealer-in-${createSlug(location)}`}
-    className="transition font-medium hover:text-red-600 hover:font-bold hover:underline"
+    className="transition font-medium hover:text-red-600 hover:font-bold hover:underline text-sm"
   >
     Property Dealer in {location}
   </Link>

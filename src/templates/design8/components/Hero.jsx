@@ -1,17 +1,24 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import DealerThemePopup from "./DealerThemePopup";
+import CustomAlert from "./CustomAlert";
 
 export default function Hero() {
+
   const [counts, setCounts] = useState({
     listings: 0,
     cities: 0,
     years: 0,
   });
 
-  const [popupOpen, setPopupOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  const [alertData, setAlertData] = useState({
+    type: "success",
+    message: "",
+  });
 
   const [form, setForm] = useState({
     firstName: "",
@@ -23,12 +30,21 @@ export default function Hero() {
   });
 
   useEffect(() => {
-    const targets = { listings: 5000, cities: 25, years: 10 };
+
+    const targets = {
+      listings: 5000,
+      cities: 25,
+      years: 10,
+    };
+
     const duration = 2200;
+
     const steps = 60;
+
     let step = 0;
 
     const interval = setInterval(() => {
+
       step++;
 
       setCounts({
@@ -36,20 +52,26 @@ export default function Hero() {
           Math.round((targets.listings / steps) * step),
           targets.listings
         ),
+
         cities: Math.min(
           Math.round((targets.cities / steps) * step),
           targets.cities
         ),
+
         years: Math.min(
           Math.round((targets.years / steps) * step),
           targets.years
         ),
       });
 
-      if (step >= steps) clearInterval(interval);
+      if (step >= steps) {
+        clearInterval(interval);
+      }
+
     }, duration / steps);
 
     return () => clearInterval(interval);
+
   }, []);
 
   const website =
@@ -58,34 +80,59 @@ export default function Hero() {
       : "";
 
   const handleChange = (e) => {
+
     const { name, value } = e.target;
 
     if (name === "phone") {
+
       if (!/^\d*$/.test(value)) return;
+
       if (value.length > 10) return;
+
     }
 
-    setForm({ ...form, [name]: value });
+    setForm({
+      ...form,
+      [name]: value,
+    });
+
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Mobile number must be 10 digits");
+
+      setAlertData({
+        type: "error",
+        message: "Mobile number must be 10 digits",
+      });
+
+      setAlertOpen(true);
+
       return;
     }
 
     if (!form.requirement) {
-      alert("Please select requirement");
+
+      setAlertData({
+        type: "error",
+        message: "Please select requirement",
+      });
+
+      setAlertOpen(true);
+
       return;
     }
 
     setLoading(true);
 
     try {
+
       const res = await fetch("/api/submit", {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
         },
@@ -102,8 +149,16 @@ export default function Hero() {
 
       const result = await res.json();
 
-      if (result.success) {
-        alert("Your enquiry has been submitted!");
+      console.log("HERO RESULT =>", result);
+
+      if (res.ok) {
+
+        setAlertData({
+          type: "success",
+          message: "Your enquiry has been submitted!",
+        });
+
+        setAlertOpen(true);
 
         setForm({
           firstName: "",
@@ -113,168 +168,263 @@ export default function Hero() {
           requirement: "",
           message: "",
         });
+
       } else {
-        alert("Something went wrong. Please try again.");
+
+        setAlertData({
+          type: "error",
+          message:
+            result?.error ||
+            "Something went wrong. Please try again.",
+        });
+
+        setAlertOpen(true);
+
       }
+
     } catch (error) {
+
       console.log("Hero form error:", error);
-      alert("Server error. Please try later.");
+
+      setAlertData({
+        type: "error",
+        message: "Server error. Please try later.",
+      });
+
+      setAlertOpen(true);
+
     } finally {
+
       setLoading(false);
+
     }
+
   };
 
   return (
- <section className="relative min-h-[70vh] overflow-hidden bg-[#12060C] text-white">
 
-  {/* PREMIUM BACKGROUND */}
-  <div className="absolute inset-0 bg-gradient-to-br from-[#14070D] via-[#1B0813] to-[#12060C]" />
+    <>
+    
+      <section className="relative min-h-[70vh] overflow-hidden bg-[#12060C] text-white">
 
-  <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#76153C]/15 blur-[120px] rounded-full" />
+        {/* PREMIUM BACKGROUND */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#14070D] via-[#1B0813] to-[#12060C]" />
 
-  <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#5A0E24]/15 blur-[120px] rounded-full" />
+        <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#76153C]/15 blur-[120px] rounded-full" />
 
-  <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:90px_90px]" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#5A0E24]/15 blur-[120px] rounded-full" />
 
-  <div className="relative z-10 max-w-7xl mx-auto px-4 py-5">
+        <div className="absolute inset-0 opacity-[0.02] bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:90px_90px]" />
 
-    <div className="grid lg:grid-cols-2 gap-10 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 py-5">
 
-      {/* LEFT SIDE */}
-      <div className="max-w-lg">
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
 
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.05] border border-white/10 text-sm text-gray-300 mb-5">
+            {/* LEFT SIDE */}
+            <div className="max-w-lg">
 
-          <div className="w-2 h-2 rounded-full bg-pink-300" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.05] border border-white/10 text-sm text-gray-300 mb-5">
 
-          Trusted Property Platform
+                <div className="w-2 h-2 rounded-full bg-pink-300" />
 
-        </div>
+                Trusted Property Platform
 
-        <h1 className="text-3xl md:text-4xl font-bold leading-[1.15]">
+              </div>
 
-          Find Your
+              <h1 className="text-3xl md:text-5xl font-bold leading-[1.15]">
 
-          <span className="block mt-2 bg-gradient-to-r from-pink-200 via-pink-400 to-pink-300 text-transparent bg-clip-text">
+                Find Your
 
-            Dream Property
+                <span className="block mt-2 bg-gradient-to-r from-pink-200 via-pink-400 to-pink-300 text-transparent bg-clip-text">
 
-          </span>
+                  Dream Property
 
-        </h1>
+                </span>
 
-        <p className="mt-5 text-gray-300 text-[16px] leading-7">
+              </h1>
 
-          Buy, rent or sell properties with verified dealers
-          across top cities in India.
+              <p className="mt-5 text-gray-300 text-[16px] leading-7">
 
-        </p>
+                Buy, rent or sell properties with verified dealers
+                across top cities in India.
 
-        {/* BUTTONS */}
-        <div className="flex gap-4 mt-7">
+              </p>
 
-          <button className="px-7 h-12 rounded-xl bg-gradient-to-r from-[#76153C] to-[#5A0E24] font-semibold hover:opacity-90 transition">
+              {/* BUTTONS */}
+              {/* <div className="flex gap-4 mt-7">
 
-            Contact Agent
+                <button className="px-7 h-12 rounded-xl bg-gradient-to-r from-[#76153C] to-[#5A0E24] font-semibold hover:opacity-90 transition">
 
-          </button>
+                  Contact Agent
 
-          <button className="px-7 h-12 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition">
+                </button>
 
-            Explore
+                <button className="px-7 h-12 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.05] transition">
 
-          </button>
+                  Explore
 
-        </div>
+                </button>
 
-        {/* STATS */}
-        {/* <div className="flex gap-4 mt-10">
+              </div> */}
 
-          <ModernStat value="5000+" label="Listings" />
+              {/* STATS */}
+              {/* <div className="flex gap-4 mt-10 flex-wrap">
 
-          <ModernStat value="25+" label="Cities" />
+                <ModernStat
+                  value={`${counts.listings}+`}
+                  label="Listings"
+                />
 
-          <ModernStat value="10+" label="Years" />
+                <ModernStat
+                  value={`${counts.cities}+`}
+                  label="Cities"
+                />
 
-        </div> */}
+                <ModernStat
+                  value={`${counts.years}+`}
+                  label="Years"
+                />
 
-      </div>
-
-      {/* RIGHT FORM */}
-      <div className="flex justify-center lg:justify-end">
-
-        <div className="w-full max-w-[500px] rounded-[28px] border border-white/10 bg-white/[0.05] backdrop-blur-xl p-3 shadow-[0_10px_60px_rgba(0,0,0,0.35)]">
-
-          <div className="mb-4">
-
-            <h3 className="text-3xl font-bold text-center">
-              Quick Property Help
-            </h3>
-
-            <p className="text-gray-400 text-sm text-center mt-2">
-              Fill the form to get instant callback.
-            </p>
-
-          </div>
-
-          <form className="space-y-3">
-
-            <div className="grid grid-cols-2 gap-4">
-
-              <input
-                placeholder="First Name"
-                className="h-12 rounded-xl bg-white px-4 text-black outline-none"
-              />
-
-              <input
-                placeholder="Last Name"
-                className="h-12 rounded-xl bg-white px-4 text-black outline-none"
-              />
+              </div> */}
 
             </div>
 
-            <input
-              placeholder="Mobile Number"
-              className="w-full h-12 rounded-xl bg-white px-4 text-black outline-none"
-            />
+            {/* RIGHT FORM */}
+            <div className="flex justify-center lg:justify-end">
 
-            <input
-              placeholder="Email Address"
-              className="w-full h-12 rounded-xl bg-white px-4 text-black outline-none"
-            />
+              <div className="w-full max-w-[500px] rounded-[28px] border border-white/10 bg-white/[0.05] backdrop-blur-xl p-4 shadow-[0_10px_60px_rgba(0,0,0,0.35)]">
 
-            <select className="w-full h-12 rounded-xl bg-white px-4 text-black outline-none">
+                <div className="mb-4">
 
-              <option>Select Requirement</option>
+                  <h3 className="text-3xl font-bold text-center">
+                    Quick Property Help
+                  </h3>
 
-            </select>
+                  <p className="text-gray-400 text-sm text-center mt-2">
+                    Fill the form to get instant callback.
+                  </p>
 
-            <textarea
-              rows={3}
-              placeholder="Describe requirement..."
-              className="w-full rounded-xl bg-white px-4 py-3 text-black outline-none resize-none"
-            />
+                </div>
 
-            <button className="w-full h-12 rounded-xl bg-gradient-to-r from-[#76153C] to-[#5A0E24] font-semibold hover:opacity-90 transition cursor-pointer">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-3"
+                >
 
-              Get Callback
+                  <div className="grid grid-cols-2 gap-4">
 
-            </button>
+                    <input
+                      name="firstName"
+                      value={form.firstName}
+                      onChange={handleChange}
+                      placeholder="First Name"
+                      className="h-12 rounded-xl bg-white px-4 text-black outline-none"
+                    />
 
-          </form>
+                    <input
+                      name="lastName"
+                      value={form.lastName}
+                      onChange={handleChange}
+                      placeholder="Last Name"
+                      className="h-12 rounded-xl bg-white px-4 text-black outline-none"
+                    />
+
+                  </div>
+
+                  <input
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="Mobile Number"
+                    className="w-full h-12 rounded-xl bg-white px-4 text-black outline-none"
+                  />
+
+                  <input
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="Email Address"
+                    className="w-full h-12 rounded-xl bg-white px-4 text-black outline-none"
+                  />
+
+                  <select
+                    name="requirement"
+                    value={form.requirement}
+                    onChange={handleChange}
+                    className="w-full h-12 rounded-xl bg-white px-4 text-black outline-none"
+                  >
+
+                    <option value="">
+                      Select Requirement
+                    </option>
+
+                    <option value="Buy Property">
+                      Buy Property
+                    </option>
+
+                    <option value="Sell Property">
+                      Sell Property
+                    </option>
+
+                    <option value="Rent Property">
+                      Rent Property
+                    </option>
+
+                  </select>
+
+                  <textarea
+                    rows={3}
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Describe requirement..."
+                    className="w-full rounded-xl bg-white px-4 py-3 text-black outline-none resize-none"
+                  />
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full h-12 rounded-xl bg-gradient-to-r from-[#76153C] to-[#5A0E24] font-semibold hover:opacity-90 transition cursor-pointer disabled:opacity-60"
+                  >
+
+                    {loading
+                      ? "Submitting..."
+                      : "Get Callback"}
+
+                  </button>
+
+                </form>
+
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
-      </div>
+      </section>
 
-    </div>
+      {/* ALERT */}
+      <CustomAlert
+        open={alertOpen}
+        type={alertData.type}
+        message={alertData.message}
+        onClose={() => {
+          setAlertOpen(false);
+        }}
+      />
 
-  </div>
+    </>
 
-</section>
-  )}
+  );
+
+}
+
 function ModernStat({ value, label }) {
+
   return (
+
     <div className="min-w-[110px] rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 text-center">
 
       <div className="text-3xl font-bold bg-gradient-to-r from-pink-200 to-pink-400 text-transparent bg-clip-text">
@@ -286,5 +436,7 @@ function ModernStat({ value, label }) {
       </div>
 
     </div>
+
   );
+
 }

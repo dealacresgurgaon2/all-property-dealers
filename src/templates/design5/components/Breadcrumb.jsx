@@ -75,14 +75,14 @@ if (pathname.startsWith("/estate-agent")) {
 
         <Link href="/" className={baseClass}>Home</Link>
 
-        {city && (
+        {/* {city && (
           <>
             <span>›</span>
             <Link href={`/${city.toLowerCase()}`} className={baseClass}>
               {formatTitle(city)}
             </Link>
           </>
-        )}
+        )} */}
 
         <span>›</span>
         <span className="font-semibold">
@@ -92,7 +92,22 @@ if (pathname.startsWith("/estate-agent")) {
       </div>
     );
   }
+// ================= STATIC PAGES =================
+if (pathParts.length === 1) {
+  return (
+    <div className="text-xs flex gap-2 flex-wrap text-gray-700">
+      <Link href="/" className={baseClass}>
+        Home
+      </Link>
 
+      <span>›</span>
+
+      <span className="font-semibold">
+        {formatTitle(pathParts[0])}
+      </span>
+    </div>
+  );
+}
   // ================= LISTING =================
  // ================= LISTING =================
 const filteredParts = pathParts.filter((p) => p !== "listing");
@@ -116,14 +131,14 @@ if (filteredParts.length >= 2) {
 
       <Link href="/" className={baseClass}>Home</Link>
 
-      {city && (
+      {/* {city && (
         <>
           <span>›</span>
           <Link href={`/${city}`} className={baseClass}>
             {formatTitle(city)}
           </Link>
         </>
-      )}
+      )} */}
 
       {title && (
         <>

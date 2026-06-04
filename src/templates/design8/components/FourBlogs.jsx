@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useBlogs } from "@/context/design7api/blogcontext";
+import { useBlogs } from "@/context/design8api/blogcontext";
 
 const formatDate = (date) => {
 

@@ -1,75 +1,96 @@
 import ZonePage from "./ZonePage";
 
-export const metadata = {
-  title:
-    "Top Property Dealers in Haryana | Buy Sell Rent Properties",
+export async function generateMetadata({ params }) {
+  const { zone } = await params;
 
-  description:
-    "Find trusted property dealers, real estate agents, and builders across Haryana for buying, selling, and renting residential & commercial properties.",
+  const zoneName = zone
+    ?.split("-")
+    .map(
+      (item) =>
+        item.charAt(0).toUpperCase() +
+        item.slice(1)
+    )
+    .join(" ");
 
-  keywords: [
-    "Property Dealers Haryana",
-    "Real Estate Haryana",
-    "Buy Property in Haryana",
-    "Sell Property in Haryana",
-    "Rent Property in Haryana",
-    "Commercial Property Haryana",
-    "Residential Property Haryana",
-    "Builders in Haryana",
-    "Real Estate Agents Haryana",
-    "Luxury Property Haryana",
-  ],
+  const title = `Top Property Dealers in ${zoneName} | Buy, Sell & Rent Properties`;
 
-  alternates: {
-    canonical: "https://yourdomain.com/haryana",
-  },
+  const description = `Find trusted property dealers, real estate agents, builders, and consultants in ${zoneName}. Explore residential and commercial properties for sale, rent, and investment opportunities.`;
 
-  openGraph: {
-    title:
-      "Top Property Dealers in Haryana",
+  const canonicalUrl = `https://www.propertydealerindelhi.com/zone/${zone}`;
 
-    description:
-      "Explore verified property dealers and real estate agents across Haryana.",
+  return {
+    title,
+    description,
 
-    url: "https://yourdomain.com/haryana",
-
-    siteName: "Property Dealer",
-
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Property Dealers in Haryana",
-      },
+    keywords: [
+      `${zoneName} Property Dealers`,
+      `${zoneName} Real Estate Agents`,
+      `Property Dealers in ${zoneName}`,
+      `Buy Property in ${zoneName}`,
+      `Sell Property in ${zoneName}`,
+      `Rent Property in ${zoneName}`,
+      `${zoneName} Commercial Property`,
+      `${zoneName} Residential Property`,
+      `${zoneName} Property Consultant`,
+      `${zoneName} Property Broker`,
+      `${zoneName} Real Estate`,
+      `${zoneName} Builders`,
+      `${zoneName} Investment Property`,
+      `${zoneName} Luxury Property`,
+      `${zoneName} Property Market`,
     ],
 
-    locale: "en_IN",
-    type: "website",
-  },
+    alternates: {
+      canonical: canonicalUrl,
+    },
 
-  twitter: {
-    card: "summary_large_image",
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: "Property Dealer In Delhi",
+      locale: "en_IN",
+      type: "website",
 
-    title:
-      "Top Property Dealers in Haryana",
+      images: [
+        {
+          url: "https://www.propertydealerindelhi.com/og-image.jpg",
+          width: 1200,
+          height: 630,
+          alt: `Property Dealers in ${zoneName}`,
+        },
+      ],
+    },
 
-    description:
-      "Find trusted real estate agents and property dealers across Haryana.",
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [
+        "https://www.propertydealerindelhi.com/og-image.jpg",
+      ],
+    },
 
-    images: ["/og-image.jpg"],
-  },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+  };
+}
 
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export default async function Page({ params }) {
+  const { zone } = await params;
 
-export default function Page() {
   return (
     <main>
-      <ZonePage />
+      <ZonePage zone={zone} />
     </main>
   );
 }

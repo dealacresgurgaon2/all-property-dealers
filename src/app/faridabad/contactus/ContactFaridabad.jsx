@@ -2,17 +2,21 @@
 
 import Image from "next/image";
 import QueryForm from "@/templates/design2/components/QueryForm";
+import Breadcrumb from "@/templates/design2/components/Breadcrumb";
 
 export default function ContactFaridabad() {
   return (
     <>
       {/* ================= HERO SECTION ================= */}
-      <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-gray-50 to-white py-10 overflow-hidden">
 
         {/* Decorative Blur */}
         <div className="absolute -top-32 -right-32 w-[400px] h-[400px] bg-blue-100 rounded-full blur-3xl opacity-30"></div>
 
         <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="py-4 px-3">
+            <Breadcrumb />
+          </div>
 
           {/* ===== TOP CENTER CONTENT ===== */}
           <div className=" mb-16">

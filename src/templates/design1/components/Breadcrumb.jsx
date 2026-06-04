@@ -199,29 +199,15 @@ export default function Breadcrumb({ property }) {
         Home
       </Link>
 
-      {city && (
-        <>
-          <span>›</span>
-
-          <Link
-            href={`/${city}`}
-            className={baseClass}
-          >
-            {formatTitle(city)}
-          </Link>
-        </>
-      )}
-
       {title && (
-        <>
-          <span>›</span>
+  <>
+    <span>›</span>
 
-          <span className="font-semibold">
-            {formatTitle(title)}
-          </span>
-        </>
-      )}
-
+    <span className="font-semibold">
+      {formatTitle(title)}
+    </span>
+  </>
+)}
     </div>
   );
 }

@@ -1,11 +1,7 @@
 export const DOMAIN_LAYOUT_MAP = {
-  "propertydeler-gold-frontend-9wvp.vercel.app": "faridabad",
-  "propertydeler-gold-frontend.vercel.app": "gurgaon",
-  "propertydeler-gold-frontend-lp3d.vercel.app": "hisar",
-  "propertydeler-gold-frontend-xkw9.vercel.app": "noida",
-  "propertydeler-gold-frontend-k2da.vercel.app": "delhi",
+  
   // "localhost:3000": "chandigarh",
-  // "localhost:3000": "realestate",
+
   "https://propertydealerinhisar.com":"hisar",
   "www.propertydealerinhisar.com":"hisar",
   "www.propertydealerinhisar.com/":"hisar",
@@ -22,7 +18,7 @@ export const DOMAIN_LAYOUT_MAP = {
   "www.realestateagentsnearme.in":"realestate",
   "realestateagentsnearme.in":"realestate",
 
-"localhost:3000": "haryana",
+"localhost:3000":"delhi", // ✅ LOCALHOST FIX
 };
 
 export const DEFAULT_LAYOUT = "haryana"

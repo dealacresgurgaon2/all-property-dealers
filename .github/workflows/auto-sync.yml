@@ -43,3 +43,14 @@ jobs:
           git remote add delhi https://x-access-token:${{ secrets.DELHI_TOKEN }}@github.com/dealacresDelhi/all-property-dealers.git
 
           git push delhi HEAD:main --force
+
+      # Mukesh Gold Frontend Repo
+      - name: Sync to Mukesh Gold Frontend Repo
+        continue-on-error: true
+        run: |
+          git remote remove gold || true
+
+          git remote add gold https://x-access-token:${{ secrets.MUKESH_PROJECTS_ACCESS_TOKEN }}@github.com/mukeshkumar44/propertydelerGoldFrontend.git
+
+          git push gold HEAD:main --force
+

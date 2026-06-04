@@ -2,11 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import Breadcrumb from "../../components/Breadcrumb";
 
 export default function AboutSection() {
   return (
-    <section className="bg-gradient-to-b from-white to-[#faf6ec] py-20">
+    <section className="bg-gradient-to-b from-white to-[#faf6ec] py-10">
       <div className="max-w-7xl mx-auto px-4">
+        <div className="py-4 px-3">
+          <Breadcrumb/>
+        </div>
 
         {/* ======= HERO STYLE INTRO ======= */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">

@@ -2,12 +2,16 @@
 
 import Image from "next/image";
 import QueryForm from "@/templates/design3/components/QueryForm";
+import Breadcrumb from "@/templates/design3/components/Breadcrumb";
 
 export default function ContactUsPage() {
   return (
     <section className="bg-white pt-10">
 
       <div className="max-w-7xl mx-auto px-4">
+        <div className="py-4 px-2">
+          <Breadcrumb/>
+        </div>
 
         {/* ===== PAGE HEADER ===== */}
         <div className=" mb-16">

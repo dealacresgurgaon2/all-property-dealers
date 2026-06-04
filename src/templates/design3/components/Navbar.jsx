@@ -50,7 +50,7 @@ export default function Navbar() {
 
             {/* ===== CONTACT BUTTON ===== */}
             <Link
-              href="/contact-us"
+              href="/contactus"
               className="ml-2 px-4 py-2 bg-[#5E23DC] text-white rounded-lg font-medium hover:bg-[#4b1cb3] transition"
             >
               Contact Us
@@ -170,7 +170,7 @@ export default function Navbar() {
 
           {/* ===== CONTACT DRAWER ===== */}
           <Link
-            href="/contact-us"
+            href="/contactus"
             onClick={() => setOpen(false)}
             className="text-white bg-[#5E23DC] font-medium rounded-lg text-center py-2 mt-3"
           >

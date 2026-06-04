@@ -1,8 +1,13 @@
+import Breadcrumb from "@/templates/design6/components/Breadcrumb";
+
 export default function NoidaHeroSection() {
   return (
     <section className="w-full bg-gray-50 py-8 px-2 md:px-12">
       
       <div className="max-w-7xl mx-auto">
+          <div className="py-4 px-2">
+            <Breadcrumb/>
+          </div>
         
         {/* Heading */}
         <h1 className="text-2xl md:text-4xl font-bold text-green-600 leading-tight">

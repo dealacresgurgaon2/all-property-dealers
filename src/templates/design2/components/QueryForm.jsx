@@ -1,17 +1,24 @@
 "use client";
 
 import { useState } from "react";
+import CustomAlert from "./CustomAlert";
 
 export default function QueryForm() {
   const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
+   const [form, setForm] = useState({
     name: "",
     phone: "",
     email: "",
     message: "",
     lookingFor: "",
   });
+  const [alertOpen, setAlertOpen] = useState(false);
+
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +35,12 @@ export default function QueryForm() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
+
+setAlertOpen(true);
       return;
     }
 
@@ -36,7 +48,12 @@ export default function QueryForm() {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      alert("Query submitted successfully!");
+      setAlertData({
+  type: "success",
+  message: "Query submitted successfully!",
+});
+
+setAlertOpen(true);
 
       setForm({
         name: "",
@@ -172,7 +189,12 @@ export default function QueryForm() {
         </button>
 
       </form>
-
+<CustomAlert
+  open={alertOpen}
+  type={alertData.type}
+  message={alertData.message}
+  onClose={() => setAlertOpen(false)}
+/>
       <p className="text-[10px] text-black/60 mt-3 text-center">
         🔒 Your details are safe with us. No spam.
       </p>

@@ -29,7 +29,7 @@ export const SearchProvider = ({ children }) => {
       const domain = getDomain(); // 🔥 dynamic
 
       const res = await fetch(
-        `http://localhost:5000/api/search?q=${query}&domain=${domain}`
+        `https://property-dealer-xa5g.onrender.com/api/search?q=${query}&domain=${domain}`
       );
 
       const data = await res.json();

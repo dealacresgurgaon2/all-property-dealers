@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import GreenContactPopup from "./GreenContactPopup";
+import CustomAlert from "./CustomAlert";
 
 export default function Hero() {
   const [counts, setCounts] = useState({
@@ -13,12 +14,18 @@ export default function Hero() {
   const [popupOpen, setPopupOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
+   const [form, setForm] = useState({
     name: "",
     phone: "",
     lookingFor: "",
     message: "",
   });
+const [alertOpen, setAlertOpen] = useState(false);
+
+const [alertData, setAlertData] = useState({
+  type: "success",
+  message: "",
+});
 
   useEffect(() => {
     const targets = { listings: 500, cities: 25, years: 20 };
@@ -64,12 +71,22 @@ export default function Hero() {
     e.preventDefault();
 
     if (form.phone.length !== 10) {
-      alert("Phone number must be 10 digits");
+      setAlertData({
+  type: "error",
+  message: "Phone number must be 10 digits",
+});
+
+setAlertOpen(true);
       return;
     }
 
     if (!form.lookingFor) {
-      alert("Please select what you're looking for");
+      setAlertData({
+  type: "error",
+  message: "Please select what you're looking for",
+});
+
+setAlertOpen(true);
       return;
     }
 
@@ -85,7 +102,12 @@ export default function Hero() {
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      alert("Query submitted successfully!");
+      setAlertData({
+  type: "success",
+  message: "Query submitted successfully!",
+});
+
+setAlertOpen(true);
 
       setForm({
         name: "",
@@ -95,7 +117,10 @@ export default function Hero() {
       });
 
     } catch (error) {
-      alert("Something went wrong.");
+         setAlertData({
+  type: "success",
+  message: "Something went wrong.",
+});
     } finally {
       setLoading(false);
     }
@@ -109,7 +134,7 @@ export default function Hero() {
       <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-white/10 blur-3xl rounded-full" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-16 items-center">
 
           {/* ===== LEFT SIDE - WORKING FORM (DESIGN SAME) ===== */}
           <div className="bg-white/15 backdrop-blur-xl border border-green-500/40 rounded-2xl shadow-2xl p-5 md:p-6 max-w-sm w-full">
@@ -216,6 +241,12 @@ export default function Hero() {
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />
+        <CustomAlert
+  open={alertOpen}
+  type={alertData.type}
+  message={alertData.message}
+  onClose={() => setAlertOpen(false)}
+/>  
     </section>
   );
 }

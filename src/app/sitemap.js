@@ -38,11 +38,163 @@ export default async function sitemap() {
   const baseUrl = `https://${cleanHost}`;
 
   // ================= STATIC =================
-  const isHaryana = city === "haryana";
+  const isHaryana =
+  city === "haryana";
 
-const staticPages = isHaryana
-  ? ["", "/about", "/contactus", "/blogs", "/all-property-dealer","/explore-property-dealers-in-delhi","/explore-property-dealers-in-haryana-districts","/property-dealer-in-noida"]
-  : ["", "/about", "/contactus", "/blogs","/how-it-works"];
+// ✅ Real Estate Single Design
+const isRealEstate =
+  city === "realestate";
+
+let staticPages = [];
+
+// ===================================
+// ✅ HARYANA DESIGN
+// ===================================
+
+if (isHaryana) {
+
+  staticPages = ["", "/about", "/contactus", "/blogs", "/how-it-works", "/all-property-dealer","/explore-property-dealers-in-delhi","/explore-property-dealers-in-haryana-districts","/property-dealer-in-noida","/property-dealer-in-central-delhi","/property-dealer-in-north-delhi","/property-dealer-in-south-delhi","/property-dealer-in-east-delhi","/property-dealer-in-west-delhi",
+    "/property-dealer-in-hisar","/property-dealer-in-faridabad","/property-dealer-in-gurgaon",
+    "/property-dealer-in-jind",
+    "/property-dealer-in-karnal","/property-dealer-in-kurukshetra","/property-dealer-in-panchkula","/property-dealer-in-sonipat",
+    "/property-dealer-in-rohtak",
+    "/property-dealer-in-rewari","/property-dealer-in-yamunanagar",
+  "/property-dealer-in-charkhi-dadri","/property-dealer-in-mahendragarh",
+  "/property-dealer-in-bhiwani",
+  "/property-dealer-in-palwal",
+  "/property-dealer-in-kaithal",
+  "/property-dealer-in-jhajjar",
+  "/property-dealer-in-fatehabad",
+  "/property-dealer-in-sirsa",
+  "/property-dealer-in-panipat",
+  "/property-dealer-in-kaithal",
+  "/property-dealer-in-ambala",
+"/property-dealer-in-hansi"]
+
+// ===================================
+// ✅ REAL ESTATE DESIGN
+// ===================================
+
+} else if (isRealEstate) {
+
+  staticPages = ["", "/about", "/contactus", "/how-it-works", "/blogs", "/all-property-dealer","/explore-property-dealers-in-delhi","/explore-property-dealers-in-haryana-districts","/property-dealer-in-noida","/property-dealer-in-central-delhi","/property-dealer-in-north-delhi","/property-dealer-in-south-delhi","/property-dealer-in-east-delhi","/property-dealer-in-west-delhi",
+    "/property-dealer-in-hisar","/property-dealer-in-faridabad","/property-dealer-in-gurgaon",
+    "/property-dealer-in-jind",
+    "/property-dealer-in-karnal","/property-dealer-in-kurukshetra","/property-dealer-in-panchkula","/property-dealer-in-sonipat",
+    "/property-dealer-in-rohtak",
+    "/property-dealer-in-rewari","/property-dealer-in-yamunanagar",
+  "/property-dealer-in-charkhi-dadri","/property-dealer-in-mahendragarh",
+  "/property-dealer-in-bhiwani",
+  "/property-dealer-in-palwal",
+  "/property-dealer-in-kaithal",
+  "/property-dealer-in-jhajjar",
+  "/property-dealer-in-fatehabad",
+  "/property-dealer-in-sirsa",
+  "/property-dealer-in-panipat",
+  "/property-dealer-in-kaithal",
+  "/property-dealer-in-ambala",
+"/property-dealer-in-hansi"]
+
+// ===================================
+// ✅ NORMAL DESIGN
+// ===================================
+
+} else {
+
+  staticPages = [
+
+    "",
+    "/about",
+    "/contactus",
+    "/blogs",
+    "/how-it-works",
+
+  ];
+
+}
+// ✅ API LOCATIONS
+let apiLocationUrls = [];
+
+// =====================================
+// ✅ HARYANA + REAL ESTATE API URLS
+// =====================================
+
+if (
+  isHaryana ||
+  isRealEstate
+) {
+
+  try {
+
+    const res = await fetch(
+      "https://property-dealer-xa5g.onrender.com/api/area/sitemap-locations",
+     
+  {
+    next: {
+      revalidate: 3600,
+    },
+  }
+);
+  
+
+    const data =
+      await res.json();
+
+    const allLocations =
+      data?.data || {};
+
+    Object.entries(
+      allLocations
+    ).forEach(
+      ([cityName, slugs]) => {
+
+        if (
+          !Array.isArray(slugs)
+        ) return;
+
+        slugs.forEach(
+          (slug) => {
+
+            if (!slug) return;
+apiLocationUrls.push({
+
+  url: isHaryana
+
+    // ✅ Haryana
+    ? `${baseUrl}/${createSlug(
+        cityName
+      )}/property-dealer-in-${createSlug(
+        slug
+      )}`
+
+    // ✅ Real Estate
+    : `${baseUrl}/${createSlug(
+        cityName
+      )}/property-dealer-in-${createSlug(
+        slug
+      )}`,
+
+  lastModified:
+    new Date(),
+
+});
+
+          }
+        );
+
+      }
+    );
+
+  } catch (e) {
+
+    console.error(
+      "❌ Area API Error:",
+      e?.message
+    );
+
+  }
+
+}
 
   const staticUrls = staticPages.map((path) => ({
     url: `${baseUrl}${path}`,
@@ -84,19 +236,33 @@ const staticPages = isHaryana
     });
 
     zones.forEach((zone) => {
-      const locArr = delhiData[zone.key] || [];
 
-      if (!Array.isArray(locArr)) return;
+  const locArr =
+    delhiData[zone.key] || [];
 
-      locArr.forEach((loc) => {
-        if (!loc) return;
+  if (
+    !Array.isArray(locArr)
+  ) return;
 
-        zoneLocationUrls.push({
-          url: `${baseUrl}/zone/${zone.slug}/${createSlug(loc)}`,
-          lastModified: new Date(),
-        });
-      });
+  locArr.forEach((loc) => {
+
+    if (!loc) return;
+
+    zoneLocationUrls.push({
+
+      // ✅ zone at end
+      url: `${baseUrl}/delhi/property-dealer-in-${createSlug(
+        loc
+      )}-${zone.slug}`,
+
+      lastModified:
+        new Date(),
+
     });
+
+  });
+
+});
 
   } else {
     const locations = LOCATION_MAP[city] || [];
@@ -114,121 +280,192 @@ const staticPages = isHaryana
   // ================= DOMAIN FOR API =================
   const domainForApi =
     cleanHost === "localhost:3000"
-      ? "www.propertydealerinnoida.com" // 🔥 local testing fix
+      ? "www.propertydealeringurgaon.com" // 🔥 local testing fix
       : cleanHost.startsWith("www.")
       ? cleanHost
       : `www.${cleanHost}`;
+// ================= BLOG =================
 
-  // // ================= BLOG =================
-  let blogUrls = [];
+let blogUrls = [];
 
 try {
 
-  const isHaryanaDesign = city === "haryana";
+  const API_URL =
+    `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${domainForApi}`;
 
-  // ✅ Haryana me fixed domain use hoga
-  const blogDomain = isHaryanaDesign
-    ? "www.propertyforsalenearme.in"
-    : domainForApi;
+  console.log(
+    "BLOG DOMAIN:",
+    domainForApi
+  );
 
-  const API_URL = `https://deal-acres-backend.onrender.com/newBlog/getSlugsByDomain/${blogDomain}`;
+  const res = await fetch(
+    API_URL,
+    {
+      cache: "no-store",
+    }
+  );
 
-  console.log("BLOG DOMAIN:", blogDomain);
+  const data =
+    await res.json();
 
-  const res = await fetch(API_URL, { cache: "no-store" });
-  const data = await res.json();
+  console.log(
+    "BLOG API DATA:",
+    data
+  );
 
-  blogUrls = (data?.data || []).map((slug) => ({
-    url: `${baseUrl}/blogs/${encodeURIComponent(slug)}`,
-    lastModified: new Date(),
-  }));
+  blogUrls = (
+    data?.data || []
+  )
+    .filter(Boolean)
+    .map((item) => {
+
+      const blogSlug =
+        item?.slug ||
+        item?.seoUrl ||
+        item?.blogSlug ||
+        item?.url ||
+        item;
+
+      if (
+        !blogSlug ||
+        blogSlug === "undefined"
+      ) {
+        return null;
+      }
+
+      return {
+        url: `${baseUrl}/blogs/${encodeURIComponent(
+          blogSlug
+        )}`,
+        lastModified:
+          new Date(),
+      };
+
+    })
+    .filter(Boolean);
 
 } catch (e) {
-  console.error("❌ Blog API error:", e?.message);
-}
-//======================haryana============
-const haryanaCities = [
-  "ambala","bhiwani","charkhi-dadri","faridabad","fatehabad",
-  "gurgaon","hisar","jhajjar","jind","kaithal","karnal",
-  "kurukshetra","mahendergarh","palwal","panchkula",
-  "panipat","rewari","rohtak","sirsa","sonipat","yamunanagar","hansi"
-];
 
-if (city === "haryana") {
-
-  locationUrls = [];
-
-  // ✅ 1. City URLs (UPDATED)
-  haryanaCities.forEach((c) => {
-    locationUrls.push({
-      url: `${baseUrl}/property-dealer-in-${c}`,   // 🔥 FIX: city path
-      lastModified: new Date(),
-    });
-  });
-
-  // ✅ 2. Location URLs (UPDATED)
-  Object.entries(LOCATION_MAP).forEach(([cityName, locations]) => {
-
-    if (!haryanaCities.includes(cityName)) return;
-
-    if (Array.isArray(locations)) {
-      locations.forEach((loc) => {
-        if (!loc) return;
-
-        locationUrls.push({
-          // 🔥 FIX: city + location
-          url: `${baseUrl}/${cityName}/property-dealer-in-${createSlug(loc)}`,
-          lastModified: new Date(),
-        });
-      });
-    }
-
-  });
-
-} else {
-
-  const locations = LOCATION_MAP[city] || [];
-
-  if (Array.isArray(locations)) {
-    locationUrls = locations.map((loc) => ({
-      url: `${baseUrl}/${city}/property-dealer-in-${createSlug(loc)}`,
-      lastModified: new Date(),
-    }));
-  }
+  console.error(
+    "❌ Blog API error:",
+    e?.message
+  );
 
 }
+  
 // ================= DEALERS FINAL =================
 let dealerUrls = [];
 
 try {
 
-  const isHaryanaDesign = city === "haryana";
+  // =====================================
+  // ✅ HARYANA + REAL ESTATE CHECK
+  // =====================================
+
+  const isHaryanaDesign =
+    city === "haryana";
 
   let apiUrl = "";
 
-  if (isHaryanaDesign) {
-    // ✅ Haryana → ALL DATA
-    apiUrl = "https://property-dealer-xa5g.onrender.com/api/all-dealer-slugs?city=Haryana";
+  // =====================================
+  // ✅ HARYANA + REALESTATE
+  // =====================================
+
+  if (
+    isHaryanaDesign ||
+    isRealEstate
+  ) {
+
+    // ✅ SAME ALL DATA
+    apiUrl =
+      "https://property-dealer-xa5g.onrender.com/api/all-dealer-slugs";
+
   } else {
-    // ✅ Other → domain based
-    apiUrl = `https://property-dealer-xa5g.onrender.com/api/slugs?domain=${domainForApi}`;
+
+    // ✅ DOMAIN BASED
+    apiUrl =
+      `https://property-dealer-xa5g.onrender.com/api/slugs?domain=${domainForApi}`;
+
   }
 
-  const res = await fetch(apiUrl, { cache: "no-store" });
-  const data = await res.json();
+  // =====================================
+  // ✅ FETCH DATA
+  // =====================================
+
+  const res = await fetch(
+    apiUrl,
+    {
+      next: {
+        revalidate: 3600,
+      },
+    }
+  );
+
+  const data =
+    await res.json();
+
+  // =====================================
+  // ✅ CITY FORMAT
+  // =====================================
 
   const formatCity = (c) =>
-    c.toLowerCase().replace(/\s+/g, "-");
+    c
+      ?.toLowerCase()
+      ?.replace(/\s+/g, "-")
+      ?.trim();
 
-  dealerUrls = (data?.data || []).map((d) => ({
-    url: isHaryanaDesign
-      ? `${baseUrl}/estate-agent/${formatCity(d.city)}/${encodeURIComponent(d.slug)}`
-      : `${baseUrl}/estate-agent/${encodeURIComponent(d.slug)}`,
-    lastModified: new Date(),
-  }));
+  // =====================================
+  // ✅ URL GENERATE
+  // =====================================
+
+  dealerUrls = (
+    data?.data || []
+  )
+    .filter(Boolean)
+    .map((d) => {
+
+      // invalid skip
+      if (
+        !d?.slug
+      ) {
+        return null;
+      }
+
+      return {
+
+        url:
+          (
+            isHaryanaDesign ||
+            isRealEstate
+          )
+
+            // ✅ Haryana + RealEstate
+            ? `${baseUrl}/estate-agent/${formatCity(
+                d.city
+              )}/${encodeURIComponent(
+                d.slug
+              )}`
+
+            // ✅ Other Domains
+            : `${baseUrl}/estate-agent/${encodeURIComponent(
+                d.slug
+              )}`,
+
+        lastModified:
+          new Date(),
+
+      };
+
+    })
+    .filter(Boolean);
 
 } catch (e) {
-  console.error("❌ Dealer Sitemap error:", e?.message);
+
+  console.error(
+    "❌ Dealer Sitemap Error:",
+    e?.message
+  );
+
 }
   // ================= FINAL =================
   return [
@@ -236,6 +473,7 @@ try {
     ...zoneUrls,
     ...locationUrls,
     ...zoneLocationUrls,
+    ...apiLocationUrls,
     ...dealerUrls,
     ...blogUrls,
 
