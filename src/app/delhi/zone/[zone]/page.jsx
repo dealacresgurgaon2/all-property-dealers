@@ -84,10 +84,8 @@ export async function generateMetadata({ params }) {
     },
   };
 }
-
 export default async function Page({ params }) {
   const { zone } = await params;
-
   return (
     <main>
       <ZonePage zone={zone} />
