@@ -221,7 +221,7 @@ export default function Hero() {
           <div className="grid lg:grid-cols-2 gap-10 items-center">
 
             {/* LEFT SIDE */}
-            <div className="max-w-lg">
+            <div className="max-w-6xl">
 
               {/* <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.05] border border-white/10 text-sm text-gray-300 mb-5">
 
@@ -243,7 +243,7 @@ export default function Hero() {
 
               </h1>
 
-              <p className="mt-5 text-gray-300 text-[12px] leading-7 max-w-4xl mx-auto">
+              <p className="mt-5 text-gray-300 text-[16px] ">
 
                 Finding the right property dealer in Delhi, Noida, or Haryana has never been this easy. At Real Estate Agents Near Me, we have carefully curated a comprehensive directory of the most trusted, verified, and experienced real estate agents, property dealers, and property consultants operating across Delhi NCR, Noida, Greater Noida, Gurgaon, Faridabad, Rohtak, Panipat, Karnal, and every major city in Haryana. Whether you are planning to buy a residential flat, sell an inherited plot, rent a commercial shop, or invest in under-construction properties, our platform connects you with local property experts who know the market inside out. Every agent listed on our platform is background-checked and rated by real buyers and sellers like you. We believe that every property transaction deserves a trustworthy guide — someone who understands the locality, the legal paperwork, the going market rates, and the builder reputation. Stop scrolling through unreliable listings and random classifieds. Start your property journey with professionals who have helped thousands of families find their dream homes across Delhi NCR and Haryana. Your next home, your next investment, your next commercial space — it all starts here.
 
