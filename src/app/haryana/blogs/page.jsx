@@ -2,27 +2,22 @@ import Blogs from "@/templates/design7/pages/blogs/page";
 
 export const metadata = {
   title:
-    "Real Estate Blogs & Property News | Property Dealer Haryana",
+    "Real Estate Blog | Property Tips, Market Trends & Investment Guides India",
 
   description:
-    "Read the latest real estate blogs, property investment tips, buying guides, market trends, and property news across Haryana and India.",
+    "Explore expert blogs on buying, selling & renting property across Delhi, Noida, Gurgaon & Haryana. Get property investment tips, legal guides & market trends for 2025–26.",
 
   keywords: [
-    "Real Estate Blogs",
-    "Property News Haryana",
-    "Haryana Real Estate",
-    "Property Investment Tips",
-    "Real Estate Market Trends",
-    "Buy Property Guide",
-    "Sell Property Tips",
-    "Property Dealer Blog",
-    "Haryana Property News",
-    "Property Updates India",
+    "real estate blog India",
+    "property tips Haryana",
+    "home buying guide Delhi NCR",
+    "property investment 2025",
+    "property market trends",
   ],
 
   alternates: {
     canonical:
-      "https://www.propertydealersnearme.comblogs",
+      "https://www.propertydealersnearme.com/blogs",
   },
 
   openGraph: {

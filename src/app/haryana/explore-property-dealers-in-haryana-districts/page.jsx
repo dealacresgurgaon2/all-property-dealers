@@ -2,32 +2,21 @@ import HaryanaPage from "./HaryanaPage";
 
 export const metadata = {
   title:
-    "Property Dealers in Haryana | All Haryana Cities Property Dealers",
+    "Property Dealers in Haryana | All Districts – Real Estate Agents 2025",
 
   description:
-    "Find trusted property dealers, builders, and real estate agents across all Haryana cities including Gurgaon, Faridabad, Hisar, Karnal, Rohtak, Panipat, Sonipat, Panchkula, Ambala, and more.",
+    "Explore verified property dealers across all 22 Haryana districts — Gurgaon, Faridabad, Rohtak, Panipat, Karnal, Ambala & more. Find HRERA-registered real estate agents near you.",
 
   keywords: [
-    "Property Dealers Haryana",
-    "Real Estate Haryana",
-    "Property Dealers in Gurgaon",
-    "Property Dealers in Faridabad",
-    "Property Dealers in Hisar",
-    "Property Dealers in Karnal",
-    "Property Dealers in Rohtak",
-    "Property Dealers in Panipat",
-    "Property Dealers in Sonipat",
-    "Property Dealers in Panchkula",
-    "Property Dealers in Ambala",
-    "Buy Property in Haryana",
-    "Sell Property in Haryana",
-    "Rent Property in Haryana",
-    "Haryana Real Estate Agents",
+    "property dealers Haryana",
+    "real estate agents Haryana districts",
+    "property dealer Gurgaon Faridabad Rohtak",
+    "Haryana real estate 2025",
   ],
 
   alternates: {
     canonical:
-      "https://www.propertydealerinharyana.com/explore-property-dealers-in-haryana-districts",
+      "https://www.propertydealernearme.com/explore-property-dealers-in-haryana-districts",
   },
 
   openGraph: {
@@ -38,7 +27,7 @@ export const metadata = {
       "Explore verified property dealers and real estate agents across all Haryana cities.",
 
     url:
-      "https://www.propertydealerinharyana.com",
+      "https://www.propertydealernearme.com",
 
     siteName:
       "Property Dealer Haryana",

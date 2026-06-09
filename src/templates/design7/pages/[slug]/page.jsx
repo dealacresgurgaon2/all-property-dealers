@@ -11,21 +11,7 @@ export default function BlogPage() {
 <div className="mb-5">
          <Breadcrumb/>
         </div>
-        {/* PAGE HEADER - NEW STYLE */}
-        {/* <div className="mb-10 bg-white rounded-3xl border border-indigo-200 p-6 shadow-sm">
-
-         
-
-          <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">
-            Dealer Details
-          </h2>
-
-          <p className="text-sm text-gray-500 mt-2">
-            Complete verified information about trusted property dealers
-          </p>
-
-          <div className="w-20 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 mt-4 rounded-full"></div>
-        </div> */}
+        
 
         {/* TWO COLUMN LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

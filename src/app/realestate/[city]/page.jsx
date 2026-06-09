@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
     ?.replace(/\b\w/g, (char) => char.toUpperCase());
 
   return {
-    title: `${formattedLocation} | Buy Sell Rent Properties`,
+    title: `${formattedLocation} | Best Real Estate Agents Near You`,
 
 
     description: `Find trusted property dealers, builders, and real estate agents in ${formattedLocation}, Haryana for buying, selling, and renting residential & commercial properties.`,
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
     ],
 
     alternates: {
-      canonical: `https://www.propertydealerinharyana.com/location-dealers/${city}`,
+      canonical: `https://www.realestateagentsnearme.in/${city}`,
     },
 
     openGraph: {
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }) {
 
       description: `Explore verified property dealers and real estate agents in ${formattedLocation}, Haryana.`,
 
-      url: `https://www.propertydealerinharyana.com/location-dealers/${city}`,
+      url: `https://www.realestateagentsnearme.in/${city}`,
 
       siteName: "Property Dealer Haryana",
 

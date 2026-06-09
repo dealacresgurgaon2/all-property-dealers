@@ -2,27 +2,21 @@ import ContactHaryana from "./ContactHaryana";
 
 export const metadata = {
   title:
-    "Contact Property Dealers Haryana | Real Estate Support",
+    "Contact Us | Talk to Verified Property Dealers – Delhi NCR & Haryana",
 
   description:
-    "Get in touch with trusted property dealers and real estate experts in Haryana for buying, selling, renting, and property consultation services.",
+    "Reach our property experts for instant help with buying, selling or renting in Delhi, Noida & Haryana. Free consultation from verified, HRERA-registered real estate agents.",
 
   keywords: [
-    "Contact Property Dealers Haryana",
-    "Haryana Real Estate Contact",
-    "Property Consultants Haryana",
-    "Buy Property Haryana",
-    "Sell Property Haryana",
-    "Rent Property Haryana",
-    "Real Estate Support",
-    "Haryana Property Agents",
-    "Commercial Property Haryana",
-    "Residential Property Haryana",
+    "contact property dealer",
+    "free property consultation Haryana",
+    "free property consultation Haryana",
+    "property expert callback",
   ],
 
   alternates: {
     canonical:
-      "https://www.propertydealerinharyana.com/contact",
+      "https://www.propertydealernearme.com/contact",
   },
 
   openGraph: {
@@ -33,7 +27,7 @@ export const metadata = {
       "Connect with trusted property dealers and real estate consultants in Haryana.",
 
     url:
-      "https://www.propertydealerinharyana.com/contact",
+      "https://www.propertydealernearme.com/contact",
 
     siteName: "Property Dealer Haryana",
 

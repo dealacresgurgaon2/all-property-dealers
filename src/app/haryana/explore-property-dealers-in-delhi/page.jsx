@@ -2,26 +2,22 @@ import DelhiPage from "./DelhiPage";
 
 export const metadata = {
   title:
-    "Property Dealers in Delhi | Buy Sell Rent Properties",
+    "Property Dealers in Delhi | Explore by Zone – Buy, Sell & Rent",
 
   description:
-    "Find trusted property dealers, builders, and real estate agents in Delhi for buying, selling, and renting residential & commercial properties.",
+    "Find top-rated property dealers in Delhi by zone — Central, North, South, East & West Delhi. Verified real estate agents for buying, selling & renting flats, plots & commercial spaces.",
 
   keywords: [
-    "Property Dealers Delhi",
-    "Real Estate Delhi",
-    "Buy Property in Delhi",
-    "Sell Property in Delhi",
-    "Rent Property in Delhi",
-    "Commercial Property Delhi",
-    "Residential Property Delhi",
-    "Property Consultants Delhi",
-    "Real Estate Agents Delhi",
+    "property dealers Delhi",
+    "real estate agents Delhi",
+    "buy sell rent Delhi",
+    "property dealer Central North South East West Delhi",
+   
   ],
 
   alternates: {
     canonical:
-      "https://www.propertydealerindelhi.com/explore-property-dealers-in-delhi",
+      "https://www.propertydealernearme.com/explore-property-dealers-in-delhi",
   },
 
   openGraph: {
@@ -32,7 +28,7 @@ export const metadata = {
       "Explore verified property dealers and real estate agents in Delhi.",
 
     url:
-      "https://www.propertydealerindelhi.com",
+      "https://www.propertydealernearme.com",
 
     siteName:
       "Property Dealer Delhi",

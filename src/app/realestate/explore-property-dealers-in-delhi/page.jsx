@@ -2,16 +2,16 @@ import DelhiPage from "./DelhiPage";
 
 export const metadata = {
   title:
-    "Property Dealers in Delhi | Buy Sell Rent Properties",
+    "Property Dealers in Delhi | Trusted Real Estate Agents Near You",
 
   description:
-    "Find trusted property dealers, builders, and real estate agents in Delhi for buying, selling, and renting residential & commercial properties.",
+    "Find top-rated, RERA-verified property dealers in Delhi for buying, selling & renting flats, plots & commercial spaces. Expert real estate agents across all Delhi localities.",
 
   keywords: [
-    "Property Dealers Delhi",
-    "Real Estate Delhi",
-    "Buy Property in Delhi",
-    "Sell Property in Delhi",
+    "property dealers Delhi",
+    "real estate agents Delhi",
+    "property consultants Delhi",
+    "buy sell rent Delhi",
     "Rent Property in Delhi",
     "Commercial Property Delhi",
     "Residential Property Delhi",
@@ -21,7 +21,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealerindelhi.com/explore-property-dealers-in-delhi",
+      "https://www.realestateagentsnearme.in/explore-property-dealers-in-delhi",
   },
 
   openGraph: {
@@ -32,7 +32,7 @@ export const metadata = {
       "Explore verified property dealers and real estate agents in Delhi.",
 
     url:
-      "https://www.propertydealerindelhi.com",
+      "https://www.realestateagentsnearme.in",
 
     siteName:
       "Property Dealer Delhi",

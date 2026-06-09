@@ -31,7 +31,7 @@ export async function generateMetadata({ params }) {
 
     alternates: {
       canonical:
-        `https://www.propertydealerindelhi.com/blogs/${slug}`,
+        `https://www.propertydealeringurgaon.com/blogs/${slug}`,
     },
 
     openGraph: {
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }) {
         `Explore detailed insights about ${formattedTitle} including real estate trends and investment tips.`,
 
       url:
-        `https://www.propertydealerindelhi.com/blogs/${slug}`,
+        `https://www.propertydealeringurgaon.com/blogs/${slug}`,
 
       siteName: "Property Dealer India",
 

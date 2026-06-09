@@ -104,7 +104,7 @@ export async function generateMetadata({
 
     alternates: {
       canonical:
-        `https://www.propertydealeringurgaon.com/location-dealers/${slug}`,
+        `https://www.propertydealeringurgaon.com/${slug}`,
     },
 
     robots: {

@@ -1,22 +1,24 @@
-"use client";
+// app/delhi/layout.jsx
 
-import Navbar from "@/templates/design7/components/Navbar";
-import Footer from "@/templates/design7/components/Footer";
-import { CityProvider } from "@/context/design7api/CityContext";
-import ScrollToTop from "@/templates/design7/components/ScrollToTop";
-import GlobalScrollFix from "@/templates/design7/components/GlobalScrollFix";
-import { BlogProvider } from "@/context/design7api/blogcontext";
+import ClientLayout from "./ClientLayout";
+
+export const metadata = {
+  title: "Property Dealers Near Me | Buy, Sell & Rent – Delhi, Noida & Haryana",
+  description:
+    "India's fastest-growing property dealer directory. Find verified real estate agents near you in Delhi, Noida, Gurgaon & all Haryana cities for buying, selling & renting properties.",
+     keywords: [
+  "property dealers near me",
+  "real estate agents near me",
+  "property dealer India",
+  "buy sell rent property Delhi Noida Haryana",
+  
+],
+ alternates: {
+    canonical:
+      "https://www.realestateagentsnearme.in",
+  },
+};
+
 export default function Layout({ children }) {
-  return (
-    <CityProvider>
-      <BlogProvider>
-      <Navbar />
-      <GlobalScrollFix />
-      {children}
-      <ScrollToTop />
-      <Footer />
-      </BlogProvider>
-    </CityProvider>
-  );
+  return <ClientLayout>{children}</ClientLayout>;
 }
-

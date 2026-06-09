@@ -2,17 +2,17 @@ import HaryanaPage from "./HaryanaPage";
 
 export const metadata = {
   title:
-    "Property Dealers in Haryana | All Haryana Cities Property Dealers",
+    "Property Dealers in Haryana | Verified Real Estate Agents All Cities",
 
   description:
-    "Find trusted property dealers, builders, and real estate agents across all Haryana cities including Gurgaon, Faridabad, Hisar, Karnal, Rohtak, Panipat, Sonipat, Panchkula, Ambala, and more.",
+    "Explore verified property dealers across all 22 Haryana cities — Gurgaon, Faridabad, Rohtak, Panipat, Karnal & more. Find trusted real estate agents for buying, selling & renting.",
 
   keywords: [
     "Property Dealers Haryana",
     "Real Estate Haryana",
-    "Property Dealers in Gurgaon",
-    "Property Dealers in Faridabad",
-    "Property Dealers in Hisar",
+    "real estate agents Haryana",
+    "property consultants Gurgaon Faridabad Rohtak",
+    "Haryana real estate",
     "Property Dealers in Karnal",
     "Property Dealers in Rohtak",
     "Property Dealers in Panipat",
@@ -27,7 +27,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealerinharyana.com/explore-property-dealers-in-haryana-districts",
+      "https://www.realestateagentsnearme.in/explore-property-dealers-in-haryana-districts",
   },
 
   openGraph: {
@@ -38,7 +38,7 @@ export const metadata = {
       "Explore verified property dealers and real estate agents across all Haryana cities.",
 
     url:
-      "https://www.propertydealerinharyana.com",
+      "https://www.realestateagentsnearme.in",
 
     siteName:
       "Property Dealer Haryana",
