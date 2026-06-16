@@ -25,22 +25,22 @@ jobs:
           git config --global user.name "github-actions"
 
       # Property Dealers Repo
-      - name: Sync to Property Dealers Repo
-        continue-on-error: true
-        run: |
-          git remote remove second || true
+      # - name: Sync to Property Dealers Repo
+      #   continue-on-error: true
+      #   run: |
+      #     git remote remove second || true
+      #
+      #     git remote add second https://x-access-token:${{ secrets.PROPERTY_DEALERS_TOKEN }}@github.com/propertydealerhisar/All_Property_Dealers.git
+      #
+      #     git push second HEAD:main --force
 
-          git remote add second https://x-access-token:${{ secrets.PROPERTY_DEALERS_TOKEN }}@github.com/propertydealerhisar/All_Property_Dealers.git
-
-          git push second HEAD:main --force
-
-      # Delhi Repo
-      - name: Sync to Delhi Repo
+      # Gurgaon-Backup Repo
+      - name: Sync to Gurgaon-Backup Repo
         continue-on-error: true
         run: |
           git remote remove delhi || true
 
-          git remote add delhi https://x-access-token:${{ secrets.DELHI_TOKEN }}@github.com/dealacresDelhi/all-property-dealers.git
+          git remote add delhi https://x-access-token:${{ secrets.GURGAON_BACKUP_PORJECTS_ACCESS_TOKEN }}@github.com/dealacresgurgaon2/all-property-dealers.git
 
           git push delhi HEAD:main --force
 
@@ -53,4 +53,3 @@ jobs:
           git remote add gold https://x-access-token:${{ secrets.MUKESH_PROJECTS_ACCESS_TOKEN }}@github.com/mukeshkumar44/propertydelerGoldFrontend.git
 
           git push gold HEAD:main --force
-
