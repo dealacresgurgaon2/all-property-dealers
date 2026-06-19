@@ -23,7 +23,7 @@ export default function DealerDetailPage({ slug }) {
 
     setLoading(true);
 
-    axios.get(`https://property-dealer-xa5g.onrender.com/api/dealer-basic/${slug}`, {
+    axios.get(`https://all-property-dealer-backend.onrender.com/api/dealer-basic/${slug}`, {
   headers: {
     domain: "www.propertydealerinfaridabad.com", // ✅ static domain
   },

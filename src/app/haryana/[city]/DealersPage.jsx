@@ -140,7 +140,7 @@ function CityDealers({ urlCity }) {
         const mappedCity = getCityForSearchAPI(urlCity);
 
         const res = await fetch(
-          `https://property-dealer-xa5g.onrender.com/api/area/locations/${mappedCity}`
+          `https://all-property-dealer-backend.onrender.com/api/area/locations/${mappedCity}`
         );
 
         const data = await res.json();

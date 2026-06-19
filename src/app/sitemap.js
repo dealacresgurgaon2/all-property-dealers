@@ -127,7 +127,7 @@ if (
   try {
 
     const res = await fetch(
-      "https://property-dealer-xa5g.onrender.com/api/area/sitemap-locations",
+      "https://all-property-dealer-backend.onrender.com/api/area/sitemap-locations",
      
   {
     next: {
@@ -291,7 +291,7 @@ let blogUrls = [];
 try {
 
   const API_URL =
-    `https://property-dealer-xa5g.onrender.com/blogs/getSlugsByDomain/${domainForApi}`;
+    `https://all-property-dealer-backend.onrender.com/blogs/getSlugsByDomain/${domainForApi}`;
 
   console.log(
     "BLOG DOMAIN:",
@@ -378,13 +378,13 @@ try {
 
     // ✅ SAME ALL DATA
     apiUrl =
-      "https://property-dealer-xa5g.onrender.com/api/all-dealer-slugs";
+      "https://all-property-dealer-backend.onrender.com/api/all-dealer-slugs";
 
   } else {
 
     // ✅ DOMAIN BASED
     apiUrl =
-      `https://property-dealer-xa5g.onrender.com/api/slugs?domain=${domainForApi}`;
+      `https://all-property-dealer-backend.onrender.com/api/slugs?domain=${domainForApi}`;
 
   }
 

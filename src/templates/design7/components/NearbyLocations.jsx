@@ -19,7 +19,7 @@ export default function NearbyLocations({
   const fetchLocations = async () => {
     try {
       const res = await axios.get(
-        `https://property-dealer-xa5g.onrender.com/api/area/locations/${city}`
+        `https://all-property-dealer-backend.onrender.com/api/area/locations/${city}`
       );
 
       setLocations(res.data.data || []);

@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const BlogContext = createContext();
 
-const API_BASE = "https://property-dealer-xa5g.onrender.com";
+const API_BASE = "https://all-property-dealer-backend.onrender.com";
 
 // ✅ STATIC DOMAIN
 const STATIC_DOMAIN = "www.propertydealersnearme.com";
