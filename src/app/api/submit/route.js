@@ -134,7 +134,7 @@ export async function POST(req) {
     console.log("Payload Sent:", payload);
 
     const googleRes = await fetch(
-      "https://script.google.com/macros/s/AKfycbyfD2qVx8pP6ngQRFDwSQAleNkqIAzVTNxfg6LGblKoMIaaBa0eze61jjEZq9cIZLb0RA/exec",
+      "https://script.google.com/macros/s/AKfycbx0dY3ARcyP0dsSj3Qx9WQusiGaRkIZHAbkhv-yoK5d4fpRKMZ-LeCZHe5978ti7CR3oA/exec",
       {
         method: "POST",
         headers: {
