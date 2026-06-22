@@ -46,29 +46,62 @@ setAlertOpen(true);
 
     setLoading(true);
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setAlertData({
-  type: "success",
-  message: "Query submitted successfully!",
-});
-
-setAlertOpen(true);
-
-      setForm({
-        name: "",
-        phone: "",
-        email: "",
-        message: "",
-        lookingFor: "",
-      });
-    } catch (error) {
-      console.log(error);
-      alert("Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
+try {
+  const payload = {
+    name: form.name,
+    phone: form.phone,
+    email: form.email,
+    option: form.lookingFor,
+    message: form.message,
+    dealerName: "Property Dealer In Faridabad",
+    website: window.location.origin,
   };
+
+  const res = await fetch("/api/submit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.error || "Submission failed");
+  }
+
+  setAlertData({
+    type: "success",
+    message: "Query submitted successfully!",
+  });
+
+  setAlertOpen(true);
+
+  setForm({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+    lookingFor: "",
+  });
+
+} catch (error) {
+  console.error("Submit Error:", error);
+
+  setAlertData({
+    type: "error",
+    message: error.message || "Something went wrong",
+  });
+
+  setAlertOpen(true);
+
+} finally {
+  setLoading(false);
+}
+  }
+    
+   
 
   const inputClass =
     "w-full rounded-lg px-4 py-3 outline-none " +

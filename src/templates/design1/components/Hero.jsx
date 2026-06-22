@@ -13,12 +13,12 @@ export default function Hero() {
     phone: "",
     requirement: "",
     message: "",
-  });const [alertOpen, setAlertOpen] = useState(false);
+  }); const [alertOpen, setAlertOpen] = useState(false);
 
-const [alertData, setAlertData] = useState({
-  type: "success",
-  message: "",
-});
+  const [alertData, setAlertData] = useState({
+    type: "success",
+    message: "",
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,62 +32,94 @@ const [alertData, setAlertData] = useState({
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ const handleSubmit = async (e) => {
+e.preventDefault();
 
-    if (form.phone.length !== 10) {
-      setAlertData({
-  type: "error",
-  message: "Phone number must be 10 digits",
+if (form.phone.length !== 10) {
+setAlertData({
+type: "error",
+message: "Phone number must be 10 digits",
+});
+setAlertOpen(true);
+return;
+}
+
+if (!form.requirement) {
+setAlertData({
+type: "error",
+message: "Please select what you're looking for",
+});
+setAlertOpen(true);
+return;
+}
+
+setLoading(true);
+
+try {
+const payload = {
+name: form.name,
+phone: form.phone,
+option: form.requirement,
+message: form.message,
+dealerName: "Property Dealer In Gurgaon",
+website: window.location.origin,
+};
+
+console.log("Sending Payload:", payload);
+
+const res = await fetch("/api/submit", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(payload),
 });
 
-setAlertOpen(true);
-      return;
-    }
+const responseText = await res.text();
 
-    if (!form.requirement) {
-      setAlertData({
-  type: "error",
-  message: "Please select what you're looking for",
-});
+console.log("Status:", res.status);
+console.log("Raw Response:", responseText);
 
-setAlertOpen(true);
-      return;
-    }
+let data = {};
 
-    setLoading(true);
+try {
+  data = JSON.parse(responseText);
+} catch (err) {
+  console.log("Response is not JSON");
+}
 
-    try {
-      // 🔥 Future API Ready
-      // await fetch("/api/query", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(form),
-      // });
+if (!res.ok) {
+  throw new Error(data?.error || responseText || "Submission failed");
+}
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      setAlertData({
+setAlertData({
   type: "success",
   message: "Query submitted successfully!",
 });
 
 setAlertOpen(true);
 
-      // Reset form
-      setForm({
-        name: "",
-        phone: "",
-        requirement: "",
-        message: "",
-      });
+setForm({
+  name: "",
+  phone: "",
+  requirement: "",
+  message: "",
+});
 
-    } catch (error) {
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
+} catch (error) {
+console.error("Submit Error:", error);
+
+setAlertData({
+  type: "error",
+  message: error.message || "Something went wrong",
+});
+
+setAlertOpen(true);
+
+} finally {
+setLoading(false);
+}
+};
 
   return (
     <section
@@ -110,12 +142,12 @@ setAlertOpen(true);
           {/* LEFT CONTENT */}
           <div className="text-white">
             <h1 className="text-2xl md:text-4xl font-extrabold leading-tight mb-5">
-              Smart & Trusted 
+              Smart & Trusted
               <span className="text-[#38bdf8]">Property Solutions</span>
             </h1>
 
             <p className="text-base md:text-lg text-white/75 mb-7 max-3-xl">
-            Looking for the best property dealer in Gurgaon who understands your needs and delivers results you can trust? You've come to the right place. PropertyDealerInGurgaon.com is your gateway to the most reliable real estate agents in Gurgaon, verified property brokers, and experienced real estate consultants across every sector, colony and commercial zone in Gurugram. Whether you are planning to buy your dream home, sell an existing property at the best market price, or rent a residential or commercial space, our network of top-rated property brokers in Gurgaon covers every micro-market — from Golf Course Road and DLF Phases to Sohna Road, Dwarka Expressway, MG Road, Palam Vihar and New Gurgaon. Every real estate broker in Gurgaon on our platform is vetted for transparency, local expertise, and professional conduct. We make property transactions simpler, faster, and fully stress-free. Connect with the best real estate agent in Gurgaon today and take the first step towards your property goals.
+              Looking for the best property dealer in Gurgaon who understands your needs and delivers results you can trust? You've come to the right place. PropertyDealerInGurgaon.com is your gateway to the most reliable real estate agents in Gurgaon, verified property brokers, and experienced real estate consultants across every sector, colony and commercial zone in Gurugram. Whether you are planning to buy your dream home, sell an existing property at the best market price, or rent a residential or commercial space, our network of top-rated property brokers in Gurgaon covers every micro-market — from Golf Course Road and DLF Phases to Sohna Road, Dwarka Expressway, MG Road, Palam Vihar and New Gurgaon. Every real estate broker in Gurgaon on our platform is vetted for transparency, local expertise, and professional conduct. We make property transactions simpler, faster, and fully stress-free. Connect with the best real estate agent in Gurgaon today and take the first step towards your property goals.
             </p>
 
             <div className="flex gap-4 flex-wrap">
@@ -199,12 +231,12 @@ setAlertOpen(true);
         isOpen={popupOpen}
         onClose={() => setPopupOpen(false)}
       />
-            <CustomAlert
-  open={alertOpen}
-  type={alertData.type}
-  message={alertData.message}
-  onClose={() => setAlertOpen(false)}
-/>
+      <CustomAlert
+        open={alertOpen}
+        type={alertData.type}
+        message={alertData.message}
+        onClose={() => setAlertOpen(false)}
+      />
     </section>
   );
 }

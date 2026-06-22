@@ -11,14 +11,14 @@ export default function Hero() {
     cities: 0,
     years: 0,
   });
-   const [alertOpen, setAlertOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
 
-const [alertData, setAlertData] = useState({
-  type: "success",
-  message: "",
-});
+  const [alertData, setAlertData] = useState({
+    type: "success",
+    message: "",
+  });
   useEffect(() => {
-    const targets = { listings:1000 , cities: 25, years: 20 };
+    const targets = { listings: 1000, cities: 25, years: 20 };
     const duration = 2000;
     const steps = 60;
     let step = 0;
@@ -76,7 +76,7 @@ const [alertData, setAlertData] = useState({
             <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-4">
               Find Your{" "}
               <span className="text-[#d4af37]">Dream Property</span>
-             
+
               At Best Price <span className="text-[#d4af37]">With Us</span>
             </h1>
 
@@ -105,9 +105,9 @@ const [alertData, setAlertData] = useState({
               Get Free Consultation
             </h2>
             <HeroForm
-  setAlertOpen={setAlertOpen}
-  setAlertData={setAlertData}
-/>
+              setAlertOpen={setAlertOpen}
+              setAlertData={setAlertData}
+            />
           </div>
 
         </div>
@@ -118,11 +118,11 @@ const [alertData, setAlertData] = useState({
         onClose={() => setPopupOpen(false)}
       />
       <CustomAlert
-  open={alertOpen}
-  type={alertData.type}
-  message={alertData.message}
-  onClose={() => setAlertOpen(false)}
-/>
+        open={alertOpen}
+        type={alertData.type}
+        message={alertData.message}
+        onClose={() => setAlertOpen(false)}
+      />
     </section>
   );
 }
@@ -134,13 +134,13 @@ function HeroForm({
 }) {
   const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    lookingFor: "",
-    message: "",
-  });
+ const [form, setForm] = useState({
+  name: "",
+  phone: "",
+  email: "",
+  requirement: "",
+  message: "",
+});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -158,34 +158,89 @@ function HeroForm({
 
     if (form.phone.length !== 10) {
       setAlertData({
-  type: "error",
-  message: "Phone number must be 10 digits",
-});
+        type: "error",
+        message: "Phone number must be 10 digits",
+      });
+      setAlertOpen(true);
+      return;
+    }
 
-setAlertOpen(true);
+    if (!form.requirement) {
+      setAlertData({
+        type: "error",
+        message: "Please select what you're looking for",
+      });
+      setAlertOpen(true);
       return;
     }
 
     setLoading(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+     const payload = {
+  name: form.name,
+  phone: form.phone,
+  email: form.email,
+  option: form.requirement,
+  message: form.message,
+  dealerName: "Property Dealer In Faridabad",
+  website: window.location.origin,
+};
 
-     setAlertData({
-  type: "success",
-  message: "Query submitted successfully!",
-});
+      console.log("Sending Payload:", payload);
 
-setAlertOpen(true);
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-    setForm({
-      name: "",
-      phone: "",
-      email: "",
-      lookingFor: "",
-      message: "",
-    });
+      const responseText = await res.text();
 
-    setLoading(false);
+      console.log("Status:", res.status);
+      console.log("Raw Response:", responseText);
+
+      let data = {};
+
+      try {
+        data = JSON.parse(responseText);
+      } catch (err) {
+        console.log("Response is not JSON");
+      }
+
+      if (!res.ok) {
+        throw new Error(data?.error || responseText || "Submission failed");
+      }
+
+      setAlertData({
+        type: "success",
+        message: "Query submitted successfully!",
+      });
+
+      setAlertOpen(true);
+
+      setForm({
+        name: "",
+        phone: "",
+        requirement: "",
+        message: "",
+      });
+
+    } catch (error) {
+      console.error("Submit Error:", error);
+
+      setAlertData({
+        type: "error",
+        message: error.message || "Something went wrong",
+      });
+
+      setAlertOpen(true);
+
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputClass =
@@ -196,12 +251,18 @@ setAlertOpen(true);
       <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Your Name" className={inputClass} />
       <input type="text" name="phone" inputMode="numeric" required value={form.phone} onChange={handleChange} placeholder="Phone Number" className={inputClass} />
       <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="Email Address" className={inputClass} />
-      <select name="lookingFor" required value={form.lookingFor} onChange={handleChange} className={inputClass}>
-        <option value="">Looking for</option>
-        <option>Buy Property</option>
-        <option>Rent Property</option>
-        <option>Sell Property</option>
-      </select>
+      <select
+  name="requirement"
+  required
+  value={form.requirement}
+  onChange={handleChange}
+  className={inputClass}
+>
+  <option value="">Looking for</option>
+  <option value="Buy Property">Buy Property</option>
+  <option value="Rent Property">Rent Property</option>
+  <option value="Sell Property">Sell Property</option>
+</select>
       <textarea name="message" rows={3} value={form.message} onChange={handleChange} placeholder="Your Message" className={`${inputClass} resize-none`} />
       <button type="submit" disabled={loading} className="w-full bg-[#d4af37] text-black py-2.5 rounded-md font-semibold hover:bg-[#c9a227] transition disabled:opacity-60">
         {loading ? "Submitting..." : "Submit Query"}
@@ -209,7 +270,7 @@ setAlertOpen(true);
     </form>
   );
 }
-   
+
 /* STAT */
 function Stat({ value, label }) {
   return (

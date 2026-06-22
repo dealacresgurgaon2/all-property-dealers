@@ -40,45 +40,77 @@ if (!mounted) return null;
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (formData.phone.length !== 10) {
-      setAlertData({
-        type: "error",
-        message: "Phone number must be 10 digits",
-      });
+  if (formData.phone.length !== 10) {
+    setAlertData({
+      type: "error",
+      message: "Phone number must be 10 digits",
+    });
+    setAlertOpen(true);
+    return;
+  }
 
-      setAlertOpen(true);
-      return;
+  setLoading(true);
+
+  try {
+    const payload = {
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email || "",
+      option: formData.option,
+      message: formData.description || "",
+      dealerName: "Property Dealer In Delhi",
+      website: window.location.origin,
+    };
+
+    console.log("Sending Payload:", payload);
+
+    const res = await fetch("/api/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    console.log("API Response:", data);
+
+    if (!res.ok) {
+      throw new Error(data.error || "Submission failed");
     }
 
-    setLoading(true);
+    setAlertData({
+      type: "success",
+      message: "Query submitted successfully!",
+    });
 
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    setAlertOpen(true);
 
-      setAlertData({
-        type: "success",
-        message: "Query submitted successfully!",
-      });
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      option: "Buy Property",
+      description: "",
+    });
 
-      setAlertOpen(true);
+  } catch (error) {
+    console.error("Submit Error:", error);
 
-      setFormData({
-        name: "",
-        phone: "",
-        email: "",
-        option: "Buy Property",
-        description: "",
-      });
+    setAlertData({
+      type: "error",
+      message: error.message || "Something went wrong",
+    });
 
+    setAlertOpen(true);
 
-    } catch (err) {
-      alert("Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <>

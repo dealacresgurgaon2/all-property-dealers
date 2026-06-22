@@ -81,6 +81,7 @@ setAlertOpen(true);
   setForm({
     name: "",
     phone: "",
+    email:"",
     option: "Buy Property",
     message: "",
   });

@@ -60,11 +60,11 @@ setAlertOpen(true);
 
     try {
       // 🔥 API Ready
-      // await fetch("/api/query", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(form),
-      // });
+      await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 

@@ -22,12 +22,12 @@ export default function Hero() {
     requirement: "",
     message: "",
   });
- const [alertOpen, setAlertOpen] = useState(false);
+  const [alertOpen, setAlertOpen] = useState(false);
 
-const [alertData, setAlertData] = useState({
-  type: "success",
-  message: "",
-});
+  const [alertData, setAlertData] = useState({
+    type: "success",
+    message: "",
+  });
   useEffect(() => {
     const targets = { listings: 5000, cities: 25, years: 10 };
     const duration = 2200;
@@ -96,16 +96,16 @@ const [alertData, setAlertData] = useState({
 
       const result = await res.json();
 
-    if (result.success) {
+      if (result.success) {
 
-  setAlertData({
-    type: "success",
-    message: "Your enquiry has been submitted!",
-  });
+        setAlertData({
+          type: "success",
+          message: "Your enquiry has been submitted!",
+        });
 
-  setAlertOpen(true);
+        setAlertOpen(true);
 
- 
+
 
         setForm({
           firstName: "",
@@ -117,24 +117,24 @@ const [alertData, setAlertData] = useState({
 
         });
       } else {
- setAlertData({
-  type: "error",
-  message: "Something went wrong. Please try again.",
-});
+        setAlertData({
+          type: "error",
+          message: "Something went wrong. Please try again.",
+        });
 
-setAlertOpen(true);
+        setAlertOpen(true);
       }
-   } catch (error) {
+    } catch (error) {
 
-  console.log("Hero form error:", error);
+      console.log("Hero form error:", error);
 
-  setAlertData({
-    type: "error",
-    message: "Server error. Please try later.",
-  });
+      setAlertData({
+        type: "error",
+        message: "Server error. Please try later.",
+      });
 
-  setAlertOpen(true);
-}
+      setAlertOpen(true);
+    }
   };
 
 
@@ -284,11 +284,11 @@ setAlertOpen(true);
         onClose={() => setPopupOpen(false)}
       />
       <CustomAlert
-  open={alertOpen}
-  type={alertData.type}
-  message={alertData.message}
-  onClose={() => setAlertOpen(false)}
-/>
+        open={alertOpen}
+        type={alertData.type}
+        message={alertData.message}
+        onClose={() => setAlertOpen(false)}
+      />
     </section>
   );
 }
