@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
 
     alternates: {
       canonical:
-        `https://www.propertydealerinhisar.com/hisar/estate-agent/${slug}`,
+        `https://www.propertydealerinhisar.com/estate-agent/${slug}`,
     },
 
     openGraph: {
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }) {
         `${formattedTitle} is a verified property dealer in Hisar for residential and commercial properties.`,
 
       url:
-        `https://www.propertydealerinhisar.com/hisar/estate-agent/${slug}`,
+        `https://www.propertydealerinhisar.com/estate-agent/${slug}`,
 
       siteName: "Property Dealer Hisar",
 

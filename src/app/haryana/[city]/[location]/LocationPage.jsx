@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import DealerCard from "@/templates/design7/components/DealerCard";
 import QueryForm from "@/templates/design7/components/QueryForm";
 import Breadcrumb from "@/templates/design7/components/Breadcrumb";
+import NearbyLocations from "@/templates/design7/components/NearbyLocations";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
@@ -138,14 +139,23 @@ export default function LocationPage() {
             </h2>
 
             {allDealers.length > 0 ? (
-              allDealers.map((d) => (
-                <DealerCard key={d._id} dealer={d} />
-              ))
-            ) : (
-              <p className="text-gray-500">
-                No dealers found in this city
-              </p>
-            )}
+  allDealers.map((d, index) => (
+    <div key={d._id}>
+      <DealerCard dealer={d} />
+
+      {(index + 1) % 10 === 0 && (
+        <NearbyLocations
+          city={city}
+          startIndex={index - 9}
+        />
+      )}
+    </div>
+  ))
+) : (
+  <p className="text-gray-500">
+    No dealers found in this city
+  </p>
+)}
           </div>
 
           {/* RIGHT SIDE FORM */}

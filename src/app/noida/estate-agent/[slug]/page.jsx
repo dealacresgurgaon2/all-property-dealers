@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
 
     alternates: {
       canonical:
-        `https://www.propertydealerinnoida.com/noida/estate-agent/${slug}`,
+        `https://www.propertydealerinnoida.com/estate-agent/${slug}`,
     },
 
     openGraph: {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
         `${formattedTitle} is a verified property dealer in Noida for residential and commercial properties.`,
 
       url:
-        `https://www.propertydealerinnoida.com/noida/estate-agent/${slug}`,
+        `https://www.propertydealerinnoida.com/estate-agent/${slug}`,
 
       siteName: "Property Dealer Noida",
 

@@ -18,7 +18,7 @@ export const DOMAIN_LAYOUT_MAP = {
   "www.realestateagentsnearme.in":"realestate",
   "realestateagentsnearme.in":"realestate",
 
-"localhost:3000":"realestate", 
+"localhost:3000":"haryana", 
 };
 
 export const DEFAULT_LAYOUT = "haryana"

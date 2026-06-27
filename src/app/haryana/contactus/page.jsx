@@ -16,7 +16,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealernearme.com/contact",
+      "https://www.propertydealersnearme.com/contactus",
   },
 
   openGraph: {
@@ -27,7 +27,7 @@ export const metadata = {
       "Connect with trusted property dealers and real estate consultants in Haryana.",
 
     url:
-      "https://www.propertydealernearme.com/contact",
+      "https://www.propertydealersnearme.com/contactus",
 
     siteName: "Property Dealer Haryana",
 

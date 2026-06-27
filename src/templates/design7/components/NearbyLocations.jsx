@@ -3,7 +3,7 @@
 import axios from "axios";
 import { MapPin, Navigation } from "lucide-react";
 import { useEffect, useState } from "react";
-
+ import Link from "next/link";
 export default function NearbyLocations({
   city,
   startIndex = 0,
@@ -16,17 +16,31 @@ export default function NearbyLocations({
     fetchLocations();
   }, [city]);
 
-  const fetchLocations = async () => {
-    try {
-      const res = await axios.get(
-        `https://all-property-dealer-backend.onrender.com/api/area/locations/${city}`
-      );
+  const getCityForSearchAPI = (city) => {
+  if (!city) return "";
 
-      setLocations(res.data.data || []);
-    } catch (error) {
-      console.log("LOCATION API ERROR =>", error);
-    }
-  };
+  const lowerCity = city.toLowerCase().trim();
+
+  if (lowerCity === "gurgaon") return "gurugram";
+
+  return lowerCity.replace(/-/g, " ");
+};
+
+const fetchLocations = async () => {
+  try {
+    const mappedCity = getCityForSearchAPI(city);
+
+  
+
+    const res = await axios.get(
+      `https://all-property-dealer-backend.onrender.com/api/area/locations/${encodeURIComponent(mappedCity)}`
+    );
+
+    setLocations(res.data.data || []);
+  } catch (error) {
+    console.log("LOCATION API ERROR =>", error);
+  }
+};
 
   // 🔥 SHOW 12 LOCATIONS
   const visibleLocations = locations.slice(
@@ -79,44 +93,49 @@ export default function NearbyLocations({
               <div>
                 <h2
                   className="
-                    text-[18px]
-                    sm:text-[18px]
+                    text-[10px]
+                    sm:text-[15px]
                     font-black
                     text-gray-900
                     capitalize
                     leading-tight
                   "
                 >
-                  Nearby Locations In {city}
+                  Explore Property Dealers Local Areas in {city}
                 </h2>
 
-                <p className="text-sm text-gray-500 mt-1">
+                {/* <p className="text-sm text-gray-500 mt-1">
                   Explore top nearby property dealer areas
-                </p>
+                </p> */}
               </div>
             </div>
 
             {/* LOCATION BUTTON */}
-            <button
-              className="
-                flex items-center justify-center gap-1
-                px-6 py-2
-                rounded-2xl
-                bg-gradient-to-r
-                from-indigo-600
-                to-purple-600
-                text-white
-                font-semibold
-                text-sm
-                shadow-[0_10px_25px_rgba(79,70,229,0.22)]
-                hover:scale-[1.03]
-                active:scale-[0.98]
-                transition-all duration-300
-              "
-            >
-              <Navigation className="w-4 h-4" />
-              Use Precise Location
-            </button>
+        
+
+<Link
+  href="https://www.dealacres.com/sell-property"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="
+    flex items-center justify-center gap-1
+    px-6 py-2
+    rounded-2xl
+    bg-gradient-to-r
+    from-indigo-600
+    to-purple-600
+    text-white
+    font-semibold
+    text-sm
+    shadow-[0_10px_25px_rgba(79,70,229,0.22)]
+    hover:scale-[1.03]
+    active:scale-[0.98]
+    transition-all duration-300
+  "
+>
+  <Navigation className="w-4 h-4" />
+  Free Property Listing
+</Link>
           </div>
 
           {/* LOCATION LIST */}

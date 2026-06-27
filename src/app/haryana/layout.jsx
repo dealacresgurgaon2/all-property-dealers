@@ -15,7 +15,7 @@ export const metadata = {
 ],
  alternates: {
     canonical:
-      "https://www.realestateagentsnearme.in",
+      "https://www.propertydealersnearme.com/",
   },
 };
 

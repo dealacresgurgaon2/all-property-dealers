@@ -25,7 +25,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealerinnoida.com",
+      "https://www.propertydealerinnoida.com/how-it-works",
   },
 
   openGraph: {
@@ -36,7 +36,7 @@ export const metadata = {
       "Explore verified property dealers and real estate agents in Noida.",
 
     url:
-      "https://www.propertydealerinnoida.com",
+      "https://www.propertydealerinnoida.com/how-it-works",
 
     siteName: "Property Dealer Noida",
 

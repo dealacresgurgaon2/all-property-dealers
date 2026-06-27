@@ -146,9 +146,9 @@ export default function DealersSection() {
           {/* LEFT SIDE */}
           <div className="lg:col-span-2">
 
-            <div className="sticky top-[72px] z-30 pb-4">
+            {/* <div className="sticky top-[72px] z-30 pb-4">
               <DealerSearchBar onSearch={handleSearch} />
-            </div>
+            </div> */}
 
             <div className="h-4" />
             <div ref={listTopRef} className="h-2" />

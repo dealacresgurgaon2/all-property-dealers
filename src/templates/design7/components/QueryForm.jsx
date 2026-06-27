@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CustomAlert from "./CustomAlert";
-
+import Link from "next/link";
 export default function QueryForm() {
   const [loading, setLoading] = useState(false);
 
@@ -114,14 +114,35 @@ setAlertOpen(true);
           Talk to Property Expert
         </h3>
 
-        <p className="text-sm opacity-90 mt-1">
-          Get personalized assistance within minutes
+        <p className="text-xm opacity-90 mt-1">
+          Get personalized assistance with estate agent in your area
         </p>
 
-        <div className="flex gap-2 mt-3 text-xs">
-          <span className="bg-white/20 px-3 py-1 rounded-full">Real Estate Agents</span>
-          <span className="bg-white/20 px-3 py-1 rounded-full">Quick Response</span>
-        </div>
+       <div className="flex flex-wrap gap-1 mt-3 text-xs">
+  <Link
+    href="https://www.dealacres.com/property-dealer"
+    target="_blank"
+    className="bg-white/20 px-2 py-1 rounded-full hover:bg-white/30 transition cursor-pointer"
+  >
+    Real Estate Agents
+  </Link>
+
+  <Link
+    href="https://www.dealacres.com/sell-property"
+    target="_blank"
+    className="bg-white/20 px-2 py-1 rounded-full hover:bg-white/30 transition cursor-pointer"
+  >
+   Free Property Listing
+  </Link>
+
+  <Link
+    href="https://www.dealacres.com/contact-us"
+    target="_blank"
+    className="bg-white/20 px-2 py-1 rounded-full hover:bg-white/30 transition cursor-pointer"
+  >
+    Quick Response
+  </Link>
+</div>
       </div>
 
       {/* FORM BODY */}

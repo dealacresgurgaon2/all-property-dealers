@@ -15,7 +15,7 @@ export const metadata = {
 ],
 
   alternates: {
-    canonical: "https://www.propertydealernearme.com/how-it-works",
+    canonical: "https://www.propertydealersnearme.com/how-it-works",
   },
 
   robots: {
@@ -27,7 +27,7 @@ export const metadata = {
     title: "Property Dealers Near Me | Find Trusted Real Estate Agents & Property Dealers",
     description:
       "Connect with trusted property dealers and real estate agents near you for property buying, selling, renting, and investment opportunities.",
-    url: "https://www.propertydealernearme.com/how-it-works",
+    url: "https://www.propertydealersnearme.com/how-it-works",
     type: "website",
   },
 };

@@ -22,7 +22,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealeringurgaon.com/contact",
+      "https://www.propertydealeringurgaon.com/contactus",
   },
 
   openGraph: {
@@ -33,7 +33,7 @@ export const metadata = {
       "Connect with trusted property dealers and real estate consultants in Gurgaon.",
 
     url:
-      "https://www.propertydealeringurgaon.com/contact",
+      "https://www.propertydealeringurgaon.com/contactus",
 
     siteName: "Property Dealer Gurgaon",
 

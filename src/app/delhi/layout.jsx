@@ -41,7 +41,7 @@ export const metadata = {
 ],
 
   alternates: {
-    canonical: "https://www.propertydealerindelhi.com/delhi",
+    canonical: "https://www.propertydealerindelhi.com/",
   },
 
   openGraph: {
@@ -51,7 +51,7 @@ export const metadata = {
     description:
       "Explore verified property dealers and real estate agents in Delhi.",
 
-    url: "https://www.propertydealerindelhi.com/delhi",
+    url: "https://www.propertydealerindelhi.com/",
 
     siteName: "Property Dealer",
 

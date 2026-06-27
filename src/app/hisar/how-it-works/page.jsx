@@ -22,7 +22,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealerinhisar.com",
+      "https://www.propertydealerinhisar.com/how-it-works",
   },
 
  openGraph: {
@@ -33,7 +33,7 @@ export const metadata = {
       "Explore verified property dealers and real estate agents in Hisar.",
 
     url:
-      "https://www.propertydealerinhisar.com",
+      "https://www.propertydealerinhisar.com/how-it-works",
 
     siteName: "Property Dealer Hisar",
 

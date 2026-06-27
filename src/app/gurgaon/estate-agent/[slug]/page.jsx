@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
 
     alternates: {
       canonical:
-        `https://www.propertydealeringurgaon.com/gurgaon/estate-agent/${slug}`,
+        `https://www.propertydealeringurgaon.com/estate-agent/${slug}`,
     },
 
     openGraph: {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
         `${formattedTitle} is a verified property dealer in Gurgaon for residential and commercial properties.`,
 
       url:
-        `https://www.propertydealeringurgaon.com/gurgaon/estate-agent/${slug}`,
+        `https://www.propertydealeringurgaon.com/estate-agent/${slug}`,
 
       siteName: "Property Dealer Gurgaon",
 

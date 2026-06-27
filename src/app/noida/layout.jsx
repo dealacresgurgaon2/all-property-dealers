@@ -42,7 +42,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealerinnoida.com",
+      "https://www.propertydealerinnoida.com/",
   },
 };
 

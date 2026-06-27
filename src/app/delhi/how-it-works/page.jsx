@@ -25,7 +25,7 @@ export const metadata = {
 ],
 
   alternates: {
-    canonical: "https://yourdomain.com/gurgaon",
+    canonical: "https://www.propertydealerindelhi.com/how-it-works",
   },
 
   openGraph: {
@@ -35,7 +35,7 @@ export const metadata = {
     description:
       "Explore verified real estate agents and property dealers in Gurgaon.",
 
-    url: "https://yourdomain.com/gurgaon",
+    url: "https://www.propertydealerindelhi.com/how-it-works",
 
     siteName: "Property Dealer",
 

@@ -15,12 +15,21 @@ export default function NearbyLocations({
 
     fetchLocations();
   }, [city]);
+  const getCityForSearchAPI = (city) => {
+  if (!city) return "";
 
-  const fetchLocations = async () => {
-    try {
-      const res = await axios.get(
-        `https://all-property-dealer-backend.onrender.com/api/area/locations/${city}`
-      );
+  const lowerCity = city.toLowerCase().trim();
+
+ 
+
+  return lowerCity.replace(/-/g, " ");
+};
+const fetchLocations = async () => {
+  try {
+    const mappedCity = getCityForSearchAPI(city);
+    const res = await axios.get(
+      `https://all-property-dealer-backend.onrender.com/api/area/locations/${encodeURIComponent(mappedCity)}`
+    );
 
       setLocations(res.data.data || []);
     } catch (error) {

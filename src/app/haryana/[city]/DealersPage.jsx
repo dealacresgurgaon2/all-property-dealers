@@ -60,22 +60,18 @@ function CityDealers({ urlCity }) {
     return map[city.toLowerCase()] || city;
   };
 
+const getCityForSearchAPI = (city) => {
+  if (!city) return "";
 
-  const getCityForSearchAPI = (city) => {
-    if (!city) return city;
+  const lowerCity = city.toLowerCase().trim();
 
-    const map = {
-      "central-delhi": "Central Delhi",
-      "north-delhi": "North Delhi",
-      "south-delhi": "South Delhi",
-      "east-delhi": "East Delhi",
-      "west-delhi": "West Delhi",
+  // Gurgaon special case
+  if (lowerCity === "gurgaon") return "gurugram";
 
-      gurgaon: "gurugram",
-    };
+  // Hyphen ko space me convert karo
+  return lowerCity.replace(/-/g, " ");
+};
 
-    return map[city.toLowerCase()] || city;
-  };
 
   // const getCityForSearchAPI = (city) => {
   //   if (!city) return city;
@@ -137,11 +133,14 @@ function CityDealers({ urlCity }) {
       try {
         setLoadingLocations(true);
 
-        const mappedCity = getCityForSearchAPI(urlCity);
+     const mappedCity = getCityForSearchAPI(urlCity);
 
-        const res = await fetch(
-          `https://all-property-dealer-backend.onrender.com/api/area/locations/${mappedCity}`
-        );
+console.log("urlCity:", urlCity);
+console.log("mappedCity:", mappedCity);
+
+const res = await fetch(
+  `${API_BASE}/api/area/locations/${encodeURIComponent(mappedCity)}`
+);
 
         const data = await res.json();
 
@@ -162,43 +161,43 @@ function CityDealers({ urlCity }) {
 
     fetchLocations();
   }, [urlCity]);
-  const handleLocationClick = async (locationName) => {
-    try {
-      setActiveLocation(locationName);
-      setLoading(true);
+  // const handleLocationClick = async (locationName) => {
+  //   try {
+  //     setActiveLocation(locationName);
+  //     setLoading(true);
 
-      const mappedCity = getCityForDealersAPI(urlCity);
+  //     const mappedCity = getCityForDealersAPI(urlCity);
 
-      // 🔥 Location specific
-      const res = await fetch(
-        `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
-      );
+  //     // 🔥 Location specific
+  //     const res = await fetch(
+  //       `${API_BASE}/api/get/haryana-location-filter?city=${mappedCity}&location=${encodeURIComponent(locationName)}`
+  //     );
 
-      const data = await res.json();
+  //     const data = await res.json();
 
-      const filteredData = Array.isArray(data)
-        ? data
-        : Array.isArray(data.data)
-          ? data.data
-          : [];
+  //     const filteredData = Array.isArray(data)
+  //       ? data
+  //       : Array.isArray(data.data)
+  //         ? data.data
+  //         : [];
 
-      // 🔥 Top dealers
-      setTopDealers(filteredData);
+  //     // 🔥 Top dealers
+  //     setTopDealers(filteredData);
 
-      // 🔥 बाकी city वाले
-      const remaining = allDealers.filter(
-        (d) => d.area !== locationName
-      );
+  //     // 🔥 बाकी city वाले
+  //     const remaining = allDealers.filter(
+  //       (d) => d.area !== locationName
+  //     );
 
-      setDealers(remaining);
+  //     setDealers(remaining);
 
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-      setTimeout(scrollToDealers, 150);
-    }
-  };
+  //   } catch (error) {
+  //     console.log(error);
+  //   } finally {
+  //     setLoading(false);
+  //     setTimeout(scrollToDealers, 150);
+  //   }
+  // };
 
   const createSlug = (name) => {
     return name
@@ -232,7 +231,7 @@ function CityDealers({ urlCity }) {
 
   return (
     <section className="bg-slate-50 min-h-screen py-12">
-      <div id="dealers-section" className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div id="dealers-section" className="max-w-7xl mx-auto px-3 sm:px-3">
         <div className="mb-5">
           <Breadcrumb />
         </div>

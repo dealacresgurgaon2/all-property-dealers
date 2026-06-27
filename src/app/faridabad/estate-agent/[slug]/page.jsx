@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
 
     alternates: {
       canonical:
-        `https://www.propertydealerinfaridabad.com/faridabad/estate-agent/${slug}`,
+        `https://www.propertydealerinfaridabad.com/estate-agent/${slug}`,
     },
 
     openGraph: {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }) {
         `${formattedTitle} is a verified property dealer in Faridabad for residential and commercial properties.`,
 
       url:
-        `https://www.propertydealerinfaridabad.com/faridabad/estate-agent/${slug}`,
+        `https://www.propertydealerinfaridabad.com/estate-agent/${slug}`,
 
       siteName: "Property Dealer Faridabad",
 

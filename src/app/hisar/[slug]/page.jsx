@@ -107,7 +107,7 @@ export async function generateMetadata({
 
     alternates: {
       canonical:
-        `https://www.propertydealerinhisar.com/location-dealers/${slug}`,
+        `https://www.propertydealerinhisar.com/${slug}`,
     },
 
     robots: {

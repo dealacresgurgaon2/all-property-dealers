@@ -23,7 +23,7 @@ export const metadata = {
 
   alternates: {
     canonical:
-      "https://www.propertydealerinfaridabad.com/contact",
+      "https://www.propertydealerinfaridabad.com/contactus",
   },
 
   openGraph: {
@@ -34,7 +34,7 @@ export const metadata = {
       "Connect with trusted property dealers and real estate consultants in Faridabad.",
 
     url:
-      "https://www.propertydealerinfaridabad.com/contact",
+      "https://www.propertydealerinfaridabad.com/contactus",
 
     siteName: "Property Dealer Faridabad",
 

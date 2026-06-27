@@ -104,7 +104,7 @@ export async function generateMetadata({
 
     alternates: {
       canonical:
-        `https://www.propertydealerinnoida.com/location-dealers/${location}`,
+        `https://www.propertydealerinnoida.com/${location}`,
     },
 
     robots: {

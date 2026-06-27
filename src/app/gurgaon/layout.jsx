@@ -36,7 +36,7 @@ export const metadata = {
 ],
  alternates: {
     canonical:
-      "https://www.propertydealeringurgaon.com",
+      "https://www.propertydealeringurgaon.com/",
   },
 };
 

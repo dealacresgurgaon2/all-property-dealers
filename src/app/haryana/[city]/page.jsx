@@ -32,7 +32,7 @@ export async function generateMetadata({ params }) {
     ],
 
     alternates: {
-      canonical: `https://www.propertydealerinharyana.com/location-dealers/${city}`,
+      canonical: `https://www.propertydealersnearme.com/${city}`,
     },
 
     openGraph: {
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }) {
 
       description: `Explore verified property dealers and real estate agents in ${formattedLocation}, Haryana.`,
 
-      url: `https://www.propertydealerinharyana.com/location-dealers/${city}`,
+      url: `https://www.propertydealersnearme.com/${city}`,
 
       siteName: "Property Dealer Haryana",
 
