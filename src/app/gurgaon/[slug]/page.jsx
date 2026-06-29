@@ -92,7 +92,20 @@ export async function generateMetadata({
 
   const fallbackDescription =
     `Find trusted property dealers, builders, and real estate agents in ${formattedLocation} for buying, selling, and renting residential & commercial properties.`;
-
+const fallbackKeywords = [
+  `Property Dealer in ${formattedLocation}`,
+  `Best Property Dealer in ${formattedLocation}`,
+  `Real Estate Agent in ${formattedLocation}`,
+  `Property Consultant in ${formattedLocation}`,
+  `Property Broker in ${formattedLocation}`,
+  `Buy Property in ${formattedLocation}`,
+  `Sell Property in ${formattedLocation}`,
+  `Rent Property in ${formattedLocation}`,
+  `${formattedLocation} Property Dealer`,
+  `${formattedLocation} Real Estate`,
+  "Property Dealer in Gurgaon",
+  "Real Estate Gurgaon",
+];
   return {
     title:
       seoData?.metaTitle ||
@@ -101,7 +114,8 @@ export async function generateMetadata({
     description:
       seoData?.metaDescription ||
       fallbackDescription,
-
+  keywords:
+    seoData?.metaKeywords || fallbackKeywords ,
     alternates: {
       canonical:
         `https://www.propertydealeringurgaon.com/${slug}`,

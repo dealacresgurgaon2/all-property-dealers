@@ -101,7 +101,21 @@ export async function generateMetadata({
     description:
       seoData?.metaDescription ||
       fallbackDescription,
-
+  keywords:
+    seoData?.metaKeywords || [
+      `Property Dealer in ${formattedLocation}`,
+      `Real Estate Agent in ${formattedLocation}`,
+      `Property Consultant in ${formattedLocation}`,
+      `Best Property Dealer in ${formattedLocation}`,
+      `Property Broker in ${formattedLocation}`,
+      `Buy Property in ${formattedLocation}`,
+      `Sell Property in ${formattedLocation}`,
+      `Rent Property in ${formattedLocation}`,
+      `${formattedLocation} Property Dealer`,
+      `${formattedLocation} Real Estate`,
+      "Property Dealer in Faridabad",
+      "Real Estate Faridabad",
+    ],
     alternates: {
       canonical:
         `https://www.propertydealerinfaridabad.com/${location}`,
